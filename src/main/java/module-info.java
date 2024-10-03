@@ -8,7 +8,14 @@ module org.una.navigatetrack {
     requires org.kordamp.bootstrapfx.core;
     requires java.desktop;
     requires static lombok;
+    requires java.base;
 
     opens org.una.navigatetrack to javafx.fxml;
     exports org.una.navigatetrack;
+    exports org.una.navigatetrack.roads;
+    opens org.una.navigatetrack.roads to javafx.fxml;
+    exports org.una.navigatetrack.controller.fxml;
+    opens org.una.navigatetrack.controller.fxml to javafx.fxml;
+    exports org.una.navigatetrack.manager;
+    opens org.una.navigatetrack.manager to javafx.fxml;
 }
