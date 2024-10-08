@@ -11,7 +11,7 @@
 <AnchorPane id="AnchorPane" fx:id="mainAnchorPane" minHeight="-Infinity" prefHeight="971.0" prefWidth="1211.0" style="-fx-background-color: #8A6999;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.navigatetrack.controller.fxml.MapManageFXMLController">
    <children>
       <Pane fx:id="mapPane" layoutX="11.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" style="-fx-background-color: #0A0EB5;" />
-      <Pane fx:id="paintPane" layoutX="11.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.5" prefHeight="950.0" prefWidth="670.0" style="-fx-background-color: #000000;" />
+      <Pane fx:id="paintPane" layoutX="11.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" style="-fx-background-color: #000000;" />
       <Pane fx:id="menuPane" layoutX="696.0" layoutY="10.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="950.0" prefWidth="500.0" style="-fx-background-color: #1E1E13;">
          <children>
             <Label fx:id="nodoActualLabel" layoutX="75.0" layoutY="66.0" style="-fx-background-color: #ffffff;" text=" Nodo Actual: ">
@@ -65,7 +65,12 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </RadioButton>
-            <Button fx:id="changeImageB" layoutX="82.0" layoutY="687.0" mnemonicParsing="false" text="cambiar imagen">
+            <Button fx:id="changeImageB" layoutX="78.0" layoutY="688.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="146.0" text="cambiar imagen">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="deleteConectionButton" layoutX="232.0" layoutY="688.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="169.0" text="Borrar conexion de Nodo">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

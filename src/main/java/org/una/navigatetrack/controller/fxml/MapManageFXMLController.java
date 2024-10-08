@@ -28,7 +28,7 @@ public class MapManageFXMLController implements Initializable {
     @FXML
     private RadioButton izRadioB, derRadioB, adelanteRadioB, contrarioRadioB, seleccionarRadioB;
     @FXML
-    private Button saveButton, deleteNodoButton, changeImageB; // Botones para guardar y eliminar nodos
+    private Button saveButton, deleteNodoButton, deleteConectionButton, changeImageB; // Botones para guardar y eliminar nodos
     @FXML
     private RadioButton editRadioB, addRadioB; // Radio buttons para modo agregar/editar
     @FXML
@@ -40,12 +40,12 @@ public class MapManageFXMLController implements Initializable {
     private static final Color DEFAULT_NODE_COLOR = Color.BLUE;
     private static final Color SELECTED_NODE_COLOR = Color.RED;
 
-    private final List<Node> listNodos = new ArrayList<>();
+    private final List<Node> listNodes = new ArrayList<>();
     private Node currentNode;
     private Circle currentCircle;
 
-    private final StorageManager<List<int[]>> puntosStorage = new StorageManager<>("src/main/resources/ListaNodos/", "listPointFijo.data");
-    private final StorageManager<List<Node>> nodosStorage = new StorageManager<>("src/main/resources/ListaNodos/", "listNodos.data");
+    private final StorageManager<List<int[]>> pointsStorage = new StorageManager<>("src/main/resources/ListaNodos/", "listPointFijo.data");
+    private final StorageManager<List<Node>> nodesStorage = new StorageManager<>("src/main/resources/ListaNodos/", "listNodos.data");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -56,7 +56,7 @@ public class MapManageFXMLController implements Initializable {
 
     private void setupUI() {
         loadImageMap("/images/map2.png");
-        paintPane.setStyle("-fx-background-color: rgba(255, 255, 255, 1);");
+        paintPane.setStyle("-fx-background-color: rgba(255, 255, 255, 0.2);");
         setupToggleGroups();
     }
 
@@ -64,7 +64,44 @@ public class MapManageFXMLController implements Initializable {
         paintPane.setOnMouseClicked(event -> handleMouseClick(event.getX(), event.getY()));
         saveButton.setOnAction(event -> saveNodes());
         deleteNodoButton.setOnAction(event -> deleteCurrentNode());
+        deleteConectionButton.setOnAction(event -> deleteCurrentConnection());
         changeImageB.setOnAction(event -> setChangeImageB());
+    }
+
+    private void deleteCurrentConnection() {
+        if (currentNode != null) {
+            Directions direction = getDirection(); // Obtén la dirección seleccionada
+            if (direction != null) {
+                // Busca el nodo de destino asociado a la dirección
+                Node targetNode = currentNode.getTargetNode(direction);
+                if (targetNode != null) {
+                    // Eliminar la conexión del nodo actual
+                    currentNode.deleteConnection(direction);
+                    // Eliminar la línea visual de la conexión
+                    removeConnectionLine(currentNode, targetNode, direction);
+                    nodoInfoTextArea.setText("Conexión eliminada con el nodo en: " + Arrays.toString(targetNode.getLocation()));
+                } else {
+                    nodoInfoTextArea.setText("No hay conexión en esa dirección.");
+                }
+            } else {
+                nodoInfoTextArea.setText("Por favor selecciona una dirección.");
+            }
+        } else {
+            nodoInfoTextArea.setText("No hay un nodo seleccionado.");
+        }
+    }
+
+    private void removeConnectionLine(Node fromNode, Node toNode, Directions direction) {
+        paintPane.getChildren().removeIf(node -> {
+            if (node instanceof Line line) {
+                // Compara las coordenadas de la línea con las de los nodos
+                return (line.getStartX() == fromNode.getLocation()[0] &&
+                        line.getStartY() == fromNode.getLocation()[1] &&
+                        line.getEndX() == toNode.getLocation()[0] &&
+                        line.getEndY() == toNode.getLocation()[1]);
+            }
+            return false;
+        });
     }
 
     Boolean change = false;
@@ -104,65 +141,55 @@ public class MapManageFXMLController implements Initializable {
     }
 
     private void loadNodesFromFile() {
-        List<Node> nodosList = nodosStorage.read();
-        nodosList.forEach(nodo -> {
-            listNodos.add(nodo);
-            drawNodeAt(nodo.getLocation(), DEFAULT_NODE_COLOR); // Dibuja cada nodo en su ubicación
+        List<Node> nodosList = nodesStorage.read();
+        nodosList.forEach(node -> {
+            listNodes.add(node);
+            drawNodeAt(node.getLocation(), DEFAULT_NODE_COLOR);
 
-            // Dibuja las conexiones si existen
-            for (Connection connection : nodo.getConnections()) {
+            for (Connection connection : node.getConnections()) {
                 if (connection != null && connection.getTargetNode() != null) {
-                    drawConnection(nodo, connection.getTargetNode()); // Dibuja la conexión
+                    drawConnection(node, connection.getTargetNode(), connection.getDirection());
                 }
             }
         });
     }
 
-
-    private void drawConnectionsForNode(Node nodo) {
-        for (Connection connection : nodo.getConnections()) {
-            if (connection != null && connection.getTargetNode() != null) {
-                drawConnection(nodo, connection.getTargetNode());
-            }
-        }
-    }
-
     private void loadPointsFromFile() {
-        List<int[]> puntosList = puntosStorage.read();
+        List<int[]> puntosList = pointsStorage.read();
         puntosList.forEach(this::addNodeAtPoint);
     }
 
-    private void addNodeAtPoint(int[] punto) {
-        Node nuevoNodo = new Node();
-        nuevoNodo.setLocation(punto);
-        listNodos.add(nuevoNodo);
-        drawNodeAt(punto, DEFAULT_NODE_COLOR);
+    private void addNodeAtPoint(int[] point) {
+        Node newNode = new Node();
+        newNode.setLocation(point);
+        listNodes.add(newNode);
+        drawNodeAt(point, DEFAULT_NODE_COLOR);
     }
 
     private void handleMouseClick(double x, double y) {
-        int[] punto = {(int) x, (int) y};
+        int[] point = {(int) x, (int) y};
 
         if (addRadioB.isSelected()) {
-            addNode(punto);
+            addNode(point);
         } else if (seleccionarRadioB.isSelected()) {
-            selectNodeAtPoint(punto);
+            selectNodeAtPoint(point);
         } else {
-            createConnection(punto);
+            createConnection(point);
         }
     }
 
-    private void selectNodeAtPoint(int[] punto) {
-        Node temp = findNodeAtPoint(punto);
+    private void selectNodeAtPoint(int[] point) {
+        Node temp = findNodeAtPoint(point);
         if (temp != null) {
             if (currentCircle != null) {
-                // Restaurar el color del nodo anterior
                 currentCircle.setFill(DEFAULT_NODE_COLOR);
             }
             currentNode = temp;
-            currentCircle = drawNodeAt(temp.getLocation(), SELECTED_NODE_COLOR); // Dibuja el nodo seleccionado
+            currentCircle = drawNodeAt(temp.getLocation(), SELECTED_NODE_COLOR);
             setNodeInfo();
         }
     }
+
 
     private void setNodeInfo() {
         if (currentNode == null) {
@@ -175,9 +202,21 @@ public class MapManageFXMLController implements Initializable {
     }
 
     private String getNodeConnectionsInfo() {
-        StringBuilder info = new StringBuilder("Conexiones\n");
-        for (int i = 0; i < MAX_CONNECTIONS; i++) {
-            info.append(getConnectionInfo(i)).append("\n");
+        StringBuilder info = new StringBuilder("Conexiones:\n");
+        for (Connection connection : currentNode.getConnections()) {
+            if (connection != null) {
+                info.append("Destino: ")
+                        .append(Arrays.toString(connection.getTargetNode().getLocation()))
+                        .append(", Peso: ")
+                        .append(connection.getWeight())
+                        .append(", Bloqueada: ")
+                        .append(connection.isBlocked() ? "Sí" : "No")
+                        .append(", Estado de Tráfico: ")
+                        .append(connection.getTrafficCondition())
+                        .append(", Dirección: ")
+                        .append(connection.getDirection())
+                        .append("\n");
+            }
         }
         return info.toString();
     }
@@ -187,43 +226,39 @@ public class MapManageFXMLController implements Initializable {
         return connection != null ? connection.toString() : "Sin conexión";
     }
 
-    private void addNode(int[] punto) {
+    private void addNode(int[] point) {
         Node newNode = new Node();
-        newNode.setLocation(punto);
-        listNodos.add(newNode);
-        drawNodeAt(punto, DEFAULT_NODE_COLOR);
+        newNode.setLocation(point);
+        listNodes.add(newNode);
+        drawNodeAt(point, DEFAULT_NODE_COLOR);
         currentNode = newNode;
         setNodeInfo();
     }
 
-    private void createConnection(int[] punto) {
-        Node targetNode = findNodeAtPoint(punto);
+    private void createConnection(int[] point) {
+        Node targetNode = findNodeAtPoint(point);
         if (targetNode != null) {
             Directions direction = getDirection();
             if (direction != null) {
-                if (currentNode.canAddConnection()) {
-                    currentNode.addConnection(targetNode, direction, true);
-                    drawConnection(currentNode, targetNode);
-                    nodoInfoTextArea.setText("Conexión creada con el nodo en: " + Arrays.toString(targetNode.getLocation()));
-                } else {
-                    nodoInfoTextArea.setText("Máximo de conexiones alcanzado para este nodo.");
-                }
+                currentNode.addConnection(targetNode, direction);
+                drawConnection(currentNode, targetNode, direction);
+                nodoInfoTextArea.setText("Conexión definida con el nodo en: " + Arrays.toString(targetNode.getLocation()));
             } else {
                 nodoInfoTextArea.setText("Por favor selecciona una dirección.");
             }
         }
     }
 
-    private Node findNodeAtPoint(int[] punto) {
-        return listNodos.stream()
-                .filter(nodo -> isNearPoint(punto, nodo.getLocation()))
+    private Node findNodeAtPoint(int[] point) {
+        return listNodes.stream()
+                .filter(node -> isNearPoint(point, node.getLocation()))
                 .findFirst()
                 .orElse(null);
     }
 
-    private boolean isNearPoint(int[] punto, int[] location) {
+    private boolean isNearPoint(int[] point, int[] location) {
         int tolerance = 10; // Tolerancia en píxeles
-        return Math.abs(punto[0] - location[0]) <= tolerance && Math.abs(punto[1] - location[1]) <= tolerance;
+        return Math.abs(point[0] - location[0]) <= tolerance && Math.abs(point[1] - location[1]) <= tolerance;
     }
 
     private Circle drawNodeAt(int[] location, Color color) {
@@ -236,14 +271,14 @@ public class MapManageFXMLController implements Initializable {
         return new Circle(x, y, CIRCLE_RADIUS, color);
     }
 
-    private void drawConnection(Node fromNode, Node toNode) {
-        if (fromNode != null && toNode != null) { // Verificar que ambos nodos no sean nulos
-            Line line = new Line(fromNode.getLocation()[0], fromNode.getLocation()[1], toNode.getLocation()[0], toNode.getLocation()[1]);
-            line.setStroke(DEFAULT_NODE_COLOR); // Puedes definir un color por defecto para las conexiones
+    private void drawConnection(Node fromNode, Node toNode, Directions direction) {
+        if (fromNode != null && toNode != null) {
+            Line line = new Line(fromNode.getLocation()[0], fromNode.getLocation()[1],
+                    toNode.getLocation()[0], toNode.getLocation()[1]);
+            line.setStroke(getColorForDirection(direction != null ? direction : Directions.ADELANTE)); // valor por defecto
             paintPane.getChildren().add(line);
         }
     }
-
 
     private Directions getDirection() {
         if (izRadioB.isSelected()) return Directions.IZQUIERDA;
@@ -263,13 +298,13 @@ public class MapManageFXMLController implements Initializable {
     }
 
     private void saveNodes() {
-        nodosStorage.save(listNodos);
+        nodesStorage.save(listNodes);
     }
 
     private void deleteCurrentNode() {
         if (currentNode != null) {
             removeConnectionsToCurrentNode();
-            listNodos.remove(currentNode);
+            listNodes.remove(currentNode);
             removeNodeFromDisplay();
             resetCurrentNode();
         } else {
@@ -278,23 +313,21 @@ public class MapManageFXMLController implements Initializable {
     }
 
     private void removeConnectionsToCurrentNode() {
-        listNodos.forEach(nodo -> {
-            for (int i = 0; i < nodo.getConnections().length; i++) {
-                Connection conn = nodo.getConnections()[i];
+        listNodes.forEach(node -> {
+            for (int i = 0; i < node.getConnections().length; i++) {
+                Connection conn = node.getConnections()[i];
                 if (conn != null && conn.getTargetNode().equals(currentNode)) {
-                    nodo.getConnections()[i] = null;
+                    node.getConnections()[i] = null;
                 }
             }
         });
     }
 
     private void removeNodeFromDisplay() {
-        paintPane.getChildren().removeIf(node -> {
-            if (node instanceof Circle circle) {
-                return isNearPoint(new int[]{(int) circle.getCenterX(), (int) circle.getCenterY()}, currentNode.getLocation());
-            }
-            return false;
-        });
+        paintPane.getChildren().removeIf(node ->
+                node instanceof Circle circle &&
+                        isNearPoint(new int[]{(int) circle.getCenterX(), (int) circle.getCenterY()}, currentNode.getLocation())
+        );
     }
 
     private void resetCurrentNode() {
