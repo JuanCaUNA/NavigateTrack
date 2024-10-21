@@ -70,6 +70,12 @@ public class NodesDrawerManager {
         drawer.drawCircle(location[0], location[1], color);
     }
 
+    private void drawNode(Node node, Color color) {
+        if (node == null) return;
+        int[] location = node.getLocation();
+        drawer.drawCircle(location[0], location[1], color);
+    }
+
     // Dibujar todas las conexiones de un nodo
     private void drawConnections(Node node) {
         if (node == null) return;
@@ -124,14 +130,10 @@ public class NodesDrawerManager {
         Node previousNode = nodesManager.getCurrentNode();
         if (previousNode != null) {
             drawer.removeCircle(previousNode.getLocation()); // Remover la representación anterior
-            drawNode(previousNode); // Redibujar en azul
+            drawNode(previousNode, Color.BLUE); // Redibujar en azul
         }
-
-        // Actualizar el nodo actual
-        nodesManager.setCurrentNode(newCurrentNode);
-
-        // Dibujar el nuevo nodo actual en rojo
-        drawNode(newCurrentNode);
+        nodesManager.setCurrentNode(newCurrentNode);// Actualizar el nodo actual+
+        drawNode(newCurrentNode, Color.RED);// Dibujar el nuevo nodo actual en rojo
     }
 
     // Eliminar una conexión de un nodo
@@ -156,12 +158,11 @@ public class NodesDrawerManager {
     public void createAndDrawConnection(int[] target, Directions direction) {
         target = existNodeAt(target);
         if (target == null) return;
-
         Node fromNode = nodesManager.getCurrentNode();
         Node toNode = nodesManager.getNodeAtLocation(target);
-        if (toNode != null) {
-            nodesManager.addConnection(fromNode, toNode, direction);
-            drawConnection(fromNode.getLocation(), toNode.getConnection(direction));
+        if (toNode != null && fromNode != null) {
+            nodesManager.addConnection(toNode, direction);
+            drawConnection(fromNode.getLocation(), fromNode.getConnection(direction));
         }
     }
 

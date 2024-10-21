@@ -80,4 +80,32 @@ public class Node implements Serializable {
         }
         return null;
     }
+
+    public Connection getConnection(int[] position) {
+        for (Connection connection : connections) {
+            if (connection != null && connection.getTargetNode().location == position) {
+                return connection;
+            }
+        }
+        return null;
+    }
+
+    //TODO
+    public void ordenar() {
+        Connection[] ordenado = new Connection[MAX_CONNECTIONS];
+
+        for (Connection connection : connections) {
+            if (connection != null) {
+                switch (connection.getDirection()) {
+                    case IZQUIERDA -> ordenado[0] = connection;
+                    case ADELANTE -> ordenado[1] = connection;
+                    case DERECHA -> ordenado[2] = connection;
+                    case CONTRARIO -> ordenado[3] = connection;
+
+                }
+            }
+        }
+        connections = ordenado;
+    }
+
 }

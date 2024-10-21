@@ -1,6 +1,8 @@
 /* Estilo general para el fondo de la aplicación */
 .root {
-    -fx-background-color: #f0f0f0; /* Color de fondo general */
+    -fx-background-color: #240057; /* Color de fondo general */
+    -fx-min-width: 1400px; /* Ancho mínimo */
+    -fx-min-height: 1000px; /* Altura mínima */
 }
 
 /* Estilo general para botones */
@@ -12,7 +14,7 @@
     -fx-padding: 10px 20px; /* Espaciado interno */
     -fx-border-radius: 5px; /* Bordes redondeados */
     -fx-background-radius: 5px; /* Bordes redondeados */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.0, 0, 1); /* Sombra */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 1); /* Sombra */
 }
 
 /* Estilo para botones en estado hover */
@@ -24,14 +26,14 @@
 .label {
     -fx-font-size: 14px; /* Tamaño de texto */
     -fx-font-weight: bold; /* Negrita */
-    -fx-text-fill: #333333; /* Color del texto */
+    -fx-text-fill: #000000; /* Color del texto */
 }
 
 /* Estilo para RadioButtons */
 .radio-button {
     -fx-font-size: 14px; /* Tamaño de texto */
     -fx-font-weight: bold; /* Negrita */
-    -fx-text-fill: #333333; /* Color del texto */
+    -fx-text-fill: #000000; /* Color del texto */
 }
 
 /* Estilo para RadioButtons cuando están seleccionados */
@@ -43,34 +45,49 @@
 .text-area {
     -fx-font-size: 14px; /* Tamaño de texto */
     -fx-font-weight: bold; /* Negrita */
-    -fx-text-fill: #333333; /* Color del texto */
-    -fx-background-color: #f9f9f9; /* Color de fondo */
-    -fx-border-color: #cccccc; /* Color del borde */
+    -fx-text-fill: #000000; /* Color del texto */
+    -fx-background-color: #ffffff; /* Color de fondo */
+    -fx-border-color: #555555; /* Color del borde */
     -fx-border-radius: 5px; /* Bordes redondeados */
     -fx-border-width: 1px; /* Ancho del borde */
     -fx-padding: 10px; /* Espaciado interno */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 2, 0.0, 0, 1); /* Sombra */
+    -fx-wrap-text: true; /* Habilitar el ajuste de texto */
+    -fx-pref-height: 200px; /* Altura preferida para evitar barra de desplazamiento */
+    -fx-pref-width: 300px; /* Ancho preferido */
+    -fx-scroll-bar-policy: never; /* Deshabilitar la barra de desplazamiento */
 }
 
-/* Estilo para AnchorPane */
-.anchor-pane {
-    -fx-alignment: center; /* Alinear contenido al centro */
+
+/* Estilo para HBox */
+.hbox {
+    -fx-spacing: 20; /* Espaciado entre los elementos */
 }
 
-/* Estilo para Pane */
-.pane {
-    -fx-alignment: center; /* Alinear contenido al centro */
+/* Estilo para VBox */
+.vbox {
+    -fx-spacing: 10; /* Espaciado entre elementos */
+}
+
+/* Estilo para FlowPane */
+.flow-pane {
+    -fx-hgap: 20; /* Espaciado horizontal */
+    -fx-vgap: 20; /* Espaciado vertical */
+    -fx-background-color: #424242; /* Fondo oscuro */
+}
+
+/* Estilo para panel de menú */
+.menuPane {
+    -fx-background-color: #323030; /* Color del fondo del menú */
+    -fx-padding: 15; /* Espaciado interno */
 }
 
 /* Estilo general para elementos que comparten características */
 .button, .label, .radio-button, .text-area {
     -fx-font-weight: bold; /* Texto en negrita */
     -fx-font-size: 14px; /* Tamaño de fuente general */
-    -fx-text-fill: #333; /* Color del texto */
-    -fx-padding: 5; /* Espaciado interno */
-    -fx-margin: 10; /* Margen externo para separación */
-    -fx-pref-width: 300; /* Ancho preferido para mantener el mismo tamaño */
 }
 
-
-
+/* Ajustes para contenedores */
+.pane {
+    -fx-alignment: center; /* Alinear contenido al centro */
+}

@@ -10,11 +10,11 @@ import java.util.List;
 
 public class Drawer {
     private static final double CIRCLE_RADIUS = 5;
-    private static final double LINE_STROKE_WIDTH = 2;
+    private static final double LINE_STROKE_WIDTH = 5;
     private static final double DISTANCE_TOLERANCE = 2.0;
     private final List<Circle> circles; // Lista para almacenar círculos
     private final List<Line> lines; // Lista para almacenar líneas
-    private Pane paintPane; // Panel donde se dibujarán las figuras
+    private final Pane paintPane; // Panel donde se dibujarán las figuras
 
     public Drawer(Pane paintPane) {
         this.paintPane = paintPane; // Inicializamos el panel
@@ -140,20 +140,20 @@ public class Drawer {
         double dy = y2 - y1;
         return dx * dx + dy * dy;
     }
-
-    public void setPaintPane(Pane paint) {
-//        paintPane.getChildren().clear();
-//        paintPane.getChildren().addAll(paint);
-        paintAll();
-        paintPane = paint;
-    }
-
-    private void paintAll() {
-//        for (Circle circle : circles) {
-//            drawCircle(circle, Color.BLUE);
-//        }
-//        for (Line line : lines) {
-//            drawLine(line, Color.BLUE);
-//        }
-    }
 }
+
+//public void setPaintPane(Pane paint) {
+////        paintPane.getChildren().clear();
+////        paintPane.getChildren().addAll(paint);
+//    paintAll();
+//    paintPane = paint;
+//}
+//
+//private void paintAll() {
+////        for (Circle circle : circles) {
+////            drawCircle(circle, Color.BLUE);
+////        }
+////        for (Line line : lines) {
+////            drawLine(line, Color.BLUE);
+////        }
+//}

@@ -9,7 +9,7 @@ public class Voyage {
 
 
     Voyage(Node stardNode, Node endNode, List<Node> nodes) {
-        stardNode= endNode= null;
+        stardNode = endNode = null;
 
     }
 }

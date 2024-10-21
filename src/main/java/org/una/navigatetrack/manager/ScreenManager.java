@@ -19,6 +19,10 @@ public class ScreenManager {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             Scene scene = new Scene(root);
+
+            String cssFile = "/styles/menu.css";
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource(cssFile)).toExternalForm());
+
             primaryStage.setScene(scene);
             primaryStage.setTitle(title);
             primaryStage.show();

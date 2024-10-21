@@ -71,15 +71,14 @@ public class NodesManager {
     }
 
     // Añadir una conexión entre dos nodos
-    public void addConnection(Node fromNode, Node toNode, Directions direction) {
-        fromNode.addConnection(toNode, direction);
-        saveNodesToFile();
+    public void addConnection(Node toNode, Directions direction) {
+        if (currentNode != null)
+            currentNode.addConnection(toNode, direction);
     }
 
     // Eliminar una conexión de un nodo
     public void removeConnection(Node node, Directions direction) {
         node.deleteConnection(direction);
-        saveNodesToFile();
     }
 
     // Obtener todas las conexiones de un nodo
@@ -92,7 +91,6 @@ public class NodesManager {
         Connection connection = getConnectionInDirection(node, direction);
         if (connection != null) {
             connection.blockRoute();
-            saveNodesToFile();
         }
     }
 
@@ -101,7 +99,6 @@ public class NodesManager {
         Connection connection = getConnectionInDirection(node, direction);
         if (connection != null) {
             connection.unblockRoute();
-            saveNodesToFile();
         }
     }
 
