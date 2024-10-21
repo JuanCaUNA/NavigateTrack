@@ -1,4 +1,4 @@
-package org.una.navigatetrack.controller;
+package org.una.navigatetrack.manager;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,30 +10,42 @@ import org.una.navigatetrack.storage.StorageManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NodeManager {
+public class NodesManager {
     private final StorageManager<List<Node>> nodesStorage = new StorageManager<>("src/main/resources/ListaNodos/", "listNodos.data");
+
     @Getter
     private final List<Node> listNodes = new ArrayList<>();
+
     @Getter
     @Setter
     private Node currentNode;
 
     // Constructor para cargar los nodos desde archivo al inicializar
-    public NodeManager() {
+    public NodesManager() {
         loadNodesFromFile();
     }
 
     // Cargar nodos desde archivo
     private void loadNodesFromFile() {
-        List<Node> loadedNodes = nodesStorage.read();
-        if (loadedNodes != null) {
-            listNodes.addAll(loadedNodes);
+        try {
+            List<Node> loadedNodes = nodesStorage.read();
+            if (loadedNodes != null) {
+                listNodes.addAll(loadedNodes);
+            }
+        } catch (Exception e) {
+            // Manejo de excepción: log o mensaje de error
+            System.err.println("Error loading nodes: " + e.getMessage());
         }
     }
 
     // Guardar nodos en archivo
     public void saveNodesToFile() {
-        nodesStorage.write(listNodes);
+        try {
+            nodesStorage.write(listNodes);
+        } catch (Exception e) {
+            // Manejo de excepción: log o mensaje de error
+            System.err.println("Error saving nodes: " + e.getMessage());
+        }
     }
 
     // Crear un nuevo nodo y añadirlo a la lista
@@ -52,12 +64,10 @@ public class NodeManager {
 
     // Buscar un nodo en una ubicación específica
     public Node getNodeAtLocation(int[] location) {
-        for (Node node : listNodes) {
-            if (node.getLocation()[0] == location[0] && node.getLocation()[1] == location[1]) {
-                return node;
-            }
-        }
-        return null;
+        return listNodes.stream()
+                .filter(node -> node.getLocation()[0] == location[0] && node.getLocation()[1] == location[1])
+                .findFirst()
+                .orElse(null);
     }
 
     // Añadir una conexión entre dos nodos
@@ -97,6 +107,7 @@ public class NodeManager {
 
     // Obtener una conexión en una dirección específica
     public Connection getConnectionInDirection(Node node, Directions direction) {
-        return node.getTargetNode(direction) != null ? node.getTargetNode(direction).getConnection(direction) : null;
+        Node targetNode = node.getTargetNode(direction);
+        return targetNode != null ? targetNode.getConnection(direction) : null;
     }
 }

@@ -14,9 +14,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import org.una.navigatetrack.controller.Drawer;
-import org.una.navigatetrack.controller.NodeDrawerManager;
-import org.una.navigatetrack.controller.NodeManager;
+import org.una.navigatetrack.utils.Drawer;
+import org.una.navigatetrack.manager.NodesDrawerManager;
+import org.una.navigatetrack.manager.NodesManager;
 
 import java.net.URL;
 import java.util.Objects;
@@ -38,14 +38,14 @@ public class MenuOptionsController implements Initializable {
     @FXML    private Label label2, label1, label3, label4;
     @FXML    private RadioButton rb3, rb6, rb5, rb4;
 
-    NodeDrawerManager manager;
+    NodesDrawerManager manager;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        manager = new NodeDrawerManager(new NodeManager(), new Drawer(paintPane));
+        manager = new NodesDrawerManager(new NodesManager(), new Drawer(paintPane));
         setupUI();
     }
 
@@ -71,6 +71,4 @@ public class MenuOptionsController implements Initializable {
         imageView.setPreserveRatio(true);
         mapPane.getChildren().add(imageView);
     }
-
-
 }

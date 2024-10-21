@@ -6,11 +6,12 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import org.una.navigatetrack.controller.Drawer;
-import org.una.navigatetrack.controller.NodeDrawerManager;
+import org.una.navigatetrack.manager.NodesDrawerManager;
+import org.una.navigatetrack.manager.NodesManager;
 import org.una.navigatetrack.roads.Connection;
 import org.una.navigatetrack.roads.Directions;
 import org.una.navigatetrack.roads.Node;
+import org.una.navigatetrack.utils.Drawer;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -21,28 +22,36 @@ import java.util.StringJoiner;
 public class MapManageFXMLController implements Initializable {
 
     // UI Components
-    @FXML    private Label nodoActualLabel;
-    @FXML    private Pane mapPane, paintPane;
-    @FXML    private TextArea nodoInfoTextArea;
-    @FXML    private Button saveButton, deleteNodoButton, deleteConectionButton, changeImageB;
-    @FXML    private RadioButton izRadioB, derRadioB, adelanteRadioB, contrarioRadioB, seleccionarRadioB;
-    @FXML    private RadioButton editRadioB, addRadioB;
+    //paneles
+    @FXML
+    private Pane mapPane, paintPane, menuCreatePane;
+    //opciones del panel menuPane
+    @FXML
+    private Label nodoActualLabel;
+    @FXML
+    private TextArea nodoInfoTextArea;
+    @FXML
+    private Button saveButton, deleteNodoButton, deleteConectionButton, changeImageB;
+    @FXML
+    private RadioButton izRadioB, derRadioB, adelanteRadioB, contrarioRadioB, seleccionarRadioB;
+    @FXML
+    private RadioButton editRadioB, addRadioB;
 
-    NodeDrawerManager manager;
+    NodesDrawerManager manager;
 
     // Initialization
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setupUI();
-        manager = new NodeDrawerManager(new org.una.navigatetrack.controller.NodeManager(), new Drawer(paintPane));
+        manager = new NodesDrawerManager(new NodesManager(), new Drawer(paintPane));
         setupEventHandlers();
+        setMenuPane();
     }
 
     // UI Setup
     private void setupUI() {
         paintPane.setStyle("-fx-background-color: rgba(255, 255, 255, 0.0);");
         loadImageMap("/images/map2.png");
-        setupToggleGroups();
     }
 
     private boolean change = false;
@@ -56,6 +65,17 @@ public class MapManageFXMLController implements Initializable {
         imageView.setPreserveRatio(true);
         mapPane.getChildren().add(imageView);
         change = !change;
+    }
+
+    // Event Handlers
+    private void setupEventHandlers() {
+        paintPane.setOnMouseClicked(event -> handleMouseClick(event.getX(), event.getY()));
+    }
+
+    // las siguienes opciones son propias para el menuCreatePane y son ya que son elementos de ese panel
+    private void setMenuPane() {
+        setupEventHandlersOfMenuPanel();
+        setupToggleGroups();
     }
 
     // Toggle Groups Setup
@@ -84,17 +104,17 @@ public class MapManageFXMLController implements Initializable {
     }
 
     // Event Handlers
-    private void setupEventHandlers() {
-        saveButton.setOnAction(event -> manager.getNodeManager().saveNodesToFile());//*
+    private void setupEventHandlersOfMenuPanel() {
+        saveButton.setOnAction(event -> manager.getNodesManager().saveNodesToFile());//*
         changeImageB.setOnAction(event -> loadImageMap(change ? "/images/map2.png" : "/images/map0.png"));
         deleteNodoButton.setOnAction(event -> {
             manager.deleteAndRemoveCurrentNode();
             resetCurrentNode();
         });
         deleteConectionButton.setOnAction(event -> manager.removeConnectionAndVisual(getDirection()));
-        paintPane.setOnMouseClicked(event -> handleMouseClick(event.getX(), event.getY()));
     }
 
+    // logica segun el menuCreatePane
     private void handleMouseClick(double x, double y) {
         int[] point = {(int) x, (int) y};
         if (addRadioB.isSelected()) {
@@ -108,7 +128,7 @@ public class MapManageFXMLController implements Initializable {
     }
 
     private void setNodeInfo() {
-        Node currentNode = manager.getNodeManager().getCurrentNode();  // Variable intermedia para mejorar legibilidad
+        Node currentNode = manager.getNodesManager().getCurrentNode();  // Variable intermedia para mejorar legibilidad
         if (currentNode == null) {
             nodoActualLabel.setText("Nodo Actual: None");
             nodoInfoTextArea.setText("");
