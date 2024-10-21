@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" minHeight="-Infinity" prefHeight="971.0" prefWidth="1211.0" style="-fx-background-color: #8A6999;" stylesheets="@../styles/menu.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.navigatetrack.controller.fxml.ImplementsLogicController">
+   <children>
+      <Pane fx:id="mapPane" layoutX="11.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" style="-fx-background-color: #0A0EB5;" />
+      <Pane fx:id="paintPane" layoutX="11.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" style="-fx-background-color: #000000;" />
+      <Pane fx:id="menuPane" layoutX="688.0" layoutY="10.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="950.0" prefWidth="500.0" style="-fx-background-color: #000000;">
+         <children>
+            <Button fx:id="buttonStart" layoutX="106.0" layoutY="271.0" mnemonicParsing="false" text="Iniciar viaje">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonEnd" layoutX="106.0" layoutY="311.0" mnemonicParsing="false" text="Finalizar viaje">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <RadioButton fx:id="radioBPartida" layoutX="107.0" layoutY="109.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Marcar Punto de partida">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="radioBDestino" layoutX="107.0" layoutY="52.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Marcar Punto de destino">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </RadioButton>
+            <TextArea fx:id="textArea" layoutX="104.0" layoutY="485.0" prefHeight="245.0" prefWidth="335.0" />
+            <Label fx:id="labelDestino" layoutX="107.0" layoutY="77.0" prefHeight="17.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Label" />
+            <Label fx:id="LabelTitle" layoutX="107.0" layoutY="21.0" prefHeight="17.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Definir en el mapa:" />
+            <Label fx:id="labelPartida" layoutX="107.0" layoutY="134.0" prefHeight="17.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Label" />
+            <Label fx:id="labelTime" layoutX="106.0" layoutY="350.0" prefHeight="17.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Tiempo estimado: " />
+            <RadioButton fx:id="radioBDijkstra" layoutX="107.0" layoutY="177.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="236.0" style="-fx-background-color: #ffffff;" text="Distrack">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="radioBNode" layoutX="107.0" layoutY="430.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Selecionar Nodo para ver info">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="radioBConnection" layoutX="106.0" layoutY="391.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Selecionar conexion para ver info">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="radioBFloydWarshall" layoutX="107.0" layoutY="203.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="236.0" style="-fx-background-color: #ffffff;" text="FloydWarshall">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </RadioButton>
+            <Button fx:id="changeImageB" layoutX="104.0" layoutY="765.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="146.0" text="cambiar imagen">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

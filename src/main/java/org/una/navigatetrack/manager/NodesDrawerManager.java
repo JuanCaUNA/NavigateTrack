@@ -7,16 +7,18 @@ import org.una.navigatetrack.roads.Connection;
 import org.una.navigatetrack.roads.Directions;
 import org.una.navigatetrack.roads.Node;
 import org.una.navigatetrack.utils.Drawer;
+import org.una.navigatetrack.utils.Singleton;
 
 import java.util.List;
 
+@Getter
 public class NodesDrawerManager {
-    @Getter
     private final NodesManager nodesManager;
     private final Drawer drawer;
 
-    public NodesDrawerManager(NodesManager nodesManager, Drawer drawer) {
-        this.nodesManager = nodesManager;
+    public NodesDrawerManager(Drawer drawer) {
+        Singleton singleton = Singleton.getInstance();
+        this.nodesManager = singleton.getNodesManager();
         this.drawer = drawer;
 
         // Cargar y dibujar nodos al inicializar

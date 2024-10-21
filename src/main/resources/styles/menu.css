@@ -1,0 +1,76 @@
+/* Estilo general para el fondo de la aplicación */
+.root {
+    -fx-background-color: #f0f0f0; /* Color de fondo general */
+}
+
+/* Estilo general para botones */
+.button {
+    -fx-font-size: 14px; /* Tamaño de texto */
+    -fx-font-weight: bold; /* Negrita */
+    -fx-text-fill: #ffffff; /* Color del texto */
+    -fx-background-color: #007bff; /* Color de fondo del botón */
+    -fx-padding: 10px 20px; /* Espaciado interno */
+    -fx-border-radius: 5px; /* Bordes redondeados */
+    -fx-background-radius: 5px; /* Bordes redondeados */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.0, 0, 1); /* Sombra */
+}
+
+/* Estilo para botones en estado hover */
+.button:hover {
+    -fx-background-color: #0056b3; /* Color de fondo al pasar el ratón */
+}
+
+/* Estilo para etiquetas (Label) */
+.label {
+    -fx-font-size: 14px; /* Tamaño de texto */
+    -fx-font-weight: bold; /* Negrita */
+    -fx-text-fill: #333333; /* Color del texto */
+}
+
+/* Estilo para RadioButtons */
+.radio-button {
+    -fx-font-size: 14px; /* Tamaño de texto */
+    -fx-font-weight: bold; /* Negrita */
+    -fx-text-fill: #333333; /* Color del texto */
+}
+
+/* Estilo para RadioButtons cuando están seleccionados */
+.radio-button:selected {
+    -fx-text-fill: #007bff; /* Color del texto seleccionado */
+}
+
+/* Estilo para TextArea */
+.text-area {
+    -fx-font-size: 14px; /* Tamaño de texto */
+    -fx-font-weight: bold; /* Negrita */
+    -fx-text-fill: #333333; /* Color del texto */
+    -fx-background-color: #f9f9f9; /* Color de fondo */
+    -fx-border-color: #cccccc; /* Color del borde */
+    -fx-border-radius: 5px; /* Bordes redondeados */
+    -fx-border-width: 1px; /* Ancho del borde */
+    -fx-padding: 10px; /* Espaciado interno */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 2, 0.0, 0, 1); /* Sombra */
+}
+
+/* Estilo para AnchorPane */
+.anchor-pane {
+    -fx-alignment: center; /* Alinear contenido al centro */
+}
+
+/* Estilo para Pane */
+.pane {
+    -fx-alignment: center; /* Alinear contenido al centro */
+}
+
+/* Estilo general para elementos que comparten características */
+.button, .label, .radio-button, .text-area {
+    -fx-font-weight: bold; /* Texto en negrita */
+    -fx-font-size: 14px; /* Tamaño de fuente general */
+    -fx-text-fill: #333; /* Color del texto */
+    -fx-padding: 5; /* Espaciado interno */
+    -fx-margin: 10; /* Margen externo para separación */
+    -fx-pref-width: 300; /* Ancho preferido para mantener el mismo tamaño */
+}
+
+
+

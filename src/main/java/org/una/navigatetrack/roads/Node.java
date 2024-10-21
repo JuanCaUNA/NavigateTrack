@@ -12,15 +12,15 @@ import java.util.Arrays;
 public class Node implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
-
+    private static final int MAX_CONNECTIONS = 4;
     private Connection[] connections;
     private int[] location;
-    private static final int MAX_CONNECTIONS = 4;
 
     public Node() {
         connections = new Connection[MAX_CONNECTIONS];
         location = new int[2];
     }
+
     public Node(int[] position) {
         connections = new Connection[MAX_CONNECTIONS];
         location = position;

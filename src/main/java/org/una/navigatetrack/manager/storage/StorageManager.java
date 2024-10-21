@@ -1,4 +1,4 @@
-package org.una.navigatetrack.storage;
+package org.una.navigatetrack.manager.storage;
 
 import javax.swing.*;
 import java.io.*;

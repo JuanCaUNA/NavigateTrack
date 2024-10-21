@@ -7,11 +7,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import org.una.navigatetrack.manager.NodesDrawerManager;
-import org.una.navigatetrack.manager.NodesManager;
 import org.una.navigatetrack.roads.Connection;
 import org.una.navigatetrack.roads.Directions;
 import org.una.navigatetrack.roads.Node;
 import org.una.navigatetrack.utils.Drawer;
+import org.una.navigatetrack.utils.Singleton;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -19,8 +19,9 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.StringJoiner;
 
-public class MapManageFXMLController implements Initializable {
+public class MapManageController implements Initializable {
 
+    NodesDrawerManager manager;
     // UI Components
     //paneles
     @FXML
@@ -36,16 +37,16 @@ public class MapManageFXMLController implements Initializable {
     private RadioButton izRadioB, derRadioB, adelanteRadioB, contrarioRadioB, seleccionarRadioB;
     @FXML
     private RadioButton editRadioB, addRadioB;
-
-    NodesDrawerManager manager;
+    private boolean change = false;
 
     // Initialization
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setupUI();
-        manager = new NodesDrawerManager(new NodesManager(), new Drawer(paintPane));
+        Singleton singleton = Singleton.getInstance();
+        manager = new NodesDrawerManager(new Drawer(paintPane));
         setupEventHandlers();
-        setMenuPane();
+        setupToggleGroups();
     }
 
     // UI Setup
@@ -53,8 +54,6 @@ public class MapManageFXMLController implements Initializable {
         paintPane.setStyle("-fx-background-color: rgba(255, 255, 255, 0.0);");
         loadImageMap("/images/map2.png");
     }
-
-    private boolean change = false;
 
     private void loadImageMap(String path) {
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(path)));
@@ -70,12 +69,14 @@ public class MapManageFXMLController implements Initializable {
     // Event Handlers
     private void setupEventHandlers() {
         paintPane.setOnMouseClicked(event -> handleMouseClick(event.getX(), event.getY()));
-    }
 
-    // las siguienes opciones son propias para el menuCreatePane y son ya que son elementos de ese panel
-    private void setMenuPane() {
-        setupEventHandlersOfMenuPanel();
-        setupToggleGroups();
+        saveButton.setOnAction(event -> manager.getNodesManager().saveNodesToFile());//*
+        changeImageB.setOnAction(event -> loadImageMap(change ? "/images/map2.png" : "/images/map0.png"));
+        deleteNodoButton.setOnAction(event -> {
+            manager.deleteAndRemoveCurrentNode();
+            resetCurrentNode();
+        });
+        deleteConectionButton.setOnAction(event -> manager.removeConnectionAndVisual(getDirection()));
     }
 
     // Toggle Groups Setup
@@ -101,17 +102,6 @@ public class MapManageFXMLController implements Initializable {
         if (adelanteRadioB.isSelected()) return Directions.ADELANTE;
         if (contrarioRadioB.isSelected()) return Directions.CONTRARIO;
         return null;
-    }
-
-    // Event Handlers
-    private void setupEventHandlersOfMenuPanel() {
-        saveButton.setOnAction(event -> manager.getNodesManager().saveNodesToFile());//*
-        changeImageB.setOnAction(event -> loadImageMap(change ? "/images/map2.png" : "/images/map0.png"));
-        deleteNodoButton.setOnAction(event -> {
-            manager.deleteAndRemoveCurrentNode();
-            resetCurrentNode();
-        });
-        deleteConectionButton.setOnAction(event -> manager.removeConnectionAndVisual(getDirection()));
     }
 
     // logica segun el menuCreatePane

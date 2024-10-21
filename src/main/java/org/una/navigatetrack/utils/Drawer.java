@@ -9,13 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Drawer {
-    private final Pane paintPane; // Panel donde se dibujarán las figuras
-    private final List<Circle> circles; // Lista para almacenar círculos
-    private final List<Line> lines; // Lista para almacenar líneas
-
     private static final double CIRCLE_RADIUS = 5;
     private static final double LINE_STROKE_WIDTH = 2;
     private static final double DISTANCE_TOLERANCE = 2.0;
+    private final List<Circle> circles; // Lista para almacenar círculos
+    private final List<Line> lines; // Lista para almacenar líneas
+    private Pane paintPane; // Panel donde se dibujarán las figuras
 
     public Drawer(Pane paintPane) {
         this.paintPane = paintPane; // Inicializamos el panel
@@ -26,6 +25,10 @@ public class Drawer {
     // Dibuja un círculo
     public void drawCircle(double centerX, double centerY, Color color) {
         Circle circle = new Circle(centerX, centerY, CIRCLE_RADIUS);
+        drawCircle(circle, color);
+    }
+
+    public void drawCircle(Circle circle, Color color) {
         circle.setFill(color);
         circle.setStroke(color);
         circle.setStrokeWidth(1);
@@ -36,6 +39,10 @@ public class Drawer {
     // Dibuja una línea
     public void drawLine(double startX, double startY, double endX, double endY, Color color) {
         Line line = new Line(startX, startY, endX, endY);
+        drawLine(line, color);
+    }
+
+    public void drawLine(Line line, Color color) {
         line.setStroke(color);
         line.setStrokeWidth(LINE_STROKE_WIDTH);
         paintPane.getChildren().add(line);
@@ -132,5 +139,21 @@ public class Drawer {
         double dx = x2 - x1;
         double dy = y2 - y1;
         return dx * dx + dy * dy;
+    }
+
+    public void setPaintPane(Pane paint) {
+//        paintPane.getChildren().clear();
+//        paintPane.getChildren().addAll(paint);
+        paintAll();
+        paintPane = paint;
+    }
+
+    private void paintAll() {
+//        for (Circle circle : circles) {
+//            drawCircle(circle, Color.BLUE);
+//        }
+//        for (Line line : lines) {
+//            drawLine(line, Color.BLUE);
+//        }
     }
 }

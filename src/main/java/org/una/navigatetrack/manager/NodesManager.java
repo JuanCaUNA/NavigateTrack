@@ -2,10 +2,10 @@ package org.una.navigatetrack.manager;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.una.navigatetrack.manager.storage.StorageManager;
 import org.una.navigatetrack.roads.Connection;
 import org.una.navigatetrack.roads.Directions;
 import org.una.navigatetrack.roads.Node;
-import org.una.navigatetrack.storage.StorageManager;
 
 import java.util.ArrayList;
 import java.util.List;

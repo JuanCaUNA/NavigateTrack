@@ -3,17 +3,21 @@ package org.una.navigatetrack;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.una.navigatetrack.manager.ScreenManager;
+import org.una.navigatetrack.utils.Singleton;
 
 public class MainApp extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) {
         ScreenManager screenManager = new ScreenManager(primaryStage);
-        screenManager.loadScreen("/fxml/MapManageFXML.fxml", "Initial View");
-//        screenManager.loadScreen("/fxml/MenuOptions.fxml", "Initial View");
-    }
+        Singleton singleton = Singleton.getInstance();
+        singleton.setScreenManager(screenManager);
 
-    public static void main(String[] args) {
-        launch(args);
+        screenManager.loadScreen("/fxml/MapManager.fxml", "Initial View");
+//        screenManager.loadScreen("/fxml/ImplementsLogic.fxml", "Initial View");
     }
 }
