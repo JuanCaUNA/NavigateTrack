@@ -10,6 +10,7 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         ScreenManager screenManager = new ScreenManager(primaryStage);
         screenManager.loadScreen("/fxml/MapManageFXML.fxml", "Initial View");
+//        screenManager.loadScreen("/fxml/MenuOptions.fxml", "Initial View");
     }
 
     public static void main(String[] args) {

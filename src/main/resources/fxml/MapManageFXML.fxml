@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" minHeight="-Infinity" prefHeight="971.0" prefWidth="1211.0" style="-fx-background-color: #8A6999;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.navigatetrack.controller.fxml.MapManageFXMLController">
+<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" minHeight="-Infinity" prefHeight="971.0" prefWidth="1211.0" style="-fx-background-color: #8A6999;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.navigatetrack.controller.fxml.MapManageFXMLController">
    <children>
       <Pane fx:id="mapPane" layoutX="11.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" style="-fx-background-color: #0A0EB5;" />
       <Pane fx:id="paintPane" layoutX="11.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" style="-fx-background-color: #000000;" />

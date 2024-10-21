@@ -18,4 +18,6 @@ module org.una.navigatetrack {
     opens org.una.navigatetrack.controller.fxml to javafx.fxml;
     exports org.una.navigatetrack.manager;
     opens org.una.navigatetrack.manager to javafx.fxml;
+    exports org.una.navigatetrack.controller;
+    opens org.una.navigatetrack.controller to javafx.fxml;
 }

@@ -11,7 +11,7 @@ public class StorageManager<T> {
         createDirectoryIfNotExists(new File(filePath).getParent());
     }
 
-    public void save(T obj) {
+    public void write(T obj) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
             oos.writeObject(obj);
             //showInfoDialog("Archivo guardado exitosamente.");

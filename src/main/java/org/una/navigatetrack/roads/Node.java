@@ -21,6 +21,10 @@ public class Node implements Serializable {
         connections = new Connection[MAX_CONNECTIONS];
         location = new int[2];
     }
+    public Node(int[] position) {
+        connections = new Connection[MAX_CONNECTIONS];
+        location = position;
+    }
 
     public void addConnection(Node targetNode, Directions direction) {
         for (Connection value : connections) {
@@ -68,4 +72,12 @@ public class Node implements Serializable {
                 .toArray(Connection[]::new);
     }
 
+    public Connection getConnection(Directions direction) {
+        for (Connection connection : connections) {
+            if (connection != null && connection.getDirection() == direction) {
+                return connection;
+            }
+        }
+        return null;
+    }
 }
