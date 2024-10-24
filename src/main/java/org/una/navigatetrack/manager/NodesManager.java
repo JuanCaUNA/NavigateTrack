@@ -29,9 +29,10 @@ public class NodesManager {
     public void updateNodesToFile() {
         nodesStorage.write(listNodes);
     }
+    //to all list end
 
     //element of list
-    public void deleteNode(org.una.navigatetrack.roads.Node node) {
+    public void deleteNode(Node node) {
         if (node == null) return;
         if (!listNodes.remove(node)) {
             System.out.println("Node not found: " + Arrays.toString(node.getLocation()));
@@ -39,45 +40,51 @@ public class NodesManager {
     }
 
     public void addNode(double[] location) {
-        listNodes.add(new org.una.navigatetrack.roads.Node(location));
+        listNodes.add(new Node(location));
     }
 
-    public org.una.navigatetrack.roads.Node getNodeAtLocation(double[] location) {
+    public Node getNodeAtLocation(double[] location) {
         return listNodes.stream()
-                .filter(node -> node.getLocation()[0] == location[0] && node.getLocation()[1] == location[1])
+                .filter(node -> Arrays.equals(node.getLocation(), location))
                 .findFirst()
                 .orElse(null);
     }
+    //element of list end
 
     //element of node
-    public void addConnection(org.una.navigatetrack.roads.Node currentNode, org.una.navigatetrack.roads.Node toNode, Directions direction) {
-        if (currentNode != null)
+    public void addConnection(Node currentNode, Node toNode, Directions direction) {
+        if (currentNode != null) {
             currentNode.addConnection(toNode, direction);
+        }
     }
 
-    public void removeConnection(org.una.navigatetrack.roads.Node node, Directions direction) {
-        node.deleteConnection(direction);
+    public void removeConnection(Node node, Directions direction) {
+        if (node != null) {
+            node.deleteConnection(direction);
+        }
     }
+    //element of node end
 
-    public Connection getConnectionInDirection(org.una.navigatetrack.roads.Node node, Directions direction) {
+    //elements of Connection
+    public Connection getConnectionInDirection(Node node, Directions direction) {
         return node != null ? node.getConnection(direction) : null;
     }
 
-    //elements of Connection
-    // block rute
-    public void blockConnection(org.una.navigatetrack.roads.Node node, Directions direction) {
+    // block route
+    public void blockConnection(Node node, Directions direction) {
         Connection connection = getConnectionInDirection(node, direction);
         if (connection != null) {
             connection.blockRoute();
         }
     }
 
-    // unlock una ruta
-    public void unblockConnection(org.una.navigatetrack.roads.Node node, Directions direction) {
+    // unlock a route
+    public void unblockConnection(Node node, Directions direction) {
         Connection connection = getConnectionInDirection(node, direction);
         if (connection != null) {
             connection.unblockRoute();
         }
     }
-
+    //elements of Connection end
 }
+

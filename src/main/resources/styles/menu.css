@@ -52,9 +52,9 @@
     -fx-border-width: 1px; /* Ancho del borde */
     -fx-padding: 10px; /* Espaciado interno */
     -fx-wrap-text: true; /* Habilitar el ajuste de texto */
-    -fx-pref-height: 200px; /* Altura preferida para evitar barra de desplazamiento */
+    /*-fx-pref-height: 200px; !* Altura preferida para evitar barra de desplazamiento *!*/
     -fx-pref-width: 300px; /* Ancho preferido */
-    -fx-scroll-bar-policy: never; /* Deshabilitar la barra de desplazamiento */
+    /*-fx-scroll-bar-policy: never; !* Deshabilitar la barra de desplazamiento *!*/
 }
 
 

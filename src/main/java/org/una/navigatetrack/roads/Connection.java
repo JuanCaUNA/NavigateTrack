@@ -12,11 +12,13 @@ import java.util.Map;
 public class Connection implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
+
     private static final Map<String, Integer> TRAFFIC_MULTIPLIER = Map.of(
             "normal", 1,
             "moderado", 2,
             "lento", 3
     );
+
     private Node targetNode; // Nodo de destino
     private int weight; // Peso de la ruta (longitud/costo)
     private boolean isBlocked; // Indica si la ruta está bloqueada

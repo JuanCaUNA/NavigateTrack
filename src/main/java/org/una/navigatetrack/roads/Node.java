@@ -54,6 +54,7 @@ public class Node implements Serializable {
         for (int i = 0; i < connections.length; i++) {
             if (connections[i] != null && connections[i].getDirection() == direction) {
                 connections[i] = null;
+                return; // Agregué un return para salir del método después de borrar
             }
         }
     }
@@ -102,15 +103,23 @@ public class Node implements Serializable {
                     case ADELANTE -> ordenado[1] = connection;
                     case DERECHA -> ordenado[2] = connection;
                     case CONTRARIO -> ordenado[3] = connection;
-
                 }
             }
         }
         connections = ordenado;
     }
 
-
+    public boolean isConnectionsEmpty(){
+        for (Connection connection : connections) {
+            if (connection != null) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
+
+
 //    private double[] getLocation( int[] point){
 //        return new double[]{point[0], point[1]};
 //    }

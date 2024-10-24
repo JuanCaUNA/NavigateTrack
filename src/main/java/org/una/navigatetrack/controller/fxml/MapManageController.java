@@ -20,22 +20,12 @@ import java.util.StringJoiner;
 
 public class MapManageController implements Initializable {
 
-    @FXML
-    private Pane mapPane, paintPane;
-
-    @FXML
-    private Label nodoActualLabel;
-
-    @FXML
-    private TextArea nodoInfoTextArea;
-
-    @FXML
-    private Button saveButton, deleteNodoButton, deleteConectionButton, changeImageB;
-
-    @FXML
-    private RadioButton izRadioB, derRadioB, adelanteRadioB, contrarioRadioB, seleccionarRadioB;
-    @FXML
-    private RadioButton editRadioB, addRadioB;
+    @FXML    private Pane mapPane, paintPane, menuFlowPane, rootStackPane;
+    @FXML    private Label nodoActualLabel;
+    @FXML    private TextArea nodoInfoTextArea;
+    @FXML    private Button saveButton, deleteNodoButton, deleteConectionButton, changeImageB;
+    @FXML    private RadioButton izRadioB, derRadioB, adelanteRadioB, contrarioRadioB, seleccionarRadioB;
+    @FXML    private RadioButton editRadioB, addRadioB;
 
     private boolean change = false;
     private NodesDrawerManagers manager;
@@ -47,11 +37,14 @@ public class MapManageController implements Initializable {
         setupEventHandlers();
         setupToggleGroups();
         setupKeyBindings();
+
+        rootStackPane.setFocusTraversable(true);
+        rootStackPane.requestFocus();
     }
 
     private void setupUI() {
         paintPane.setStyle("-fx-background-color: rgba(255, 255, 255, 0.0);");
-        loadImageMap("/images/map2.png");
+        loadImageMap("/images/map2.png"); // Carga la imagen del mapa por defecto
     }
 
     private void loadImageMap(String path) {
@@ -61,64 +54,78 @@ public class MapManageController implements Initializable {
         imageView.setFitWidth(image.getWidth() * ratio);
         imageView.setFitHeight(image.getHeight() * ratio);
         imageView.setPreserveRatio(true);
-        mapPane.getChildren().add(imageView);
-        change = !change;
+        mapPane.getChildren().add(imageView); // Añade la imagen al panel del mapa
+        change = !change; // Cambia el estado de cambio para alternar la imagen
     }
 
     private void setupEventHandlers() {
-        paintPane.setOnMouseClicked(event -> handleMouseClick(event.getX(), event.getY()));
+        // Maneja clics en el panel de dibujo
+        paintPane.setOnMouseClicked(event -> {handleMouseClick(event.getX(), event.getY()); rootStackPane.requestFocus(); });
 
+        // Maneja el cambio de imagen del mapa
         changeImageB.setOnAction(event -> loadImageMap(change ? "/images/map2.png" : "/images/map0.png"));
+
+        // Maneja la eliminación de conexiones
         deleteConectionButton.setOnAction(event -> manager.removeConnectionAndVisual(getDirection()));
+
+        // Maneja la actualización del archivo de nodos
         saveButton.setOnAction(event -> manager.getNodesManager().updateNodesToFile());
+
+        // Maneja la eliminación del nodo actual
         deleteNodoButton.setOnAction(event -> {
             manager.deleteAndRemoveCurrentNode();
-            resetCurrentNode();
+            setNodeInfo();
         });
     }
 
     private void setupToggleGroups() {
+        // Agrupación de botones de modo
         ToggleGroup modoToggleGroup = new ToggleGroup();
-        addRadioB.setToggleGroup(modoToggleGroup);
-        editRadioB.setToggleGroup(modoToggleGroup);
-        editRadioB.setSelected(true);
+        addRadioB.setToggleGroup(modoToggleGroup); // si este es verdad seleccionarRadioB simpre activo
+        editRadioB.setToggleGroup(modoToggleGroup);// si este es verdad se desactiva el directionToggleGroup
+        editRadioB.setSelected(true); // Establece el modo de edición por defecto
 
+        // Agrupación de botones de dirección
         ToggleGroup directionToggleGroup = new ToggleGroup();
         izRadioB.setToggleGroup(directionToggleGroup);
         derRadioB.setToggleGroup(directionToggleGroup);
         adelanteRadioB.setToggleGroup(directionToggleGroup);
         contrarioRadioB.setToggleGroup(directionToggleGroup);
         seleccionarRadioB.setToggleGroup(directionToggleGroup);
-        seleccionarRadioB.setSelected(true);
+        seleccionarRadioB.setSelected(true); // Establece la opción de selección por defecto
     }
 
     private void setupKeyBindings() {
-        paintPane.setOnKeyPressed(event -> {
+        // Asigna teclas numéricas a direcciones
+        rootStackPane.setOnKeyPressed(event -> {
             switch (event.getCode()) {
-                case DIGIT4 -> izRadioB.setSelected(true);
-                case DIGIT6 -> derRadioB.setSelected(true);
-                case DIGIT8 -> adelanteRadioB.setSelected(true);
-                case DIGIT2 -> contrarioRadioB.setSelected(true);
-                case DIGIT0 -> seleccionarRadioB.setSelected(true);
+                case A -> izRadioB.setSelected(true); // A para izquierda
+                case D -> derRadioB.setSelected(true); // D para derecha
+                case W -> adelanteRadioB.setSelected(true); // W para adelante
+                case S -> contrarioRadioB.setSelected(true); // S para contrario
+                case E -> seleccionarRadioB.setSelected(true); // E para seleccionar
             }
         });
     }
 
     private Directions getDirection() {
+        // Devuelve la dirección seleccionada
         if (izRadioB.isSelected()) return Directions.IZQUIERDA;
         if (derRadioB.isSelected()) return Directions.DERECHA;
         if (adelanteRadioB.isSelected()) return Directions.ADELANTE;
         if (contrarioRadioB.isSelected()) return Directions.CONTRARIO;
-        return null;
+        return null; // Retorna null si no hay dirección seleccionada
     }
 
     private void handleMouseClick(double x, double y) {
         double[] point = {x, y};
+        // Crea un nodo o conexión dependiendo del modo seleccionado
         if (addRadioB.isSelected()) {
             manager.createAndDrawNode(point);
+            setNodeInfo();
         } else if (seleccionarRadioB.isSelected()) {
             manager.updateCurrentNode(point);
-            setNodeInfo();
+            setNodeInfo(); // Muestra información del nodo seleccionado
         } else {
             manager.createAndDrawConnection(point, getDirection());
         }
@@ -131,13 +138,13 @@ public class MapManageController implements Initializable {
             nodoInfoTextArea.setText("");
         } else {
             nodoActualLabel.setText("Nodo Actual: " + Arrays.toString(currentNode.getLocation()));
-            nodoInfoTextArea.setText(getNodeConnectionsInfo(currentNode));
+            nodoInfoTextArea.setText(getNodeConnectionsInfo(currentNode)); // Muestra información sobre las conexiones del nodo
         }
     }
 
     private String getNodeConnectionsInfo(Node node) {
-        if (node.getConnections() == null) {
-            return "No hay conexiones disponibles.";
+        if (node.getConnections() == null || node.isConnectionsEmpty()) {
+            return "No hay conexiones disponibles."; // Mensaje si no hay conexiones
         }
 
         StringJoiner info = new StringJoiner("\n", "Conexiones:\n", "");
@@ -153,11 +160,6 @@ public class MapManageController implements Initializable {
                 ));
             }
         }
-        return info.toString();
-    }
-
-    private void resetCurrentNode() {
-        nodoActualLabel.setText("Nodo Actual: None");
-        nodoInfoTextArea.setText("");
+        return info.toString(); // Devuelve la información formateada sobre las conexiones
     }
 }

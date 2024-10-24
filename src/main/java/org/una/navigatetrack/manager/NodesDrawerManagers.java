@@ -23,25 +23,27 @@ public class NodesDrawerManagers {
         drawAllNodesAndConnections();
     }
 
-    //definition of nodes and connections
+    // Definition of nodes and connections
     public void createAndDrawNode(double[] location) {
         nodesManager.addNode(location);
+        currentNode = nodesManager.getNodeAtLocation(location);
         drawNode(nodesManager.getNodeAtLocation(location));
     }
 
     public void createAndDrawConnection(double[] target, Directions direction) {
         target = getLocationIfExistNodeAt(target);
         if (target == null) return;
+
         Node fromNode = currentNode;
         Node toNode = nodesManager.getNodeAtLocation(target);
         if (toNode != null && fromNode != null) {
-            nodesManager.addConnection(currentNode, toNode, direction);
+            nodesManager.addConnection(fromNode, toNode, direction);
             drawConnection(fromNode.getLocation(), fromNode.getConnection(direction));
         }
     }
-    //definition of nodes and connections end
+    // Definition of nodes and connections end
 
-    //drawings
+    // Drawings
     public void drawAllNodesAndConnections() {
         for (Node node : nodesManager.getListNodes()) {
             drawNode(node);
@@ -50,8 +52,8 @@ public class NodesDrawerManagers {
     }
 
     private void drawNode(Node node) {
-        drawNode(node, Color.BLUE);
-    }//by default
+        drawNode(node, Color.BLUE); // By default, nodes are drawn in blue.
+    }
 
     private void drawNode(Node node, Color color) {
         if (node == null) return;
@@ -63,7 +65,9 @@ public class NodesDrawerManagers {
         if (node == null) return;
 
         for (Connection connection : node.getConnections(node)) {
-            if (connection != null) drawConnection(node.getLocation(), connection);
+            if (connection != null) {
+                drawConnection(node.getLocation(), connection);
+            }
         }
     }
 
@@ -74,46 +78,48 @@ public class NodesDrawerManagers {
         Color color = getDirectionColor(connection.getDirection());
         drawerManager.drawLine(startLocation[0], startLocation[1], endLocation[0], endLocation[1], color);
     }
-    //drawings end
+    // Drawings end
 
-    //delete drawings
+    // Delete drawings
     public void deleteAndRemoveCurrentNode() {
         if (currentNode == null) return;
 
+        // Remove visual connections to the current node before deletion
         for (Connection connection : currentNode.getConnections()) {
             removeConnectionVisual(currentNode.getLocation(), connection);
         }
 
-        drawerManager.removeCircle(currentNode.getLocation());
-        nodesManager.deleteNode(currentNode);
-        currentNode = null;
+        drawerManager.removeCircle(currentNode.getLocation()); // Remove visual representation of the node
+        nodesManager.deleteNode(currentNode); // Remove node from manager
+        currentNode = null; // Clear the current node
     }
 
     public void removeConnectionAndVisual(Directions direction) {
         if (currentNode != null) {
             removeConnectionAndVisual(currentNode, direction);
-            currentNode.deleteConnection(direction);
+            currentNode.deleteConnection(direction); // This should only delete the connection from the current node
         }
     }
 
     public void removeConnectionAndVisual(Node node, Directions direction) {
         if (node == null) return;
 
-        nodesManager.removeConnection(node, direction);
         Connection connection = nodesManager.getConnectionInDirection(node, direction);
         if (connection != null) {
             removeConnectionVisual(node.getLocation(), connection);
         }
+
+        nodesManager.removeConnection(node, direction); // Remove connection from the manager
     }
 
     private void removeConnectionVisual(double[] startLocation, Connection connection) {
         if (connection == null) return;
         double[] endLocation = connection.getTargetNode().getLocation();
-        drawerManager.removeLine(startLocation, endLocation);
+        drawerManager.removeLine(startLocation, endLocation); // Remove the visual line connecting the nodes
     }
-    //delete drawings end
+    // Delete drawings end
 
-    //current node
+    // Current node management
     public void updateCurrentNode(double[] point) {
         point = getLocationIfExistNodeAt(point);
 
@@ -128,24 +134,26 @@ public class NodesDrawerManagers {
         Node previousNode = currentNode;
         currentNode = newCurrentNode;
 
+        // Restore the visual representation of the previous node
         if (previousNode != null) {
             drawerManager.removeCircle(previousNode.getLocation());
-            drawNode(previousNode, Color.BLUE);
+            drawNode(previousNode, Color.BLUE); // Restore previous node in blue
         }
 
-        drawNode(newCurrentNode, Color.RED);
+        drawerManager.removeCircle(newCurrentNode.getLocation());
+        drawNode(newCurrentNode, Color.RED); // Highlight the current node in red
     }
-    //current node end
+    // Current node end
 
-    //others
+    // Others
     private double[] getLocationIfExistNodeAt(double[] point) {
         Circle circle = drawerManager.getCircleAt(point);
         if (circle != null) {
-            point[0] = (int) circle.getCenterX();
+            point[0] = (int) circle.getCenterX(); // Cast to int for exact circle center
             point[1] = (int) circle.getCenterY();
             return point;
         }
-        return null;
+        return null; // Return null if no node exists at the point
     }
 
     private Color getDirectionColor(Directions direction) {
@@ -156,5 +164,5 @@ public class NodesDrawerManagers {
             case CONTRARIO -> Color.RED;
         };
     }
-    //others end
+    // Others end
 }

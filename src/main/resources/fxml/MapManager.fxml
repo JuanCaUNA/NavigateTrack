@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.navigatetrack.controller.fxml.MapManageController">
+<StackPane fx:id="rootStackPane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.navigatetrack.controller.fxml.MapManageController">
    <children>
       <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
          <children>
-            <FlowPane hgap="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" style="-fx-background-color: #323030;" vgap="20.0">
+            <FlowPane fx:id="menuFlowPane" hgap="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" style="-fx-background-color: #323030;" vgap="20.0">
                <children>
                   <Label fx:id="nodoActualLabel" style="-fx-background-color: #ffffff;" text=" Nodo Actual: ">
                      <font>
@@ -84,7 +84,7 @@
                         <Insets bottom="10.0" />
                      </FlowPane.margin>
                   </Button>
-                  <TextArea fx:id="nodoInfoTextArea" editable="false" prefHeight="245.0" prefWidth="335.0" text="informacion del nodo y conexion&#10;" />
+                  <TextArea fx:id="nodoInfoTextArea" editable="false" prefHeight="281.0" prefWidth="335.0" text="informacion del nodo y conexion&#10;" />
                   <Button fx:id="changeImageB" mnemonicParsing="false" prefHeight="25.0" prefWidth="146.0" text="cambiar imagen">
                      <font>
                         <Font name="System Bold" size="12.0" />

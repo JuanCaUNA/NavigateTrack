@@ -16,6 +16,7 @@ public class DrawerManager {
     private final List<Circle> circles;
     private final List<Line> lines;
     private final Pane paintPane;
+    private boolean flag;
 
     public DrawerManager(Pane paintPane) {
         this.paintPane = paintPane;
@@ -53,15 +54,18 @@ public class DrawerManager {
     // deleting figures
     public void removeCircle(double[] point) {
         Circle circle = getCircleAt(point);
-        removeCircle(circle);
+        if (circle != null) {
+            removeCircle(circle);
+        } else {
+            System.out.println("Circle not found at the specified location.");
+        }
     }
 
     public void removeCircle(Circle circle) {
         if (circles.remove(circle)) {
             paintPane.getChildren().remove(circle);
-            removeCircle(circle);
         } else {
-            System.out.println("circle not found");
+            System.out.println("Circle not found in the list.");
         }
     }
 
@@ -85,7 +89,7 @@ public class DrawerManager {
     }
     // deleting figures end
 
-    //gets figure if exist
+    // gets figure if exist
     public Circle getCircleAt(double[] point) {
         double x = point[0];
         double y = point[1];
@@ -111,11 +115,11 @@ public class DrawerManager {
     }
 
     public Line getline(double[] start, double[] end) {
-        return null;//TODO
+        return null; //TODO
     }
-    //gets figure if exist end
+    // gets figure if exist end
 
-    //logic operations
+    // logic operations
     private double pointToLineDistance(double x1, double y1, double x2, double y2, double px, double py) {
         double A = px - x1;
         double B = py - y1;
@@ -149,8 +153,9 @@ public class DrawerManager {
         double dy = y2 - y1;
         return dx * dx + dy * dy;
     }
-    //logic operations end
+    // logic operations end
 }
+
 
 //public void setPaintPane(Pane paint) {
 ////        paintPane.getChildren().clear();
