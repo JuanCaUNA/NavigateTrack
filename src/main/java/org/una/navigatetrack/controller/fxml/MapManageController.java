@@ -119,7 +119,7 @@ public class MapManageController implements Initializable {
     }
 
     private void setNodeInfo() {
-        Node currentNode = manager.getNodesManager().getCurrentNode();
+        Node currentNode = manager.getCurrentNode();
         if (currentNode == null) {
             nodoActualLabel.setText("Nodo Actual: None");
             nodoInfoTextArea.setText("");
