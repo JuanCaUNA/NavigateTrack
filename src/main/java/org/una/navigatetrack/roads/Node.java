@@ -7,17 +7,14 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Arrays;
 
-
+@Getter
 @Setter
 public class Node implements Serializable {
     @Serial
-    @Getter
     private static final long serialVersionUID = 1L;
-    @Getter
+
     private static final int MAX_CONNECTIONS = 4;
-    @Getter
     private Connection[] connections;
-    @Getter
     private double[] location;
 
     public Node() {
