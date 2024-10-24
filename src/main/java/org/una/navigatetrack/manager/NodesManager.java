@@ -1,7 +1,6 @@
 package org.una.navigatetrack.manager;
 
 import lombok.Getter;
-import lombok.Setter;
 import org.una.navigatetrack.manager.storage.StorageManager;
 import org.una.navigatetrack.roads.Connection;
 import org.una.navigatetrack.roads.Directions;
@@ -11,58 +10,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NodesManager {
-    private final StorageManager<List<Node>> nodesStorage = new StorageManager<>("src/main/resources/ListaNodos/", "listNodos.data");
+    private final StorageManager<List<Node>> nodesStorage = new StorageManager<>("src/main/resources/listNodes/", "listNodes.data");
 
     @Getter
     private final List<Node> listNodes = new ArrayList<>();
 
-    @Getter
-    @Setter
-    private Node currentNode;
-
-    // Constructor para cargar los nodos desde archivo al inicializar
     public NodesManager() {
-        loadNodesFromFile();
+        readNodesFromFile();
     }
 
-    // Cargar nodos desde archivo
-    private void loadNodesFromFile() {
-        try {
-            List<Node> loadedNodes = nodesStorage.read();
-            if (loadedNodes != null) {
-                listNodes.addAll(loadedNodes);
-            }
-        } catch (Exception e) {
-            // Manejo de excepción: log o mensaje de error
-            System.err.println("Error loading nodes: " + e.getMessage());
-        }
+    //to all list
+    public void readNodesFromFile() {
+        List<Node> loadedNodes = nodesStorage.read();
+        listNodes.addAll(loadedNodes);
     }
 
-    // Guardar nodos en archivo
-    public void saveNodesToFile() {
-        try {
-            nodesStorage.write(listNodes);
-        } catch (Exception e) {
-            // Manejo de excepción: log o mensaje de error
-            System.err.println("Error saving nodes: " + e.getMessage());
-        }
+    public void updateNodesToFile() {
+        nodesStorage.write(listNodes);
     }
 
-    // Crear un nuevo nodo y añadirlo a la lista
-    public void createNode(int[] location) {
-        Node newNode = new Node();
-        newNode.setLocation(location);
-        listNodes.add(newNode);
-        saveNodesToFile();
-    }
-
-    // Eliminar un nodo
+    //element of list
     public void deleteNode(Node node) {
+        if (node == null) return;
         listNodes.remove(node);
-        saveNodesToFile();
     }
 
-    // Buscar un nodo en una ubicación específica
+    public void addNode(int[] location) {
+        listNodes.add(new Node(location));
+    }
+
     public Node getNodeAtLocation(int[] location) {
         return listNodes.stream()
                 .filter(node -> node.getLocation()[0] == location[0] && node.getLocation()[1] == location[1])
@@ -70,23 +46,22 @@ public class NodesManager {
                 .orElse(null);
     }
 
-    // Añadir una conexión entre dos nodos
+    //element of node
     public void addConnection(Node toNode, Directions direction) {
         if (currentNode != null)
             currentNode.addConnection(toNode, direction);
     }
 
-    // Eliminar una conexión de un nodo
     public void removeConnection(Node node, Directions direction) {
         node.deleteConnection(direction);
     }
 
-    // Obtener todas las conexiones de un nodo
-    public Connection[] getConnections(Node node) {
-        return node.getConnections(node);
+    public Connection getConnectionInDirection(Node node, Directions direction) {
+        return node != null ? node.getConnection(direction) : null;
     }
 
-    // Bloquear una ruta
+    //elements of Connection
+    // block rute
     public void blockConnection(Node node, Directions direction) {
         Connection connection = getConnectionInDirection(node, direction);
         if (connection != null) {
@@ -94,7 +69,7 @@ public class NodesManager {
         }
     }
 
-    // Desbloquear una ruta
+    // unlock una ruta
     public void unblockConnection(Node node, Directions direction) {
         Connection connection = getConnectionInDirection(node, direction);
         if (connection != null) {
@@ -102,9 +77,4 @@ public class NodesManager {
         }
     }
 
-    // Obtener una conexión en una dirección específica
-    public Connection getConnectionInDirection(Node node, Directions direction) {
-        Node targetNode = node.getTargetNode(direction);
-        return targetNode != null ? targetNode.getConnection(direction) : null;
-    }
 }

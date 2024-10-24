@@ -1,4 +1,4 @@
-package org.una.navigatetrack.utils;
+package org.una.navigatetrack.manager;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -8,21 +8,22 @@ import javafx.scene.shape.Line;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Drawer {
+public class DrawerManager {
     private static final double CIRCLE_RADIUS = 5;
     private static final double LINE_STROKE_WIDTH = 5;
     private static final double DISTANCE_TOLERANCE = 2.0;
-    private final List<Circle> circles; // Lista para almacenar círculos
-    private final List<Line> lines; // Lista para almacenar líneas
-    private final Pane paintPane; // Panel donde se dibujarán las figuras
 
-    public Drawer(Pane paintPane) {
-        this.paintPane = paintPane; // Inicializamos el panel
-        circles = new ArrayList<>(); // Inicializamos la lista de círculos
-        lines = new ArrayList<>(); // Inicializamos la lista de líneas
+    private final List<Circle> circles;
+    private final List<Line> lines;
+    private final Pane paintPane;
+
+    public DrawerManager(Pane paintPane) {
+        this.paintPane = paintPane;
+        circles = new ArrayList<>();
+        lines = new ArrayList<>();
     }
 
-    // Dibuja un círculo
+    // drawing figures
     public void drawCircle(double centerX, double centerY, Color color) {
         Circle circle = new Circle(centerX, centerY, CIRCLE_RADIUS);
         drawCircle(circle, color);
@@ -36,7 +37,6 @@ public class Drawer {
         circles.add(circle);
     }
 
-    // Dibuja una línea
     public void drawLine(double startX, double startY, double endX, double endY, Color color) {
         Line line = new Line(startX, startY, endX, endY);
         drawLine(line, color);
@@ -48,8 +48,9 @@ public class Drawer {
         paintPane.getChildren().add(line);
         lines.add(line);
     }
+    // drawing figures end
 
-    // Remueve un círculo basado en coordenadas
+    // deleting figures
     public void removeCircle(int[] point) {
         Circle circle = getCircleAt(point);
         if (circle != null) {
@@ -57,29 +58,31 @@ public class Drawer {
         }
     }
 
-    // Remueve un círculo específico
     public void removeCircle(Circle circle) {
         if (circles.remove(circle)) {
             paintPane.getChildren().remove(circle);
         }
     }
 
-    // Remueve una línea basada en coordenadas
-    public void removeLine(int[] point) {
-        Line line = getLineAt(point);
-        if (line != null) {
-            removeLine(line);
-        }
+    public void removeLine(int[] startPoint, int[] endPoint) {
+        lines.removeIf(line -> {
+            boolean matches = line.getStartX() == startPoint[0] && line.getStartY() == startPoint[1] &&
+                    line.getEndX() == endPoint[0] && line.getEndY() == endPoint[1];
+
+            if (matches) paintPane.getChildren().remove(line);
+
+            return matches;
+        });
     }
 
-    // Remueve una línea específica
     public void removeLine(Line line) {
         if (lines.remove(line)) {
             paintPane.getChildren().remove(line);
         }
     }
+    // deleting figures end
 
-    // Obtiene un círculo en las coordenadas dadas
+    //gets figure if exist
     public Circle getCircleAt(int[] point) {
         double x = point[0];
         double y = point[1];
@@ -92,7 +95,6 @@ public class Drawer {
         return null;
     }
 
-    // Obtiene una línea en las coordenadas dadas
     public Line getLineAt(int[] point) {
         double x = point[0];
         double y = point[1];
@@ -105,7 +107,12 @@ public class Drawer {
         return null;
     }
 
-    // Calcula la distancia de un punto a una línea
+    public Line getline(int[] start, int[] end){
+        return null;//TODO
+    }
+    //gets figure if exist end
+
+    //logic operations
     private double pointToLineDistance(double x1, double y1, double x2, double y2, double px, double py) {
         double A = px - x1;
         double B = py - y1;
@@ -134,12 +141,12 @@ public class Drawer {
         return Math.sqrt(dx * dx + dy * dy);
     }
 
-
     private double distanceSquared(double x1, double y1, double x2, double y2) {
         double dx = x2 - x1;
         double dy = y2 - y1;
         return dx * dx + dy * dy;
     }
+    //logic operations end
 }
 
 //public void setPaintPane(Pane paint) {

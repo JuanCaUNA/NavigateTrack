@@ -6,12 +6,11 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import org.una.navigatetrack.manager.NodesDrawerManager;
+import org.una.navigatetrack.manager.NodesDrawerManagers;
 import org.una.navigatetrack.roads.Connection;
 import org.una.navigatetrack.roads.Directions;
 import org.una.navigatetrack.roads.Node;
-import org.una.navigatetrack.utils.Drawer;
-import org.una.navigatetrack.utils.Singleton;
+import org.una.navigatetrack.manager.DrawerManager;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -21,35 +20,29 @@ import java.util.StringJoiner;
 
 public class MapManageController implements Initializable {
 
-    NodesDrawerManager manager;
-    // UI Components
-    //paneles
-    @FXML
-    private Pane mapPane, paintPane, menuCreatePane;
-    //opciones del panel menuPane
-    @FXML
-    private Label nodoActualLabel;
-    @FXML
-    private TextArea nodoInfoTextArea;
-    @FXML
-    private Button saveButton, deleteNodoButton, deleteConectionButton, changeImageB;
-    @FXML
-    private RadioButton izRadioB, derRadioB, adelanteRadioB, contrarioRadioB, seleccionarRadioB;
-    @FXML
-    private RadioButton editRadioB, addRadioB;
-    private boolean change = false;
+    @FXML    private Pane mapPane, paintPane;
 
-    // Initialization
+    @FXML    private Label nodoActualLabel;
+
+    @FXML    private TextArea nodoInfoTextArea;
+
+    @FXML    private Button saveButton, deleteNodoButton, deleteConectionButton, changeImageB;
+
+    @FXML    private RadioButton izRadioB, derRadioB, adelanteRadioB, contrarioRadioB, seleccionarRadioB;
+    @FXML    private RadioButton editRadioB, addRadioB;
+
+    private boolean change = false;
+    private NodesDrawerManagers manager;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setupUI();
-        Singleton singleton = Singleton.getInstance();
-        manager = new NodesDrawerManager(new Drawer(paintPane));
+        manager = new NodesDrawerManagers(new DrawerManager(paintPane));
         setupEventHandlers();
         setupToggleGroups();
+        setupKeyBindings();
     }
 
-    // UI Setup
     private void setupUI() {
         paintPane.setStyle("-fx-background-color: rgba(255, 255, 255, 0.0);");
         loadImageMap("/images/map2.png");
@@ -66,20 +59,18 @@ public class MapManageController implements Initializable {
         change = !change;
     }
 
-    // Event Handlers
     private void setupEventHandlers() {
         paintPane.setOnMouseClicked(event -> handleMouseClick(event.getX(), event.getY()));
 
-        saveButton.setOnAction(event -> manager.getNodesManager().saveNodesToFile());//*
         changeImageB.setOnAction(event -> loadImageMap(change ? "/images/map2.png" : "/images/map0.png"));
+        deleteConectionButton.setOnAction(event -> manager.removeConnectionAndVisual(getDirection()));
+        saveButton.setOnAction(event -> manager.getNodesManager().updateNodesToFile());
         deleteNodoButton.setOnAction(event -> {
             manager.deleteAndRemoveCurrentNode();
             resetCurrentNode();
         });
-        deleteConectionButton.setOnAction(event -> manager.removeConnectionAndVisual(getDirection()));
     }
 
-    // Toggle Groups Setup
     private void setupToggleGroups() {
         ToggleGroup modoToggleGroup = new ToggleGroup();
         addRadioB.setToggleGroup(modoToggleGroup);
@@ -95,7 +86,18 @@ public class MapManageController implements Initializable {
         seleccionarRadioB.setSelected(true);
     }
 
-    // Get Directions
+    private void setupKeyBindings() {
+        paintPane.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case DIGIT4 -> izRadioB.setSelected(true);
+                case DIGIT6 -> derRadioB.setSelected(true);
+                case DIGIT8 -> adelanteRadioB.setSelected(true);
+                case DIGIT2 -> contrarioRadioB.setSelected(true);
+                case DIGIT0 -> seleccionarRadioB.setSelected(true);
+            }
+        });
+    }
+
     private Directions getDirection() {
         if (izRadioB.isSelected()) return Directions.IZQUIERDA;
         if (derRadioB.isSelected()) return Directions.DERECHA;
@@ -104,7 +106,6 @@ public class MapManageController implements Initializable {
         return null;
     }
 
-    // logica segun el menuCreatePane
     private void handleMouseClick(double x, double y) {
         int[] point = {(int) x, (int) y};
         if (addRadioB.isSelected()) {
@@ -118,7 +119,7 @@ public class MapManageController implements Initializable {
     }
 
     private void setNodeInfo() {
-        Node currentNode = manager.getNodesManager().getCurrentNode();  // Variable intermedia para mejorar legibilidad
+        Node currentNode = manager.getNodesManager().getCurrentNode();
         if (currentNode == null) {
             nodoActualLabel.setText("Nodo Actual: None");
             nodoInfoTextArea.setText("");
@@ -139,7 +140,7 @@ public class MapManageController implements Initializable {
                 info.add(String.format(
                         "Destino: %s, Peso: %d, Bloqueada: %s, Estado de Tráfico: %s, Dirección: %s",
                         Arrays.toString(connection.getTargetNode().getLocation()),
-                        connection.getWeight(),  // Usa %d en lugar de %.2f
+                        connection.getWeight(),
                         connection.isBlocked() ? "Sí" : "No",
                         connection.getTrafficCondition(),
                         connection.getDirection()

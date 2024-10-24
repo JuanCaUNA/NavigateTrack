@@ -4,30 +4,29 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import org.una.navigatetrack.roads.Connection;
 import org.una.navigatetrack.roads.Node;
-import org.una.navigatetrack.utils.Drawer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Facade {
-    private final NodesDrawerManager nodesDrawerManager;
+    private final NodesDrawerManagers nodesDrawerManagers;
     Node startsNode, endsNode;
 
     public Facade(Pane paintPane) {
-        nodesDrawerManager = new NodesDrawerManager(new Drawer(paintPane));
+        nodesDrawerManagers = new NodesDrawerManagers(new DrawerManager(paintPane));
     }
 
     //por definir
 //    void getApproximateLocation();
 
     public List<Connection> getLineAt(int[] point) {
-        Line line = nodesDrawerManager.getDrawer().getLineAt(point);
+        Line line = nodesDrawerManagers.getDrawerManager().getLineAt(point);
 
         int[] endLocation = {(int) line.getEndX(), (int) line.getEndY()};
         int[] startLocation = {(int) line.getStartX(), (int) line.getStartY()};
 
-        Node endNode = nodesDrawerManager.getNodesManager().getNodeAtLocation(endLocation);
-        Node startNode = nodesDrawerManager.getNodesManager().getNodeAtLocation(startLocation);
+        Node endNode = nodesDrawerManagers.getNodesManager().getNodeAtLocation(endLocation);
+        Node startNode = nodesDrawerManagers.getNodesManager().getNodeAtLocation(startLocation);
         List<Connection> connections = new ArrayList<>();
         connections.add(endNode.getConnection(startLocation));
         connections.add(startNode.getConnection(endLocation));
@@ -35,14 +34,13 @@ public class Facade {
     }
 
     public Node getNodeAt(int[] point) {
-        return nodesDrawerManager.getNodesManager().getNodeAtLocation(point);
+        return nodesDrawerManagers.getNodesManager().getNodeAtLocation(point);
     }
 
     //separar un drawer para el movimiento -> el movieminto de star node
     public void deleteRegister() {
         //TODO separar el resgistro?
-        nodesDrawerManager.deleteAndRemoveNode(startsNode);
-        nodesDrawerManager.deleteAndRemoveNode(endsNode);
+        //end and start node.
     }
 
 
@@ -50,7 +48,7 @@ public class Facade {
         removeStartNode(point);
         startsNode = new Node(point);
         //TODO
-        nodesDrawerManager.createAndDrawNode(point);
+        nodesDrawerManagers.createAndDrawNode(point);
         //nodesDrawerManager.getDrawer().drawCircle(point[0], point[1], Color.BLUE);
     }
 
@@ -58,19 +56,19 @@ public class Facade {
         removeEndNode(point);
         endsNode = new Node(point);
         //TODO
-        nodesDrawerManager.createAndDrawNode(point);
+        nodesDrawerManagers.createAndDrawNode(point);
         //nodesDrawerManager.getDrawer().drawCircle(point[0], point[1], Color.BLUE);
     }
 
     public void removeStartNode(int[] point) {
         if (startsNode != null) {
-            nodesDrawerManager.getDrawer().removeCircle(point);
+            nodesDrawerManagers.getDrawerManager().removeCircle(point);
         }
     }
 
     public void removeEndNode(int[] point) {
         if (endsNode != null) {
-            nodesDrawerManager.getDrawer().removeCircle(point);
+            nodesDrawerManagers.getDrawerManager().removeCircle(point);
         }
     }
 

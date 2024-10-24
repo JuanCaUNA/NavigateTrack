@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package org.una.navigatetrack.controller.fxml;
 
 import javafx.fxml.FXML;
@@ -11,8 +7,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import org.una.navigatetrack.manager.NodesDrawerManager;
-import org.una.navigatetrack.utils.Drawer;
+import org.una.navigatetrack.manager.NodesDrawerManagers;
+import org.una.navigatetrack.manager.DrawerManager;
 
 import java.net.URL;
 import java.util.Objects;
@@ -26,7 +22,7 @@ import java.util.ResourceBundle;
 public class ImplementsLogicController implements Initializable {
 
 
-    NodesDrawerManager manager;
+    NodesDrawerManagers manager;
     @FXML
     private AnchorPane mainAnchorPane;
     @FXML
@@ -48,7 +44,7 @@ public class ImplementsLogicController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        manager = new NodesDrawerManager(new Drawer(paintPane));
+        manager = new NodesDrawerManagers(new DrawerManager(paintPane));
         setupUI();
     }
 
