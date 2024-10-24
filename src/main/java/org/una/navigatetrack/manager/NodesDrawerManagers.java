@@ -30,15 +30,16 @@ public class NodesDrawerManagers {
     }
 
     public void createAndDrawConnection(int[] target, Directions direction) {
-        target = existNodeAt(target);
+        target = getLocationIfExistNodeAt(target);
         if (target == null) return;
         Node fromNode = currentNode;
         Node toNode = nodesManager.getNodeAtLocation(target);
         if (toNode != null && fromNode != null) {
-            nodesManager.addConnection(toNode, direction);
+            nodesManager.addConnection(currentNode, toNode, direction);
             drawConnection(fromNode.getLocation(), fromNode.getConnection(direction));
         }
     }
+    //definition of nodes and connections end
 
     //drawings
     public void drawAllNodesAndConnections() {
@@ -73,6 +74,7 @@ public class NodesDrawerManagers {
         Color color = getDirectionColor(connection.getDirection());
         drawerManager.drawLine(startLocation[0], startLocation[1], endLocation[0], endLocation[1], color);
     }
+    //drawings end
 
     //delete drawings
     public void deleteAndRemoveCurrentNode() {
@@ -107,15 +109,13 @@ public class NodesDrawerManagers {
         int[] endLocation = connection.getTargetNode().getLocation();
         drawerManager.removeLine(startLocation, endLocation);
     }
+    //delete drawings end
 
     //current node
     public void updateCurrentNode(int[] point) {
-        Circle circle = drawerManager.getCircleAt(point);
+        point = getLocationIfExistNodeAt(point);
 
-        if (circle == null) return;
-
-        point[0] = (int) circle.getCenterX();
-        point[1] = (int) circle.getCenterY();
+        if (point == null) return;
 
         updateCurrentNode(nodesManager.getNodeAtLocation(point));
     }
@@ -133,9 +133,10 @@ public class NodesDrawerManagers {
 
         drawNode(newCurrentNode, Color.RED);
     }
+    //current node end
 
     //others
-    private int[] existNodeAt(int[] point) {
+    private int[] getLocationIfExistNodeAt(int[] point) {
         Circle circle = drawerManager.getCircleAt(point);
         if (circle != null) {
             point[0] = (int) circle.getCenterX();
@@ -153,4 +154,5 @@ public class NodesDrawerManagers {
             case CONTRARIO -> Color.RED;
         };
     }
+    //others end
 }

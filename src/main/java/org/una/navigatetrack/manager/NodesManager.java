@@ -47,7 +47,7 @@ public class NodesManager {
     }
 
     //element of node
-    public void addConnection(Node toNode, Directions direction) {
+    public void addConnection(Node currentNode, Node toNode, Directions direction) {
         if (currentNode != null)
             currentNode.addConnection(toNode, direction);
     }
