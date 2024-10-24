@@ -7,23 +7,27 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Arrays;
 
-@Getter
+
 @Setter
 public class Node implements Serializable {
     @Serial
+    @Getter
     private static final long serialVersionUID = 1L;
+    @Getter
     private static final int MAX_CONNECTIONS = 4;
+    @Getter
     private Connection[] connections;
-    private int[] location;
+    @Getter
+    private double[] location;
 
     public Node() {
         connections = new Connection[MAX_CONNECTIONS];
-        location = new int[2];
+        location = new double[2];
     }
 
-    public Node(int[] position) {
+    public Node(double[] point) {
         connections = new Connection[MAX_CONNECTIONS];
-        location = position;
+        location = point;
     }
 
     public void addConnection(Node targetNode, Directions direction) {
@@ -81,9 +85,9 @@ public class Node implements Serializable {
         return null;
     }
 
-    public Connection getConnection(int[] position) {
+    public Connection getConnection(double[] position) {
         for (Connection connection : connections) {
-            if (connection != null && connection.getTargetNode().location == position) {
+            if (connection != null && Arrays.equals(connection.getTargetNode().location, position)) {
                 return connection;
             }
         }
@@ -108,4 +112,18 @@ public class Node implements Serializable {
         connections = ordenado;
     }
 
+
 }
+//    private double[] getLocation( int[] point){
+//        return new double[]{point[0], point[1]};
+//    }
+//    private int[] getLocation( double[] point){
+//        return new int[]{(int) point[0], (int) point[1]};
+//    }
+//    public double[] getLocation(){
+//        return new double[]{location[0], location[1]};
+//    }
+//
+//    public double[] getLocatio(){
+//        return new double[]{location[0], location[1]};
+//    }

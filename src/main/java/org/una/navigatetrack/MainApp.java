@@ -19,5 +19,6 @@ public class MainApp extends Application {
 
         screenManager.loadScreen("/fxml/MapManager.fxml", "Initial View");
 //        screenManager.loadScreen("/fxml/ImplementsLogic.fxml", "Initial View");
+
     }
 }

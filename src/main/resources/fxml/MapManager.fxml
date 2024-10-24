@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
 <StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.navigatetrack.controller.fxml.MapManageController">
    <children>
       <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
@@ -22,14 +21,27 @@
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
-                     <padding>
-                        <Insets right="40.0" />
-                     </padding>
+                     <FlowPane.margin>
+                        <Insets right="1000.0" />
+                     </FlowPane.margin>
                   </Label>
+                  <RadioButton fx:id="editRadioB" mnemonicParsing="false" style="-fx-background-color: #ffffff;" text="Edicion de nodos ">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="addRadioB" mnemonicParsing="false" style="-fx-background-color: #ffffff;" text="agregar nodos">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </RadioButton>
                   <RadioButton fx:id="seleccionarRadioB" mnemonicParsing="false" prefHeight="17.0" prefWidth="236.0" style="-fx-background-color: #ffffff;" text="Selecionar">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
+                     <FlowPane.margin>
+                        <Insets top="10.0" />
+                     </FlowPane.margin>
                   </RadioButton>
                   <RadioButton fx:id="izRadioB" mnemonicParsing="false" prefHeight="17.0" prefWidth="236.0" style="-fx-background-color: #ffffff;" text="selecionar conexion izquierda ">
                      <font>
@@ -51,31 +63,27 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </RadioButton>
-                  <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="218.0" text="Guardar Lista de nodos">
+                  <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" text="Guardar Todo">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <FlowPane.margin>
+                        <Insets top="10.0" />
+                     </FlowPane.margin>
+                  </Button>
+                  <Button fx:id="deleteNodoButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" text="Borrar Nodo Selecionado">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="deleteNodoButton" mnemonicParsing="false" text="Borrar nodo Lista de nodos">
+                  <Button fx:id="deleteConectionButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" text="Borrar conexion selecionada de Nodo">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
+                     <FlowPane.margin>
+                        <Insets bottom="10.0" />
+                     </FlowPane.margin>
                   </Button>
-                  <Button fx:id="deleteConectionButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="218.0" text="Borrar conexion de Nodo">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <RadioButton fx:id="editRadioB" mnemonicParsing="false" style="-fx-background-color: #ffffff;" text="Edicion de nodos ">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </RadioButton>
-                  <RadioButton fx:id="addRadioB" mnemonicParsing="false" style="-fx-background-color: #ffffff;" text="agregar nodos">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </RadioButton>
                   <TextArea fx:id="nodoInfoTextArea" editable="false" prefHeight="245.0" prefWidth="335.0" text="informacion del nodo y conexion&#10;" />
                   <Button fx:id="changeImageB" mnemonicParsing="false" prefHeight="25.0" prefWidth="146.0" text="cambiar imagen">
                      <font>

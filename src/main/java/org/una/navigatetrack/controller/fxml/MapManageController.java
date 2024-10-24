@@ -6,11 +6,11 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import org.una.navigatetrack.manager.DrawerManager;
 import org.una.navigatetrack.manager.NodesDrawerManagers;
 import org.una.navigatetrack.roads.Connection;
 import org.una.navigatetrack.roads.Directions;
 import org.una.navigatetrack.roads.Node;
-import org.una.navigatetrack.manager.DrawerManager;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -20,16 +20,22 @@ import java.util.StringJoiner;
 
 public class MapManageController implements Initializable {
 
-    @FXML    private Pane mapPane, paintPane;
+    @FXML
+    private Pane mapPane, paintPane;
 
-    @FXML    private Label nodoActualLabel;
+    @FXML
+    private Label nodoActualLabel;
 
-    @FXML    private TextArea nodoInfoTextArea;
+    @FXML
+    private TextArea nodoInfoTextArea;
 
-    @FXML    private Button saveButton, deleteNodoButton, deleteConectionButton, changeImageB;
+    @FXML
+    private Button saveButton, deleteNodoButton, deleteConectionButton, changeImageB;
 
-    @FXML    private RadioButton izRadioB, derRadioB, adelanteRadioB, contrarioRadioB, seleccionarRadioB;
-    @FXML    private RadioButton editRadioB, addRadioB;
+    @FXML
+    private RadioButton izRadioB, derRadioB, adelanteRadioB, contrarioRadioB, seleccionarRadioB;
+    @FXML
+    private RadioButton editRadioB, addRadioB;
 
     private boolean change = false;
     private NodesDrawerManagers manager;
@@ -107,7 +113,7 @@ public class MapManageController implements Initializable {
     }
 
     private void handleMouseClick(double x, double y) {
-        int[] point = {(int) x, (int) y};
+        double[] point = {x, y};
         if (addRadioB.isSelected()) {
             manager.createAndDrawNode(point);
         } else if (seleccionarRadioB.isSelected()) {

@@ -51,21 +51,22 @@ public class DrawerManager {
     // drawing figures end
 
     // deleting figures
-    public void removeCircle(int[] point) {
+    public void removeCircle(double[] point) {
         Circle circle = getCircleAt(point);
-        if (circle != null) {
-            removeCircle(circle);
-        }
+        removeCircle(circle);
     }
 
     public void removeCircle(Circle circle) {
         if (circles.remove(circle)) {
             paintPane.getChildren().remove(circle);
+            removeCircle(circle);
+        } else {
+            System.out.println("circle not found");
         }
     }
 
-    public void removeLine(int[] startPoint, int[] endPoint) {
-        lines.removeIf(line -> {
+    public void removeLine(double[] startPoint, double[] endPoint) {
+        boolean flag = lines.removeIf(line -> {
             boolean matches = line.getStartX() == startPoint[0] && line.getStartY() == startPoint[1] &&
                     line.getEndX() == endPoint[0] && line.getEndY() == endPoint[1];
 
@@ -73,6 +74,8 @@ public class DrawerManager {
 
             return matches;
         });
+
+        if (!flag) System.out.println("Line not found");
     }
 
     public void removeLine(Line line) {
@@ -83,7 +86,7 @@ public class DrawerManager {
     // deleting figures end
 
     //gets figure if exist
-    public Circle getCircleAt(int[] point) {
+    public Circle getCircleAt(double[] point) {
         double x = point[0];
         double y = point[1];
         for (Circle circle : circles) {
@@ -95,7 +98,7 @@ public class DrawerManager {
         return null;
     }
 
-    public Line getLineAt(int[] point) {
+    public Line getLineAt(double[] point) {
         double x = point[0];
         double y = point[1];
         for (Line line : lines) {
@@ -107,7 +110,7 @@ public class DrawerManager {
         return null;
     }
 
-    public Line getline(int[] start, int[] end){
+    public Line getline(double[] start, double[] end) {
         return null;//TODO
     }
     //gets figure if exist end

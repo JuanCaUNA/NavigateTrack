@@ -7,8 +7,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import org.una.navigatetrack.manager.NodesDrawerManagers;
 import org.una.navigatetrack.manager.DrawerManager;
+import org.una.navigatetrack.manager.NodesDrawerManagers;
 
 import java.net.URL;
 import java.util.Objects;

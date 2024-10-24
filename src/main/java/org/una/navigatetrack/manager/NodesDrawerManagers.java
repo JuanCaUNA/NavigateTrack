@@ -24,12 +24,12 @@ public class NodesDrawerManagers {
     }
 
     //definition of nodes and connections
-    public void createAndDrawNode(int[] location) {
+    public void createAndDrawNode(double[] location) {
         nodesManager.addNode(location);
         drawNode(nodesManager.getNodeAtLocation(location));
     }
 
-    public void createAndDrawConnection(int[] target, Directions direction) {
+    public void createAndDrawConnection(double[] target, Directions direction) {
         target = getLocationIfExistNodeAt(target);
         if (target == null) return;
         Node fromNode = currentNode;
@@ -55,7 +55,7 @@ public class NodesDrawerManagers {
 
     private void drawNode(Node node, Color color) {
         if (node == null) return;
-        int[] location = node.getLocation();
+        double[] location = node.getLocation();
         drawerManager.drawCircle(location[0], location[1], color);
     }
 
@@ -67,10 +67,10 @@ public class NodesDrawerManagers {
         }
     }
 
-    private void drawConnection(int[] startLocation, Connection connection) {
+    private void drawConnection(double[] startLocation, Connection connection) {
         if (connection == null) return;
 
-        int[] endLocation = connection.getTargetNode().getLocation();
+        double[] endLocation = connection.getTargetNode().getLocation();
         Color color = getDirectionColor(connection.getDirection());
         drawerManager.drawLine(startLocation[0], startLocation[1], endLocation[0], endLocation[1], color);
     }
@@ -78,6 +78,8 @@ public class NodesDrawerManagers {
 
     //delete drawings
     public void deleteAndRemoveCurrentNode() {
+        if (currentNode == null) return;
+
         for (Connection connection : currentNode.getConnections()) {
             removeConnectionVisual(currentNode.getLocation(), connection);
         }
@@ -104,15 +106,15 @@ public class NodesDrawerManagers {
         }
     }
 
-    private void removeConnectionVisual(int[] startLocation, Connection connection) {
+    private void removeConnectionVisual(double[] startLocation, Connection connection) {
         if (connection == null) return;
-        int[] endLocation = connection.getTargetNode().getLocation();
+        double[] endLocation = connection.getTargetNode().getLocation();
         drawerManager.removeLine(startLocation, endLocation);
     }
     //delete drawings end
 
     //current node
-    public void updateCurrentNode(int[] point) {
+    public void updateCurrentNode(double[] point) {
         point = getLocationIfExistNodeAt(point);
 
         if (point == null) return;
@@ -136,7 +138,7 @@ public class NodesDrawerManagers {
     //current node end
 
     //others
-    private int[] getLocationIfExistNodeAt(int[] point) {
+    private double[] getLocationIfExistNodeAt(double[] point) {
         Circle circle = drawerManager.getCircleAt(point);
         if (circle != null) {
             point[0] = (int) circle.getCenterX();

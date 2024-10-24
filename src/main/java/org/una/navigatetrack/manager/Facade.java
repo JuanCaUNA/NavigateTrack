@@ -19,11 +19,11 @@ public class Facade {
     //por definir
 //    void getApproximateLocation();
 
-    public List<Connection> getLineAt(int[] point) {
+    public List<Connection> getLineAt(double[] point) {
         Line line = nodesDrawerManagers.getDrawerManager().getLineAt(point);
 
-        int[] endLocation = {(int) line.getEndX(), (int) line.getEndY()};
-        int[] startLocation = {(int) line.getStartX(), (int) line.getStartY()};
+        double[] endLocation = {line.getEndX(), line.getEndY()};
+        double[] startLocation = {line.getStartX(), line.getStartY()};
 
         Node endNode = nodesDrawerManagers.getNodesManager().getNodeAtLocation(endLocation);
         Node startNode = nodesDrawerManagers.getNodesManager().getNodeAtLocation(startLocation);
@@ -33,7 +33,7 @@ public class Facade {
         return connections;
     }
 
-    public Node getNodeAt(int[] point) {
+    public Node getNodeAt(double[] point) {
         return nodesDrawerManagers.getNodesManager().getNodeAtLocation(point);
     }
 
@@ -44,7 +44,7 @@ public class Facade {
     }
 
 
-    public void setStartNode(int[] point) {
+    public void setStartNode(double[] point) {
         removeStartNode(point);
         startsNode = new Node(point);
         //TODO
@@ -52,7 +52,7 @@ public class Facade {
         //nodesDrawerManager.getDrawer().drawCircle(point[0], point[1], Color.BLUE);
     }
 
-    public void setEndsNode(int[] point) {
+    public void setEndsNode(double[] point) {
         removeEndNode(point);
         endsNode = new Node(point);
         //TODO
@@ -60,13 +60,13 @@ public class Facade {
         //nodesDrawerManager.getDrawer().drawCircle(point[0], point[1], Color.BLUE);
     }
 
-    public void removeStartNode(int[] point) {
+    public void removeStartNode(double[] point) {
         if (startsNode != null) {
             nodesDrawerManagers.getDrawerManager().removeCircle(point);
         }
     }
 
-    public void removeEndNode(int[] point) {
+    public void removeEndNode(double[] point) {
         if (endsNode != null) {
             nodesDrawerManagers.getDrawerManager().removeCircle(point);
         }
