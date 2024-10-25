@@ -1,84 +1,100 @@
 package org.una.navigatetrack.manager;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
-import org.una.navigatetrack.roads.Connection;
+import lombok.Getter;
+import lombok.Setter;
 import org.una.navigatetrack.roads.Node;
 
-import java.util.ArrayList;
-import java.util.List;
-
+@Getter
+@Setter
 public class Facade {
     private final NodesDrawerManagers nodesDrawerManagers;
-    Node startsNode, endsNode;
+    private Node startNode, endNode;
+    private double[] startLine, endLine;
+    private boolean flag;
 
     public Facade(Pane paintPane) {
         nodesDrawerManagers = new NodesDrawerManagers(new DrawerManager(paintPane));
     }
 
-    //por definir
-//    void getApproximateLocation();
-
-    public List<Connection> getLineAt(double[] point) {
-        Line line = nodesDrawerManagers.getDrawerManager().getLineAt(point);
-
-        double[] endLocation = {line.getEndX(), line.getEndY()};
-        double[] startLocation = {line.getStartX(), line.getStartY()};
-
-        Node endNode = nodesDrawerManagers.getNodesManager().getNodeAtLocation(endLocation);
-        Node startNode = nodesDrawerManagers.getNodesManager().getNodeAtLocation(startLocation);
-        List<Connection> connections = new ArrayList<>();
-        connections.add(endNode.getConnection(startLocation));
-        connections.add(startNode.getConnection(endLocation));
-        return connections;
+    public void locateStartNode(double x, double y) {
+        locateNode(startNode, new double[]{x, y});
+    }
+    public void locateEndNode(double x, double y) {
+        locateNode(endNode, new double[]{x, y});
     }
 
-    public Node getNodeAt(double[] point) {
-        return nodesDrawerManagers.getNodesManager().getNodeAtLocation(point);
+    public void locateNode(Node node, double[] location) {
+        double[] array = nodesDrawerManagers.getDrawerManager().getLineAtWithCircle(location);
+        startLine = new double[]{array[0], array[1]};
+        endLine = new double[]{array[2], array[3]};
+        comprobarDireccion(node);
     }
 
-    //separar un drawer para el movimiento -> el movieminto de star node
+    private void comprobarDireccion(Node node) {
+        Node init = nodesDrawerManagers.getNodesManager().getNodeAtLocation(startLine);
+        Node end = nodesDrawerManagers.getNodesManager().getNodeAtLocation(endLine);
+
+        if (init.isConnectedToNode(end)) {
+            node.getConnections()[1].setTargetNode(end);
+            init.changeConnectionIn(end, node);
+        }
+        if (end.isConnectedToNode(init)) {
+            node.getConnections()[1].setTargetNode(init);
+            end.changeConnectionIn(init, node);
+        }
+
+    }
+
+    public void recalcularPosicion(){
+    }
+
+    public void setEndNode(double[] point) {
+        if (endNode != null) {
+            removeNodeVisual(endNode);
+        }
+        endNode = createNode(point);
+    }
+
+    private Node createNode(double[] point) {
+        Node newNode = new Node(point);
+        nodesDrawerManagers.createAndDrawNode(point);
+        return newNode;
+    }
+
+    private void removeNodeVisual(Node node) {
+        nodesDrawerManagers.getDrawerManager().removeCircle(node.getLocation());
+    }
+
     public void deleteRegister() {
-        //TODO separar el resgistro?
-        //end and start node.
+        // Implementar la lógica para eliminar el registro de nodos.
     }
 
-
-    public void setStartNode(double[] point) {
-        removeStartNode(point);
-        startsNode = new Node(point);
-        //TODO
-        nodesDrawerManagers.createAndDrawNode(point);
-        //nodesDrawerManager.getDrawer().drawCircle(point[0], point[1], Color.BLUE);
+    //todo
+    public double[] getPointForStarTNode(double[] point) {
+        startNode = nodesDrawerManagers.getNodesManager().getNodeAtLocation(startLine);
+        return startNode.getLocation();
     }
 
-    public void setEndsNode(double[] point) {
-        removeEndNode(point);
-        endsNode = new Node(point);
-        //TODO
-        nodesDrawerManagers.createAndDrawNode(point);
-        //nodesDrawerManager.getDrawer().drawCircle(point[0], point[1], Color.BLUE);
+    public double[] getPointForEndNode(double[] point) {
+        startNode = nodesDrawerManagers.getNodesManager().getNodeAtLocation(startLine);
+        return startNode.getLocation();
     }
 
-    public void removeStartNode(double[] point) {
-        if (startsNode != null) {
-            nodesDrawerManagers.getDrawerManager().removeCircle(point);
-        }
-    }
+    //otros
+//    public Node getNodeAt(double[] point) {
+//        return nodesDrawerManagers.getNodesManager().getNodeAtLocation(point);
+//    }
 
-    public void removeEndNode(double[] point) {
-        if (endsNode != null) {
-            nodesDrawerManagers.getDrawerManager().removeCircle(point);
-        }
-    }
 
-    //sobre la lista de recorrido
-//    void getRecorrido();
-//    void drawLinesOfRecorrido();
-//    void getPrice();
-//    void getTime();
-//
-//    void setTipeVoyage();
-//    void startVoyage();
-//    void endVoyage();
+    // Métodos a completar según la lógica necesaria.
+    // void getApproximateLocation();
+    // void getRecorrido();
+    // void drawLinesOfRecorrido();
+    // void getPrice();
+    // void getTime();
+    // void setTypeVoyage();
+    // void startVoyage();
+    // void endVoyage();
 }
+

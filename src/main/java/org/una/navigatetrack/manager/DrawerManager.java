@@ -153,6 +153,74 @@ public class DrawerManager {
         double dy = y2 - y1;
         return dx * dx + dy * dy;
     }
+
+
+    // metodos nuevos para obtener ubicaciones
+    public double[] getLineAtWithCircle(double[] circleCenter) {
+        double radius = CIRCLE_RADIUS + 2; // Aumenta el radio en 2
+        for (Line line : lines) {
+            double distance = pointToLineDistance(
+                    line.getStartX(), line.getStartY(),
+                    line.getEndX(), line.getEndY(),
+                    circleCenter[0], circleCenter[1]
+            );
+
+            // Comprueba si la distancia al círculo es menor o igual al nuevo radio
+            if (distance <= radius) {
+                double[] intersection = calculateIntersection(line, circleCenter, radius);
+                if (intersection != null) {
+                    return new double[]{
+                            line.getStartX(), line.getStartY(),
+                            line.getEndX(), line.getEndY(),
+                            intersection[0], intersection[1]
+                    };
+                }
+            }
+        }
+        return null; // Si no hay contacto
+    }
+
+    private double[] calculateIntersection(Line line, double[] circleCenter, double radius) {
+        // Implementación para calcular el punto de intersección entre la línea y el círculo
+        double x1 = line.getStartX();
+        double y1 = line.getStartY();
+        double x2 = line.getEndX();
+        double y2 = line.getEndY();
+        double cx = circleCenter[0];
+        double cy = circleCenter[1];
+
+        double dx = x2 - x1;
+        double dy = y2 - y1;
+        double A = dx * dx + dy * dy;
+        double B = 2 * (dx * (x1 - cx) + dy * (y1 - cy));
+        double C = (x1 - cx) * (x1 - cx) + (y1 - cy) * (y1 - cy) - radius * radius;
+
+        double discriminant = B * B - 4 * A * C;
+
+        if (discriminant < 0) {
+            return null; // No hay intersección
+        } else {
+            // Calculamos las intersecciones
+            double t1 = (-B - Math.sqrt(discriminant)) / (2 * A);
+            double t2 = (-B + Math.sqrt(discriminant)) / (2 * A);
+
+            // Verificamos si las intersecciones están en el segmento de la línea
+            double[] intersection = new double[2];
+
+            if (t1 >= 0 && t1 <= 1) {
+                intersection[0] = x1 + t1 * dx;
+                intersection[1] = y1 + t1 * dy;
+                return intersection; // Retorna la primera intersección válida
+            } else if (t2 >= 0 && t2 <= 1) {
+                intersection[0] = x1 + t2 * dx;
+                intersection[1] = y1 + t2 * dy;
+                return intersection; // Retorna la segunda intersección válida
+            }
+        }
+
+        return null; // Si no se encuentra una intersección válida
+    }
+
     // logic operations end
 }
 

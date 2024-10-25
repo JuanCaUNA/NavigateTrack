@@ -1,94 +1,186 @@
-package org.una.navigatetrack.roads;
-
-import java.util.*;
-
-public class Graph {
-    private final List<Node> nodes;
-
-    public Graph() {
-        nodes = new ArrayList<>();
-    }
-
-    public void addNode(Node node) {
-        nodes.add(node);
-    }
-
-    public List<Node> getNodes() {
-        return nodes;
-    }
-
-    public List<Connection> getConnections(Node node) {
-        List<Connection> connections = new ArrayList<>();
-        for (Connection connection : node.getConnections()) {
-            if (connection != null) {
-                connections.add(connection);
-            }
-        }
-        return connections;
-    }
-
-    public Map<Node, Double> dijkstra(Node start) {
-        Map<Node, Double> distances = new HashMap<>();
-        PriorityQueue<Node> priorityQueue = new PriorityQueue<>(Comparator.comparing(distances::get));
-        Set<Node> visited = new HashSet<>();
-
-        for (Node node : nodes) {
-            distances.put(node, Double.MAX_VALUE);
-        }
-        distances.put(start, 0.0);
-        priorityQueue.add(start);
-
-        while (!priorityQueue.isEmpty()) {
-            Node currentNode = priorityQueue.poll();
-            if (!visited.add(currentNode)) continue;
-
-            for (Connection connection : getConnections(currentNode)) {
-                if (connection.canAccess()) {
-                    Node targetNode = connection.getTargetNode();
-                    double newDist = distances.get(currentNode) + connection.getEffectiveWeight();
-                    if (newDist < distances.get(targetNode)) {
-                        distances.put(targetNode, newDist);
-                        priorityQueue.add(targetNode);
-                    }
-                }
-            }
-        }
-        return distances;
-    }
-
-    public void floydWarshall() {
-        int size = nodes.size();
-        double[][] distanceMatrix = new double[size][size];
-
-        // Inicializa la matriz
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if (i == j) {
-                    distanceMatrix[i][j] = 0;
-                } else {
-                    distanceMatrix[i][j] = Double.MAX_VALUE; // o un valor grande
-                }
-            }
-        }
-
-        // Llena la matriz con los pesos de las conexiones
-        for (int i = 0; i < size; i++) {
-            Node node = nodes.get(i);
-            for (Connection connection : getConnections(node)) {
-                int targetIndex = nodes.indexOf(connection.getTargetNode());
-                distanceMatrix[i][targetIndex] = connection.getEffectiveWeight();
-            }
-        }
-
-        // Aplica Floyd-Warshall
-        for (int k = 0; k < size; k++) {
-            for (int i = 0; i < size; i++) {
-                for (int j = 0; j < size; j++) {
-                    if (distanceMatrix[i][k] + distanceMatrix[k][j] < distanceMatrix[i][j]) {
-                        distanceMatrix[i][j] = distanceMatrix[i][k] + distanceMatrix[k][j];
-                    }
-                }
-            }
-        }
-    }
-}
+//package org.una.navigatetrack.roads;
+//
+//import java.util.*;
+//
+//// introduccion esta clase se encarga de los tipos de recorridos y devolver la lista de resultado. ayudaria tener un indide para saber por cual nodo esta durante el recorrido
+//// se va a basar en el peso de los nodos
+//public class ?? { que nombre uso
+//    private final List<Node> nodes;
+//
+//    public Graph() {
+//        nodes = new ArrayList<>();
+//    }
+//
+//    public List<Node> getNodes() {
+//        return nodes;
+//    }
+//
+//    public Map<Node, Double> dijkstra(Node start) {    }
+//    floydWarshall() {    }
+//}
+////clase con la que trabaja:
+///*
+//@Getter
+//@Setter
+//public class Node implements Serializable {
+//    @Serial
+//    private static final long serialVersionUID = 1L;
+//
+//    private static final int MAX_CONNECTIONS = 4;
+//    private Connection[] connections;
+//    private double[] location;
+//
+//    public Node() {
+//        connections = new Connection[MAX_CONNECTIONS];
+//        location = new double[2];
+//    }
+//
+//    public Node(double[] point) {
+//        connections = new Connection[MAX_CONNECTIONS];
+//        location = point;
+//    }
+//
+//    public void addConnection(Node targetNode, Directions direction) {
+//        for (Connection value : connections) {
+//            if (value != null && value.getDirection() == direction) {
+//                value.setTargetNode(targetNode);
+//                value.setWeight(calculateDistance(targetNode));
+//                return;
+//            }
+//        }
+//
+//        for (int i = 0; i < connections.length; i++) {
+//            if (connections[i] == null) {
+//                double weight = calculateDistance(targetNode);
+//                Connection connection = new Connection(targetNode, (int) weight, direction);
+//                connections[i] = connection;
+//                return;
+//            }
+//        }
+//    }
+//
+//    public int calculateDistance(Node other) {
+//        return (int) Math.sqrt(Math.pow(location[0] - other.location[0], 2) + Math.pow(location[1] - other.location[1], 2));
+//    }
+//
+//    public void deleteConnection(Directions direction) {
+//        for (int i = 0; i < connections.length; i++) {
+//            if (connections[i] != null && connections[i].getDirection() == direction) {
+//                connections[i] = null;
+//                return; // Agregué un return para salir del método después de borrar
+//            }
+//        }
+//    }
+//
+//    public Node getTargetNode(Directions direction) {
+//        for (Connection connection : connections) {
+//            if (connection != null && connection.getDirection() == direction) {
+//                return connection.getTargetNode();
+//            }
+//        }
+//        return null;
+//    }
+//
+//    public Connection[] getConnections(Node startNode) {
+//        return Arrays.stream(connections)
+//                .filter(conn -> conn != null && conn.getTargetNode() != startNode)
+//                .toArray(Connection[]::new);
+//    }
+//
+//    public Connection getConnection(Directions direction) {
+//        for (Connection connection : connections) {
+//            if (connection != null && connection.getDirection() == direction) {
+//                return connection;
+//            }
+//        }
+//        return null;
+//    }
+//
+//    public Connection getConnection(double[] position) {
+//        for (Connection connection : connections) {
+//            if (connection != null && Arrays.equals(connection.getTargetNode().location, position)) {
+//                return connection;
+//            }
+//        }
+//        return null;
+//    }
+//
+//    //TODO
+//    public void ordenar() {
+//        Connection[] ordenado = new Connection[MAX_CONNECTIONS];
+//
+//        for (Connection connection : connections) {
+//            if (connection != null) {
+//                switch (connection.getDirection()) {
+//                    case IZQUIERDA -> ordenado[0] = connection;
+//                    case ADELANTE -> ordenado[1] = connection;
+//                    case DERECHA -> ordenado[2] = connection;
+//                    case CONTRARIO -> ordenado[3] = connection;
+//                }
+//            }
+//        }
+//        connections = ordenado;
+//    }
+//
+//    public boolean isConnectionsEmpty(){
+//        for (Connection connection : connections) {
+//            if (connection != null) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+//}
+//
+// */
+///*
+//
+//@Getter
+//@Setter
+//public class Connection implements Serializable {
+//    @Serial
+//    private static final long serialVersionUID = 1L;
+//
+//    private static final Map<String, Integer> TRAFFIC_MULTIPLIER = Map.of(
+//            "normal", 1,
+//            "moderado", 2,
+//            "lento", 3
+//    );
+//
+//    private Node targetNode; // Nodo de destino
+//    private int weight; // Peso de la ruta (longitud/costo)
+//    private boolean isBlocked; // Indica si la ruta está bloqueada
+//    private String trafficCondition; // Estado de tráfico ("normal", "moderado", "lento")
+//    private Directions direction; // Dirección de la conexión
+//
+//    public Connection(Node targetNode, int weight, Directions direction) {
+//        this.targetNode = targetNode;
+//        this.weight = weight;
+//        this.isBlocked = false;
+//        this.trafficCondition = "normal";
+//        this.direction = direction;
+//    }
+//
+//    public void blockRoute() {
+//        isBlocked = true;
+//    }
+//
+//    public void unblockRoute() {
+//        isBlocked = false;
+//    }
+//
+//    public boolean canAccess() {
+//        return !isBlocked; // Acceso permitido solo si no está bloqueada
+//    }
+//
+//    public int getEffectiveWeight() {
+//        return weight * TRAFFIC_MULTIPLIER.getOrDefault(trafficCondition, 1);
+//    }
+//
+//    public double calculateTravelTime() {
+//        return getEffectiveWeight() / 10.0; // Ajustar según sea necesario
+//    }
+//}
+//
+//
+//*/

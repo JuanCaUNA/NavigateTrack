@@ -6,12 +6,15 @@ import lombok.Setter;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Optional;
 
 @Getter
 @Setter
 public class Node implements Serializable {
+
     @Serial
     private static final long serialVersionUID = 1L;
+    private int ID;
 
     private static final int MAX_CONNECTIONS = 4;
     private Connection[] connections;
@@ -30,7 +33,8 @@ public class Node implements Serializable {
     public void addConnection(Node targetNode, Directions direction) {
         for (Connection value : connections) {
             if (value != null && value.getDirection() == direction) {
-                value.setTargetNode(targetNode);
+                value.setStartNodeID(ID);
+                value.setTargetNodeID(targetNode.getID());
                 value.setWeight(calculateDistance(targetNode));
                 return;
             }
@@ -54,7 +58,7 @@ public class Node implements Serializable {
         for (int i = 0; i < connections.length; i++) {
             if (connections[i] != null && connections[i].getDirection() == direction) {
                 connections[i] = null;
-                return; // Agregué un return para salir del método después de borrar
+                return;
             }
         }
     }
@@ -70,7 +74,7 @@ public class Node implements Serializable {
 
     public Connection[] getConnections(Node startNode) {
         return Arrays.stream(connections)
-                .filter(conn -> conn != null && conn.getTargetNode() != startNode)
+                .filter(conn -> conn != null && conn.getTargetNodeID() != startNode.getID())
                 .toArray(Connection[]::new);
     }
 
@@ -109,13 +113,47 @@ public class Node implements Serializable {
         connections = ordenado;
     }
 
-    public boolean isConnectionsEmpty(){
+    public boolean isConnectionsEmpty() {
         for (Connection connection : connections) {
             if (connection != null) {
                 return false;
             }
         }
         return true;
+    }
+
+    public boolean isConnectedToNode(Node node) {
+        for (Connection connection : connections) {
+            if (connection != null) {
+                if (connection.getTargetNode() == node) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public Connection getConnectionInNode(Node node) {
+        for (Connection connection : connections) {
+            if (connection != null) {
+                if (connection.getTargetNode() == node) {
+                    return connection;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void changeConnectionIn(Node remplaze, Node toNode) {
+        getConnectionInNode(remplaze).setTargetNodeID(toNode.getID());
+    }
+
+    public Optional<Node> searchAndGetNode(int nodeID) {
+        return ListNodes.findById(ID);
+    }
+
+    public Node getIndexAt(int ID) {
+        return ListNodes.getListNodes().get(ID);
     }
 }
 

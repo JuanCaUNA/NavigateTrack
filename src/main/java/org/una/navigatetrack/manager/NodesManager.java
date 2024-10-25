@@ -4,17 +4,19 @@ import lombok.Getter;
 import org.una.navigatetrack.manager.storage.StorageManager;
 import org.una.navigatetrack.roads.Connection;
 import org.una.navigatetrack.roads.Directions;
+import org.una.navigatetrack.roads.ListNodes;
 import org.una.navigatetrack.roads.Node;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class NodesManager {
     private final StorageManager<List<Node>> nodesStorage = new StorageManager<>("src/main/resources/listNodes/", "listNodes.data");
 
     @Getter
-    private final List<Node> listNodes = new ArrayList<>();
+    private List<Node> listNodes = new ArrayList<>();
 
     public NodesManager() {
         readNodesFromFile();
@@ -23,7 +25,9 @@ public class NodesManager {
     //to all list
     public void readNodesFromFile() {
         List<Node> loadedNodes = nodesStorage.read();
-        listNodes.addAll(loadedNodes);
+        ListNodes.setListNodes(loadedNodes);
+
+        listNodes = ListNodes.getListNodes();
     }
 
     public void updateNodesToFile() {
@@ -86,5 +90,12 @@ public class NodesManager {
         }
     }
     //elements of Connection end
-}
 
+    public Optional<Node> searchAndGetNode(int nodeID) {
+        return ListNodes.findById(nodeID);
+    }
+
+    public Node getIndexAt(int nodeID) {
+        return ListNodes.getListNodes().get(nodeID);
+    }
+}

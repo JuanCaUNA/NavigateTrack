@@ -6,6 +6,7 @@ import lombok.Setter;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Map;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -19,18 +20,24 @@ public class Connection implements Serializable {
             "lento", 3
     );
 
-    private Node targetNode; // Nodo de destino
+    private int startNodeID;
+    private int targetNodeID; // Nodo de destino
+
     private int weight; // Peso de la ruta (longitud/costo)
     private boolean isBlocked; // Indica si la ruta está bloqueada
     private String trafficCondition; // Estado de tráfico ("normal", "moderado", "lento")
     private Directions direction; // Dirección de la conexión
 
     public Connection(Node targetNode, int weight, Directions direction) {
-        this.targetNode = targetNode;
+        this.targetNodeID = targetNode.getID();
         this.weight = weight;
         this.isBlocked = false;
         this.trafficCondition = "normal";
         this.direction = direction;
+    }
+
+    public Connection() {
+
     }
 
     public void blockRoute() {
@@ -42,7 +49,7 @@ public class Connection implements Serializable {
     }
 
     public boolean canAccess() {
-        return !isBlocked; // Acceso permitido solo si no está bloqueada
+        return !isBlocked;
     }
 
     public int getEffectiveWeight() {
@@ -50,6 +57,30 @@ public class Connection implements Serializable {
     }
 
     public double calculateTravelTime() {
-        return getEffectiveWeight() / 10.0; // Ajustar según sea necesario
+        return getEffectiveWeight() / 10.0;
+    }
+
+    public void setTargetNode(Node targetNode) {
+        targetNodeID = targetNode.getID();
+    }
+
+    public void setStartNode(Node startNode) {
+        this.startNodeID = startNode.getID();
+    }
+
+    public Node getStartNode() {
+        return getIndexAt(startNodeID);
+    }
+
+    public Node getTargetNode() {
+        return getIndexAt(targetNodeID);
+    }
+
+    public Optional<Node> searchAndGetNode(int nodeID) {
+        return ListNodes.findById(nodeID);
+    }
+
+    public Node getIndexAt(int ID) {
+        return ListNodes.getListNodes().get(ID);
     }
 }
