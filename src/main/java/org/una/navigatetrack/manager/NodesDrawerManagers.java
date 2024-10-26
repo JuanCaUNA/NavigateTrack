@@ -8,6 +8,8 @@ import org.una.navigatetrack.roads.Directions;
 import org.una.navigatetrack.roads.Node;
 import org.una.navigatetrack.utils.Singleton;
 
+import java.util.Optional;
+
 @Getter
 public class NodesDrawerManagers {
     private final DrawerManager drawerManager;
@@ -37,7 +39,7 @@ public class NodesDrawerManagers {
         Node fromNode = currentNode;
         Node toNode = nodesManager.getNodeAtLocation(target);
         if (toNode != null && fromNode != null) {
-            nodesManager.addConnection(fromNode, toNode, direction);
+            nodesManager.addConnection(fromNode.getID(), toNode.getID(), direction);
             drawConnection(fromNode.getLocation(), fromNode.getConnection(direction));
         }
     }
@@ -45,9 +47,15 @@ public class NodesDrawerManagers {
 
     // Drawings
     public void drawAllNodesAndConnections() {
-        for (Node node : nodesManager.getListNodes()) {
-            drawNode(node);
-            drawConnections(node);
+        boolean flag = true;
+        for (int i = 0; flag; i++) {
+            Optional<Node> node = nodesManager.searchAndGetNode(i);
+            if (node.isEmpty()) {
+                flag = false;
+            } else {
+                drawNode(node.get());
+                drawConnections(node.get());
+            }
         }
     }
 
@@ -66,7 +74,7 @@ public class NodesDrawerManagers {
 
         for (Connection connection : node.getConnections(node)) {
             if (connection != null) {
-                drawConnection(node.getLocation(), connection);
+                drawConnection(node.getLocation(), connection);//obtener direccion  la conexion
             }
         }
     }
@@ -85,12 +93,12 @@ public class NodesDrawerManagers {
         if (currentNode == null) return;
 
         // Remove visual connections to the current node before deletion
-        for (Connection connection : currentNode.getConnections()) {
+        for (Connection connection : currentNode.getAllConnections()) {//actualizar
             removeConnectionVisual(currentNode.getLocation(), connection);
         }
 
         drawerManager.removeCircle(currentNode.getLocation()); // Remove visual representation of the node
-        nodesManager.deleteNode(currentNode); // Remove node from manager
+        nodesManager.deleteNode(currentNode.getID()); // Remove node from manager
         currentNode = null; // Clear the current node
     }
 
@@ -104,12 +112,12 @@ public class NodesDrawerManagers {
     public void removeConnectionAndVisual(Node node, Directions direction) {
         if (node == null) return;
 
-        Connection connection = nodesManager.getConnectionInDirection(node, direction);
+        Connection connection = nodesManager.getConnectionInDirection(node.getID(), direction);
         if (connection != null) {
             removeConnectionVisual(node.getLocation(), connection);
         }
 
-        nodesManager.removeConnection(node, direction); // Remove connection from the manager
+        nodesManager.removeConnection(node.getID(), direction); // Remove connection from the manager
     }
 
     private void removeConnectionVisual(double[] startLocation, Connection connection) {

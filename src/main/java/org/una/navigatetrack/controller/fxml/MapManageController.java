@@ -13,10 +13,7 @@ import org.una.navigatetrack.roads.Directions;
 import org.una.navigatetrack.roads.Node;
 
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.ResourceBundle;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class MapManageController implements Initializable {
 
@@ -143,17 +140,19 @@ public class MapManageController implements Initializable {
     }
 
     private String getNodeConnectionsInfo(Node node) {
-        if (node.getConnections() == null || node.isConnectionsEmpty()) {
+        List<Connection> connections = node.getAllConnections(); // Obtener conexiones como lista
+
+        if (connections == null || connections.isEmpty()) {
             return "No hay conexiones disponibles."; // Mensaje si no hay conexiones
         }
 
         StringJoiner info = new StringJoiner("\n", "Conexiones:\n", "");
-        for (Connection connection : node.getConnections()) {
+        for (Connection connection : connections) {
             if (connection != null) {
                 info.add(String.format(
-                        "Destino: %s, Peso: %d, Bloqueada: %s, Estado de Tráfico: %s, Dirección: %s",
+                        "Destino: %s, Peso: %.2f, Bloqueada: %s, Estado de Tráfico: %s, Dirección: %s",
                         Arrays.toString(connection.getTargetNode().getLocation()),
-                        connection.getWeight(),
+                        connection.getWeight(), // Cambiado a double
                         connection.isBlocked() ? "Sí" : "No",
                         connection.getTrafficCondition(),
                         connection.getDirection()

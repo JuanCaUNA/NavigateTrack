@@ -1,101 +1,100 @@
 package org.una.navigatetrack.manager;
 
-import lombok.Getter;
 import org.una.navigatetrack.manager.storage.StorageManager;
 import org.una.navigatetrack.roads.Connection;
 import org.una.navigatetrack.roads.Directions;
 import org.una.navigatetrack.roads.ListNodes;
 import org.una.navigatetrack.roads.Node;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class NodesManager {
-    private final StorageManager<List<Node>> nodesStorage = new StorageManager<>("src/main/resources/listNodes/", "listNodes.data");
-
-    @Getter
-    private List<Node> listNodes = new ArrayList<>();
+    private final StorageManager<Map<Integer, Node>> nodesStorage = new StorageManager<>("src/main/resources/listNodes/", "listNodes.data");
 
     public NodesManager() {
         readNodesFromFile();
     }
 
-    //to all list
+    // Cargar nodos desde el archivo y almacenarlos en ListNodes
     public void readNodesFromFile() {
-        List<Node> loadedNodes = nodesStorage.read();
-        ListNodes.setListNodes(loadedNodes);
-
-        listNodes = ListNodes.getListNodes();
+        Map<Integer, Node> loadedNodes = nodesStorage.read();
+        ListNodes.setListNodes(loadedNodes); // Agregar nodos directamente al Map
     }
 
+    // Guardar los nodos en el archivo
     public void updateNodesToFile() {
-        nodesStorage.write(listNodes);
-    }
-    //to all list end
-
-    //element of list
-    public void deleteNode(Node node) {
-        if (node == null) return;
-        if (!listNodes.remove(node)) {
-            System.out.println("Node not found: " + Arrays.toString(node.getLocation()));
-        }
+        nodesStorage.write(ListNodes.getNodesMap()); // Guardar directamente desde ListNodes
     }
 
+    // Eliminar un nodo
+    public void deleteNode(int nodeID) {
+        Optional<Node> nodeOpt = ListNodes.findById(nodeID);
+        nodeOpt.ifPresentOrElse(
+                node -> {
+                    ListNodes.removeById(nodeID);
+                    // No es necesario actualizar una lista local, ya no existe
+                },
+                () -> System.out.println("Node not found with ID: " + nodeID)
+        );
+    }
+
+    // Añadir un nodo
     public void addNode(double[] location) {
-        listNodes.add(new Node(location));
+        Node newNode = new Node(location);
+        ListNodes.addNode(newNode); // Agregar nodo a ListNodes
     }
 
+    // Obtener un nodo en una ubicación específica
     public Node getNodeAtLocation(double[] location) {
-        return listNodes.stream()
+        return ListNodes.getNodesMap().values().stream()
                 .filter(node -> Arrays.equals(node.getLocation(), location))
                 .findFirst()
                 .orElse(null);
     }
-    //element of list end
 
-    //element of node
-    public void addConnection(Node currentNode, Node toNode, Directions direction) {
-        if (currentNode != null) {
-            currentNode.addConnection(toNode, direction);
+    // Añadir una conexión
+    public void addConnection(int currentNodeID, int toNodeID, Directions direction) {
+        Optional<Node> currentNodeOpt = ListNodes.findById(currentNodeID);
+        Optional<Node> toNodeOpt = ListNodes.findById(toNodeID);
+
+        if (currentNodeOpt.isPresent() && toNodeOpt.isPresent()) {
+            currentNodeOpt.get().addConnection(toNodeOpt.get(), direction);
         }
     }
 
-    public void removeConnection(Node node, Directions direction) {
-        if (node != null) {
-            node.deleteConnection(direction);
-        }
-    }
-    //element of node end
-
-    //elements of Connection
-    public Connection getConnectionInDirection(Node node, Directions direction) {
-        return node != null ? node.getConnection(direction) : null;
+    // Eliminar una conexión
+    public void removeConnection(int nodeID, Directions direction) {
+        Optional<Node> nodeOpt = ListNodes.findById(nodeID);
+        nodeOpt.ifPresent(node -> node.deleteConnection(direction));
     }
 
-    // block route
-    public void blockConnection(Node node, Directions direction) {
-        Connection connection = getConnectionInDirection(node, direction);
+    // Obtener conexión en una dirección específica
+    public Connection getConnectionInDirection(int nodeID, Directions direction) {
+        return ListNodes.findById(nodeID)
+                .map(node -> node.getConnection(direction))
+                .orElse(null);
+    }
+
+    // Bloquear ruta
+    public void blockConnection(int nodeID, Directions direction) {
+        Connection connection = getConnectionInDirection(nodeID, direction);
         if (connection != null) {
             connection.blockRoute();
         }
     }
 
-    // unlock a route
-    public void unblockConnection(Node node, Directions direction) {
-        Connection connection = getConnectionInDirection(node, direction);
+    // Desbloquear ruta
+    public void unblockConnection(int nodeID, Directions direction) {
+        Connection connection = getConnectionInDirection(nodeID, direction);
         if (connection != null) {
             connection.unblockRoute();
         }
     }
-    //elements of Connection end
 
+    // Buscar y obtener un nodo
     public Optional<Node> searchAndGetNode(int nodeID) {
         return ListNodes.findById(nodeID);
-    }
-
-    public Node getIndexAt(int nodeID) {
-        return ListNodes.getListNodes().get(nodeID);
     }
 }

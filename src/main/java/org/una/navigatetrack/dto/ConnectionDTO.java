@@ -25,7 +25,7 @@ public class ConnectionDTO implements Serializable {
     public ConnectionDTO(Connection connection) {
         if (connection != null) {
             this.targetNodeId = connection.getTargetNode() != null ? connection.getTargetNode().getLocation() : null;
-            this.weight = connection.getWeight();
+            this.weight = (int) connection.getWeight();
             this.isBlocked = connection.isBlocked();
             this.trafficCondition = connection.getTrafficCondition();
             this.direction = connection.getDirection();

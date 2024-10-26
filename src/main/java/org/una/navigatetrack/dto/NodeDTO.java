@@ -22,45 +22,50 @@ public class NodeDTO implements Serializable {
     private double[] location;
     private double[] id; // ID como un array
 
+    public NodeDTO() {
+    }
+
     public NodeDTO(Node node) {
         this.location = node.getLocation();
         this.id = node.getLocation();
 
-        if (node.getConnections() != null) {
-            for (int i = 0; i < Math.min(node.getConnections().length, MAX_CONNECTIONS); i++) {
-                if (node.getConnections()[i] != null) {
-                    connectionsDTO.add(new ConnectionDTO(node.getConnections()[i]));
-                }
-            }
-        }
+//        if (node.getConnections() != null) {
+//            for (int i = 0; i < Math.min(node.getConnections().length, MAX_CONNECTIONS); i++) {
+//                if (node.getConnections()[i] != null) {
+//                    connectionsDTO.add(new ConnectionDTO(node.getConnections()[i]));
+//                }
+//            }
+//        }
 
     }
 
-    public Node toNode() {
-        Node node = new Node();
-        node.setLocation(this.location);
-//        node.setId(this.id); // Asignar el ID
-
+    public Node toNode(int id) {
         Connection[] connections = connectionsDTO.stream()
                 .map(ConnectionDTO::toConnection)
                 .toArray(Connection[]::new);
-        node.setConnections(connections);
+
+        Node node = new Node();
+        node.setID(id);
+        node.setLocation(this.location);
+
+        for (Connection connection : connections) {
+            if (connection != null) {
+                node.addConnection(connection.getTargetNode(), connection.getDirection());
+            }
+        }
+
         return node;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("YourClassName{") // Reemplaza 'YourClassName' con el nombre real de la clase
-                .append("MAX_CONNECTIONS=").append(MAX_CONNECTIONS)
-                .append(", connectionsDTO=").append(connectionsDTO)
-                .append(", location=").append(Arrays.toString(location))
-                .append(", id=").append(Arrays.toString(id))
-                .append('}');
-        return sb.toString();
+        // Reemplaza 'YourClassName' con el nombre real de la clase
+        return "YourClassName{" + // Reemplaza 'YourClassName' con el nombre real de la clase
+                "MAX_CONNECTIONS=" + MAX_CONNECTIONS +
+                ", connectionsDTO=" + connectionsDTO +
+                ", location=" + Arrays.toString(location) +
+                ", id=" + Arrays.toString(id) +
+                '}';
     }
 
 }
-
-
-

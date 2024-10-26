@@ -20,33 +20,43 @@ public class Facade {
     public void locateStartNode(double x, double y) {
         locateNode(startNode, new double[]{x, y});
     }
+
     public void locateEndNode(double x, double y) {
         locateNode(endNode, new double[]{x, y});
     }
 
-    public void locateNode(Node node, double[] location) {
+    private void locateNode(Node node, double[] location) {
+        if (node == null) {
+            throw new IllegalArgumentException("Node cannot be null");
+        }
         double[] array = nodesDrawerManagers.getDrawerManager().getLineAtWithCircle(location);
         startLine = new double[]{array[0], array[1]};
         endLine = new double[]{array[2], array[3]};
-        comprobarDireccion(node);
+        checkDirection(node);
     }
 
-    private void comprobarDireccion(Node node) {
+    public double[] getPointForNode(boolean isStartNode) {
+        Node targetNode = isStartNode ? startNode : endNode;
+        return targetNode != null ? targetNode.getLocation() : null;
+    }
+
+
+    private void checkDirection(Node node) {
         Node init = nodesDrawerManagers.getNodesManager().getNodeAtLocation(startLine);
         Node end = nodesDrawerManagers.getNodesManager().getNodeAtLocation(endLine);
 
         if (init.isConnectedToNode(end)) {
-            node.getConnections()[1].setTargetNode(end);
+            node.addConnection(end, init.getDirConnectedToNode(end));
             init.changeConnectionIn(end, node);
         }
         if (end.isConnectedToNode(init)) {
-            node.getConnections()[1].setTargetNode(init);
+            node.addConnection(init, end.getDirConnectedToNode(init));
             end.changeConnectionIn(init, node);
         }
 
     }
 
-    public void recalcularPosicion(){
+    public void recalcularPosicion() {
     }
 
     public void setEndNode(double[] point) {
@@ -81,13 +91,13 @@ public class Facade {
         return startNode.getLocation();
     }
 
-    //otros
+    //otros no borrar
 //    public Node getNodeAt(double[] point) {
 //        return nodesDrawerManagers.getNodesManager().getNodeAtLocation(point);
 //    }
 
 
-    // Métodos a completar según la lógica necesaria.
+    // Métodos que faltan hacer a completar según la lógica necesaria. no borrar
     // void getApproximateLocation();
     // void getRecorrido();
     // void drawLinesOfRecorrido();

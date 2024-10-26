@@ -5,153 +5,125 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
-@Getter
-@Setter
 public class Node implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
+
+    @Getter
+    @Setter
     private int ID;
 
-    private static final int MAX_CONNECTIONS = 4;
-    private Connection[] connections;
+    @Getter
+    @Setter
     private double[] location;
 
+    private final Map<Directions, Connection> connections;
+
+
     public Node() {
-        connections = new Connection[MAX_CONNECTIONS];
+        connections = new EnumMap<>(Directions.class);
         location = new double[2];
     }
 
     public Node(double[] point) {
-        connections = new Connection[MAX_CONNECTIONS];
+        connections = new EnumMap<>(Directions.class);
         location = point;
     }
 
+    // Add a connection to another node
     public void addConnection(Node targetNode, Directions direction) {
-        for (Connection value : connections) {
-            if (value != null && value.getDirection() == direction) {
-                value.setStartNodeID(ID);
-                value.setTargetNodeID(targetNode.getID());
-                value.setWeight(calculateDistance(targetNode));
-                return;
-            }
-        }
-
-        for (int i = 0; i < connections.length; i++) {
-            if (connections[i] == null) {
-                double weight = calculateDistance(targetNode);
-                Connection connection = new Connection(targetNode, (int) weight, direction);
-                connections[i] = connection;
-                return;
-            }
+        Connection connection = connections.get(direction);
+        if (connection != null) {
+            connection.setStartNodeID(ID);
+            connection.setTargetNodeID(targetNode.getID());
+            connection.setWeight(calculateDistance(targetNode));
+        } else {
+            double weight = calculateDistance(targetNode);
+            connections.put(direction, new Connection(targetNode, (int) weight, direction));
         }
     }
 
+    // Calculate distance to another node
     public int calculateDistance(Node other) {
         return (int) Math.sqrt(Math.pow(location[0] - other.location[0], 2) + Math.pow(location[1] - other.location[1], 2));
     }
 
+    // Delete connection based on direction
     public void deleteConnection(Directions direction) {
-        for (int i = 0; i < connections.length; i++) {
-            if (connections[i] != null && connections[i].getDirection() == direction) {
-                connections[i] = null;
-                return;
-            }
-        }
+        connections.remove(direction);
     }
 
+    // Get target node based on direction
     public Node getTargetNode(Directions direction) {
-        for (Connection connection : connections) {
-            if (connection != null && connection.getDirection() == direction) {
-                return connection.getTargetNode();
-            }
-        }
-        return null;
+        Connection connection = connections.get(direction);
+        return connection != null ? connection.getTargetNode() : null;
     }
 
-    public Connection[] getConnections(Node startNode) {
-        return Arrays.stream(connections)
-                .filter(conn -> conn != null && conn.getTargetNodeID() != startNode.getID())
-                .toArray(Connection[]::new);
+    // Get connections excluding a specific node
+    public List<Connection> getAllConnections() {
+        return new ArrayList<>(connections.values());
     }
 
+    public List<Connection> getConnections(Node startNode) {
+        return connections.values().stream()
+                .filter(conn -> conn.getTargetNodeID() != startNode.getID() && !conn.isBlocked())
+                .sorted(Comparator.comparingDouble(Connection::getEffectiveWeight)) // Ordenar por peso final
+                .collect(Collectors.toList());
+    }
+
+    // Get connection based on direction
     public Connection getConnection(Directions direction) {
-        for (Connection connection : connections) {
-            if (connection != null && connection.getDirection() == direction) {
-                return connection;
-            }
-        }
-        return null;
+        return connections.get(direction);
     }
 
+    // Get connection based on target position
     public Connection getConnection(double[] position) {
-        for (Connection connection : connections) {
-            if (connection != null && Arrays.equals(connection.getTargetNode().location, position)) {
-                return connection;
-            }
-        }
-        return null;
+        return connections.values().stream()
+                .filter(conn -> Arrays.equals(conn.getTargetNode().location, position))
+                .findFirst()
+                .orElse(null);
     }
 
-    //TODO
-    public void ordenar() {
-        Connection[] ordenado = new Connection[MAX_CONNECTIONS];
-
-        for (Connection connection : connections) {
-            if (connection != null) {
-                switch (connection.getDirection()) {
-                    case IZQUIERDA -> ordenado[0] = connection;
-                    case ADELANTE -> ordenado[1] = connection;
-                    case DERECHA -> ordenado[2] = connection;
-                    case CONTRARIO -> ordenado[3] = connection;
-                }
-            }
-        }
-        connections = ordenado;
-    }
-
+    // Check if there are no connections
     public boolean isConnectionsEmpty() {
-        for (Connection connection : connections) {
-            if (connection != null) {
-                return false;
-            }
-        }
-        return true;
+        return connections.isEmpty();
     }
 
+    // Check if connected to a specific node
     public boolean isConnectedToNode(Node node) {
-        for (Connection connection : connections) {
-            if (connection != null) {
-                if (connection.getTargetNode() == node) {
-                    return true;
-                }
-            }
+        return connections.values().stream().anyMatch(conn -> conn.getTargetNodeID() == node.getID());
+    }
+
+    public Directions getDirConnectedToNode(Node node) {
+        return getConnectionInNode(node.getID()).getDirection();
+    }
+
+    // Get connection in node
+    public Connection getConnectionInNode(int nodeID) {
+        return connections.values().stream()
+                .filter(conn -> conn.getTargetNodeID() == nodeID)
+                .findFirst()
+                .orElse(null);
+    }
+
+    // Change connection target
+    public void changeConnectionIn(Node inNode, Node toNode) {
+        Connection connection = getConnectionInNode(inNode.getID());
+        if (connection != null) {
+            connection.setTargetNodeID(toNode.getID());
         }
-        return false;
     }
 
-    public Connection getConnectionInNode(Node node) {
-        for (Connection connection : connections) {
-            if (connection != null) {
-                if (connection.getTargetNode() == node) {
-                    return connection;
-                }
-            }
-        }
-        return null;
-    }
-
-    public void changeConnectionIn(Node remplaze, Node toNode) {
-        getConnectionInNode(remplaze).setTargetNodeID(toNode.getID());
-    }
-
+    // Search for a node by ID
     public Optional<Node> searchAndGetNode(int nodeID) {
-        return ListNodes.findById(ID);
+        return ListNodes.findById(nodeID);
     }
 
+    // Get node by index
     public Node getIndexAt(int ID) {
         return ListNodes.getListNodes().get(ID);
     }
