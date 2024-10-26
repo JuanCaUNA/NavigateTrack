@@ -50,18 +50,18 @@ public class Main {
         ListNodesDTO.setNodeMap(nodeMap);
 
 //        aqui hago la conversion de nodos
-        for (int i = 0; i < nodeMap.size(); i++) {// ayudame con la conversion
+        for (int i = 1; i < nodeMap.size(); i++) {// ayudame con la conversion
             ListNodes.addNode(nodeMap.get(i).toNode(i));
 //            System.out.println(nodeMap.get(i).toString());
         }
 
 //        System.out.println(ListNodes.findById(1).get().getAllConnections().get(0).getDestinationNodeID());
-
-
+        if (ListNodes.findById(0).isEmpty())
+            System.out.println(" inicia en 1");
         nodesManager.updateNodesToFile();
     }
 
-    static int idis = -1;
+    static int idis = 0;
 
     public static int getID() {
         idis++;

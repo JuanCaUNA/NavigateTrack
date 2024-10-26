@@ -156,7 +156,7 @@ public class DrawerManager {
 
 
     // metodos nuevos para obtener ubicaciones
-    public double[] getLineAtWithCircle(double[] circleCenter) {
+    public double[] getLineAtWithCircle(double[] circleCenter) {//cordenadas de x,y= inicio [0],[1], fin [2], [3], en lineaPosition = [4], [5], null no se encontro
         double radius = CIRCLE_RADIUS + 2; // Aumenta el radio en 2
         for (Line line : lines) {
             double distance = pointToLineDistance(

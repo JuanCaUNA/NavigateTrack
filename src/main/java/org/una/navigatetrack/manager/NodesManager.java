@@ -1,5 +1,6 @@
 package org.una.navigatetrack.manager;
 
+import javafx.scene.paint.Color;
 import org.una.navigatetrack.manager.storage.StorageManager;
 import org.una.navigatetrack.roads.Connection;
 import org.una.navigatetrack.roads.Directions;
@@ -97,4 +98,5 @@ public class NodesManager {
     public Optional<Node> searchAndGetNode(int nodeID) {
         return ListNodes.findById(nodeID);
     }
+    //
 }

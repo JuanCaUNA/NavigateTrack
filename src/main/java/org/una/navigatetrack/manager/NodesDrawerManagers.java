@@ -154,12 +154,10 @@ public class NodesDrawerManagers {
     // Current node end
 
     // Others
-    private double[] getLocationIfExistNodeAt(double[] point) {
+    public double[] getLocationIfExistNodeAt(double[] point) {
         Circle circle = drawerManager.getCircleAt(point);
         if (circle != null) {
-            point[0] = (int) circle.getCenterX(); // Cast to int for exact circle center
-            point[1] = (int) circle.getCenterY();
-            return point;
+            return new double[]{(int) circle.getCenterX(), (int) circle.getCenterY()};
         }
         return null; // Return null if no node exists at the point
     }
@@ -171,6 +169,14 @@ public class NodesDrawerManagers {
             case ADELANTE -> Color.GREEN;
             case CONTRARIO -> Color.RED;
         };
+    }
+
+    public void drawCircle(double[] point, Color color) {
+        drawerManager.drawCircle(point[0], point[1], color);
+    }
+
+    public void removeCircle(double[] point) {
+        drawerManager.removeCircle(point);
     }
     // Others end
 }

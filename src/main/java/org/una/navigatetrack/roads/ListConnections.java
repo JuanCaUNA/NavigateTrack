@@ -1,8 +1,8 @@
 package org.una.navigatetrack.roads;
 
 public class ListConnections {
-    static int currentID = -1;
-    static int currentIDNodes = -1;
+    static int currentID = 0;
+    static int currentIDNodes = 0;
 
     public static int getID() {
         currentID++;
