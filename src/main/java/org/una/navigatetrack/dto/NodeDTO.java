@@ -2,9 +2,7 @@ package org.una.navigatetrack.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.una.navigatetrack.roads.Connection;
-import org.una.navigatetrack.roads.Directions;
-import org.una.navigatetrack.roads.Node;
+import org.una.navigatetrack.roads.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -41,27 +39,32 @@ public class NodeDTO implements Serializable {
 
     public Node toNode(int ids) {
         Node node = new Node(location); // Crear nuevo nodo con la ubicación
-        //node.setID(id); // Asignar el ID
+        node.setID(ids); // Asignar el ID
 
         Map<Directions, Connection> connectionsx = new HashMap<>();
 
         for (ConnectionDTO connection : connectionsDTO) {
             if (connection != null) {
-                connectionsx.put(connection.getDirection(), connection.toConnection(ids));
+                connectionsx.put(connection.getDirection(),connection.toConnection(ids));
             }
         }
-
+        node.setConnections( connectionsx);
         return node; // Retornar el nodo creado
     }
 
+    public int getsID(){
+
+        return ListConnections.getIDNodes();
+    }
+
+    @Override
+    public String toString() {
+        return "NodeDTO{" +
+                "MAX_CONNECTIONS=" + MAX_CONNECTIONS +
+                ", connectionsDTO=" + connectionsDTO +
+                ", location=" + Arrays.toString(location) +
+                ", id=" + Arrays.toString(id) +
+                '}';
+    }
 
 }
-//@Override
-//public String toString() {
-//    return "NodeDTO{" +
-//            "MAX_CONNECTIONS=" + MAX_CONNECTIONS +
-//            ", connectionsDTO=" + connectionsDTO +
-//            ", location=" + Arrays.toString(location) +
-//            ", id=" + Arrays.toString(id) +
-//            '}';
-//}

@@ -49,9 +49,14 @@ public class Main {
                         (existing, replacement) -> existing));
         ListNodesDTO.setNodeMap(nodeMap);
 
+//        aqui hago la conversion de nodos
         for (int i = 0; i < nodeMap.size(); i++) {// ayudame con la conversion
             ListNodes.addNode(nodeMap.get(i).toNode(i));
+//            System.out.println(nodeMap.get(i).toString());
         }
+
+//        System.out.println(ListNodes.findById(1).get().getAllConnections().get(0).getDestinationNodeID());
+
 
         nodesManager.updateNodesToFile();
     }

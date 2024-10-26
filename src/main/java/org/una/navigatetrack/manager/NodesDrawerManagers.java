@@ -72,7 +72,7 @@ public class NodesDrawerManagers {
     private void drawConnections(Node node) {
         if (node == null) return;
 
-        for (Connection connection : node.getConnections(node)) {
+        for (Connection connection : node.getAllConnections()) {
             if (connection != null) {
                 drawConnection(node.getLocation(), connection);//obtener direccion  la conexion
             }

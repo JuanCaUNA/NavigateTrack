@@ -31,7 +31,7 @@ public class ListNodes {
         if (!nodesMap.containsKey(node.getID())) {
             nodesMap.put(node.getID(), node);
         } else {
-            throw new IllegalArgumentException("Ya existe un nodo con el mismo ID.");
+            throw new IllegalArgumentException("Ya existe un nodo con el mismo ID."+ node.getID());
         }
     }
 

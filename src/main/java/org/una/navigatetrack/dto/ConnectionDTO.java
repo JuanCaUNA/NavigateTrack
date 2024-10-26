@@ -4,11 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.una.navigatetrack.roads.Connection;
 import org.una.navigatetrack.roads.Directions;
-import org.una.navigatetrack.roads.ListNodes;
-import org.una.navigatetrack.roads.Node;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Optional;
 
 @Getter
@@ -36,19 +35,19 @@ public class ConnectionDTO implements Serializable {
 
     public Connection toConnection(int partida) {
         Optional<Integer> i = ListNodesDTO.findKeyByID(targetNodeId);
-        Connection connection = new Connection(partida,i.get(), this.weight, this.direction);
-        return connection;
+        return new Connection(partida, i.get(), this.weight, this.direction);
     }
 
+    @Override
+    public String toString() {
+        return "ConnectionDTO{" +
+                "targetNodeId=" + Arrays.toString(targetNodeId) +
+                ", weight=" + weight +
+                ", isBlocked=" + isBlocked +
+                ", trafficCondition='" + trafficCondition + '\'' +
+                ", direction=" + direction + // Asegúrate de que la clase Directions también tenga un método toString
+                '}';
+    }
 }
 
-//@Override
-//public String toString() {
-//    return "ConnectionDTO{" +
-//            "targetNodeId=" + Arrays.toString(targetNodeId) +
-//            ", weight=" + weight +
-//            ", isBlocked=" + isBlocked +
-//            ", trafficCondition='" + trafficCondition + '\'' +
-//            ", direction=" + direction + // Asegúrate de que la clase Directions también tenga un método toString
-//            '}';
-//}
+

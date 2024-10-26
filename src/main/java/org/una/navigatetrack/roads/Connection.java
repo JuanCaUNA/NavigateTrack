@@ -46,7 +46,6 @@ public class Connection implements Serializable {
         accumulateWeight = 0;
 
         ID = ListConnections.getID();
-        ListConnections.incrementID();
     }
 
 
@@ -60,7 +59,6 @@ public class Connection implements Serializable {
         accumulateWeight = 0;
 
         ID = ListConnections.getID();
-        ListConnections.incrementID();
     }
 
     public Connection() {    }

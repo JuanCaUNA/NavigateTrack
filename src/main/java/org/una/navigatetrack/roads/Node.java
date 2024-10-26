@@ -21,7 +21,7 @@ public class Node implements Serializable {
     @Setter
     private double[] location;
 
-    private final Map<Directions, Connection> connections;
+    private Map<Directions, Connection> connections;
 
 
     public Node() {
@@ -43,7 +43,7 @@ public class Node implements Serializable {
             connection.setWeight(calculateDistance(targetNode));
         } else {
             double weight = calculateDistance(targetNode);
-            connections.put(direction, new Connection(targetNode, (int) weight, direction));
+            connections.put(direction, new Connection(ID, targetNode.getID(), (int) weight, direction));
         }
     }
 
@@ -74,6 +74,7 @@ public class Node implements Serializable {
                 .sorted(Comparator.comparingDouble(Connection::getEffectiveWeight)) // Ordenar por peso final
                 .collect(Collectors.toList());
     }
+
     public List<Connection> getConnectionsInOrderByWeight() {
         return connections.values().stream()
                 .filter(conn -> !conn.isBlocked())
@@ -122,6 +123,10 @@ public class Node implements Serializable {
         if (connection != null) {
             connection.setDestinationNodeID(toNode.getID());
         }
+    }
+
+    public void setConnections( Map<Directions, Connection> connections){
+        this.connections = connections;
     }
 
     // Search for a node by ID

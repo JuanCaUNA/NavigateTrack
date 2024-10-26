@@ -14,7 +14,7 @@ public class NodesManager {
     private final StorageManager<Map<Integer, Node>> nodesStorage = new StorageManager<>("src/main/resources/listNodes/", "listNodes.data");
 
     public NodesManager() {
-        //readNodesFromFile();
+        readNodesFromFile();
     }
 
     // Cargar nodos desde el archivo y almacenarlos en ListNodes
