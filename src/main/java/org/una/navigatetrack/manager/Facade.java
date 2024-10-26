@@ -3,14 +3,18 @@ package org.una.navigatetrack.manager;
 import javafx.scene.layout.Pane;
 import lombok.Getter;
 import lombok.Setter;
+import org.una.navigatetrack.roads.Connection;
+import org.una.navigatetrack.roads.Graph;
 import org.una.navigatetrack.roads.Node;
+
+import java.util.Map;
 
 @Getter
 @Setter
 public class Facade {
-    private final NodesDrawerManagers nodesDrawerManagers;
-    private Node startNode, endNode;
-    private double[] startLine, endLine;
+    private final NodesDrawerManagers nodesDrawerManagers; // Gestor de nodos
+    private Node startNode, endNode; // Nodos de inicio y fin
+    private double[] startPoint, endPoint; // Líneas para la representación gráfica
     private boolean flag;
 
     public Facade(Pane paintPane) {
@@ -30,8 +34,8 @@ public class Facade {
             throw new IllegalArgumentException("Node cannot be null");
         }
         double[] array = nodesDrawerManagers.getDrawerManager().getLineAtWithCircle(location);
-        startLine = new double[]{array[0], array[1]};
-        endLine = new double[]{array[2], array[3]};
+        startPoint = new double[]{array[0], array[1]};
+        endPoint = new double[]{array[2], array[3]};
         checkDirection(node);
     }
 
@@ -40,10 +44,9 @@ public class Facade {
         return targetNode != null ? targetNode.getLocation() : null;
     }
 
-
     private void checkDirection(Node node) {
-        Node init = nodesDrawerManagers.getNodesManager().getNodeAtLocation(startLine);
-        Node end = nodesDrawerManagers.getNodesManager().getNodeAtLocation(endLine);
+        Node init = nodesDrawerManagers.getNodesManager().getNodeAtLocation(startPoint);
+        Node end = nodesDrawerManagers.getNodesManager().getNodeAtLocation(endPoint);
 
         if (init.isConnectedToNode(end)) {
             node.addConnection(end, init.getDirConnectedToNode(end));
@@ -53,22 +56,22 @@ public class Facade {
             node.addConnection(init, end.getDirConnectedToNode(init));
             end.changeConnectionIn(init, node);
         }
-
     }
 
     public void recalcularPosicion() {
+        // Implementar la lógica para recalcular la posición de los nodos si es necesario.
     }
 
     public void setEndNode(double[] point) {
         if (endNode != null) {
             removeNodeVisual(endNode);
         }
-        endNode = createNode(point);
+        endNode = createNode(point); // Crear un nuevo nodo de fin
     }
 
     private Node createNode(double[] point) {
         Node newNode = new Node(point);
-        nodesDrawerManagers.createAndDrawNode(point);
+        nodesDrawerManagers.createAndDrawNode(point); // Dibuja el nodo en el panel
         return newNode;
     }
 
@@ -80,24 +83,29 @@ public class Facade {
         // Implementar la lógica para eliminar el registro de nodos.
     }
 
-    //todo
-    public double[] getPointForStarTNode(double[] point) {
-        startNode = nodesDrawerManagers.getNodesManager().getNodeAtLocation(startLine);
+    public Graph createGraph() {
+        if (startNode == null || endNode == null) {
+            throw new IllegalStateException("Start and end nodes must be defined");
+        }
+        return new Graph(startNode, endNode); // Crear y retornar un nuevo grafo
+    }
+
+    public Map<Connection, Integer> calculateShortestPath() {
+        Graph graph = createGraph();
+        return graph.dijkstra(startNode, endNode);
+    }
+
+    public double[] getPointForStartNode(double[] point) {
+        startNode = nodesDrawerManagers.getNodesManager().getNodeAtLocation(startPoint);
         return startNode.getLocation();
     }
 
     public double[] getPointForEndNode(double[] point) {
-        startNode = nodesDrawerManagers.getNodesManager().getNodeAtLocation(startLine);
-        return startNode.getLocation();
+        endNode = nodesDrawerManagers.getNodesManager().getNodeAtLocation(endPoint); // Cambiar a endNode
+        return endNode != null ? endNode.getLocation() : null;
     }
 
-    //otros no borrar
-//    public Node getNodeAt(double[] point) {
-//        return nodesDrawerManagers.getNodesManager().getNodeAtLocation(point);
-//    }
-
-
-    // Métodos que faltan hacer a completar según la lógica necesaria. no borrar
+    // Otros métodos que faltan implementar según la lógica necesaria
     // void getApproximateLocation();
     // void getRecorrido();
     // void drawLinesOfRecorrido();
@@ -107,4 +115,3 @@ public class Facade {
     // void startVoyage();
     // void endVoyage();
 }
-

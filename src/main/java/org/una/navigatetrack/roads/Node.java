@@ -38,8 +38,8 @@ public class Node implements Serializable {
     public void addConnection(Node targetNode, Directions direction) {
         Connection connection = connections.get(direction);
         if (connection != null) {
-            connection.setStartNodeID(ID);
-            connection.setTargetNodeID(targetNode.getID());
+            connection.setStartingNodeID(ID);
+            connection.setDestinationNodeID(targetNode.getID());
             connection.setWeight(calculateDistance(targetNode));
         } else {
             double weight = calculateDistance(targetNode);
@@ -60,7 +60,7 @@ public class Node implements Serializable {
     // Get target node based on direction
     public Node getTargetNode(Directions direction) {
         Connection connection = connections.get(direction);
-        return connection != null ? connection.getTargetNode() : null;
+        return connection != null ? connection.getDestinationNode() : null;
     }
 
     // Get connections excluding a specific node
@@ -68,9 +68,15 @@ public class Node implements Serializable {
         return new ArrayList<>(connections.values());
     }
 
-    public List<Connection> getConnections(Node startNode) {
+    public List<Connection> getConnectionsInOrderByWeight(Node entryNode) {
         return connections.values().stream()
-                .filter(conn -> conn.getTargetNodeID() != startNode.getID() && !conn.isBlocked())
+                .filter(conn -> conn.getDestinationNodeID() != entryNode.getID() && !conn.isBlocked())
+                .sorted(Comparator.comparingDouble(Connection::getEffectiveWeight)) // Ordenar por peso final
+                .collect(Collectors.toList());
+    }
+    public List<Connection> getConnectionsInOrderByWeight() {
+        return connections.values().stream()
+                .filter(conn -> !conn.isBlocked())
                 .sorted(Comparator.comparingDouble(Connection::getEffectiveWeight)) // Ordenar por peso final
                 .collect(Collectors.toList());
     }
@@ -83,7 +89,7 @@ public class Node implements Serializable {
     // Get connection based on target position
     public Connection getConnection(double[] position) {
         return connections.values().stream()
-                .filter(conn -> Arrays.equals(conn.getTargetNode().location, position))
+                .filter(conn -> Arrays.equals(conn.getDestinationNode().location, position))
                 .findFirst()
                 .orElse(null);
     }
@@ -95,7 +101,7 @@ public class Node implements Serializable {
 
     // Check if connected to a specific node
     public boolean isConnectedToNode(Node node) {
-        return connections.values().stream().anyMatch(conn -> conn.getTargetNodeID() == node.getID());
+        return connections.values().stream().anyMatch(conn -> conn.getDestinationNodeID() == node.getID());
     }
 
     public Directions getDirConnectedToNode(Node node) {
@@ -105,7 +111,7 @@ public class Node implements Serializable {
     // Get connection in node
     public Connection getConnectionInNode(int nodeID) {
         return connections.values().stream()
-                .filter(conn -> conn.getTargetNodeID() == nodeID)
+                .filter(conn -> conn.getDestinationNodeID() == nodeID)
                 .findFirst()
                 .orElse(null);
     }
@@ -114,7 +120,7 @@ public class Node implements Serializable {
     public void changeConnectionIn(Node inNode, Node toNode) {
         Connection connection = getConnectionInNode(inNode.getID());
         if (connection != null) {
-            connection.setTargetNodeID(toNode.getID());
+            connection.setDestinationNodeID(toNode.getID());
         }
     }
 

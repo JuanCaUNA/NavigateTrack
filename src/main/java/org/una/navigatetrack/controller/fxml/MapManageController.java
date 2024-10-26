@@ -151,7 +151,7 @@ public class MapManageController implements Initializable {
             if (connection != null) {
                 info.add(String.format(
                         "Destino: %s, Peso: %.2f, Bloqueada: %s, Estado de Tráfico: %s, Dirección: %s",
-                        Arrays.toString(connection.getTargetNode().getLocation()),
+                        Arrays.toString(connection.getDestinationNode().getLocation()),
                         connection.getWeight(), // Cambiado a double
                         connection.isBlocked() ? "Sí" : "No",
                         connection.getTrafficCondition(),

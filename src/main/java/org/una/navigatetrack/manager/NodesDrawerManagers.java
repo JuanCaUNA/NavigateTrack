@@ -82,7 +82,7 @@ public class NodesDrawerManagers {
     private void drawConnection(double[] startLocation, Connection connection) {
         if (connection == null) return;
 
-        double[] endLocation = connection.getTargetNode().getLocation();
+        double[] endLocation = connection.getDestinationNode().getLocation();
         Color color = getDirectionColor(connection.getDirection());
         drawerManager.drawLine(startLocation[0], startLocation[1], endLocation[0], endLocation[1], color);
     }
@@ -122,7 +122,7 @@ public class NodesDrawerManagers {
 
     private void removeConnectionVisual(double[] startLocation, Connection connection) {
         if (connection == null) return;
-        double[] endLocation = connection.getTargetNode().getLocation();
+        double[] endLocation = connection.getDestinationNode().getLocation();
         drawerManager.removeLine(startLocation, endLocation); // Remove the visual line connecting the nodes
     }
     // Delete drawings end

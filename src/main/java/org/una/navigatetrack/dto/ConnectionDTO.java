@@ -4,10 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 import org.una.navigatetrack.roads.Connection;
 import org.una.navigatetrack.roads.Directions;
+import org.una.navigatetrack.roads.ListNodes;
+import org.una.navigatetrack.roads.Node;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -24,7 +26,7 @@ public class ConnectionDTO implements Serializable {
     // Constructor para convertir de Connection a ConnectionDTO
     public ConnectionDTO(Connection connection) {
         if (connection != null) {
-            this.targetNodeId = connection.getTargetNode() != null ? connection.getTargetNode().getLocation() : null;
+            this.targetNodeId = connection.getDestinationNode() != null ? connection.getDestinationNode().getLocation() : null;
             this.weight = (int) connection.getWeight();
             this.isBlocked = connection.isBlocked();
             this.trafficCondition = connection.getTrafficCondition();
@@ -32,29 +34,21 @@ public class ConnectionDTO implements Serializable {
         }
     }
 
-    public Connection toConnection() {
-        Connection connection = new Connection();
-
-        //connection.setTargetNode(ListNodeDTO.findById(targetNodeId));
-
-        connection.setWeight(this.weight);
-        connection.setBlocked(this.isBlocked);
-        connection.setTrafficCondition(this.trafficCondition);
-        connection.setDirection(this.direction);
+    public Connection toConnection(int partida) {
+        Optional<Integer> i = ListNodesDTO.findKeyByID(targetNodeId);
+        Connection connection = new Connection(partida,i.get(), this.weight, this.direction);
         return connection;
-    }
-
-    @Override
-    public String toString() {
-        return "ConnectionDTO{" +
-                "targetNodeId=" + Arrays.toString(targetNodeId) +
-                ", weight=" + weight +
-                ", isBlocked=" + isBlocked +
-                ", trafficCondition='" + trafficCondition + '\'' +
-                ", direction=" + direction + // Asegúrate de que la clase Directions también tenga un método toString
-                '}';
     }
 
 }
 
-
+//@Override
+//public String toString() {
+//    return "ConnectionDTO{" +
+//            "targetNodeId=" + Arrays.toString(targetNodeId) +
+//            ", weight=" + weight +
+//            ", isBlocked=" + isBlocked +
+//            ", trafficCondition='" + trafficCondition + '\'' +
+//            ", direction=" + direction + // Asegúrate de que la clase Directions también tenga un método toString
+//            '}';
+//}

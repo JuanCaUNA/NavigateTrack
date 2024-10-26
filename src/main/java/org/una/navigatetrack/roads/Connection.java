@@ -13,7 +13,8 @@ import java.util.Optional;
 public class Connection implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
-    Directions direction;
+    private Directions direction;
+    private int ID;
 
     private double accumulateWeight;
 
@@ -24,8 +25,8 @@ public class Connection implements Serializable {
     );
 
     //referencias de nodos
-    private int startNodeID;
-    private int targetNodeID;
+    private int startingNodeID;
+    private int destinationNodeID;
 
     private double weight; // Peso en base a distancia entre nodos
 
@@ -34,14 +35,32 @@ public class Connection implements Serializable {
     private String trafficCondition; // Estado de tráfico ("normal", "moderado", "lento")
 
 
-    public Connection(Node targetNode, int weight, Directions direction) {
-        this.targetNodeID = targetNode.getID();
+    public Connection(int startingNodeID, int destinationNodeID, int weight, Directions direction) {
+        this.startingNodeID = startingNodeID;
+        this.destinationNodeID = destinationNodeID;
         this.weight = weight;
         this.isBlocked = false;
         this.trafficCondition = "normal";
         this.direction = direction;
 
         accumulateWeight = 0;
+
+        ID = ListConnections.getID();
+        ListConnections.incrementID();
+    }
+
+
+    public Connection(int id, int weight, Directions direction) {
+        this.destinationNodeID = id;
+        this.weight = weight;
+        this.isBlocked = false;
+        this.trafficCondition = "normal";
+        this.direction = direction;
+
+        accumulateWeight = 0;
+
+        ID = ListConnections.getID();
+        ListConnections.incrementID();
     }
 
     public Connection() {    }
@@ -54,8 +73,8 @@ public class Connection implements Serializable {
     private void refreshWeight() {       weight -= getIncrement();    }
 
     public void recalculateStartNode(){
-        double[]  init = getStartNode().getLocation();
-        double[]  end = getTargetNode().getLocation();
+        double[]  init = getStartingNode().getLocation();
+        double[]  end = getDestinationNode().getLocation();
 
         calcularIncremento(init[0], init[1], end[0], end[1], getIncrement() );
 
@@ -66,18 +85,18 @@ public class Connection implements Serializable {
     public boolean canAccess() {        return !isBlocked;    }
 
     //Gets
-    public Node getTargetNode() {        return getIndexAt(targetNodeID);    }
+    public Node getDestinationNode() {        return getIndexAt(destinationNodeID);    }
 
-    public Node getStartNode() {        return getIndexAt(startNodeID);    }
+    public Node getStartingNode() {        return getIndexAt(startingNodeID);    }
 
     public double getEffectiveWeight() {        return (weight * TRAFFIC_MULTIPLIER.get(trafficCondition));  }
 
     public double getIncrement(){        return  (2-TRAFFIC_MULTIPLIER.get(trafficCondition));    }
 
     //sets
-    public void setTargetNode(Node targetNode) {        targetNodeID = targetNode.getID();    }
+    public void setDestinationNode(Node targetNode) {        destinationNodeID = targetNode.getID();    }
 
-    public void setStartNode(Node startNode) {        this.startNodeID = startNode.getID();    }
+    public void setStartingNode(Node startNode) {        this.startingNodeID = startNode.getID();    }
 
     //gets for ID
     public Optional<Node> searchAndGetNode(int nodeID) {        return ListNodes.findById(nodeID);    }
@@ -101,6 +120,6 @@ public class Connection implements Serializable {
         double nuevaX = x1 + factorX;
         double nuevaY = y1 + factorY;
 
-        getStartNode().setLocation( new double[]{nuevaX, nuevaY});
+        getStartingNode().setLocation( new double[]{nuevaX, nuevaY});
     }
 }

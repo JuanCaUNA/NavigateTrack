@@ -3,13 +3,12 @@ package org.una.navigatetrack.dto;
 import lombok.Getter;
 import lombok.Setter;
 import org.una.navigatetrack.roads.Connection;
+import org.una.navigatetrack.roads.Directions;
 import org.una.navigatetrack.roads.Node;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Getter
 @Setter
@@ -27,45 +26,42 @@ public class NodeDTO implements Serializable {
 
     public NodeDTO(Node node) {
         this.location = node.getLocation();
-        this.id = node.getLocation();
+        this.id = location;
+        //this.id = node.getID(); // Asignar el ID del nodo
 
-//        if (node.getConnections() != null) {
-//            for (int i = 0; i < Math.min(node.getConnections().length, MAX_CONNECTIONS); i++) {
-//                if (node.getConnections()[i] != null) {
-//                    connectionsDTO.add(new ConnectionDTO(node.getConnections()[i]));
-//                }
-//            }
-//        }
-
+        if (node.getAllConnections() != null) { // Obtener conexiones
+            for (int i = 0; i < Math.min(node.getAllConnections().size(), MAX_CONNECTIONS); i++) {
+                Connection connection = node.getAllConnections().get(i);
+                if (connection != null) {
+                    connectionsDTO.add(new ConnectionDTO(connection)); // Convertir y agregar la conexión
+                }
+            }
+        }
     }
 
-    public Node toNode(int id) {
-        Connection[] connections = connectionsDTO.stream()
-                .map(ConnectionDTO::toConnection)
-                .toArray(Connection[]::new);
+    public Node toNode(int ids) {
+        Node node = new Node(location); // Crear nuevo nodo con la ubicación
+        //node.setID(id); // Asignar el ID
 
-        Node node = new Node();
-        node.setID(id);
-        node.setLocation(this.location);
+        Map<Directions, Connection> connectionsx = new HashMap<>();
 
-        for (Connection connection : connections) {
+        for (ConnectionDTO connection : connectionsDTO) {
             if (connection != null) {
-                node.addConnection(connection.getTargetNode(), connection.getDirection());
+                connectionsx.put(connection.getDirection(), connection.toConnection(ids));
             }
         }
 
-        return node;
+        return node; // Retornar el nodo creado
     }
 
-    @Override
-    public String toString() {
-        // Reemplaza 'YourClassName' con el nombre real de la clase
-        return "YourClassName{" + // Reemplaza 'YourClassName' con el nombre real de la clase
-                "MAX_CONNECTIONS=" + MAX_CONNECTIONS +
-                ", connectionsDTO=" + connectionsDTO +
-                ", location=" + Arrays.toString(location) +
-                ", id=" + Arrays.toString(id) +
-                '}';
-    }
 
 }
+//@Override
+//public String toString() {
+//    return "NodeDTO{" +
+//            "MAX_CONNECTIONS=" + MAX_CONNECTIONS +
+//            ", connectionsDTO=" + connectionsDTO +
+//            ", location=" + Arrays.toString(location) +
+//            ", id=" + Arrays.toString(id) +
+//            '}';
+//}

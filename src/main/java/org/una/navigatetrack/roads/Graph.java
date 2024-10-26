@@ -1,120 +1,157 @@
 package org.una.navigatetrack.roads;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.*;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
 
-@Getter
+@SuppressWarnings("ALL")
 public class Graph {
+    private final Node initNode, endNode; // Nodos de inicio y fin del grafo
+    private final int initNodeID, endNodeID; // IDs de los nodos de inicio y fin
+    private List<Connection> bestPath; // Lista para almacenar la mejor ruta encontrada
 
-    @Setter
-    private Node start, end;
-    private final List<Connection> connections; // Lista de conexiones
-
-    public Graph() {
-        connections = new ArrayList<>();
+    // Constructor que inicializa el grafo con nodos de inicio y fin
+    public Graph(Node startNode, Node endNode) {
+        this.initNode = startNode;
+        this.endNode = endNode;
+        this.initNodeID = startNode.getID();
+        this.endNodeID = endNode.getID();
     }
 
-    public void addConnection(Connection connection) {
-        connections.add(connection);
+    /*
+     * Méto-do principal que ejecuta el algoritmo de Dijkstra para encontrar el camino más corto
+     * entre el nodo de inicio y el nodo de destino.
+     * Inicializa las distancias desde el nodo de inicio, explora todas las conexiones
+     * y utiliza un méto-do recursivo para encontrar la mejor ruta, actualizando el peso acumulado.
+     *
+     * @param start El nodo de inicio para la búsqueda (no se utiliza directamente en este méto-do).
+     * @param end El nodo de fin para la búsqueda (no se utiliza directamente en este méto-do).
+     * @return Un mapa de conexiones con sus respectivas distancias desde el nodo de inicio.
+     */
+    public Map<Connection, Integer> dijkstra(Node start, Node end) {
+        bestPath = new ArrayList<>(); // Inicializa la mejor ruta
+        List<Connection> currentPath = new ArrayList<>(); // Ruta actual en exploración
+        Map<Connection, Integer> distances = new HashMap<>(); // Mapa para almacenar distancias
+
+        // Inicializa las distancias desde el nodo de inicio
+        initializeDistances(start, distances);
+
+        // Itera sobre las conexiones del nodo de inicio
+        for (Connection connection : initNode.getConnectionsInOrderByWeight()) {
+            int newWeight = (int) connection.getEffectiveWeight(); // Peso de la conexión
+            currentPath.add(connection); // Agregar la conexión al camino actual
+            findBestPath(connection, newWeight, distances, currentPath); // Buscar el mejor camino
+            currentPath.remove(connection); // Retirar la conexión para explorar otras rutas
+        }
+
+        return distances; // Retornar el mapa de distancias
     }
 
-    // Método para obtener la lista de conexiones a partir del nodo de inicio
-    public List<Connection> getConnectionsFromStart() {
-        List<Connection> path = new ArrayList<>();
-        Map<Node, Integer> distances = dijkstra(start);
-
-        Node currentNode = start;
-
-        // Continuar hasta que no haya más conexiones
-        while (currentNode != null) {
-            List<Connection> currentConnections = currentNode.getConnections();
-            currentConnections.sort(Comparator.comparingInt(Connection::getEffectiveWeight)); // Ordenar por peso
-
-            if (currentConnections.isEmpty()) {
-                break; // Si no hay más conexiones, salimos del bucle
-            }
-
-            for (Connection connection : currentConnections) {
-                Node nextNode = connection.getTargetNode();
-                if (distances.get(nextNode) < Integer.MAX_VALUE) { // Solo considerar nodos accesibles
-                    path.add(connection); // Añadir la conexión al camino
-                    currentNode = nextNode; // Cambiar al siguiente nodo
-                    break; // Romper el bucle para procesar el siguiente nodo
-                }
-            }
+    // Méto-do que inicializa el mapa de distancias desde el nodo de inicio
+    private void initializeDistances(Node start, Map<Connection, Integer> distances) {
+        for (Connection connection : start.getConnectionsInOrderByWeight()) {
+            distances.put(connection, (int) connection.getEffectiveWeight()); // Establecer distancias
         }
-
-        return path; // Retornar el camino encontrado
     }
 
-    public Map<Node, Integer> dijkstra(Node source) {
-        Map<Node, Integer> distances = new HashMap<>();
-        PriorityQueue<Node> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(distances::get));
+    // Méto-do recursivo que encuentra el mejor camino a partir de una conexión previa
+    private void findBestPath(Connection previousConnection, int currentWeight,
+                              Map<Connection, Integer> distances, List<Connection> currentPath) {
+        Node entryNode = previousConnection.getStartingNode(); // Nodo de inicio de la conexión previa
+        Node currentNode = previousConnection.getDestinationNode(); // Nodo de destino de la conexión previa
 
-        for (Connection connection : connections) {
-            distances.put(connection.getStartNode(), Integer.MAX_VALUE);
+        // Verifica si se ha llegado al nodo de destino
+        if (currentNode.getID() == endNodeID) {
+            // Actualiza la mejor ruta si es necesario
+            if (bestPath.isEmpty() || currentWeight < calculateTotalWeight(bestPath)) {
+                bestPath = new ArrayList<>(currentPath); // Almacena la mejor ruta
+            }
+            return; // Termina la búsqueda en esta ruta
         }
-        distances.put(source, 0);
-        priorityQueue.add(source);
 
-        while (!priorityQueue.isEmpty()) {
-            Node currentNode = priorityQueue.poll();
+        // Impide regresar al nodo inicial
+        if (currentNode.getID() == initNodeID) {
+            return; // No regresar al nodo inicial
+        }
 
-            for (Connection connection : currentNode.getAllConnections()) {
-                Node neighbor = connection.getTargetNode();
-                int newDist = distances.get(currentNode) + (int) connection.getWeight();
+        // Itera sobre las conexiones del nodo actual
+        for (Connection connection : currentNode.getConnectionsInOrderByWeight(entryNode)) {
+            int newWeight = currentWeight + (int) connection.getEffectiveWeight(); // Peso acumulado
 
-                if (newDist < distances.get(neighbor)) {
-                    distances.put(neighbor, newDist);
-                    priorityQueue.add(neighbor);
-                }
+            // Si la conexión no ha sido visitada
+            if (!currentPath.contains(connection)) {
+                currentPath.add(connection); // Agregar la conexión al camino
+                // Llamada recursiva para seguir buscando el mejor camino
+                findBestPath(connection, newWeight, distances, currentPath);
+                currentPath.remove(connection); // Retirar la conexión al volver
             }
         }
-        return distances;
     }
 
-    // Implementación del algoritmo de Floyd-Warshall
-    public void floydWarshall() {
-        int size = connections.size();
-        int[][] dist = new int[size][size];
-
-        // Inicializar la matriz de distancias
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if (i == j) {
-                    dist[i][j] = 0;
-                } else {
-                    dist[i][j] = Integer.MAX_VALUE; // Representa la ausencia de conexión
-                }
-            }
-        }
-
-        // Rellenar la matriz con los pesos de las conexiones
-        for (Connection connection : connections) {
-            dist[connection.getStartNodeID()][connection.getTargetNodeID()] = (int) connection.getWeight();
-        }
-
-        // Aplicar el algoritmo de Floyd-Warshall
-        for (int k = 0; k < size; k++) {
-            for (int i = 0; i < size; i++) {
-                for (int j = 0; j < size; j++) {
-                    if (dist[i][j] > dist[i][k] + dist[k][j]) {
-                        dist[i][j] = dist[i][k] + dist[k][j];
-                    }
-                }
-            }
-        }
-
-        // Aquí puedes hacer algo con la matriz dist, como almacenarla o imprimir los resultados.
+    // Méto-do que calcula el peso total de un camino dado
+    private int calculateTotalWeight(List<Connection> path) {
+        return path.stream().mapToInt(connection -> (int) connection.getEffectiveWeight()).sum(); // Sumar pesos
     }
 }
+
+//ya las conexiones tienen la disatanciadefinida
+    /*
+        connection.getEffectiveWeight();// peso total
+        connection.getStartingNode();//node de partida
+        connection.getDestinationNode();//nodo
+
+        otros a user
+         connection.getAccumulateWeight();
+         connection.setAccumulateWeight(acomulado);
+
+    */
+    /*
+        se inicia desde start y obtiene la lista de coneciones
+
+        start.getConnectionsInOrderByWeight();
+        //para las proximas va definicendo el nodo anterior
+        Node entryNode;
+        start.getConnectionsInOrderByWeight(entryNode);
+        start.getID();
+     */
+
+
+//    // Implementación del algoritmo de Floyd-Warshall
+//    public void floydWarshall() {
+//        int size = connections.size();
+//        int[][] dist = new int[size][size];
+//
+//        // Inicializar la matriz de distancias
+//        for (int i = 0; i < size; i++) {
+//            for (int j = 0; j < size; j++) {
+//                if (i == j) {
+//                    dist[i][j] = 0;
+//                } else {
+//                    dist[i][j] = Integer.MAX_VALUE; // Representa la ausencia de conexión
+//                }
+//            }
+//        }
+//
+//        // Rellenar la matriz con los pesos de las conexiones
+//        for (Connection connection : connections) {
+//            dist[connection.getStartingNodeID()][connection.getDestinationNodeID()] = (int) connection.getWeight();
+//        }
+//
+//        // Aplicar el algoritmo de Floyd-Warshall
+//        for (int k = 0; k < size; k++) {
+//            for (int i = 0; i < size; i++) {
+//                for (int j = 0; j < size; j++) {
+//                    if (dist[i][j] > dist[i][k] + dist[k][j]) {
+//                        dist[i][j] = dist[i][k] + dist[k][j];
+//                    }
+//                }
+//            }
+//        }
+//
+//        // Aquí puedes hacer algo con la matriz dist, como almacenarla o imprimir los resultados.
+//    }
+//}
 
 
 //clase con la que trabaja:
