@@ -5,10 +5,11 @@ import javafx.scene.shape.Circle;
 import lombok.Getter;
 import org.una.navigatetrack.roads.Connection;
 import org.una.navigatetrack.roads.Directions;
+import org.una.navigatetrack.list.ListNodes;
 import org.una.navigatetrack.roads.Node;
 import org.una.navigatetrack.utils.Singleton;
 
-import java.util.Optional;
+import java.util.List;
 
 @Getter
 public class NodesDrawerManagers {
@@ -23,6 +24,24 @@ public class NodesDrawerManagers {
         this.drawerManager = drawerManager;
 
         drawAllNodesAndConnections();
+    }
+
+    public NodesDrawerManagers(DrawerManager drawerManager, Boolean edicion) {
+        Singleton singleton = Singleton.getInstance();
+        this.nodesManager = singleton.getNodesManager();
+        this.drawerManager = drawerManager;
+
+        if (edicion)
+            drawAllNodesAndConnections();
+        else
+            drawAllConnections();
+    }
+
+    private void drawAllConnections() {
+        List<Node> list = ListNodes.getNodesList();
+        for (Node node : list) {
+            drawConnections(node);
+        }
     }
 
     // Definition of nodes and connections
@@ -40,22 +59,17 @@ public class NodesDrawerManagers {
         Node toNode = nodesManager.getNodeAtLocation(target);
         if (toNode != null && fromNode != null) {
             nodesManager.addConnection(fromNode.getID(), toNode.getID(), direction);
-            drawConnection(fromNode.getLocation(), fromNode.getConnection(direction));
+            drawConnection(fromNode.getConnection(direction));
         }
     }
     // Definition of nodes and connections end
 
     // Drawings
     public void drawAllNodesAndConnections() {
-        boolean flag = true;
-        for (int i = 0; flag; i++) {
-            Optional<Node> node = nodesManager.searchAndGetNode(i);
-            if (node.isEmpty()) {
-                flag = false;
-            } else {
-                drawNode(node.get());
-                drawConnections(node.get());
-            }
+        List<Node> list = ListNodes.getNodesList();
+        for (Node node : list) {
+            drawNode(node);
+            drawConnections(node);
         }
     }
 
@@ -71,21 +85,36 @@ public class NodesDrawerManagers {
 
     private void drawConnections(Node node) {
         if (node == null) return;
-
         for (Connection connection : node.getAllConnections()) {
             if (connection != null) {
-                drawConnection(node.getLocation(), connection);//obtener direccion  la conexion
+                drawConnection(connection);
             }
         }
     }
 
-    private void drawConnection(double[] startLocation, Connection connection) {
-        if (connection == null) return;
+    private void drawConnections(Node node, Color color) {
+        if (node == null) return;
+        for (Connection connection : node.getAllConnections()) {
+            if (connection != null) {
+                drawConnection(connection, color);
+            }
+        }
+    }
 
-        double[] endLocation = connection.getDestinationNode().getLocation();
+    private void drawConnection(Connection connection) {
+        if (connection == null) return;
         Color color = getDirectionColor(connection.getDirection());
+        drawConnection(connection, color);
+    }
+
+    private void drawConnection(Connection connection, Color color) {
+        if (connection == null) return;
+        double[] startLocation = connection.getStartingNode().getLocation();
+        double[] endLocation = connection.getDestinationNode().getLocation();
         drawerManager.drawLine(startLocation[0], startLocation[1], endLocation[0], endLocation[1], color);
     }
+
+
     // Drawings end
 
     // Delete drawings

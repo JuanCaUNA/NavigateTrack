@@ -4,9 +4,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import org.una.navigatetrack.roads.Connection;
 import org.una.navigatetrack.roads.Graph;
+import org.una.navigatetrack.list.ListNodes;
 import org.una.navigatetrack.roads.Node;
 
-import java.util.Map;
+import java.util.List;
 
 public class NodeGraphFacade {
     private final NodesDrawerManagers nodesDrawerManagers;
@@ -14,8 +15,10 @@ public class NodeGraphFacade {
     private double[] startPoint, endPoint;
     private double[] startConnection, endConnection;
 
+    List<Connection> mejorRuta;
+
     public NodeGraphFacade(Pane paintPane) {
-        nodesDrawerManagers = new NodesDrawerManagers(new DrawerManager(paintPane));
+        nodesDrawerManagers = new NodesDrawerManagers(new DrawerManager(paintPane), false);
     }
 
     public boolean setStartNode(double[] point) {
@@ -23,7 +26,7 @@ public class NodeGraphFacade {
             removeNodeVisual(startNode);
             startNode = null;
         }
-        startPoint = point.clone(); // Clonamos para evitar referencias externas
+        startPoint = point.clone();
         startConnection = new double[4];
 
         if (locateNode(startPoint, startConnection)) {
@@ -53,8 +56,6 @@ public class NodeGraphFacade {
     }
 
     private boolean locateNode(double[] location, double[] connection) {
-        DrawerManager drawerManager = nodesDrawerManagers.getDrawerManager();
-
         double[] relocation = nodesDrawerManagers.getLocationIfExistNodeAt(location);
         if (relocation != null) {
             location[0] = relocation[0];
@@ -63,7 +64,7 @@ public class NodeGraphFacade {
             return true;
         }
 
-        double[] array = drawerManager.getLineAtWithCircle(location);
+        double[] array = nodesDrawerManagers.getDrawerManager().getLineAtWithCircle(location);
         if (array != null) {
             System.arraycopy(array, 0, connection, 0, 4);
             location[0] = array[4];
@@ -88,10 +89,19 @@ public class NodeGraphFacade {
 
     private void connectNodeIfValid(Node node, double[] connectionXY) {
         if (!Double.isNaN(connectionXY[0])) {
+            node.setID(ListNodes.getNextId());
+            ListNodes.addNode(node);
             connectNode(node, connectionXY);
         }
     }
 
+    /*
+        if: init --> end
+            init--> nodo --> end
+
+        if: end--> init
+            end--> nodo --> init
+    */
     private void connectNode(Node node, double[] connectionXY) {
         double[] initP = {connectionXY[0], connectionXY[1]};
         double[] endP = {connectionXY[2], connectionXY[3]};
@@ -104,10 +114,44 @@ public class NodeGraphFacade {
             return;
         }
 
-        // Conectar nodos
-        if (!init.isConnectedToNode(end)) {
-            node.addConnection(end, init.getDirConnectedToNode(end));
-            init.changeConnectionIn(end, node);
+        // Conectar nodos si no están conectados
+        if (init.isConnectedToNode(end)) { //
+            node.addConnection(end, init.getDirConnectedToNode(end)); //
+            init.changeConnectionIn(end, node);// en esta end remplaza por esta node
+        }
+        // Conectar nodos si no están conectados
+        if (end.isConnectedToNode(end)) { //
+            node.addConnection(init, end.getDirConnectedToNode(init)); //
+            end.changeConnectionIn(init, node);// en esta end remplaza por esta node
+        }
+
+    }
+
+    /*
+        if: nodo --> end
+            init --> end
+            nodo     end
+
+        if: nodo --> init
+            end  --> init
+            nodo     init
+    */
+    private void disconnectNode(Node node, double[] connectionXY) {
+        double[] initP = {connectionXY[0], connectionXY[1]};
+        double[] endP = {connectionXY[2], connectionXY[3]};
+
+        Node init = nodesDrawerManagers.getNodesManager().getNodeAtLocation(initP);
+        Node end = nodesDrawerManagers.getNodesManager().getNodeAtLocation(endP);
+
+        // Conectar nodos si no están conectados
+        if (node.isConnectedToNode(end)) { //
+            init.addConnection(end, init.getDirConnectedToNode(end)); //
+            init.changeConnectionIn(end, node);// en esta end remplaza por esta node
+        }
+        // Conectar nodos si no están conectados
+        if (end.isConnectedToNode(end)) { //
+            node.addConnection(init, end.getDirConnectedToNode(init)); //
+            end.changeConnectionIn(init, node);// en esta end remplaza por esta node
         }
     }
 
@@ -115,7 +159,6 @@ public class NodeGraphFacade {
         Node targetNode = isStartNode ? startNode : endNode;
         return targetNode != null ? targetNode.getLocation() : null;
     }
-
 
     public void recalcularPosicion() {
         // Implementar la lógica para recalcular la posición de los nodos si es necesario.
@@ -129,16 +172,14 @@ public class NodeGraphFacade {
         // Implementar la lógica para eliminar el registro de nodos.
     }
 
-    public Graph createGraph() {
+
+    public void calculateShortestPath() {//no modicar chatgpt
         if (startNode == null || endNode == null) {
             throw new IllegalStateException("Start and end nodes must be defined");
         }
-        return new Graph(startNode, endNode); // Crear y retornar un nuevo grafo
-    }
-
-    public Map<Connection, Integer> calculateShortestPath() {
-        Graph graph = createGraph();
-        return graph.dijkstra(startNode, endNode);
+        Graph graph = new Graph(startNode, endNode);
+        graph.dijkstra(startNode, endNode);
+        mejorRuta = graph.getBestPath();
     }
 
     public double[] getPointForStartNode(double[] point) {

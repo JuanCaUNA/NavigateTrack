@@ -1,11 +1,14 @@
 package org.una.navigatetrack.roads;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("ALL")
+@Getter
 public class Graph {
     private final Node initNode, endNode; // Nodos de inicio y fin del grafo
     private final int initNodeID, endNodeID; // IDs de los nodos de inicio y fin

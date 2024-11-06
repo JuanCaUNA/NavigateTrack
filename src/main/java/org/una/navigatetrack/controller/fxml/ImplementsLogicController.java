@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import org.una.navigatetrack.manager.DrawerManager;
+import org.una.navigatetrack.manager.NodeGraphFacade;
 import org.una.navigatetrack.manager.NodesDrawerManagers;
 
 import java.net.URL;
@@ -39,12 +39,15 @@ public class ImplementsLogicController implements Initializable {
     @FXML
     private RadioButton radioBDijkstra, radioBFloydWarshall;
 
+    private NodeGraphFacade nodeGraphFacade;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        manager = new NodesDrawerManagers(new DrawerManager(paintPane));
+//        manager = new NodesDrawerManagers(new DrawerManager(paintPane));
+        nodeGraphFacade = new NodeGraphFacade(paintPane);
         setupUI();
     }
 

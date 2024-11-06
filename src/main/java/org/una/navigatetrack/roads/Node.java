@@ -2,49 +2,40 @@ package org.una.navigatetrack.roads;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.una.navigatetrack.list.ListNodes;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Node implements Serializable {
+@Setter
+@Getter
+public class Node {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-
-    @Getter
-    @Setter
     private int ID;
 
-    @Getter
-    @Setter
     private double[] location;
-
-    private Map<Directions, Connection> connections;
-
+    private Map<Directions, Connection> connectionsMap;
 
     public Node() {
-        connections = new EnumMap<>(Directions.class);
+        connectionsMap = new EnumMap<>(Directions.class);
         location = new double[2];
     }
 
     public Node(double[] point) {
-        connections = new EnumMap<>(Directions.class);
+        connectionsMap = new EnumMap<>(Directions.class);
         location = point;
+        //ID = ListNodes.getNextId(); TODO
     }
 
     // Add a connection to another node
     public void addConnection(Node targetNode, Directions direction) {
-        Connection connection = connections.get(direction);
-        if (connection != null) {
-            connection.setStartingNodeID(ID);
-            connection.setDestinationNodeID(targetNode.getID());
-            connection.setWeight(calculateDistance(targetNode));
-        } else {
-            double weight = calculateDistance(targetNode);
-            connections.put(direction, new Connection(ID, targetNode.getID(), (int) weight, direction));
-        }
+        // Si no existe una conexión en la dirección dada, crea una nueva
+        Connection connection = new Connection(ID, targetNode.getID(), calculateDistance(targetNode));
+        connection.setDirection(direction);
+        // Se agrega o reemplaza la conexión en el mapa
+        connectionsMap.put(direction, connection);
     }
 
     // Calculate distance to another node
@@ -54,29 +45,23 @@ public class Node implements Serializable {
 
     // Delete connection based on direction
     public void deleteConnection(Directions direction) {
-        connections.remove(direction);
-    }
-
-    // Get target node based on direction
-    public Node getTargetNode(Directions direction) {
-        Connection connection = connections.get(direction);
-        return connection != null ? connection.getDestinationNode() : null;
+        connectionsMap.remove(direction);
     }
 
     // Get connections excluding a specific node
     public List<Connection> getAllConnections() {
-        return new ArrayList<>(connections.values());
+        return new ArrayList<>(connectionsMap.values());
     }
 
     public List<Connection> getConnectionsInOrderByWeight(Node entryNode) {
-        return connections.values().stream()
+        return connectionsMap.values().stream()
                 .filter(conn -> conn.getDestinationNodeID() != entryNode.getID() && !conn.isBlocked())
                 .sorted(Comparator.comparingDouble(Connection::getEffectiveWeight)) // Ordenar por peso final
                 .collect(Collectors.toList());
     }
 
     public List<Connection> getConnectionsInOrderByWeight() {
-        return connections.values().stream()
+        return connectionsMap.values().stream()
                 .filter(conn -> !conn.isBlocked())
                 .sorted(Comparator.comparingDouble(Connection::getEffectiveWeight)) // Ordenar por peso final
                 .collect(Collectors.toList());
@@ -84,34 +69,26 @@ public class Node implements Serializable {
 
     // Get connection based on direction
     public Connection getConnection(Directions direction) {
-        return connections.get(direction);
-    }
-
-    // Get connection based on target position
-    public Connection getConnection(double[] position) {
-        return connections.values().stream()
-                .filter(conn -> Arrays.equals(conn.getDestinationNode().location, position))
-                .findFirst()
-                .orElse(null);
-    }
-
-    // Check if there are no connections
-    public boolean isConnectionsEmpty() {
-        return connections.isEmpty();
+        return connectionsMap.get(direction);
     }
 
     // Check if connected to a specific node
     public boolean isConnectedToNode(Node node) {
-        return connections.values().stream().anyMatch(conn -> conn.getDestinationNodeID() == node.getID());
+        return connectionsMap.values().stream().noneMatch(conn -> conn.getDestinationNodeID() == node.getID());
     }
 
     public Directions getDirConnectedToNode(Node node) {
-        return getConnectionInNode(node.getID()).getDirection();
+        return connectionsMap.entrySet().stream()  // Itera sobre las entradas (key-value) del mapa
+                .filter(entry -> entry.getValue().getDestinationNodeID() == node.getID())  // Filtra por el ID del nodo
+                .map(Map.Entry::getKey)  // Mapea a la clave (Directions)
+                .findFirst()  // Devuelve el primer resultado encontrado
+                .orElse(null);  // Si no se encuentra ninguna, devuelve null
     }
+
 
     // Get connection in node
     public Connection getConnectionInNode(int nodeID) {
-        return connections.values().stream()
+        return connectionsMap.values().stream()
                 .filter(conn -> conn.getDestinationNodeID() == nodeID)
                 .findFirst()
                 .orElse(null);
@@ -125,21 +102,43 @@ public class Node implements Serializable {
         }
     }
 
-    public void setConnections( Map<Directions, Connection> connections){
-        this.connections = connections;
-    }
-
     // Search for a node by ID
     public Optional<Node> searchAndGetNode(int nodeID) {
         return ListNodes.findById(nodeID);
     }
 
     // Get node by index
-    public Node getIndexAt(int ID) {
-        return ListNodes.getListNodes().get(ID);
+    public Node getIndexAt(int nodeID) {
+        return ListNodes.getNodeByID(nodeID);
+    }
+
+    public void addConnection(int targetNodeId, Directions direction, double weight) {
+        Connection connection = new Connection(ID, targetNodeId, (int) weight);
+        connection.setDirection(direction);
+        connectionsMap.put(direction, connection);
     }
 }
+/*
+    // Get target node based on direction
+    public Node getTargetNode(Directions direction) {
+        Connection connection = connections.get(direction);
+        return connection != null ? connection.getDestinationNode() : null;
+    }
 
+        // Get connection based on target position
+    public Connection getConnection(double[] position) {
+        return connections.values().stream()
+                .filter(conn -> Arrays.equals(conn.getDestinationNode().location, position))
+                .findFirst()
+                .orElse(null);
+    }
+
+        // Check if there are no connections
+    public boolean isConnectionsEmpty() {
+        return connections.isEmpty();
+    }
+
+ */
 
 //    private double[] getLocation( int[] point){
 //        return new double[]{point[0], point[1]};

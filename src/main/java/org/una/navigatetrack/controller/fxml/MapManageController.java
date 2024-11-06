@@ -106,23 +106,21 @@ public class MapManageController implements Initializable {
     }
 
     private Directions getDirection() {
-        // Devuelve la dirección seleccionada
         if (izRadioB.isSelected()) return Directions.IZQUIERDA;
         if (derRadioB.isSelected()) return Directions.DERECHA;
         if (adelanteRadioB.isSelected()) return Directions.ADELANTE;
         if (contrarioRadioB.isSelected()) return Directions.CONTRARIO;
-        return null; // Retorna null si no hay dirección seleccionada
+        return null;
     }
 
     private void handleMouseClick(double x, double y) {
         double[] point = {x, y};
-        // Crea un nodo o conexión dependiendo del modo seleccionado
         if (addRadioB.isSelected()) {
             manager.createAndDrawNode(point);
             setNodeInfo();
         } else if (seleccionarRadioB.isSelected()) {
             manager.updateCurrentNode(point);
-            setNodeInfo(); // Muestra información del nodo seleccionado
+            setNodeInfo();
         } else {
             manager.createAndDrawConnection(point, getDirection());
         }
@@ -135,12 +133,12 @@ public class MapManageController implements Initializable {
             nodoInfoTextArea.setText("");
         } else {
             nodoActualLabel.setText("Nodo Actual: " + Arrays.toString(currentNode.getLocation()));
-            nodoInfoTextArea.setText(getNodeConnectionsInfo(currentNode)); // Muestra información sobre las conexiones del nodo
+            nodoInfoTextArea.setText(getNodeConnectionsInfo(currentNode));
         }
     }
 
     private String getNodeConnectionsInfo(Node node) {
-        List<Connection> connections = node.getAllConnections(); // Obtener conexiones como lista
+        List<Connection> connections = node.getAllConnections();
 
         if (connections == null || connections.isEmpty()) {
             return "No hay conexiones disponibles."; // Mensaje si no hay conexiones
@@ -159,6 +157,6 @@ public class MapManageController implements Initializable {
                 ));
             }
         }
-        return info.toString(); // Devuelve la información formateada sobre las conexiones
+        return info.toString();
     }
 }

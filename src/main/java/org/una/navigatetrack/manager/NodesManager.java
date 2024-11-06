@@ -1,102 +1,124 @@
 package org.una.navigatetrack.manager;
 
-import javafx.scene.paint.Color;
-import org.una.navigatetrack.manager.storage.StorageManager;
 import org.una.navigatetrack.roads.Connection;
 import org.una.navigatetrack.roads.Directions;
-import org.una.navigatetrack.roads.ListNodes;
+import org.una.navigatetrack.list.ListNodes;
 import org.una.navigatetrack.roads.Node;
 
 import java.util.Arrays;
-import java.util.Map;
+import java.util.List;
 import java.util.Optional;
 
 public class NodesManager {
-    private final StorageManager<Map<Integer, Node>> nodesStorage = new StorageManager<>("src/main/resources/listNodes/", "listNodes.data");
+    private final List<Node> nodes;
 
+    // Constructor
     public NodesManager() {
         readNodesFromFile();
+        nodes = ListNodes.getNodesList();  // Usamos la lista actualizada de nodos
     }
+
+    // Métodos de ciclo de vida
 
     // Cargar nodos desde el archivo y almacenarlos en ListNodes
     public void readNodesFromFile() {
-        Map<Integer, Node> loadedNodes = nodesStorage.read();
-        ListNodes.setListNodes(loadedNodes); // Agregar nodos directamente al Map
+        ListNodes.loadNodesList();
     }
 
     // Guardar los nodos en el archivo
     public void updateNodesToFile() {
-        nodesStorage.write(ListNodes.getNodesMap()); // Guardar directamente desde ListNodes
+        ListNodes.saveNodesList();
     }
 
-    // Eliminar un nodo
-    public void deleteNode(int nodeID) {
-        Optional<Node> nodeOpt = ListNodes.findById(nodeID);
-        nodeOpt.ifPresentOrElse(
-                node -> {
-                    ListNodes.removeById(nodeID);
-                    // No es necesario actualizar una lista local, ya no existe
-                },
-                () -> System.out.println("Node not found with ID: " + nodeID)
-        );
-    }
+    // Métodos relacionados con nodos
 
     // Añadir un nodo
     public void addNode(double[] location) {
         Node newNode = new Node(location);
-        ListNodes.addNode(newNode); // Agregar nodo a ListNodes
+        newNode.setID(ListNodes.getNextId());
+        ListNodes.addNode(newNode);  // Agregar el nodo a ListNodes
+    }
+
+    // Eliminar un nodo
+    public void deleteNode(int nodeID) {
+        Node node = ListNodes.getNodeByID(nodeID);
+        if (node != null) {
+            ListNodes.removeById(nodeID);
+        } else {
+            System.out.println("Node not found with ID: " + nodeID);
+        }
     }
 
     // Obtener un nodo en una ubicación específica
     public Node getNodeAtLocation(double[] location) {
-        return ListNodes.getNodesMap().values().stream()
+        return nodes.stream()
                 .filter(node -> Arrays.equals(node.getLocation(), location))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new IllegalArgumentException("Node not found at the given location"));
     }
 
-    // Añadir una conexión
-    public void addConnection(int currentNodeID, int toNodeID, Directions direction) {
-        Optional<Node> currentNodeOpt = ListNodes.findById(currentNodeID);
-        Optional<Node> toNodeOpt = ListNodes.findById(toNodeID);
+    // Buscar y obtener un nodo de manera segura (sin Optional)
+    public Node searchAndGetNode(int nodeID) {
+        Node node = ListNodes.getNodeByID(nodeID);
+        if (node != null) {
+            return node;
+        }
+        throw new IllegalArgumentException("Node not found with ID: " + nodeID);
+    }
 
-        if (currentNodeOpt.isPresent() && toNodeOpt.isPresent()) {
-            currentNodeOpt.get().addConnection(toNodeOpt.get(), direction);
+    // Métodos relacionados con conexiones
+
+    // Añadir una conexión entre nodos
+    public void addConnection(int currentNodeID, int toNodeID, Directions direction) {
+        Node currentNode = ListNodes.getNodeByID(currentNodeID);
+        Node toNode = ListNodes.getNodeByID(toNodeID);
+
+        if (currentNode != null && toNode != null) {
+            currentNode.addConnection(toNode, direction);
+        } else {
+            System.out.println("One or both nodes not found.");
         }
     }
 
     // Eliminar una conexión
     public void removeConnection(int nodeID, Directions direction) {
-        Optional<Node> nodeOpt = ListNodes.findById(nodeID);
-        nodeOpt.ifPresent(node -> node.deleteConnection(direction));
+        Node node = ListNodes.getNodeByID(nodeID);
+        if (node != null) {
+            node.deleteConnection(direction);
+        } else {
+            System.out.println("Node not found with ID: " + nodeID);
+        }
     }
 
     // Obtener conexión en una dirección específica
     public Connection getConnectionInDirection(int nodeID, Directions direction) {
-        return ListNodes.findById(nodeID)
-                .map(node -> node.getConnection(direction))
-                .orElse(null);
+        Node node = ListNodes.getNodeByID(nodeID);
+        if (node != null) {
+            return node.getConnection(direction);
+        }
+        return null;  // Si el nodo no existe, devolvemos null
     }
 
-    // Bloquear ruta
+    // Bloquear ruta en una dirección específica
     public void blockConnection(int nodeID, Directions direction) {
         Connection connection = getConnectionInDirection(nodeID, direction);
         if (connection != null) {
-            connection.blockRoute();
+            connection.setBlocked(true);
         }
     }
 
-    // Desbloquear ruta
+    // Desbloquear ruta en una dirección específica
     public void unblockConnection(int nodeID, Directions direction) {
         Connection connection = getConnectionInDirection(nodeID, direction);
         if (connection != null) {
-            connection.unblockRoute();
+            connection.setBlocked(false);
         }
     }
 
-    // Buscar y obtener un nodo
-    public Optional<Node> searchAndGetNode(int nodeID) {
+    // Métodos adicionales
+
+    // Método genérico para búsqueda que devuelve Optional<Node>
+    public Optional<Node> find(int nodeID) {
         return ListNodes.findById(nodeID);
     }
-    //
 }

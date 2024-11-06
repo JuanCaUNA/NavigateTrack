@@ -1,7 +1,8 @@
-package org.una.navigatetrack.dto;
+package org.una.navigatetrack.list;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.una.navigatetrack.dto.NodeDTO;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -50,15 +51,15 @@ public class ListNodesDTO {
                 .findFirst();
     }
     // Método para buscar un nodo por su ID (como un array de double)
-    public static Optional<Integer> findKeyByID(double[] id) {
-        return nodeMap.entrySet()
-                .stream()
-                .filter(entry -> {
-                    NodeDTO node = entry.getValue();
-                    double[] nodeId = node.getId(); // Suponiendo que hay un método getId() que devuelve un array de double
-                    return Arrays.equals(nodeId, id); // Comparar arrays
-                })
-                .map(Map.Entry::getKey)
-                .findFirst();
-    }
+//    public static Optional<Integer> findKeyByID(double[] id) {
+//        return nodeMap.entrySet()
+//                .stream()
+//                .filter(entry -> {
+//                    NodeDTO node = entry.getValue();
+//                    double[] nodeId = node.getId(); // Suponiendo que hay un método getId() que devuelve un array de double
+//                    return Arrays.equals(nodeId, id); // Comparar arrays
+//                })
+//                .map(Map.Entry::getKey)
+//                .findFirst();
+//    }
 }
