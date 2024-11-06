@@ -6,9 +6,9 @@ module org.una.navigatetrack {
     requires com.dlsc.formsfx;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
-    requires java.desktop;
     requires static lombok;
-    requires java.base;
+    requires com.fasterxml.jackson.databind;
+    requires java.desktop;
 
     opens org.una.navigatetrack to javafx.fxml;
     exports org.una.navigatetrack;
@@ -20,4 +20,8 @@ module org.una.navigatetrack {
     opens org.una.navigatetrack.manager to javafx.fxml;
     exports org.una.navigatetrack.utils;
     opens org.una.navigatetrack.utils to javafx.fxml;
+    exports org.una.navigatetrack.list;
+    opens org.una.navigatetrack.list to javafx.fxml;
+    exports org.una.navigatetrack.dto;
+    opens org.una.navigatetrack.dto to javafx.fxml;
 }

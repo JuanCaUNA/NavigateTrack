@@ -1,0 +1,895 @@
+[ {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 559.0, 377.0 ],
+    "weight" : 173,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 647.0, 527.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 524.0, 492.0 ],
+    "weight" : 125,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 647.0, 527.0 ],
+    "weight" : 12,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 641.0, 538.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 618.0, 597.0 ],
+    "weight" : 63,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 596.0, 657.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 641.0, 538.0 ],
+    "weight" : 63,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 618.0, 597.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 542.0, 794.0 ],
+    "weight" : 117,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 501.0, 904.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 483.0, 771.0 ],
+    "weight" : 63,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 596.0, 657.0 ],
+    "weight" : 147,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 542.0, 794.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 475.0, 892.0 ],
+    "weight" : 87,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 399.0, 849.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 354.0, 764.0 ],
+    "weight" : 56,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 399.0, 849.0 ],
+    "weight" : 68,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 338.0, 818.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 488.0, 748.0 ],
+    "weight" : 23,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 542.0, 794.0 ],
+    "weight" : 63,
+    "direction" : "DERECHA"
+  } ],
+  "location" : [ 483.0, 771.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 434.0, 728.0 ],
+    "weight" : 57,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 511.0, 692.0 ],
+    "weight" : 60,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 488.0, 748.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 399.0, 849.0 ],
+    "weight" : 125,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 369.0, 712.0 ],
+    "weight" : 66,
+    "direction" : "DERECHA"
+  } ],
+  "location" : [ 434.0, 728.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 534.0, 634.0 ],
+    "weight" : 62,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 511.0, 692.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 511.0, 692.0 ],
+    "weight" : 61,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 434.0, 728.0 ],
+    "weight" : 62,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 454.0, 669.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 559.0, 573.0 ],
+    "weight" : 65,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 596.0, 657.0 ],
+    "weight" : 66,
+    "direction" : "DERECHA"
+  } ],
+  "location" : [ 534.0, 634.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 534.0, 634.0 ],
+    "weight" : 61,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 454.0, 669.0 ],
+    "weight" : 64,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 478.0, 609.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 559.0, 573.0 ],
+    "weight" : 61,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 478.0, 609.0 ],
+    "weight" : 63,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 502.0, 550.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 618.0, 597.0 ],
+    "weight" : 63,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 559.0, 573.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 225.0, 710.0 ],
+    "weight" : 139,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 369.0, 712.0 ],
+    "weight" : 54,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 354.0, 764.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 386.0, 649.0 ],
+    "weight" : 65,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 369.0, 712.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 407.0, 581.0 ],
+    "weight" : 71,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 454.0, 669.0 ],
+    "weight" : 70,
+    "direction" : "DERECHA"
+  } ],
+  "location" : [ 386.0, 649.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 478.0, 609.0 ],
+    "weight" : 76,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 407.0, 581.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 412.0, 511.0 ],
+    "weight" : 63,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 407.0, 581.0 ],
+    "weight" : 19,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 390.0, 571.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 390.0, 571.0 ],
+    "weight" : 30,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 334.0, 633.0 ],
+    "weight" : 76,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 361.0, 561.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 306.0, 722.0 ],
+    "weight" : 93,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 272.0, 607.0 ],
+    "weight" : 67,
+    "direction" : "DERECHA"
+  } ],
+  "location" : [ 334.0, 633.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 234.0, 690.0 ],
+    "weight" : 78,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 306.0, 722.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 81.0, 638.0 ],
+    "weight" : 160,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 234.0, 690.0 ],
+    "weight" : 21,
+    "direction" : "DERECHA"
+  }, {
+    "targetNodeId" : [ 354.0, 764.0 ],
+    "weight" : 139,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 225.0, 710.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 227.0, 586.0 ],
+    "weight" : 49,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 304.0, 536.0 ],
+    "weight" : 77,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 272.0, 607.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 205.0, 636.0 ],
+    "weight" : 54,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 180.0, 565.0 ],
+    "weight" : 51,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 227.0, 586.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 227.0, 586.0 ],
+    "weight" : 54,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 205.0, 636.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 180.0, 565.0 ],
+    "weight" : 57,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 153.0, 616.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 153.0, 616.0 ],
+    "weight" : 57,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 120.0, 506.0 ],
+    "weight" : 84,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 180.0, 565.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 329.0, 475.0 ],
+    "weight" : 65,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 361.0, 561.0 ],
+    "weight" : 62,
+    "direction" : "DERECHA"
+  } ],
+  "location" : [ 304.0, 536.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 304.0, 536.0 ],
+    "weight" : 51,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 227.0, 586.0 ],
+    "weight" : 76,
+    "direction" : "DERECHA"
+  } ],
+  "location" : [ 257.0, 516.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 225.0, 710.0 ],
+    "weight" : 160,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 81.0, 638.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 75.0, 552.0 ],
+    "weight" : 106,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 338.0, 818.0 ],
+    "weight" : 380,
+    "direction" : "DERECHA"
+  } ],
+  "location" : [ 6.0, 633.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 75.0, 552.0 ],
+    "weight" : 53,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 117.0, 585.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 120.0, 506.0 ],
+    "weight" : 64,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 117.0, 585.0 ],
+    "weight" : 53,
+    "direction" : "DERECHA"
+  }, {
+    "targetNodeId" : [ 6.0, 633.0 ],
+    "weight" : 106,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 75.0, 552.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 483.0, 771.0 ],
+    "weight" : 121,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 501.0, 904.0 ],
+    "weight" : 28,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 475.0, 892.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 502.0, 550.0 ],
+    "weight" : 62,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 468.0, 468.0 ],
+    "weight" : 60,
+    "direction" : "DERECHA"
+  } ],
+  "location" : [ 524.0, 492.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 524.0, 492.0 ],
+    "weight" : 66,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 545.0, 429.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 405.0, 441.0 ],
+    "weight" : 68,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 478.0, 437.0 ],
+    "weight" : 32,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 468.0, 468.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 468.0, 468.0 ],
+    "weight" : 59,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 502.0, 550.0 ],
+    "weight" : 62,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 446.0, 523.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 446.0, 523.0 ],
+    "weight" : 36,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 412.0, 511.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 412.0, 511.0 ],
+    "weight" : 28,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 361.0, 561.0 ],
+    "weight" : 64,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 385.0, 501.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 342.0, 423.0 ],
+    "weight" : 53,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 385.0, 501.0 ],
+    "weight" : 61,
+    "direction" : "DERECHA"
+  } ],
+  "location" : [ 329.0, 475.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 282.0, 410.0 ],
+    "weight" : 61,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 345.0, 351.0 ],
+    "weight" : 72,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 342.0, 423.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 342.0, 423.0 ],
+    "weight" : 24,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 366.0, 428.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 385.0, 501.0 ],
+    "weight" : 63,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 366.0, 428.0 ],
+    "weight" : 41,
+    "direction" : "DERECHA"
+  } ],
+  "location" : [ 405.0, 441.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 257.0, 516.0 ],
+    "weight" : 19,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 239.0, 508.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 329.0, 475.0 ],
+    "weight" : 66,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 239.0, 508.0 ],
+    "weight" : 66,
+    "direction" : "DERECHA"
+  } ],
+  "location" : [ 268.0, 448.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 220.0, 393.0 ],
+    "weight" : 34,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 268.0, 448.0 ],
+    "weight" : 75,
+    "direction" : "DERECHA"
+  }, {
+    "targetNodeId" : [ 155.0, 465.0 ],
+    "weight" : 62,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 198.0, 419.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 244.0, 359.0 ],
+    "weight" : 41,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 198.0, 419.0 ],
+    "weight" : 34,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 220.0, 393.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 155.0, 465.0 ],
+    "weight" : 53,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 75.0, 552.0 ],
+    "weight" : 64,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 120.0, 506.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 198.0, 419.0 ],
+    "weight" : 62,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 239.0, 508.0 ],
+    "weight" : 94,
+    "direction" : "DERECHA"
+  }, {
+    "targetNodeId" : [ 120.0, 506.0 ],
+    "weight" : 53,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 155.0, 465.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 253.0, 337.0 ],
+    "weight" : 23,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 220.0, 393.0 ],
+    "weight" : 41,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 244.0, 359.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 253.0, 337.0 ],
+    "weight" : 46,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 297.0, 351.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 271.0, 240.0 ],
+    "weight" : 98,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 297.0, 351.0 ],
+    "weight" : 46,
+    "direction" : "DERECHA"
+  }, {
+    "targetNodeId" : [ 244.0, 359.0 ],
+    "weight" : 23,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 253.0, 337.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 487.0, 404.0 ],
+    "weight" : 34,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 504.0, 445.0 ],
+    "weight" : 27,
+    "direction" : "DERECHA"
+  } ],
+  "location" : [ 478.0, 437.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 516.0, 419.0 ],
+    "weight" : 28,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 504.0, 445.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 545.0, 429.0 ],
+    "weight" : 30,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 516.0, 419.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 545.0, 429.0 ],
+    "weight" : 53,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 521.0, 312.0 ],
+    "weight" : 75,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 647.0, 527.0 ],
+    "weight" : 173,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 559.0, 377.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 487.0, 404.0 ],
+    "weight" : 66,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 405.0, 441.0 ],
+    "weight" : 63,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 425.0, 381.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 425.0, 381.0 ],
+    "weight" : 41,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 366.0, 428.0 ],
+    "weight" : 65,
+    "direction" : "DERECHA"
+  } ],
+  "location" : [ 386.0, 366.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 341.0, 309.0 ],
+    "weight" : 42,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 386.0, 366.0 ],
+    "weight" : 43,
+    "direction" : "DERECHA"
+  } ],
+  "location" : [ 345.0, 351.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 268.0, 448.0 ],
+    "weight" : 40,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 220.0, 393.0 ],
+    "weight" : 64,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 282.0, 410.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 275.0, 201.0 ],
+    "weight" : 39,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 253.0, 337.0 ],
+    "weight" : 98,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 271.0, 240.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 271.0, 240.0 ],
+    "weight" : 48,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 318.0, 252.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 318.0, 252.0 ],
+    "weight" : 72,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 356.0, 170.0 ],
+    "weight" : 59,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 450.0, 197.0 ],
+    "weight" : 70,
+    "direction" : "DERECHA"
+  }, {
+    "targetNodeId" : [ 382.0, 291.0 ],
+    "weight" : 69,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 384.0, 222.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 445.0, 320.0 ],
+    "weight" : 69,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 382.0, 291.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 510.0, 344.0 ],
+    "weight" : 69,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 425.0, 381.0 ],
+    "weight" : 64,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 382.0, 291.0 ],
+    "weight" : 69,
+    "direction" : "DERECHA"
+  } ],
+  "location" : [ 445.0, 320.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 445.0, 320.0 ],
+    "weight" : 69,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 515.0, 328.0 ],
+    "weight" : 16,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 510.0, 344.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 521.0, 312.0 ],
+    "weight" : 17,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 515.0, 328.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 477.0, 244.0 ],
+    "weight" : 80,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 559.0, 377.0 ],
+    "weight" : 75,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 521.0, 312.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 515.0, 328.0 ],
+    "weight" : 89,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 445.0, 320.0 ],
+    "weight" : 71,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 467.0, 252.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 467.0, 252.0 ],
+    "weight" : 12,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 450.0, 197.0 ],
+    "weight" : 54,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 521.0, 312.0 ],
+    "weight" : 80,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 477.0, 244.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 318.0, 252.0 ],
+    "weight" : 61,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 341.0, 309.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 295.0, 97.0 ],
+    "weight" : 50,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 275.0, 201.0 ],
+    "weight" : 55,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 281.0, 146.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 360.0, 19.0 ],
+    "weight" : 65,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 295.0, 97.0 ],
+    "weight" : 38,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 310.0, 62.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 310.0, 62.0 ],
+    "weight" : 65,
+    "direction" : "IZQUIERDA"
+  } ],
+  "location" : [ 360.0, 19.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 281.0, 146.0 ],
+    "weight" : 55,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 356.0, 170.0 ],
+    "weight" : 86,
+    "direction" : "DERECHA"
+  }, {
+    "targetNodeId" : [ 271.0, 240.0 ],
+    "weight" : 39,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 275.0, 201.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 275.0, 201.0 ],
+    "weight" : 86,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 331.0, 121.0 ],
+    "weight" : 55,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 384.0, 222.0 ],
+    "weight" : 59,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 356.0, 170.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 295.0, 97.0 ],
+    "weight" : 43,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 356.0, 170.0 ],
+    "weight" : 55,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 331.0, 121.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 310.0, 62.0 ],
+    "weight" : 38,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 331.0, 121.0 ],
+    "weight" : 43,
+    "direction" : "DERECHA"
+  }, {
+    "targetNodeId" : [ 281.0, 146.0 ],
+    "weight" : 50,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 295.0, 97.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 384.0, 222.0 ],
+    "weight" : 70,
+    "direction" : "IZQUIERDA"
+  }, {
+    "targetNodeId" : [ 360.0, 19.0 ],
+    "weight" : 199,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 477.0, 244.0 ],
+    "weight" : 54,
+    "direction" : "CONTRARIO"
+  } ],
+  "location" : [ 450.0, 197.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 510.0, 344.0 ],
+    "weight" : 64,
+    "direction" : "ADELANTE"
+  }, {
+    "targetNodeId" : [ 516.0, 419.0 ],
+    "weight" : 32,
+    "direction" : "DERECHA"
+  } ],
+  "location" : [ 487.0, 404.0 ]
+}, {
+  "connectionsDTO" : [ {
+    "targetNodeId" : [ 272.0, 607.0 ],
+    "weight" : 91,
+    "direction" : "ADELANTE"
+  } ],
+  "location" : [ 234.0, 690.0 ]
+} ]
