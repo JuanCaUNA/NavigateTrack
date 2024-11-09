@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.una.navigatetrack.list.ListNodes;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -116,6 +114,28 @@ public class Node {
         Connection connection = new Connection(ID, targetNodeId, (int) weight);
         connection.setDirection(direction);
         connectionsMap.put(direction, connection);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Node{")
+                .append("ID=").append(ID)
+                .append(", location=").append(Arrays.toString(location))
+                .append(", connectionsMap={");
+
+        // Imprimir las conexiones
+        if (connectionsMap != null && !connectionsMap.isEmpty()) {
+            for (Map.Entry<Directions, Connection> entry : connectionsMap.entrySet()) {
+                sb.append(entry.getKey()).append("->").append(entry.getValue().toString()).append(", ");
+            }
+            // Eliminar la coma y el espacio al final
+            sb.setLength(sb.length() - 2);
+        }
+
+        sb.append("}}");
+
+        return sb.toString();
     }
 }
 /*

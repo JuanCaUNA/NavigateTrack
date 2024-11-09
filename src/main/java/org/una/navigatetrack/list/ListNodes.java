@@ -8,13 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Getter
 @SuppressWarnings("All")
 public class ListNodes {
-    //private static final StorageManager<List<Node>> nodesStorage = new StorageManager<>("src/main/resources/listNodes/", "listNodes.data");
-    @Getter
+
     private static List<Node> nodesList = new ArrayList<>();
-    @Getter
-    private static int maxId = 0; // ID máximo inicializado a -1, el primer ID será 0
+    private static int baseIndex;
 
     private ListNodes() {
         // Constructor privado para evitar instanciación
@@ -23,21 +22,15 @@ public class ListNodes {
     // Cargar nodos desde archivo
     public static void loadNodesList() {
         nodesList = JSON.leer("ListNodes.json", new TypeReference<List<Node>>() {
-        }).orElse(null);//nodesStorage.read(); // Lee desde el archivo y asigna la lista
+        }).orElse(null);
         if (nodesList == null) {
             nodesList = new ArrayList<>();
         }
-        if (nodesList.isEmpty()) {
-            maxId = 0; // Si no hay nodos, maxId se restablece
-        } else {
-            maxId = nodesList.stream().mapToInt(Node::getID).max().orElse(-1);
-        }
+        baseIndex = nodesList.size();
     }
 
     // Guardar nodos en archivo
     public static void saveNodesList() {
-        //nodesStorage.write(nodesList);
-        System.out.println();
         JSON.save(nodesList, "ListNodes.json");
     }
 
@@ -45,7 +38,6 @@ public class ListNodes {
     public static void setListNodes(List<Node> nodes) {
         nodesList.clear();
         nodesList.addAll(nodes);  // Clonamos la lista pasada
-        maxId = nodes.stream().mapToInt(Node::getID).max().orElse(-1);
     }
 
     // Buscar un nodo por su ID
@@ -64,7 +56,6 @@ public class ListNodes {
     public static void addNode(Node node) {
         if (!containsNodeWithID(node.getID())) {
             nodesList.add(node);
-            maxId = Math.max(maxId, node.getID());
         } else {
             throw new IllegalArgumentException("Ya existe un nodo con el mismo ID: " + node.getID());
         }
@@ -77,7 +68,12 @@ public class ListNodes {
 
     // Obtener el siguiente ID disponible
     public static int getNextId() {
-        return maxId + 1;
+        // Genera el siguiente ID basado en los nodos existentes
+        return nodesList.size() + 1;
+//                nodesList.stream()
+//                .mapToInt(Node::getID)
+//                .max()
+//                .orElse(-1) + 1; // Si no hay nodos, devuelve 0
     }
 
     // Verificar si ya existe un nodo con un ID específico
@@ -85,3 +81,4 @@ public class ListNodes {
         return nodesList.stream().anyMatch(node -> node.getID() == id);
     }
 }
+

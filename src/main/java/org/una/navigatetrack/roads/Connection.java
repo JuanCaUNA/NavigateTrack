@@ -7,8 +7,6 @@ import lombok.Setter;
 import org.una.navigatetrack.list.ListConnections;
 import org.una.navigatetrack.list.ListNodes;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.Map;
 import java.util.Optional;
 
@@ -147,5 +145,19 @@ public class Connection {
         double nuevaY = y1 + factorY;
 
         getStartingNode().setLocation(new double[]{nuevaX, nuevaY});
+    }
+
+    @Override
+    public String toString() {
+        return "Connection{" +
+                "ID=" + ID +
+                ", startingNodeID=" + startingNodeID +
+                ", destinationNodeID=" + destinationNodeID +
+                ", weight=" + weight +
+                ", isBlocked=" + isBlocked +
+                ", trafficCondition='" + trafficCondition + '\'' +
+//                .append(", trafficMultiplier=").append(getTrafficMultiplier())
+                ", direction=" + direction +
+                '}';
     }
 }

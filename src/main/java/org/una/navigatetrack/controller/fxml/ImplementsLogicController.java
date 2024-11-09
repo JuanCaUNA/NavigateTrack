@@ -8,7 +8,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import org.una.navigatetrack.configs.Config;
 import org.una.navigatetrack.manager.NodeGraphFacade;
-import org.una.navigatetrack.manager.NodesDrawerManagers;
 
 import java.net.URL;
 import java.util.Objects;
@@ -22,9 +21,6 @@ import java.util.ResourceBundle;
  */
 @SuppressWarnings("All")
 public class ImplementsLogicController implements Initializable {
-
-    private NodesDrawerManagers manager;
-    private NodeGraphFacade nodeGraphFacade;
 
     @FXML
     private CheckBox blockCBox;
@@ -40,6 +36,7 @@ public class ImplementsLogicController implements Initializable {
     private RadioButton initRadioB, endingRadioB, radioBNode, radioBConnection, radioBDijkstra, radioBFloydWarshall;
 
     private boolean change = false;
+    private NodeGraphFacade nodeGraphFacade;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -60,15 +57,16 @@ public class ImplementsLogicController implements Initializable {
         ToggleGroup selections = new ToggleGroup();
         initRadioB.setToggleGroup(selections);
         endingRadioB.setToggleGroup(selections);
-        radioBConnection.setToggleGroup(selections);
         radioBNode.setToggleGroup(selections);
+        radioBConnection.setToggleGroup(selections);
 
-        initRadioB.setSelected(true);
+        endingRadioB.setSelected(true);
 
         ToggleGroup mode = new ToggleGroup();
         radioBDijkstra.setToggleGroup(mode);
         radioBFloydWarshall.setToggleGroup(mode);
-        radioBDijkstra.setSelected(true);
+
+        radioBFloydWarshall.setSelected(true);
     }
 
     private void changeImage() {
@@ -90,6 +88,9 @@ public class ImplementsLogicController implements Initializable {
         paintPane.setOnMouseClicked(event -> select(new double[]{event.getX(), event.getY()}));
 
         infoB.setOnAction(actionEvent -> textArea.setText(Config.instructions));
+        pauseB.setOnAction(actionEvent -> nodeGraphFacade.pauseTravel());//todo
+        changeImageB.setOnAction(event -> changeImage());
+
         startB.setOnAction(event -> {
             System.out.println("Iniciando viaje...");
             nodeGraphFacade.setDijkstra(radioBDijkstra.isSelected());
@@ -99,12 +100,15 @@ public class ImplementsLogicController implements Initializable {
             System.out.println("Finalizando viaje...");
             nodeGraphFacade.endTravel();
         });
-        changeImageB.setOnAction(event -> changeImage());
 
-        blockCBox.setOnAction(event -> System.out.println("bloquear este camino"));
+        blockCBox.setOnAction(event -> {System.out.println("bloquear este camino");
+
+        });//todo
     }
 
     private void select(double[] location) {
+        blockCBox.setDisable(true);
+
         if (initRadioB.isSelected()) {
             nodeGraphFacade.setStartNode(location);
             labelPartida.setText("Punto de partida: " + location[0] + ", " + location[1]);
