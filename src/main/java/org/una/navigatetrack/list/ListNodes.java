@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@SuppressWarnings("All")
 public class ListNodes {
     //private static final StorageManager<List<Node>> nodesStorage = new StorageManager<>("src/main/resources/listNodes/", "listNodes.data");
     @Getter
@@ -21,7 +22,7 @@ public class ListNodes {
 
     // Cargar nodos desde archivo
     public static void loadNodesList() {
-        nodesList = Json.leer("ListNodes.json", new TypeReference<List<Node>>() {
+        nodesList = JSON.leer("ListNodes.json", new TypeReference<List<Node>>() {
         }).orElse(null);//nodesStorage.read(); // Lee desde el archivo y asigna la lista
         if (nodesList == null) {
             nodesList = new ArrayList<>();
@@ -37,7 +38,7 @@ public class ListNodes {
     public static void saveNodesList() {
         //nodesStorage.write(nodesList);
         System.out.println();
-        Json.save(nodesList, "ListNodes.json");
+        JSON.save(nodesList, "ListNodes.json");
     }
 
     // Establecer una nueva lista de nodos (se hace un clon)

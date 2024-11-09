@@ -5,7 +5,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import org.una.navigatetrack.configs.Config;
 import org.una.navigatetrack.manager.NodeGraphFacade;
@@ -21,23 +20,24 @@ import java.util.ResourceBundle;
  *
  * @author juanc
  */
+@SuppressWarnings("All")
 public class ImplementsLogicController implements Initializable {
 
     private NodesDrawerManagers manager;
     private NodeGraphFacade nodeGraphFacade;
 
     @FXML
-    private Pane mapPane, paintPane, menuPane;
-    @FXML
-    private Button startB, finishB, changeImageB, infoB;
-    @FXML
-    private RadioButton initRadioB, endingRadioB, radioBNode, radioBConnection;
+    private CheckBox blockCBox;
     @FXML
     private TextArea textArea;
     @FXML
+    private Pane mapPane, paintPane;
+    @FXML
+    private Button startB, finishB, changeImageB, infoB, pauseB;
+    @FXML
     private Label labelDestino, labelTitle, labelPartida, labelTime;
     @FXML
-    private RadioButton radioBDijkstra, radioBFloydWarshall;
+    private RadioButton initRadioB, endingRadioB, radioBNode, radioBConnection, radioBDijkstra, radioBFloydWarshall;
 
     private boolean change = false;
 
@@ -45,15 +45,15 @@ public class ImplementsLogicController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         nodeGraphFacade = new NodeGraphFacade(paintPane);
         setupUI();
-        setupEventHandlers(); // Inicializa los manejadores de eventos
+        setupToggleGroups();
+        setupEventHandlers();
+
     }
 
     private void setupUI() {
         paintPane.setStyle("-fx-background-color: rgba(255, 255, 255, 0.0);");
         loadImageMap("/images/map2.png");
-        setupToggleGroups();  // Configura los ToggleGroups
     }
-
 
     private void setupToggleGroups() {
         ToggleGroup selections = new ToggleGroup();
@@ -85,32 +85,25 @@ public class ImplementsLogicController implements Initializable {
         mapPane.getChildren().add(imageView);
     }
 
-    /**
-     * Configura los manejadores de eventos para los botones y clics.
-     */
     private void setupEventHandlers() {
         paintPane.setOnMouseClicked(event -> select(new double[]{event.getX(), event.getY()}));
-        
+
+        infoB.setOnAction(actionEvent -> textArea.setText(Config.instructions));
         startB.setOnAction(event -> {
             System.out.println("Iniciando viaje...");
             nodeGraphFacade.setDijkstra(radioBDijkstra.isSelected());
             nodeGraphFacade.initTravel();
         });
-
-        // Acción del botón de finalizar viaje
         finishB.setOnAction(event -> {
             System.out.println("Finalizando viaje...");
-            // Aquí podrías agregar lógica para finalizar el viaje
+            nodeGraphFacade.endTravel();
         });
-        
         changeImageB.setOnAction(event -> changeImage());
 
-        infoB.setOnAction(actionEvent -> textArea.setText(Config.instructions));
+        blockCBox.setOnAction(event -> System.out.println("bloquear este camino"));
     }
 
-    /**
-     * Lógica para seleccionar un punto en el mapa dependiendo del radio button seleccionado.
-     */
+
     private void select(double[] location) {
         if (initRadioB.isSelected()) {
             nodeGraphFacade.setStartNode(location);  // Establece el nodo de partida

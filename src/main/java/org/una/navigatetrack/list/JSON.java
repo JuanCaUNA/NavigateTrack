@@ -8,9 +8,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-public class Json {
+@SuppressWarnings("All")
+public class JSON {
 
-    private Json() {
+    private JSON() {
         // Constructor privado para evitar instanciación
     }
 
