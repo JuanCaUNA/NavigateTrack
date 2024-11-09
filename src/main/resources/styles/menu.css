@@ -5,8 +5,8 @@
 .root {
     /* Fondo con gradiente lineal para dar una sensación de profundidad */
     -fx-background-color: linear-gradient(to bottom right, #462251, #5e214e, #431717); /* De un morado oscuro a un tono más intenso */
-    -fx-min-width: 1400px; /* Ancho mínimo */
-    -fx-min-height: 1000px; /* Altura mínima */
+    /*-fx-min-width: 1400px; !* Ancho mínimo *!*/
+    /*-fx-min-height: 1000px; !* Altura mínima *!*/
 }
 
 /* ========================== */
