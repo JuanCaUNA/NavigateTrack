@@ -10,114 +10,88 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
 
-<StackPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.navigatetrack.controller.fxml.ImplementsLogicController">
-   <children>
-      <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
-         <children>
-            <FlowPane hgap="55.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" style="-fx-background-color: #323030;" vgap="20.0">
-               <children>
-                  <Label fx:id="labelTitle" prefHeight="20.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Definir en el mapa:" />
-                  <RadioButton fx:id="endingRadioB" mnemonicParsing="false" prefHeight="20.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Marcar Punto de destino">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <FlowPane.margin>
-                        <Insets top="10.0" />
-                     </FlowPane.margin>
-                  </RadioButton>
-                  <Label fx:id="labelDestino" prefHeight="20.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Label  destino" />
-                  <RadioButton fx:id="initRadioB" mnemonicParsing="false" prefHeight="20.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Marcar Punto de partida">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <FlowPane.margin>
-                        <Insets top="10.0" />
-                     </FlowPane.margin>
-                  </RadioButton>
-                  <Label fx:id="labelPartida" prefHeight="20.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Label partida">
-                     <FlowPane.margin>
-                        <Insets bottom="10.0" />
-                     </FlowPane.margin>
-                  </Label>
-                  <RadioButton fx:id="radioBFloydWarshall" mnemonicParsing="false" prefHeight="20.0" prefWidth="137.0" style="-fx-background-color: #ffffff;" text="FloydWarshall">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </RadioButton>
-                  <RadioButton fx:id="radioBDijkstra" mnemonicParsing="false" prefHeight="20.0" prefWidth="109.0" style="-fx-background-color: #ffffff;" text="Distrack">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <FlowPane.margin>
+<StackPane id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.navigatetrack.controller.fxml.ImplementsLogicController">
+    <children>
+        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+            <children>
+                <FlowPane id="menuFlowPane" cache="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" vgap="10.0">
+                    <children>
+                        <Label fx:id="labelTitle" prefHeight="30.0" prefWidth="325.0" text="Definir en el mapa:" />
+                        <RadioButton fx:id="endingRadioB" mnemonicParsing="false" prefHeight="29.0" prefWidth="325.0" text="Marcar Punto de destino">
+                            <FlowPane.margin>
+                                <Insets top="10.0" />
+                            </FlowPane.margin>
+                        </RadioButton>
+                        <Label fx:id="labelDestino" prefHeight="29.0" prefWidth="324.0" text="Label  destino" />
+                        <RadioButton fx:id="initRadioB" mnemonicParsing="false" prefHeight="29.0" prefWidth="325.0" text="Marcar Punto de partida">
+                            <FlowPane.margin>
+                                <Insets top="10.0" />
+                            </FlowPane.margin>
+                        </RadioButton>
+                        <Label fx:id="labelPartida" prefHeight="29.0" prefWidth="325.0" text="Label partida">
+                            <FlowPane.margin>
+                                <Insets bottom="10.0" />
+                            </FlowPane.margin>
+                        </Label>
+                        <RadioButton fx:id="radioBFloydWarshall" mnemonicParsing="false" prefHeight="20.0" prefWidth="153.0" text="FloydWarshall">
+                            <FlowPane.margin>
+                                <Insets right="53.0" />
+                            </FlowPane.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="radioBDijkstra" mnemonicParsing="false" prefHeight="20.0" prefWidth="120.0" text="Distrack">
+                            <FlowPane.margin>
+                                <Insets />
+                            </FlowPane.margin>
+                        </RadioButton>
+                        <Button fx:id="startB" mnemonicParsing="false" prefHeight="40.0" prefWidth="116.0" text="Iniciar viaje">
+                            <FlowPane.margin>
+                                <Insets right="5.0" />
+                            </FlowPane.margin>
+                        </Button>
+                        <Button id="pauseB" fx:id="pauseB" mnemonicParsing="false" prefHeight="40.0" prefWidth="119.0" text="Pausar viaje">
+                            <FlowPane.margin>
+                                <Insets right="5.0" />
+                            </FlowPane.margin>
+                        </Button>
+                        <Button fx:id="finishB" mnemonicParsing="false" prefHeight="40.0" prefWidth="119.0" text="Finalizar viaje">
+                            <FlowPane.margin>
+                                <Insets right="5.0" />
+                            </FlowPane.margin>
+                        </Button>
+                        <Label fx:id="labelTime" prefHeight="20.0" prefWidth="325.0" text="Tiempo estimado: ">
+                            <FlowPane.margin>
+                                <Insets bottom="10.0" top="10.0" />
+                            </FlowPane.margin>
+                        </Label>
+                        <RadioButton fx:id="radioBNode" mnemonicParsing="false" prefHeight="20.0" prefWidth="325.0" text="Selecionar Nodo para ver info" />
+                        <RadioButton fx:id="radioBConnection" mnemonicParsing="false" prefHeight="20.0" prefWidth="325.0" text="Selecionar conexion para ver info" />
+                        <CheckBox fx:id="blockCBox" mnemonicParsing="false" text="Bloquear" />
+                        <TextArea fx:id="textArea" prefHeight="245.0" prefWidth="325.0" />
+                        <Button fx:id="changeImageB" mnemonicParsing="false" prefHeight="40.0" prefWidth="151.0" text="Cambiar imagen">
+                            <FlowPane.margin>
+                                <Insets right="10.0" />
+                            </FlowPane.margin>
+                        </Button>
+                        <Button fx:id="infoB" mnemonicParsing="false" prefHeight="40.0" prefWidth="138.0" text="Info" />
+                    </children>
+                    <HBox.margin>
                         <Insets />
-                     </FlowPane.margin>
-                  </RadioButton>
-                  <Button fx:id="finishB" mnemonicParsing="false" text="Finalizar viaje">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="startB" mnemonicParsing="false" text="Iniciar viaje">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Label fx:id="labelTime" prefHeight="20.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Tiempo estimado: ">
-                     <FlowPane.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </FlowPane.margin>
-                  </Label>
-                  <RadioButton fx:id="radioBNode" mnemonicParsing="false" prefHeight="20.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Selecionar Nodo para ver info">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </RadioButton>
-                  <RadioButton fx:id="radioBConnection" mnemonicParsing="false" prefHeight="20.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Selecionar conexion para ver info">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </RadioButton>
-                  <CheckBox fx:id="blockCBox" mnemonicParsing="false" style="-fx-background-color: #ffffff;" text="Bloquear">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </CheckBox>
-                  <TextArea fx:id="textArea" prefHeight="245.0" prefWidth="300.0" />
-                  <Button fx:id="changeImageB" mnemonicParsing="false" prefHeight="25.0" prefWidth="146.0" text="cambiar imagen">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="infoB" mnemonicParsing="false" prefHeight="25.0" prefWidth="146.0" text="Info">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="pauseB" mnemonicParsing="false" text="Pausar viaje">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-               </children>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <padding>
-                  <Insets left="150.0" right="150.0" top="50.0" />
-               </padding>
-            </FlowPane>
-            <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0">
-               <children>
-                  <Pane fx:id="mapPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" style="-fx-background-color: #0A0EB5;" />
-                  <Pane fx:id="paintPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" style="-fx-background-color: #000000;" />
-               </children>
-            </Pane>
-         </children>
-         <StackPane.margin>
-            <Insets top="30.0" />
-         </StackPane.margin>
-      </HBox>
-   </children>
+                    </HBox.margin>
+                    <padding>
+                        <Insets left="150.0" right="150.0" top="50.0" />
+                    </padding>
+                </FlowPane>
+                <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0">
+                    <children>
+                        <Pane fx:id="mapPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" />
+                        <Pane fx:id="paintPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" />
+                    </children>
+                </Pane>
+            </children>
+            <StackPane.margin>
+                <Insets top="30.0" />
+            </StackPane.margin>
+        </HBox>
+    </children>
 </StackPane>

@@ -48,6 +48,7 @@ public class ImplementsLogicController implements Initializable {
         setupToggleGroups();
         setupEventHandlers();
 
+        blockCBox.setDisable(true);
     }
 
     private void setupUI() {
@@ -103,20 +104,18 @@ public class ImplementsLogicController implements Initializable {
         blockCBox.setOnAction(event -> System.out.println("bloquear este camino"));
     }
 
-
     private void select(double[] location) {
         if (initRadioB.isSelected()) {
-            nodeGraphFacade.setStartNode(location);  // Establece el nodo de partida
+            nodeGraphFacade.setStartNode(location);
             labelPartida.setText("Punto de partida: " + location[0] + ", " + location[1]);
         } else if (endingRadioB.isSelected()) {
-            nodeGraphFacade.setEndNode(location);  // Establece el nodo de destino
+            nodeGraphFacade.setEndNode(location);
             labelDestino.setText("Punto de destino: " + location[0] + ", " + location[1]);
         } else if (radioBNode.isSelected()) {
             System.out.println("Seleccionaste un nodo en: " + location[0] + ", " + location[1]);
-            // Agregar lógica para ver información sobre el nodo
         } else if (radioBConnection.isSelected()) {
+            blockCBox.setDisable(false);
             System.out.println("Seleccionaste una conexión en: " + location[0] + ", " + location[1]);
-            // Agregar lógica para ver información sobre la conexión
         }
     }
 }

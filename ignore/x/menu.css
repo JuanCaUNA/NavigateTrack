@@ -1,31 +1,65 @@
+
 /* ========================== */
 /* 1. Fondo Principal (.root) */
 /* ========================== */
-/**/
+
 .root {
     /* Fondo con gradiente lineal para dar una sensación de profundidad */
-    -fx-background-color: linear-gradient(to bottom right, #462251, #5e214e, #431717); /* De un morado oscuro a un tono más intenso */
+    -fx-background: linear-gradient(to bottom right, #0b1147, #1d1b61); /* De un azul oscuro a un tono más intenso */
+
+    /* Fondo adicional con una imagen que se estira para cubrir to-do */
+    /* Puedes sustituir esta URL con la ruta de tu imagen */
+    /*-fx-background-image: url("ruta/a/tu/imagen.jpg");*/
+    -fx-background-size: cover; /* La imagen cubre to-do el contenedor */
+    -fx-background-position: center center; /* Centrado de la imagen */
+
+    /* Opcional: efecto de desenfoque en el fondo */
+    -fx-effect: blur(10); /* Desenfoque sutil de 10px, ajustable */
+
+    /* Propiedades de tamaño */
     -fx-min-width: 1400px; /* Ancho mínimo */
     -fx-min-height: 1000px; /* Altura mínima */
+
+    /* Propiedades de padding y márgenes */
+    -fx-padding: 20px; /* Espaciado interno */
 }
 
+
 /* ========================== */
-/* 2. Fondo para el menú (FlowPane) */
+/* 2. Fondo del Menú (#menuFlowPane) */
 /* ========================== */
 
-#menuFlowPane, #visualPane {
-    -fx-background-color: linear-gradient(to top left, #000000, #203935, #000000);
+#menuFlowPane {
+    /* Fondo con gradiente lineal suave */
+    -fx-background: linear-gradient(to top left, #333366, #0b1147); /* Un gradiente que va de un azul oscuro a un tono más suave */
+
+    /* Si prefieres una imagen de fondo, usa esta propiedad (puedes cambiar la URL) */
+    /*-fx-background-image: url("ruta/a/tu/imagen-del-menu.jpg");*/
+    -fx-background-size: cover; /* La imagen cubre to-do el menú */
+    -fx-background-position: center center; /* Centrado de la imagen */
+
+    /* Opcional: sombra suave para dar profundidad */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 8, 0.0, 0, 2); /* Sombra sutil */
+
+    /* Propiedades de tamaño y espaciado */
+    -fx-padding: 20px; /* Espaciado interno para los elementos */
+    -fx-spacing: 10px; /* Espacio entre los elementos dentro del flujo (flow) */
+
+    /* Alineación */
+    -fx-alignment: center; /* Centra los elementos dentro del flujo */
 }
 
+
+
 /* ========================== */
-/* 3. Estilos Comunes para controles */
+/* 2. ESTILOS COMUNES          */
 /* ========================== */
 
 /* Estilo común para controles */
 .button, .radio-button, .check-box, .text-area, .label {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, rgb(96, 95, 95), 8, 0.0, 0, 2); /* Sombra suave para profundidad */
+    -fx-effect: dropshadow(gaussian, rgb(96, 95, 95), 8, 0.0, 0, 2); /* Efecto sombra */
 }
 
 /* Estilo para textos en elementos comunes */
@@ -38,16 +72,16 @@
     -fx-background-color: #444444; /* Fondo oscuro para contraste */
 }
 
-/* Estilos adicionales para el área de texto */
 .text-area {
     -fx-border-color: #ffffff;
-    -fx-border-radius: 4px;
+    -fx-border-radius: 1px;
     -fx-border-width: 1px;
     -fx-wrap-text: true;
 }
 
+
 /* ========================== */
-/* 4. Estilos para Botones     */
+/* 3. ESTILOS PARA BOTONES     */
 /* ========================== */
 
 /* Estilo general para los botones */
@@ -58,6 +92,7 @@
     -fx-background-radius: 8px; /* Bordes redondeados */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 8, 0.0, 0, 2); /* Sombra sutil */
     -fx-cursor: hand; /* Cambio de cursor */
+    -fx-transition: background-color 0.3s ease-in-out; /* Transición suave */
 }
 
 /* Estilos de interacción con el botón */
@@ -78,8 +113,9 @@
     -fx-effect: none; /* Sin efectos */
 }
 
+
 /* ========================== */
-/* 5. Estilos para Radio Buttons */
+/* 4. ESTILOS PARA RADIO BUTTONS */
 /* ========================== */
 
 /* Estilo para RadioButtons */
@@ -101,8 +137,9 @@
     -fx-background-color: rgba(0, 188, 212, 0.2); /* Fondo ligeramente más oscuro */
 }
 
+
 /* ========================== */
-/* 6. Estilos para CheckBoxes  */
+/* 5. ESTILOS PARA CHECKBOXES  */
 /* ========================== */
 
 /* Estilo para CheckBoxes */
@@ -128,8 +165,9 @@
     -fx-text-fill: #000000; /* Texto en negro por defecto */
 }
 
+
 /* ========================== */
-/* 7. Estilos Personalizados    */
+/* 6. ESTILOS PERSONALIZADOS    */
 /* ========================== */
 
 /* Botón de inicio */
@@ -159,61 +197,33 @@
     -fx-background-color: #d32f2f; /* Rojo más oscuro */
 }
 
-/* ========================== */
-/* 8. Estilo del menú contextual */
-/* ========================== */
-
-.context-menu {
-    -fx-background-color: linear-gradient(to top left, #000000, #203935, #000000); /* Fondo oscuro */
-    -fx-border-radius: 8px; /* Bordes redondeados */
-    -fx-padding: 5px; /* Relleno alrededor */
-}
-
-/* ========================== */
-/* 8.2. Estilo de las opciones del menú contextual */
-/* ========================== */
-
-.context-menu .menu-item {
-    -fx-background-color: transparent; /* Fondo transparente por defecto */
-    -fx-text-fill: #ffffff; /* Texto blanco */
-    -fx-padding: 10px 20px; /* Espaciado interno */
-    -fx-font-size: 14px; /* Tamaño de texto */
-    -fx-cursor: hand; /* Cursor de mano al pasar el mouse */
-}
-
-/* Efecto al pasar el mouse sobre una opción del menú */
-.context-menu .menu-item:hover {
-    -fx-background-color: #555555; /* Fondo gris oscuro al hacer hover */
-}
-
-/* Opción seleccionada en el menú */
-.context-menu .menu-item:focused {
-    -fx-background-color: #777777; /* Fondo gris más claro para opción seleccionada */
-}
-
-/* ========================== */
-/* 9. configuracion de toggle */
-/* ========================== */
+/*---------*/
 
 /* Estilo general para ToggleButton */
 .toggle-button {
-    -fx-background-color: #8e8e8e; /* Fondo gris cuando está desactivado */
+    -fx-background-color: #8e8e8e; /* Fondo verde cuando está desactivado */
+
     -fx-text-fill: white; /* Texto blanco */
+    /*-fx-padding: 10px 20px; !* Relleno interno *!*/
+
     -fx-border-radius: 8px; /* Bordes redondeados */
     -fx-background-radius: 8px; /* Bordes redondeados */
+
     -fx-effect: dropshadow(gaussian, rgba(80, 80, 80, 0.2), 8, 0.0, 0, 2); /* Sombra sutil */
     -fx-cursor: hand;
+    -fx-transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 /* Estado activado del ToggleButton */
 .toggle-button:selected {
-    -fx-background-color: #54df5a; /* Fondo verde claro cuando se activa */
+    -fx-background-color: #54df5a; /* Fondo naranja suave cuando se activa */
+
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0.0, 0, 2); /* Sombra más prominente */
 }
 
 /* Estado deshabilitado (si se desactiva el ToggleButton) */
 .toggle-button:disabled {
-    -fx-background-color: #E8F5E9; /* Fondo más claro para los deshabilitados */
+    -fx-background-color: #E8F5E9; /* Fondo aún más claro para los deshabilitados */
     -fx-text-fill: #4d5459; /* Texto gris claro */
     -fx-effect: none; /* Sin sombra para los deshabilitados */
 }
@@ -223,29 +233,3 @@
     -fx-background-color: #817878;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.0, 0, 2); /* Sombra más fuerte */
 }
-
-
-/* Si prefieres una imagen de fondo, usa esta propiedad (puedes cambiar la URL) */
-/*-fx-background-image: url("ruta/a/tu/imagen-del-menu.jpg");*/
-/*-fx-background-size: cover; !* La imagen cubre to-do el menú *!*/
-/*-fx-background-position: center center; !* Centrado de la imagen *!*/
-
-/* Opcional: sombra suave para dar profundidad */
-/*-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 8, 0.0, 0, 2); !* Sombra sutil *!*/
-/* ========================== */
-/* 2. ESTILOS COMUNES          */
-/* ========================== */
-
-/* Fondo adicional con una imagen que se estira para cubrir to-do */
-/* Puedes sustituir esta URL con la ruta de tu imagen */
-/*-fx-background-image: url("ruta/a/tu/imagen.jpg");*/
-/*-fx-background-size: cover; !* La imagen cubre to-do el contenedor *!*/
-/*-fx-background-position: center center; !* Centrado de la imagen *!*/
-
-/* Opcional: efecto de desenfoque en el fondo */
-/*-fx-effect: blur(10); !* Desenfoque sutil de 10px, ajustable *!*/
-
-/* Propiedades de tamaño */
-/* ========================== */
-/* 2. Fondo del Menú (#menuFlowPane) */
-/* ========================== */
