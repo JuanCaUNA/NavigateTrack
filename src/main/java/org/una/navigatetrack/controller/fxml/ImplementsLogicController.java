@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import org.una.navigatetrack.configs.Config;
 import org.una.navigatetrack.manager.NodeGraphFacade;
 import org.una.navigatetrack.manager.NodesDrawerManagers;
 
@@ -16,60 +17,60 @@ import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
+ * Controlador que maneja la lógica para la interfaz gráfica.
  *
  * @author juanc
  */
 public class ImplementsLogicController implements Initializable {
 
+    private NodesDrawerManagers manager;
+    private NodeGraphFacade nodeGraphFacade;
 
-    NodesDrawerManagers manager;
-    @FXML
-    private AnchorPane mainAnchorPane;
     @FXML
     private Pane mapPane, paintPane, menuPane;
-    private boolean change = false;
     @FXML
-    private Button buttonStart, buttonEnd, changeImageB;
+    private Button startB, finishB, changeImageB, infoB;
     @FXML
-    private RadioButton radioBPartida, radioBDestino, radioBNode, radioBConnection;
+    private RadioButton initRadioB, endingRadioB, radioBNode, radioBConnection;
     @FXML
     private TextArea textArea;
     @FXML
-    private Label labelDestino, LabelTitle, labelPartida, labelTime;
+    private Label labelDestino, labelTitle, labelPartida, labelTime;
     @FXML
     private RadioButton radioBDijkstra, radioBFloydWarshall;
 
-    private NodeGraphFacade nodeGraphFacade;
+    private boolean change = false;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        manager = new NodesDrawerManagers(new DrawerManager(paintPane));
         nodeGraphFacade = new NodeGraphFacade(paintPane);
         setupUI();
+        setupEventHandlers(); // Inicializa los manejadores de eventos
     }
 
     private void setupUI() {
         paintPane.setStyle("-fx-background-color: rgba(255, 255, 255, 0.0);");
         loadImageMap("/images/map2.png");
-        setupToggleGroups();
+        setupToggleGroups();  // Configura los ToggleGroups
     }
+
 
     private void setupToggleGroups() {
-        ToggleGroup modoToggleGroup = new ToggleGroup();
-        radioBPartida.setToggleGroup(modoToggleGroup);
-        radioBDestino.setToggleGroup(modoToggleGroup);
-        radioBConnection.setToggleGroup(modoToggleGroup);
-        radioBNode.setToggleGroup(modoToggleGroup);
+        ToggleGroup selections = new ToggleGroup();
+        initRadioB.setToggleGroup(selections);
+        endingRadioB.setToggleGroup(selections);
+        radioBConnection.setToggleGroup(selections);
+        radioBNode.setToggleGroup(selections);
 
-        ToggleGroup modoToggleGroup2 = new ToggleGroup();
-        radioBDijkstra.setToggleGroup(modoToggleGroup2);
-        radioBFloydWarshall.setToggleGroup(modoToggleGroup2);
+        initRadioB.setSelected(true);
+
+        ToggleGroup mode = new ToggleGroup();
+        radioBDijkstra.setToggleGroup(mode);
+        radioBFloydWarshall.setToggleGroup(mode);
+        radioBDijkstra.setSelected(true);
     }
 
-    private void toggleImage() {
+    private void changeImage() {
         loadImageMap(change ? "/images/map2.png" : "/images/map0.png");
         change = !change;
     }
@@ -82,5 +83,47 @@ public class ImplementsLogicController implements Initializable {
         imageView.setFitHeight(image.getHeight() * ratio);
         imageView.setPreserveRatio(true);
         mapPane.getChildren().add(imageView);
+    }
+
+    /**
+     * Configura los manejadores de eventos para los botones y clics.
+     */
+    private void setupEventHandlers() {
+        paintPane.setOnMouseClicked(event -> select(new double[]{event.getX(), event.getY()}));
+        
+        startB.setOnAction(event -> {
+            System.out.println("Iniciando viaje...");
+            nodeGraphFacade.setDijkstra(radioBDijkstra.isSelected());
+            nodeGraphFacade.initTravel();
+        });
+
+        // Acción del botón de finalizar viaje
+        finishB.setOnAction(event -> {
+            System.out.println("Finalizando viaje...");
+            // Aquí podrías agregar lógica para finalizar el viaje
+        });
+        
+        changeImageB.setOnAction(event -> changeImage());
+
+        infoB.setOnAction(actionEvent -> textArea.setText(Config.instructions));
+    }
+
+    /**
+     * Lógica para seleccionar un punto en el mapa dependiendo del radio button seleccionado.
+     */
+    private void select(double[] location) {
+        if (initRadioB.isSelected()) {
+            nodeGraphFacade.setStartNode(location);  // Establece el nodo de partida
+            labelPartida.setText("Punto de partida: " + location[0] + ", " + location[1]);
+        } else if (endingRadioB.isSelected()) {
+            nodeGraphFacade.setEndNode(location);  // Establece el nodo de destino
+            labelDestino.setText("Punto de destino: " + location[0] + ", " + location[1]);
+        } else if (radioBNode.isSelected()) {
+            System.out.println("Seleccionaste un nodo en: " + location[0] + ", " + location[1]);
+            // Agregar lógica para ver información sobre el nodo
+        } else if (radioBConnection.isSelected()) {
+            System.out.println("Seleccionaste una conexión en: " + location[0] + ", " + location[1]);
+            // Agregar lógica para ver información sobre la conexión
+        }
     }
 }

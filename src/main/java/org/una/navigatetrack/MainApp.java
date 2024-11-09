@@ -17,8 +17,8 @@ public class MainApp extends Application {
         Singleton singleton = Singleton.getInstance();
         singleton.setScreenManager(screenManager);
 
-        screenManager.loadScreen("/fxml/MapManager.fxml", "Initial View");
-//        screenManager.loadScreen("/fxml/ImplementsLogic.fxml", "Initial View");
+//        screenManager.loadScreen("/fxml/MapManager.fxml", "Initial View");
+        screenManager.loadScreen("/fxml/ImplementsLogic.fxml", "Initial View");
 
     }
 }

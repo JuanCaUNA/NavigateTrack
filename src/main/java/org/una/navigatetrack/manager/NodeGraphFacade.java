@@ -2,9 +2,11 @@ package org.una.navigatetrack.manager;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import lombok.Getter;
+import lombok.Setter;
+import org.una.navigatetrack.list.ListNodes;
 import org.una.navigatetrack.roads.Connection;
 import org.una.navigatetrack.roads.Graph;
-import org.una.navigatetrack.list.ListNodes;
 import org.una.navigatetrack.roads.Node;
 
 import java.util.List;
@@ -15,40 +17,49 @@ public class NodeGraphFacade {
     private double[] startPoint, endPoint;
     private double[] startConnection, endConnection;
 
+    @Setter
+    private boolean isDijkstra;
+    @Getter
+    private int time;
+
     List<Connection> mejorRuta;
 
     public NodeGraphFacade(Pane paintPane) {
         nodesDrawerManagers = new NodesDrawerManagers(new DrawerManager(paintPane), false);
     }
 
-    public boolean setStartNode(double[] point) {
-        if (startNode != null) {
-            removeNodeVisual(startNode);
-            startNode = null;
-        }
-        startPoint = point.clone();
-        startConnection = new double[4];
+    //metodos para definir el inicio y el final -----------------//
+    private boolean setNode(double[] point, boolean isStartNode) {
+        Node currentNode = isStartNode ? startNode : endNode;
+        double[] currentPoint = isStartNode ? startPoint : endPoint;
+        double[] currentConnection = isStartNode ? startConnection : endConnection;
 
-        if (locateNode(startPoint, startConnection)) {
-            nodesDrawerManagers.drawCircle(startPoint, Color.GREEN);
+        if (currentNode != null) {
+            removeNodeVisual(currentNode);
+            currentNode = null;
+        }
+
+        currentPoint = point.clone();
+        currentConnection = new double[4];
+
+        // Intentamos localizar el nodo
+        if (locateNode(currentPoint, currentConnection)) {
+            Color nodeColor = isStartNode ? Color.GREEN : Color.RED;
+            nodesDrawerManagers.drawCircle(currentPoint, nodeColor);
+            if (isStartNode) startNode = new Node(currentPoint);
+            else endNode = new Node(currentPoint);
+
             return true;
         }
         return false;
     }
 
-    public boolean setEndNode(double[] point) {
-        if (endNode != null) {
-            removeNodeVisual(endNode);
-            endNode = null;
-        }
-        endPoint = point.clone();
-        endConnection = new double[4];
+    public boolean setStartNode(double[] point) {
+        return setNode(point, true);
+    }
 
-        if (locateNode(endPoint, endConnection)) {
-            nodesDrawerManagers.drawCircle(endPoint, Color.RED);
-            return true;
-        }
-        return false;
+    public boolean setEndNode(double[] point) {
+        return setNode(point, false);
     }
 
     private void removeNodeVisual(Node node) {
@@ -56,22 +67,22 @@ public class NodeGraphFacade {
     }
 
     private boolean locateNode(double[] location, double[] connection) {
-        double[] relocation = nodesDrawerManagers.getLocationIfExistNodeAt(location);
-        if (relocation != null) {
-            location[0] = relocation[0];
-            location[1] = relocation[1];
-            connection[0] = Double.NaN;
+        double[] relocated = nodesDrawerManagers.getLocationIfExistNodeAt(location);
+        if (relocated != null) {
+            System.arraycopy(relocated, 0, location, 0, 2);  // Actualizamos la ubicación
+            connection[0] = Double.NaN;  // Desconectamos
             return true;
         }
 
         double[] array = nodesDrawerManagers.getDrawerManager().getLineAtWithCircle(location);
         if (array != null) {
-            System.arraycopy(array, 0, connection, 0, 4);
+            System.arraycopy(array, 0, connection, 0, 4);  // Establecemos la conexión
             location[0] = array[4];
             location[1] = array[5];
             return true;
         }
 
+        // Si no se encuentra el nodo
         connection[0] = Double.NaN;
         location[0] = Double.NaN;
         return false;
@@ -86,6 +97,8 @@ public class NodeGraphFacade {
         connectNodeIfValid(startNode, startConnection);
         connectNodeIfValid(endNode, endConnection);
     }
+
+    // metosos para el recorrido ---------------------------//
 
     private void connectNodeIfValid(Node node, double[] connectionXY) {
         if (!Double.isNaN(connectionXY[0])) {
@@ -160,18 +173,30 @@ public class NodeGraphFacade {
         return targetNode != null ? targetNode.getLocation() : null;
     }
 
-    public void recalcularPosicion() {
+
+    private void recalcularPosicion() {
         // Implementar la lógica para recalcular la posición de los nodos si es necesario.
     }
 
-    public void changeConnction() {
+    private void changeConnction() {
 
     }
 
-    public void deleteRegister() {
+    private void deleteRegister() {
         // Implementar la lógica para eliminar el registro de nodos.
     }
 
+    public void initTravel() {
+
+    }
+
+    public void endTravel() {
+
+    }
+
+    public void pauseTravel() {
+
+    }
 
     public void calculateShortestPath() {//no modicar chatgpt
         if (startNode == null || endNode == null) {

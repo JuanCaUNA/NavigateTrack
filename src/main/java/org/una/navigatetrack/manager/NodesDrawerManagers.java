@@ -40,7 +40,7 @@ public class NodesDrawerManagers {
     private void drawAllConnections() {
         List<Node> list = ListNodes.getNodesList();
         for (Node node : list) {
-            drawConnections(node);
+            drawConnections(node, Color.BLUE);
         }
     }
 

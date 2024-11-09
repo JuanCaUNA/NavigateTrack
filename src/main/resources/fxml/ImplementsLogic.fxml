@@ -11,15 +11,14 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.navigatetrack.controller.fxml.ImplementsLogicController">
+<StackPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.navigatetrack.controller.fxml.ImplementsLogicController">
    <children>
       <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
          <children>
             <FlowPane hgap="55.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" style="-fx-background-color: #323030;" vgap="20.0">
                <children>
                   <Label fx:id="LabelTitle" prefHeight="20.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Definir en el mapa:" />
-                  <RadioButton fx:id="radioBDestino" mnemonicParsing="false" prefHeight="20.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Marcar Punto de destino">
+                  <RadioButton fx:id="endingRadioB" mnemonicParsing="false" prefHeight="20.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Marcar Punto de destino">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -28,7 +27,7 @@
                      </FlowPane.margin>
                   </RadioButton>
                   <Label fx:id="labelDestino" prefHeight="20.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Label  destino" />
-                  <RadioButton fx:id="radioBPartida" mnemonicParsing="false" prefHeight="20.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Marcar Punto de partida">
+                  <RadioButton fx:id="initRadioB" mnemonicParsing="false" prefHeight="20.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" text="Marcar Punto de partida">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -54,12 +53,12 @@
                         <Insets />
                      </FlowPane.margin>
                   </RadioButton>
-                  <Button fx:id="buttonEnd" mnemonicParsing="false" text="Finalizar viaje">
+                  <Button fx:id="finishB" mnemonicParsing="false" text="Finalizar viaje">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="buttonStart" mnemonicParsing="false" text="Iniciar viaje">
+                  <Button fx:id="startB" mnemonicParsing="false" text="Iniciar viaje">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -81,6 +80,11 @@
                   </RadioButton>
                   <TextArea fx:id="textArea" prefHeight="245.0" prefWidth="300.0" />
                   <Button fx:id="changeImageB" mnemonicParsing="false" prefHeight="25.0" prefWidth="146.0" text="cambiar imagen">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="infoB" mnemonicParsing="false" prefHeight="25.0" prefWidth="146.0" text="Info">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
