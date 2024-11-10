@@ -8,6 +8,7 @@ import javafx.scene.shape.Line;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("exports")
 public class DrawerManager {
     private static final double CIRCLE_RADIUS = 5;
     private static final double LINE_STROKE_WIDTH = 5;
@@ -16,7 +17,7 @@ public class DrawerManager {
     private final List<Circle> circles;
     private final List<Line> lines;
     private final Pane paintPane;
-    private boolean flag;
+    // private boolean flag;
 
     public DrawerManager(Pane paintPane) {
         this.paintPane = paintPane;
@@ -74,12 +75,14 @@ public class DrawerManager {
             boolean matches = line.getStartX() == startPoint[0] && line.getStartY() == startPoint[1] &&
                     line.getEndX() == endPoint[0] && line.getEndY() == endPoint[1];
 
-            if (matches) paintPane.getChildren().remove(line);
+            if (matches)
+                paintPane.getChildren().remove(line);
 
             return matches;
         });
 
-        if (!flag) System.out.println("Line not found");
+        if (!flag)
+            System.out.println("Line not found");
     }
 
     public void removeLine(Line line) {
@@ -106,7 +109,8 @@ public class DrawerManager {
         double x = point[0];
         double y = point[1];
         for (Line line : lines) {
-            double distance = pointToLineDistance(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY(), x, y);
+            double distance = pointToLineDistance(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY(), x,
+                    y);
             if (distance <= DISTANCE_TOLERANCE) {
                 return line;
             }
@@ -115,7 +119,7 @@ public class DrawerManager {
     }
 
     public Line getline(double[] start, double[] end) {
-        return null; //TODO
+        return null; // TODO
     }
     // gets figure if exist end
 
@@ -154,25 +158,25 @@ public class DrawerManager {
         return dx * dx + dy * dy;
     }
 
-
     // metodos nuevos para obtener ubicaciones
     public double[] getLineAtWithCircle(double x, double y) {
-       return getLineAtWithCircle(new double[] {x, y});
+        return getLineAtWithCircle(new double[] { x, y });
     }
-    public double[] getLineAtWithCircle(double[] circleCenter) {//cordenadas de x,y= inicio [0],[1], fin [2], [3], en lineaPosition = [4], [5], null no se encontro
+
+    public double[] getLineAtWithCircle(double[] circleCenter) {// cordenadas de x,y= inicio [0],[1], fin [2], [3], en
+                                                                // lineaPosition = [4], [5], null no se encontro
         double radius = CIRCLE_RADIUS + 2; // Aumenta el radio en 2
         for (Line line : lines) {
             double distance = pointToLineDistance(
                     line.getStartX(), line.getStartY(),
                     line.getEndX(), line.getEndY(),
-                    circleCenter[0], circleCenter[1]
-            );
+                    circleCenter[0], circleCenter[1]);
 
             // Comprueba si la distancia al círculo es menor o igual al nuevo radio
             if (distance <= radius) {
                 double[] intersection = calculateIntersection(line, circleCenter, radius);
                 if (intersection != null) {
-                    return new double[]{
+                    return new double[] {
                             line.getStartX(), line.getStartY(),
                             line.getEndX(), line.getEndY(),
                             intersection[0], intersection[1]
@@ -184,7 +188,8 @@ public class DrawerManager {
     }
 
     private double[] calculateIntersection(Line line, double[] circleCenter, double radius) {
-        // Implementación para calcular el punto de intersección entre la línea y el círculo
+        // Implementación para calcular el punto de intersección entre la línea y el
+        // círculo
         double x1 = line.getStartX();
         double y1 = line.getStartY();
         double x2 = line.getEndX();
@@ -227,19 +232,18 @@ public class DrawerManager {
     // logic operations end
 }
 
-
-//public void setPaintPane(Pane paint) {
-////        paintPane.getChildren().clear();
-////        paintPane.getChildren().addAll(paint);
-//    paintAll();
-//    paintPane = paint;
-//}
+// public void setPaintPane(Pane paint) {
+//// paintPane.getChildren().clear();
+//// paintPane.getChildren().addAll(paint);
+// paintAll();
+// paintPane = paint;
+// }
 //
-//private void paintAll() {
-////        for (Circle circle : circles) {
-////            drawCircle(circle, Color.BLUE);
-////        }
-////        for (Line line : lines) {
-////            drawLine(line, Color.BLUE);
-////        }
-//}
+// private void paintAll() {
+//// for (Circle circle : circles) {
+//// drawCircle(circle, Color.BLUE);
+//// }
+//// for (Line line : lines) {
+//// drawLine(line, Color.BLUE);
+//// }
+// }

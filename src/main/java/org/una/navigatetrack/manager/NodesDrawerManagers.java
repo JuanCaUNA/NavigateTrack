@@ -3,7 +3,7 @@ package org.una.navigatetrack.manager;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import lombok.Getter;
-import org.una.navigatetrack.roads.Connection;
+import org.una.navigatetrack.roads.Edge;
 import org.una.navigatetrack.roads.Directions;
 import org.una.navigatetrack.list.ListNodes;
 import org.una.navigatetrack.roads.Node;
@@ -85,32 +85,32 @@ public class NodesDrawerManagers {
 
     private void drawConnections(Node node) {
         if (node == null) return;
-        for (Connection connection : node.getAllConnections()) {
-            if (connection != null) {
-                drawConnection(connection);
+        for (Edge edge : node.getAllConnections()) {
+            if (edge != null) {
+                drawConnection(edge);
             }
         }
     }
 
     private void drawConnections(Node node, Color color) {
         if (node == null) return;
-        for (Connection connection : node.getAllConnections()) {
-            if (connection != null) {
-                drawConnection(connection, color);
+        for (Edge edge : node.getAllConnections()) {
+            if (edge != null) {
+                drawConnection(edge, color);
             }
         }
     }
 
-    private void drawConnection(Connection connection) {
-        if (connection == null) return;
-        Color color = getDirectionColor(connection.getDirection());
-        drawConnection(connection, color);
+    private void drawConnection(Edge edge) {
+        if (edge == null) return;
+        Color color = getDirectionColor(edge.getDirection());
+        drawConnection(edge, color);
     }
 
-    private void drawConnection(Connection connection, Color color) {
-        if (connection == null) return;
-        double[] startLocation = connection.getStartingNode().getLocation();
-        double[] endLocation = connection.getDestinationNode().getLocation();
+    private void drawConnection(Edge edge, Color color) {
+        if (edge == null) return;
+        double[] startLocation = edge.getStartingNode().getLocation();
+        double[] endLocation = edge.getDestinationNode().getLocation();
         drawerManager.drawLine(startLocation[0], startLocation[1], endLocation[0], endLocation[1], color);
     }
 
@@ -122,8 +122,8 @@ public class NodesDrawerManagers {
         if (currentNode == null) return;
 
         // Remove visual connections to the current node before deletion
-        for (Connection connection : currentNode.getAllConnections()) {//actualizar
-            removeConnectionVisual(currentNode.getLocation(), connection);
+        for (Edge edge : currentNode.getAllConnections()) {//actualizar
+            removeConnectionVisual(currentNode.getLocation(), edge);
         }
 
         drawerManager.removeCircle(currentNode.getLocation()); // Remove visual representation of the node
@@ -141,17 +141,17 @@ public class NodesDrawerManagers {
     public void removeConnectionAndVisual(Node node, Directions direction) {
         if (node == null) return;
 
-        Connection connection = nodesManager.getConnectionInDirection(node.getID(), direction);
-        if (connection != null) {
-            removeConnectionVisual(node.getLocation(), connection);
+        Edge edge = nodesManager.getConnectionInDirection(node.getID(), direction);
+        if (edge != null) {
+            removeConnectionVisual(node.getLocation(), edge);
         }
 
         nodesManager.removeConnection(node.getID(), direction); // Remove connection from the manager
     }
 
-    private void removeConnectionVisual(double[] startLocation, Connection connection) {
-        if (connection == null) return;
-        double[] endLocation = connection.getDestinationNode().getLocation();
+    private void removeConnectionVisual(double[] startLocation, Edge edge) {
+        if (edge == null) return;
+        double[] endLocation = edge.getDestinationNode().getLocation();
         drawerManager.removeLine(startLocation, endLocation); // Remove the visual line connecting the nodes
     }
     // Delete drawings end
@@ -200,6 +200,7 @@ public class NodesDrawerManagers {
         };
     }
 
+    @SuppressWarnings("exports")
     public void drawCircle(double[] point, Color color) {
         drawerManager.drawCircle(point[0], point[1], color);
     }

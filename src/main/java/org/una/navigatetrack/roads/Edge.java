@@ -1,6 +1,7 @@
 package org.una.navigatetrack.roads;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import javafx.scene.shape.Line;
 import lombok.Getter;
 import lombok.Setter;
 import org.una.navigatetrack.list.ListConnections;
@@ -9,12 +10,9 @@ import org.una.navigatetrack.list.ListNodes;
 import java.util.Map;
 import java.util.Optional;
 
-//@JsonIgnoreProperties(ignoreUnknown = true)  // Ignora los campos que no estén en la clase
-//@JsonInclude(JsonInclude.Include.NON_NULL)  // Excluye los campos nulos del JSON
-
 @Getter
 @Setter
-public class Connection {
+public class Edge {
     @JsonIgnore
     private int ID;
 
@@ -47,18 +45,18 @@ public class Connection {
     // Constructores
     // ===========================
 
-    public Connection() {
+    public Edge() {
         init();
     }
 
-    public Connection(int startingNodeID, int destinationNodeID, int weight) {
+    public Edge(int startingNodeID, int destinationNodeID, int weight) {
         init();
         this.startingNodeID = startingNodeID;
         this.destinationNodeID = destinationNodeID;
         this.weight = weight;
     }
 
-    public Connection(int id, int weight) {
+    public Edge(int id, int weight) {
         init();
         this.destinationNodeID = id;
         this.weight = weight;
@@ -196,10 +194,16 @@ public class Connection {
         return ListNodes.getNodeByID(ID);
     }
 
+    @SuppressWarnings("exports")
+    public Line connectionline() {
+        double[] start = ListNodes.getNodeByID(startingNodeID).getLocation();
+        double[] end = ListNodes.getNodeByID(destinationNodeID).getLocation();
+        return new Line(start[0], start[1], end[0], end[1]);
+    }
+
     // ===========================
     // Método toString
     // ===========================
-
     @Override
     public String toString() {
         return "Connection{" +
@@ -213,3 +217,6 @@ public class Connection {
                 '}';
     }
 }
+
+//@JsonIgnoreProperties(ignoreUnknown = true)  // Ignora los campos que no estén en la clase
+//@JsonInclude(JsonInclude.Include.NON_NULL)  // Excluye los campos nulos del JSON

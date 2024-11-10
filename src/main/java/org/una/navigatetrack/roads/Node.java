@@ -14,7 +14,7 @@ public class Node {
 
     private int ID;
     private double[] location;
-    private Map<Directions, Connection> connectionsMap;
+    private Map<Directions, Edge> connectionsMap;
 
     // Constructor vacío
     public Node() {
@@ -35,31 +35,31 @@ public class Node {
 
     // Obtener todas las conexiones
     @JsonIgnore
-    public List<Connection> getAllConnections() {
+    public List<Edge> getAllConnections() {
         return new ArrayList<>(connectionsMap.values());
     }
 
     // Obtener conexión en orden por peso, excluyendo un nodo específico
     @JsonIgnore
-    public List<Connection> getConnectionsInOrderByWeight(Node entryNode) {
+    public List<Edge> getConnectionsInOrderByWeight(Node entryNode) {
         return connectionsMap.values().stream()
                 .filter(conn -> conn.getDestinationNodeID() != entryNode.getID() && !conn.isBlocked())
-                .sorted(Comparator.comparingDouble(Connection::getEffectiveWeight)) // Ordenar por peso final
+                .sorted(Comparator.comparingDouble(Edge::getEffectiveWeight)) // Ordenar por peso final
                 .collect(Collectors.toList());
     }
 
     // Obtener todas las conexiones en orden por peso
     @JsonIgnore
-    public List<Connection> getConnectionsInOrderByWeight() {
+    public List<Edge> getConnectionsInOrderByWeight() {
         return connectionsMap.values().stream()
                 .filter(conn -> !conn.isBlocked())
-                .sorted(Comparator.comparingDouble(Connection::getEffectiveWeight)) // Ordenar por peso final
+                .sorted(Comparator.comparingDouble(Edge::getEffectiveWeight)) // Ordenar por peso final
                 .collect(Collectors.toList());
     }
 
     // Obtener conexión en una dirección específica
     @JsonIgnore
-    public Connection getConnection(Directions direction) {
+    public Edge getConnection(Directions direction) {
         return connectionsMap.get(direction);
     }
 
@@ -75,7 +75,7 @@ public class Node {
 
     // Buscar una conexión por ID de nodo
     @JsonIgnore
-    public Connection getConnectionInNode(int nodeID) {
+    public Edge getConnectionInNode(int nodeID) {
         return connectionsMap.values().stream()
                 .filter(conn -> conn.getDestinationNodeID() == nodeID)
                 .findFirst()
@@ -88,16 +88,16 @@ public class Node {
 
     // Agregar una nueva conexión
     public void addConnection(Node targetNode, Directions direction) {
-        Connection connection = new Connection(ID, targetNode.getID(), calculateDistance(targetNode));
-        connection.setDirection(direction);
-        connectionsMap.put(direction, connection);
+        Edge edge = new Edge(ID, targetNode.getID(), calculateDistance(targetNode));
+        edge.setDirection(direction);
+        connectionsMap.put(direction, edge);
     }
 
     // Agregar una nueva conexión especificando el ID del nodo
     public void addConnection(int targetNodeId, Directions direction, double weight) {
-        Connection connection = new Connection(ID, targetNodeId, (int) weight);
-        connection.setDirection(direction);
-        connectionsMap.put(direction, connection);
+        Edge edge = new Edge(ID, targetNodeId, (int) weight);
+        edge.setDirection(direction);
+        connectionsMap.put(direction, edge);
     }
 
     // Eliminar conexión por dirección
@@ -110,9 +110,9 @@ public class Node {
 
     // Cambiar destino de una conexión
     public void changeConnectionIn(Node inNode, Node toNode) {
-        Connection connection = getConnectionInNode(inNode.getID());
-        if (connection != null) {
-            connection.setDestinationNodeID(toNode.getID());
+        Edge edge = getConnectionInNode(inNode.getID());
+        if (edge != null) {
+            edge.setDestinationNodeID(toNode.getID());
         }
     }
 
@@ -155,7 +155,7 @@ public class Node {
 
         // Imprimir las conexiones
         if (connectionsMap != null && !connectionsMap.isEmpty()) {
-            for (Map.Entry<Directions, Connection> entry : connectionsMap.entrySet()) {
+            for (Map.Entry<Directions, Edge> entry : connectionsMap.entrySet()) {
                 sb.append(entry.getKey()).append("->").append(entry.getValue().toString()).append(", ");
             }
             // Eliminar la coma y el espacio al final

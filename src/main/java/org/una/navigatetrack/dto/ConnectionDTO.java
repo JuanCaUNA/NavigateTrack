@@ -21,7 +21,7 @@ public class ConnectionDTO {
 
     @JsonProperty("targetNodeId")//targetNodeIdOld
     private double[] targetNodeId; // Identificador del nodo de destino
-    private double[] targetNodeIdOld;
+//    private double[] targetNodeIdOld;
 
     public ConnectionDTO() {
     }

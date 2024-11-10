@@ -5,12 +5,13 @@ import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.Setter;
 import org.una.navigatetrack.list.ListNodes;
-import org.una.navigatetrack.roads.Connection;
+import org.una.navigatetrack.roads.Edge;
 import org.una.navigatetrack.roads.Graph;
 import org.una.navigatetrack.roads.Node;
 
 import java.util.List;
 
+@SuppressWarnings("exports")
 public class NodeGraphFacade {
     private final NodesDrawerManagers nodesDrawerManagers;
     private Node startNode, endNode;
@@ -22,7 +23,7 @@ public class NodeGraphFacade {
     @Getter
     private int time;
 
-    List<Connection> mejorRuta;
+    List<Edge> mejorRuta;
 
     public NodeGraphFacade(Pane paintPane) {
         nodesDrawerManagers = new NodesDrawerManagers(new DrawerManager(paintPane), false);
@@ -242,14 +243,19 @@ public class NodeGraphFacade {
         return new Node(point);
     }
 
-    public Connection getConnection(double x, double y) {
+    public Edge getConnection(double x, double y) {
         double[] locations = nodesDrawerManagers.getDrawerManager().getLineAtWithCircle(x, y);
         Node node1, node2;
-        Connection connection;
+        Edge edge;
         node1 = ListNodes.getNodeByLocation(locations[0], locations[1]);
         node2 = ListNodes.getNodeByLocation(locations[2], locations[3]);
-        connection = node1.getConnectionInNode(node2.getID());
-        return (connection == null) ? node2.getConnectionInNode(node1.getID()) : connection;
+        edge = node1.getConnectionInNode(node2.getID());
+        if (edge != null) {
+//            nodesDrawerManagers.getDrawerManager().removeLine();
+        }
+
+        return (edge == null) ? node2.getConnectionInNode(node1.getID()) : edge;
+
     }
 
 }

@@ -1,31 +1,31 @@
 package org.una.navigatetrack.list;
 
-import org.una.navigatetrack.roads.Connection;
+import org.una.navigatetrack.roads.Edge;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListConnections {
 
-    private static final List<Connection> connectionsList = new ArrayList<>(); // Lista de conexiones
+    private static final List<Edge> CONNECTIONS_LIST = new ArrayList<>(); // Lista de conexiones
 
     // Agregar una nueva conexión
-    public static void addConnection(Connection connection) {
-        if (!containsConnectionWithID(connection.getID())) {
-            connectionsList.add(connection);  // Agrega la conexión a la lista
+    public static void addConnection( Edge edge) {
+        if (!containsConnectionWithID(edge.getID())) {
+            CONNECTIONS_LIST.add(edge);  // Agrega la conexión a la lista
         } else {
-            throw new IllegalArgumentException("Ya existe una conexión con el mismo ID: " + connection.getID());
+            throw new IllegalArgumentException("Ya existe una conexión con el mismo ID: " + edge.getID());
         }
     }
 
     // Eliminar una conexión por su ID
     public static void removeConnection(int idConnection) {
-        connectionsList.removeIf(connection -> connection.getID() == idConnection);
+        CONNECTIONS_LIST.removeIf(connection -> connection.getID() == idConnection);
     }
 
     // Obtener una conexión por su ID
-    public static Connection getConnection(int idConnection) {
-        return connectionsList.stream()
+    public static Edge getConnection(int idConnection) {
+        return CONNECTIONS_LIST.stream()
                 .filter(connection -> connection.getID() == idConnection)
                 .findFirst()
                 .orElse(null);  // Si no se encuentra, devuelve null
@@ -62,15 +62,15 @@ public class ListConnections {
 
     // Obtener el siguiente ID disponible para una nueva conexión
     public static int nextConnectionId() {
-        return connectionsList.stream()
-                .mapToInt(Connection::getID)
+        return CONNECTIONS_LIST.stream()
+                .mapToInt(Edge::getID)
                 .max()
                 .orElse(-1) + 1;  // Si no hay conexiones, el siguiente ID es 0
     }
 
     // Verificar si ya existe una conexión con un ID específico
     private static boolean containsConnectionWithID(int id) {
-        return connectionsList.stream().anyMatch(connection -> connection.getID() == id);
+        return CONNECTIONS_LIST.stream().anyMatch(connection -> connection.getID() == id);
     }
 
 //    public static void resetID() {

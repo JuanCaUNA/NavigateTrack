@@ -12,7 +12,7 @@ import java.util.Map;
 public class Graph {
     private final Node initNode, endNode; // Nodos de inicio y fin del grafo
     private final int initNodeID, endNodeID; // IDs de los nodos de inicio y fin
-    private List<Connection> bestPath; // Lista para almacenar la mejor ruta encontrada
+    private List<Edge> bestPath; // Lista para almacenar la mejor ruta encontrada
 
     // Constructor que inicializa el grafo con nodos de inicio y fin
     public Graph(Node startNode, Node endNode) {
@@ -32,37 +32,37 @@ public class Graph {
      * @param end El nodo de fin para la búsqueda (no se utiliza directamente en este méto-do).
      * @return Un mapa de conexiones con sus respectivas distancias desde el nodo de inicio.
      */
-    public Map<Connection, Integer> dijkstra(Node start, Node end) {
+    public Map<Edge, Integer> dijkstra(Node start, Node end) {
         bestPath = new ArrayList<>(); // Inicializa la mejor ruta
-        List<Connection> currentPath = new ArrayList<>(); // Ruta actual en exploración
-        Map<Connection, Integer> distances = new HashMap<>(); // Mapa para almacenar distancias
+        List<Edge> currentPath = new ArrayList<>(); // Ruta actual en exploración
+        Map<Edge, Integer> distances = new HashMap<>(); // Mapa para almacenar distancias
 
         // Inicializa las distancias desde el nodo de inicio
         initializeDistances(start, distances);
 
         // Itera sobre las conexiones del nodo de inicio
-        for (Connection connection : initNode.getConnectionsInOrderByWeight()) {
-            int newWeight = (int) connection.getEffectiveWeight(); // Peso de la conexión
-            currentPath.add(connection); // Agregar la conexión al camino actual
-            findBestPath(connection, newWeight, distances, currentPath); // Buscar el mejor camino
-            currentPath.remove(connection); // Retirar la conexión para explorar otras rutas
+        for (Edge edge : initNode.getConnectionsInOrderByWeight()) {
+            int newWeight = (int) edge.getEffectiveWeight(); // Peso de la conexión
+            currentPath.add(edge); // Agregar la conexión al camino actual
+            findBestPath(edge, newWeight, distances, currentPath); // Buscar el mejor camino
+            currentPath.remove(edge); // Retirar la conexión para explorar otras rutas
         }
 
         return distances; // Retornar el mapa de distancias
     }
 
     // Méto-do que inicializa el mapa de distancias desde el nodo de inicio
-    private void initializeDistances(Node start, Map<Connection, Integer> distances) {
-        for (Connection connection : start.getConnectionsInOrderByWeight()) {
-            distances.put(connection, (int) connection.getEffectiveWeight()); // Establecer distancias
+    private void initializeDistances(Node start, Map<Edge, Integer> distances) {
+        for (Edge edge : start.getConnectionsInOrderByWeight()) {
+            distances.put(edge, (int) edge.getEffectiveWeight()); // Establecer distancias
         }
     }
 
     // Méto-do recursivo que encuentra el mejor camino a partir de una conexión previa
-    private void findBestPath(Connection previousConnection, int currentWeight,
-                              Map<Connection, Integer> distances, List<Connection> currentPath) {
-        Node entryNode = previousConnection.getStartingNode(); // Nodo de inicio de la conexión previa
-        Node currentNode = previousConnection.getDestinationNode(); // Nodo de destino de la conexión previa
+    private void findBestPath(Edge previousEdge, int currentWeight,
+                              Map<Edge, Integer> distances, List<Edge> currentPath) {
+        Node entryNode = previousEdge.getStartingNode(); // Nodo de inicio de la conexión previa
+        Node currentNode = previousEdge.getDestinationNode(); // Nodo de destino de la conexión previa
 
         // Verifica si se ha llegado al nodo de destino
         if (currentNode.getID() == endNodeID) {
@@ -79,21 +79,21 @@ public class Graph {
         }
 
         // Itera sobre las conexiones del nodo actual
-        for (Connection connection : currentNode.getConnectionsInOrderByWeight(entryNode)) {
-            int newWeight = currentWeight + (int) connection.getEffectiveWeight(); // Peso acumulado
+        for (Edge edge : currentNode.getConnectionsInOrderByWeight(entryNode)) {
+            int newWeight = currentWeight + (int) edge.getEffectiveWeight(); // Peso acumulado
 
             // Si la conexión no ha sido visitada
-            if (!currentPath.contains(connection)) {
-                currentPath.add(connection); // Agregar la conexión al camino
+            if (!currentPath.contains(edge)) {
+                currentPath.add(edge); // Agregar la conexión al camino
                 // Llamada recursiva para seguir buscando el mejor camino
-                findBestPath(connection, newWeight, distances, currentPath);
-                currentPath.remove(connection); // Retirar la conexión al volver
+                findBestPath(edge, newWeight, distances, currentPath);
+                currentPath.remove(edge); // Retirar la conexión al volver
             }
         }
     }
 
     // Méto-do que calcula el peso total de un camino dado
-    private int calculateTotalWeight(List<Connection> path) {
+    private int calculateTotalWeight(List<Edge> path) {
         return path.stream().mapToInt(connection -> (int) connection.getEffectiveWeight()).sum(); // Sumar pesos
     }
 }

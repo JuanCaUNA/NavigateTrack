@@ -12,6 +12,7 @@ import javafx.util.Duration;
 
 public class PopupNotificationApp extends Application {
 
+    @SuppressWarnings("exports")
     @Override
     public void start(Stage primaryStage) {
         // Crear el StackPane principal de la aplicación

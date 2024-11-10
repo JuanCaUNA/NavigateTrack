@@ -15,6 +15,7 @@ public class ScreenManager {
     private final Stage primaryStage;
     private final NotificationToast notificationToast;
 
+    @SuppressWarnings("exports")
     public ScreenManager(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.notificationToast = new NotificationToast();

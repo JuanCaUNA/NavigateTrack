@@ -72,6 +72,7 @@
             <artifactId>lombok</artifactId>
             <version>1.18.34</version>
             <scope>provided</scope>
+            <!--            compile     -->
         </dependency>
 
         <dependency>
@@ -109,7 +110,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>org.una.navigatetrack/org.una.navigatetrack.HelloApplication</mainClass>
+                            <mainClass>org.una.navigatetrack/org.una.navigatetrack.MainApp</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

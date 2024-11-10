@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -18,13 +19,16 @@
                 <FlowPane id="menuFlowPane" cache="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" vgap="10.0">
                     <children>
                         <Label fx:id="labelTitle" prefHeight="30.0" prefWidth="325.0" text="Definir en el mapa:" />
-                        <RadioButton fx:id="endingRadioB" mnemonicParsing="false" prefHeight="29.0" prefWidth="325.0" text="Marcar Punto de destino">
+                        <RadioButton fx:id="endingRadioB" mnemonicParsing="false" prefHeight="29.0" prefWidth="325.0" selected="true" text="Marcar Punto de destino">
                             <FlowPane.margin>
                                 <Insets top="10.0" />
                             </FlowPane.margin>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="selections" />
+                     </toggleGroup>
                         </RadioButton>
                         <Label fx:id="labelDestino" prefHeight="29.0" prefWidth="324.0" text="Label  destino" />
-                        <RadioButton fx:id="initRadioB" mnemonicParsing="false" prefHeight="29.0" prefWidth="325.0" text="Marcar Punto de partida">
+                        <RadioButton fx:id="initRadioB" mnemonicParsing="false" prefHeight="29.0" prefWidth="325.0" text="Marcar Punto de partida" toggleGroup="$selections">
                             <FlowPane.margin>
                                 <Insets top="10.0" />
                             </FlowPane.margin>
@@ -34,12 +38,15 @@
                                 <Insets bottom="10.0" />
                             </FlowPane.margin>
                         </Label>
-                        <RadioButton fx:id="radioBFloydWarshall" mnemonicParsing="false" prefHeight="20.0" prefWidth="153.0" text="FloydWarshall">
+                        <RadioButton fx:id="radioBFloydWarshall" mnemonicParsing="false" prefHeight="20.0" prefWidth="153.0" selected="true" text="FloydWarshall">
                             <FlowPane.margin>
                                 <Insets right="53.0" />
                             </FlowPane.margin>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="modes" />
+                     </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="radioBDijkstra" mnemonicParsing="false" prefHeight="20.0" prefWidth="120.0" text="Distrack">
+                        <RadioButton fx:id="radioBDijkstra" mnemonicParsing="false" prefHeight="20.0" prefWidth="120.0" text="Distrack" toggleGroup="$modes">
                             <FlowPane.margin>
                                 <Insets />
                             </FlowPane.margin>
@@ -64,8 +71,8 @@
                                 <Insets bottom="10.0" top="10.0" />
                             </FlowPane.margin>
                         </Label>
-                        <RadioButton fx:id="radioBNode" mnemonicParsing="false" prefHeight="20.0" prefWidth="325.0" text="Selecionar Nodo para ver info" />
-                        <RadioButton fx:id="radioBConnection" mnemonicParsing="false" prefHeight="20.0" prefWidth="325.0" text="Selecionar conexion para ver info" />
+                        <RadioButton fx:id="radioBNode" mnemonicParsing="false" prefHeight="20.0" prefWidth="325.0" text="Selecionar Nodo para ver info" toggleGroup="$selections" />
+                        <RadioButton fx:id="radioBConnection" mnemonicParsing="false" prefHeight="20.0" prefWidth="325.0" text="Selecionar conexion para ver info" toggleGroup="$selections" />
                         <CheckBox fx:id="blockCBox" mnemonicParsing="false" text="Bloquear" />
                         <TextArea fx:id="textArea" prefHeight="245.0" prefWidth="325.0" />
                         <Button fx:id="changeImageB" mnemonicParsing="false" prefHeight="40.0" prefWidth="151.0" text="Cambiar imagen">

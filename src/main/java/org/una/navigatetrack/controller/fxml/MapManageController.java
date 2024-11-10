@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import org.una.navigatetrack.manager.DrawerManager;
 import org.una.navigatetrack.manager.NodesDrawerManagers;
-import org.una.navigatetrack.roads.Connection;
+import org.una.navigatetrack.roads.Edge;
 import org.una.navigatetrack.roads.Directions;
 import org.una.navigatetrack.roads.Node;
 
@@ -101,6 +101,7 @@ public class MapManageController implements Initializable {
                 case W -> adelanteRadioB.setSelected(true); // W para adelante
                 case S -> contrarioRadioB.setSelected(true); // S para contrario
                 case E -> seleccionarRadioB.setSelected(true); // E para seleccionar
+                default -> {break;}
             }
         });
     }
@@ -138,22 +139,22 @@ public class MapManageController implements Initializable {
     }
 
     private String getNodeConnectionsInfo(Node node) {
-        List<Connection> connections = node.getAllConnections();
+        List<Edge> edges = node.getAllConnections();
 
-        if (connections == null || connections.isEmpty()) {
+        if (edges == null || edges.isEmpty()) {
             return "No hay conexiones disponibles."; // Mensaje si no hay conexiones
         }
 
         StringJoiner info = new StringJoiner("\n", "Conexiones:\n", "");
-        for (Connection connection : connections) {
-            if (connection != null) {
+        for (Edge edge : edges) {
+            if (edge != null) {
                 info.add(String.format(
                         "Destino: %s, Peso: %.2f, Bloqueada: %s, Estado de Tráfico: %s, Dirección: %s",
-                        Arrays.toString(connection.getDestinationNode().getLocation()),
-                        connection.getWeight(), // Cambiado a double
-                        connection.isBlocked() ? "Sí" : "No",
-                        connection.getTrafficCondition(),
-                        connection.getDirection()
+                        Arrays.toString(edge.getDestinationNode().getLocation()),
+                        edge.getWeight(), // Cambiado a double
+                        edge.isBlocked() ? "Sí" : "No",
+                        edge.getTrafficCondition(),
+                        edge.getDirection()
                 ));
             }
         }

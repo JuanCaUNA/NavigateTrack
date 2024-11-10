@@ -1,6 +1,6 @@
 package org.una.navigatetrack.manager;
 
-import org.una.navigatetrack.roads.Connection;
+import org.una.navigatetrack.roads.Edge;
 import org.una.navigatetrack.roads.Directions;
 import org.una.navigatetrack.list.ListNodes;
 import org.una.navigatetrack.roads.Node;
@@ -91,7 +91,7 @@ public class NodesManager {
     }
 
     // Obtener conexión en una dirección específica
-    public Connection getConnectionInDirection(int nodeID, Directions direction) {
+    public Edge getConnectionInDirection(int nodeID, Directions direction) {
         Node node = ListNodes.getNodeByID(nodeID);
         if (node != null) {
             return node.getConnection(direction);
@@ -101,17 +101,17 @@ public class NodesManager {
 
     // Bloquear ruta en una dirección específica
     public void blockConnection(int nodeID, Directions direction) {
-        Connection connection = getConnectionInDirection(nodeID, direction);
-        if (connection != null) {
-            connection.setBlocked(true);
+        Edge edge = getConnectionInDirection(nodeID, direction);
+        if (edge != null) {
+            edge.setBlocked(true);
         }
     }
 
     // Desbloquear ruta en una dirección específica
     public void unblockConnection(int nodeID, Directions direction) {
-        Connection connection = getConnectionInDirection(nodeID, direction);
-        if (connection != null) {
-            connection.setBlocked(false);
+        Edge edge = getConnectionInDirection(nodeID, direction);
+        if (edge != null) {
+            edge.setBlocked(false);
         }
     }
 

@@ -33,6 +33,7 @@ public class AppContext {
         screenManager.loadScreen(fxmlFileName, "Travel APP");
     }
 
+    @SuppressWarnings("exports")
     public void defineScreen(Stage stage, String fxmlFileName) {
         screenManager = new ScreenManager(stage);
         loadScreen(fxmlFileName);

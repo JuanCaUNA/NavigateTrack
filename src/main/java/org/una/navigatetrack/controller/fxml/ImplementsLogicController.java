@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import org.una.navigatetrack.configs.Config;
 import org.una.navigatetrack.manager.NodeGraphFacade;
-import org.una.navigatetrack.roads.Connection;
+import org.una.navigatetrack.roads.Edge;
 import org.una.navigatetrack.utils.AppContext;
 
 import java.net.URL;
@@ -39,14 +39,14 @@ public class ImplementsLogicController implements Initializable {
 
     private boolean change = false;
     private NodeGraphFacade nodeGraphFacade;
-    private Connection connection;
+    private Edge edge;
     private String message;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         nodeGraphFacade = new NodeGraphFacade(paintPane);
         setupUI();
-        setupToggleGroups();
+//        setupToggleGroups();
         setupEventHandlers();
         blockCBox.setDisable(true);
     }
@@ -56,20 +56,19 @@ public class ImplementsLogicController implements Initializable {
         loadImageMap("/images/map2.png");
     }
 
-    private void setupToggleGroups() {
-        ToggleGroup selectionGroup = new ToggleGroup();
-        initRadioB.setToggleGroup(selectionGroup);
-        endingRadioB.setToggleGroup(selectionGroup);
-        radioBNode.setToggleGroup(selectionGroup);
-        radioBConnection.setToggleGroup(selectionGroup);
+    // private void setupToggleGroups() {
+    //     ToggleGroup selectionGroup = new ToggleGroup();
+    //     initRadioB.setToggleGroup(selectionGroup);
+    //     endingRadioB.setToggleGroup(selectionGroup);
+    //     radioBNode.setToggleGroup(selectionGroup);
+    //     radioBConnection.setToggleGroup(selectionGroup);
+    //     endingRadioB.setSelected(true);
 
-        endingRadioB.setSelected(true);
-
-        ToggleGroup modeGroup = new ToggleGroup();
-        radioBDijkstra.setToggleGroup(modeGroup);
-        radioBFloydWarshall.setToggleGroup(modeGroup);
-        radioBFloydWarshall.setSelected(true);
-    }
+    //     ToggleGroup modeGroup = new ToggleGroup();
+    //     radioBDijkstra.setToggleGroup(modeGroup);
+    //     radioBFloydWarshall.setToggleGroup(modeGroup);
+    //     radioBFloydWarshall.setSelected(true);
+    // }
 
     private void changeImage() {
         loadImageMap(change ? "/images/map2.png" : "/images/map0.png");
@@ -112,8 +111,7 @@ public class ImplementsLogicController implements Initializable {
     }
 
     private void handleBlockAction() {
-        System.out.println("Bloquear este camino...");
-        // TODO: Implementar la lógica para bloquear el camino
+        edge.setBlocked(blockCBox.isSelected());
         showInfoMessage("Camino bloqueado.");
     }
 
@@ -133,10 +131,14 @@ public class ImplementsLogicController implements Initializable {
     }
 
     private void handleConnectionSelection(double[] location) {
-        connection = nodeGraphFacade.getConnection(location[0], location[1]);
-        if (connection != null) {
+        if(edge != null) {
+
+        }
+
+        edge = nodeGraphFacade.getConnection(location[0], location[1]);
+        if (edge != null) {
             message = "Marcó un camino en: ";
-            textArea.setText(connection.toString());
+            textArea.setText(edge.toString());
             blockCBox.setDisable(false);
         } else {
             message = "No hay ningún camino en: ";

@@ -43,6 +43,7 @@ public class NotificationToast extends Application {
         this("Default message goes here.", "Notification");
     }
 
+    @SuppressWarnings("exports")
     @Override
     public void start(Stage primaryStage) {
         // Cerrar la notificación anterior, si existe

@@ -1,6 +1,7 @@
 package org.una.navigatetrack.manager.storage;
 
-import javax.swing.*;
+import org.una.navigatetrack.utils.AppContext;
+
 import java.io.*;
 
 public class StorageManager<T> {
@@ -50,10 +51,11 @@ public class StorageManager<T> {
     }
 
     private void showErrorDialog(String message) {
-        JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+       AppContext.getInstance().createNotification("Error", message);
+               //(null, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     private void showInfoDialog(String message) {
-        JOptionPane.showMessageDialog(null, message, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        AppContext.getInstance().createNotification("Éxito", message);
     }
 }
