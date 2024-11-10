@@ -39,6 +39,8 @@ public class ImplementsLogicController implements Initializable {
 
     private boolean change = false;
     private NodeGraphFacade nodeGraphFacade;
+    private Connection connection;
+    private String message;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -46,7 +48,6 @@ public class ImplementsLogicController implements Initializable {
         setupUI();
         setupToggleGroups();
         setupEventHandlers();
-
         blockCBox.setDisable(true);
     }
 
@@ -56,18 +57,17 @@ public class ImplementsLogicController implements Initializable {
     }
 
     private void setupToggleGroups() {
-        ToggleGroup selections = new ToggleGroup();
-        initRadioB.setToggleGroup(selections);
-        endingRadioB.setToggleGroup(selections);
-        radioBNode.setToggleGroup(selections);
-        radioBConnection.setToggleGroup(selections);
+        ToggleGroup selectionGroup = new ToggleGroup();
+        initRadioB.setToggleGroup(selectionGroup);
+        endingRadioB.setToggleGroup(selectionGroup);
+        radioBNode.setToggleGroup(selectionGroup);
+        radioBConnection.setToggleGroup(selectionGroup);
 
         endingRadioB.setSelected(true);
 
-        ToggleGroup mode = new ToggleGroup();
-        radioBDijkstra.setToggleGroup(mode);
-        radioBFloydWarshall.setToggleGroup(mode);
-
+        ToggleGroup modeGroup = new ToggleGroup();
+        radioBDijkstra.setToggleGroup(modeGroup);
+        radioBFloydWarshall.setToggleGroup(modeGroup);
         radioBFloydWarshall.setSelected(true);
     }
 
@@ -87,47 +87,64 @@ public class ImplementsLogicController implements Initializable {
     }
 
     private void setupEventHandlers() {
-        paintPane.setOnMouseClicked(event -> select(new double[]{event.getX(), event.getY()}));
+        paintPane.setOnMouseClicked(event -> select(new double[]{event.getX(), event.getY()}));//todo *******
 
-        infoB.setOnAction(actionEvent -> textArea.setText(Config.instructions));
-        pauseB.setOnAction(actionEvent -> nodeGraphFacade.pauseTravel());//todo
+        infoB.setOnAction(actionEvent -> showInfoMessage(Config.instructions));
+        pauseB.setOnAction(actionEvent -> nodeGraphFacade.pauseTravel()); // TO-DO: Implementar la pausa
         changeImageB.setOnAction(event -> changeImage());
+        startB.setOnAction(event -> startTravel());
+        finishB.setOnAction(event -> finishTravel());
 
-        startB.setOnAction(event -> {
-            System.out.println("Iniciando viaje...");
-            nodeGraphFacade.setDijkstra(radioBDijkstra.isSelected());
-            nodeGraphFacade.initTravel();
-        });
-        finishB.setOnAction(event -> {
-            System.out.println("Finalizando viaje...");
-            nodeGraphFacade.endTravel();
-        });
-
-        blockCBox.setOnAction(event -> {
-            System.out.println("bloquear este camino");
-        });//todo
+        blockCBox.setOnAction(event -> handleBlockAction()); // TO-DO: Implementar acción de bloquear
     }
 
-    private Connection connection;
-    private String message;
+    private void startTravel() {
+        System.out.println("Iniciando viaje...");
+        nodeGraphFacade.setDijkstra(radioBDijkstra.isSelected());
+        nodeGraphFacade.initTravel();
+        showInfoMessage("Viaje iniciado.");
+    }
+
+    private void finishTravel() {
+        System.out.println("Finalizando viaje...");
+        nodeGraphFacade.endTravel();
+        showInfoMessage("Viaje finalizado.");
+    }
+
+    private void handleBlockAction() {
+        System.out.println("Bloquear este camino...");
+        // TODO: Implementar la lógica para bloquear el camino
+        showInfoMessage("Camino bloqueado.");
+    }
 
     private void select(double[] location) {
         blockCBox.setDisable(true);
         if (initRadioB.isSelected()) {
-            nodeGraphFacade.setStartNode(location);
-            labelPartida.setText("Punto de partida: " + location[0] + ", " + location[1]);
+            message = nodeGraphFacade.setStartNode(location) ? "Punto de partida: " : "No marcó una ruta válida: ";
         } else if (endingRadioB.isSelected()) {
-            message = (nodeGraphFacade.setEndNode(location)) ? "Punto de destino: " : "No marco una ruta valida: ";
-
+            message = nodeGraphFacade.setEndNode(location) ? "Punto de destino: " : "No marcó una ruta válida: ";
         } else if (radioBNode.isSelected()) {
-            System.out.println("Seleccionaste un nodo en: " + location[0] + ", " + location[1]);
+            message = "Seleccionaste un nodo en: ";
         } else if (radioBConnection.isSelected()) {
-            connection = nodeGraphFacade.getConnection(location[0], location[1]);
-            if (connection != null) {
-                textArea.setText(connection.toString());
-                blockCBox.setDisable(false);
-            }
+            handleConnectionSelection(location);
         }
-        AppContext.getInstance().createNotification("Info", message + location[0] + ", " + location[1]);
+        // Mostrar notificación en lugar de texto
+        showInfoMessage(message + location[0] + ", " + location[1]);
+    }
+
+    private void handleConnectionSelection(double[] location) {
+        connection = nodeGraphFacade.getConnection(location[0], location[1]);
+        if (connection != null) {
+            message = "Marcó un camino en: ";
+            textArea.setText(connection.toString());
+            blockCBox.setDisable(false);
+        } else {
+            message = "No hay ningún camino en: ";
+        }
+    }
+
+    private void showInfoMessage(String message) {
+        // Usamos la clase AppContext para mostrar notificaciones
+        AppContext.getInstance().createNotification("Info", message);
     }
 }

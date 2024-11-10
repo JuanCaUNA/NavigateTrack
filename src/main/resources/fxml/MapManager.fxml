@@ -5,64 +5,42 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="rootStackPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.navigatetrack.controller.fxml.MapManageController">
+<StackPane id="root" fx:id="rootStackPane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.navigatetrack.controller.fxml.MapManageController">
    <children>
       <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
          <children>
-            <FlowPane fx:id="menuFlowPane" hgap="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" style="-fx-background-color: #323030;" vgap="20.0">
+            <FlowPane id="menuFlowPane" hgap="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" vgap="20.0">
                <children>
-                  <Label fx:id="nodoActualLabel" style="-fx-background-color: #ffffff;" text=" Nodo Actual: ">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
+                  <Label fx:id="nodoActualLabel" text=" Nodo Actual: ">
                      <FlowPane.margin>
                         <Insets right="1000.0" />
                      </FlowPane.margin>
                   </Label>
-                  <RadioButton fx:id="editRadioB" mnemonicParsing="false" style="-fx-background-color: #ffffff;" text="Edicion de nodos ">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
+                  <RadioButton fx:id="editRadioB" mnemonicParsing="false" selected="true" text="Edicion de nodos ">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="modes" />
+                     </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="addRadioB" mnemonicParsing="false" style="-fx-background-color: #ffffff;" text="agregar nodos">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </RadioButton>
-                  <RadioButton fx:id="seleccionarRadioB" mnemonicParsing="false" prefHeight="17.0" prefWidth="236.0" style="-fx-background-color: #ffffff;" text="Selecionar">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
+                  <RadioButton fx:id="addRadioB" mnemonicParsing="false" text="agregar nodos" toggleGroup="$modes" />
+                  <RadioButton fx:id="seleccionarRadioB" mnemonicParsing="false" prefHeight="17.0" prefWidth="236.0" selected="true" text="Selecionar">
                      <FlowPane.margin>
                         <Insets top="10.0" />
                      </FlowPane.margin>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="selections" />
+                     </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="izRadioB" mnemonicParsing="false" prefHeight="17.0" prefWidth="236.0" style="-fx-background-color: #ffffff;" text="selecionar conexion izquierda ">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </RadioButton>
-                  <RadioButton fx:id="derRadioB" mnemonicParsing="false" prefHeight="17.0" prefWidth="236.0" style="-fx-background-color: #ffffff;" text="selecionar conexion derecha ">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </RadioButton>
-                  <RadioButton fx:id="adelanteRadioB" mnemonicParsing="false" prefHeight="17.0" prefWidth="236.0" style="-fx-background-color: #ffffff;" text="selecionar conexion adelante ">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </RadioButton>
-                  <RadioButton fx:id="contrarioRadioB" mnemonicParsing="false" style="-fx-background-color: #ffffff;" text="selecionar conexion sentido contrario ">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </RadioButton>
+                  <RadioButton fx:id="izRadioB" mnemonicParsing="false" prefHeight="17.0" prefWidth="236.0" text="selecionar conexion izquierda " toggleGroup="$selections" />
+                  <RadioButton fx:id="derRadioB" mnemonicParsing="false" prefHeight="17.0" prefWidth="236.0" text="selecionar conexion derecha " toggleGroup="$selections" />
+                  <RadioButton fx:id="adelanteRadioB" mnemonicParsing="false" prefHeight="17.0" prefWidth="236.0" text="selecionar conexion adelante " toggleGroup="$selections" />
+                  <RadioButton fx:id="contrarioRadioB" mnemonicParsing="false" text="selecionar conexion sentido contrario " toggleGroup="$selections" />
                   <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" text="Guardar Todo">
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -98,10 +76,10 @@
                   <Insets left="150.0" right="150.0" top="50.0" />
                </padding>
             </FlowPane>
-            <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0">
+            <Pane id="visualPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0">
                <children>
-                  <Pane fx:id="mapPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" style="-fx-background-color: #0A0EB5;" />
-                  <Pane fx:id="paintPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" style="-fx-background-color: #000000;" />
+                  <Pane fx:id="mapPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" />
+                  <Pane fx:id="paintPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" />
                </children>
             </Pane>
          </children>

@@ -6,8 +6,9 @@
     -fx-background-color: linear-gradient(to bottom, #462251, #5e214e, #431717);
 
     -fx-border-radius: 5;
-    -fx-border-color: #8fffee;
     -fx-border-width: 1px;
+    -fx-border-color: #8fffee;
+
 
     /*-fx-padding: 10px; !* Agregar relleno alrededor del contenido *!*/
     /*-fx-font-family: "Rage Italic", sans-serif; !* Fuente predeterminada *!*/
@@ -22,28 +23,28 @@
 }
 
 /* Barra de título */
-.title-bar {
-    -fx-background-color: #ff0000;
-    -fx-padding: 10px;
-    -fx-border-radius: 10px 10px 0 0;
-    -fx-font-size: 24px;
+/*.title-bar {*/
+/*    -fx-background-color: #ff0000;*/
+/*    -fx-padding: 10px;*/
+/*    -fx-border-radius: 10px 10px 0 0;*/
+/*    -fx-font-size: 24px;*/
 
 
-    -fx-font-weight: bold;
-    -fx-text-fill: #ff0025; /* Cambiar color de texto */
-    -fx-alignment: center-left; /* Alineación del contenido en la barra */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0, 0, 2); /* Sombra sutil */
-}
+/*    -fx-font-weight: bold;*/
+/*    -fx-text-fill: #ff0025; !* Cambiar color de texto *!*/
+/*    -fx-alignment: center-left; !* Alineación del contenido en la barra *!*/
+/*    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0, 0, 2); !* Sombra sutil *!*/
+/*}*/
 
-.title-bar label {
-    -fx-text-fill: #000000;
-    -fx-font-size: 24px;
-    -fx-font-weight: bold;
+/*.title-bar label {*/
+/*    -fx-text-fill: #000000;*/
+/*    -fx-font-size: 24px;*/
+/*    -fx-font-weight: bold;*/
 
-    -fx-alignment: center-left; /* Alineación de la etiqueta */
-    -fx-cursor: hand; /* Cursor tipo mano cuando se pasa sobre la barra */
-    -fx-padding: 0 10px; /* Relleno interno */
-}
+/*    -fx-alignment: center-left; !* Alineación de la etiqueta *!*/
+/*    -fx-cursor: hand; !* Cursor tipo mano cuando se pasa sobre la barra *!*/
+/*    -fx-padding: 0 10px; !* Relleno interno *!*/
+/*}*/
 
 /* Contenido de la ventana */
 .content {
@@ -63,6 +64,10 @@
 
 #menuFlowPane, #visualPane {
     -fx-background-color: linear-gradient(to top left, #000000, #203935, #000000);
+
+    -fx-border-radius: 5;
+    -fx-border-width: 1px;
+    -fx-border-color: #8fffee;
 }
 
 /* ========================== */
@@ -87,9 +92,9 @@
     -fx-alignment: center; /* Centra el texto dentro del Label */
     -fx-text-fill: white;
 
-    -fx-border-color-color: white;
-    -fx-border-radius: 5px;
+    -fx-border-radius: 5;
     -fx-border-width: 1px;
+    -fx-border-color: #8fffee;
 }
 
 /* Estilos adicionales para el área de texto */
