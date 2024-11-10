@@ -2,8 +2,7 @@ package org.una.navigatetrack;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import org.una.navigatetrack.manager.ScreenManager;
-import org.una.navigatetrack.utils.Singleton;
+import org.una.navigatetrack.utils.AppContext;
 
 public class MainApp extends Application {
 
@@ -13,12 +12,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        ScreenManager screenManager = new ScreenManager(primaryStage);
-        Singleton singleton = Singleton.getInstance();
-        singleton.setScreenManager(screenManager);
-
-//        screenManager.loadScreen("/fxml/MapManager.fxml", "Initial View");
-        screenManager.loadScreen("/fxml/ImplementsLogic.fxml", "Initial View");
+        AppContext.getInstance().defineScreen(primaryStage, "/fxml/ImplementsLogic.fxml");
 
     }
 }

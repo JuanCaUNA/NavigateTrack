@@ -26,6 +26,13 @@ public class NodeGraphFacade {
 
     public NodeGraphFacade(Pane paintPane) {
         nodesDrawerManagers = new NodesDrawerManagers(new DrawerManager(paintPane), false);
+        startNode = new Node();
+        endNode = new Node();
+        startNode.setID(ListNodes.getNextId());
+        endNode.setID(ListNodes.getNextId() + 1);
+
+        ListNodes.addNode(startNode);
+        ListNodes.addNode(endNode);
     }
 
     //metodos para definir el inicio y el final -----------------//
@@ -34,10 +41,8 @@ public class NodeGraphFacade {
         double[] currentPoint = isStartNode ? startPoint : endPoint;
         double[] currentConnection = isStartNode ? startConnection : endConnection;
 
-        if (currentNode != null) {
-            removeNodeVisual(currentNode);
-            currentNode = null;
-        }
+        if (currentNode != null)
+            resetNode(currentNode);
 
         currentPoint = point.clone();
         currentConnection = new double[4];
@@ -52,6 +57,12 @@ public class NodeGraphFacade {
             return true;
         }
         return false;
+    }
+
+    private void resetNode(Node node) {
+        removeNodeVisual(node);
+        node.setLocation(new double[]{0, 0});
+        node.deleteConnections();
     }
 
     public boolean setStartNode(double[] point) {
@@ -70,7 +81,7 @@ public class NodeGraphFacade {
         double[] relocated = nodesDrawerManagers.getLocationIfExistNodeAt(location);
         if (relocated != null) {
             System.arraycopy(relocated, 0, location, 0, 2);  // Actualizamos la ubicación
-            connection[0] = Double.NaN;  // Desconectamos
+            connection[0] = Double.NaN;  // Desconectamos, no se usa
             return true;
         }
 
@@ -230,4 +241,15 @@ public class NodeGraphFacade {
     private Node createNode(double[] point) {
         return new Node(point);
     }
+
+    public Connection getConnection(double x, double y) {
+        double[] locations = nodesDrawerManagers.getDrawerManager().getLineAtWithCircle(x, y);
+        Node node1, node2;
+        Connection connection;
+        node1 = ListNodes.getNodeByLocation(locations[0], locations[1]);
+        node2 = ListNodes.getNodeByLocation(locations[2], locations[3]);
+        connection = node1.getConnectionInNode(node2.getID());
+        return (connection == null) ? node2.getConnectionInNode(node1.getID()) : connection;
+    }
+
 }

@@ -8,6 +8,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import org.una.navigatetrack.configs.Config;
 import org.una.navigatetrack.manager.NodeGraphFacade;
+import org.una.navigatetrack.roads.Connection;
+import org.una.navigatetrack.utils.AppContext;
 
 import java.net.URL;
 import java.util.Objects;
@@ -101,25 +103,31 @@ public class ImplementsLogicController implements Initializable {
             nodeGraphFacade.endTravel();
         });
 
-        blockCBox.setOnAction(event -> {System.out.println("bloquear este camino");
-
+        blockCBox.setOnAction(event -> {
+            System.out.println("bloquear este camino");
         });//todo
     }
 
+    private Connection connection;
+    private String message;
+
     private void select(double[] location) {
         blockCBox.setDisable(true);
-
         if (initRadioB.isSelected()) {
             nodeGraphFacade.setStartNode(location);
             labelPartida.setText("Punto de partida: " + location[0] + ", " + location[1]);
         } else if (endingRadioB.isSelected()) {
-            nodeGraphFacade.setEndNode(location);
-            labelDestino.setText("Punto de destino: " + location[0] + ", " + location[1]);
+            message = (nodeGraphFacade.setEndNode(location)) ? "Punto de destino: " : "No marco una ruta valida: ";
+
         } else if (radioBNode.isSelected()) {
             System.out.println("Seleccionaste un nodo en: " + location[0] + ", " + location[1]);
         } else if (radioBConnection.isSelected()) {
-            blockCBox.setDisable(false);
-            System.out.println("Seleccionaste una conexión en: " + location[0] + ", " + location[1]);
+            connection = nodeGraphFacade.getConnection(location[0], location[1]);
+            if (connection != null) {
+                textArea.setText(connection.toString());
+                blockCBox.setDisable(false);
+            }
         }
+        AppContext.getInstance().createNotification("Info", message + location[0] + ", " + location[1]);
     }
 }

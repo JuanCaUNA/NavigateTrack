@@ -1,5 +1,6 @@
 package org.una.navigatetrack.roads;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.una.navigatetrack.list.ListNodes;
@@ -12,45 +13,34 @@ import java.util.stream.Collectors;
 public class Node {
 
     private int ID;
-
     private double[] location;
     private Map<Directions, Connection> connectionsMap;
 
+    // Constructor vacío
     public Node() {
         connectionsMap = new EnumMap<>(Directions.class);
         location = new double[2];
     }
 
+    // Constructor con ubicación
     public Node(double[] point) {
         connectionsMap = new EnumMap<>(Directions.class);
         location = point;
         //ID = ListNodes.getNextId(); TODO
     }
 
-    // Add a connection to another node
-    public void addConnection(Node targetNode, Directions direction) {
-        // Si no existe una conexión en la dirección dada, crea una nueva
-        Connection connection = new Connection(ID, targetNode.getID(), calculateDistance(targetNode));
-        connection.setDirection(direction);
-        // Se agrega o reemplaza la conexión en el mapa
-        connectionsMap.put(direction, connection);
-    }
+    // ===========================
+    // Métodos de acceso
+    // ===========================
 
-    // Calculate distance to another node
-    public int calculateDistance(Node other) {
-        return (int) Math.sqrt(Math.pow(location[0] - other.location[0], 2) + Math.pow(location[1] - other.location[1], 2));
-    }
-
-    // Delete connection based on direction
-    public void deleteConnection(Directions direction) {
-        connectionsMap.remove(direction);
-    }
-
-    // Get connections excluding a specific node
+    // Obtener todas las conexiones
+    @JsonIgnore
     public List<Connection> getAllConnections() {
         return new ArrayList<>(connectionsMap.values());
     }
 
+    // Obtener conexión en orden por peso, excluyendo un nodo específico
+    @JsonIgnore
     public List<Connection> getConnectionsInOrderByWeight(Node entryNode) {
         return connectionsMap.values().stream()
                 .filter(conn -> conn.getDestinationNodeID() != entryNode.getID() && !conn.isBlocked())
@@ -58,6 +48,8 @@ public class Node {
                 .collect(Collectors.toList());
     }
 
+    // Obtener todas las conexiones en orden por peso
+    @JsonIgnore
     public List<Connection> getConnectionsInOrderByWeight() {
         return connectionsMap.values().stream()
                 .filter(conn -> !conn.isBlocked())
@@ -65,16 +57,14 @@ public class Node {
                 .collect(Collectors.toList());
     }
 
-    // Get connection based on direction
+    // Obtener conexión en una dirección específica
+    @JsonIgnore
     public Connection getConnection(Directions direction) {
         return connectionsMap.get(direction);
     }
 
-    // Check if connected to a specific node
-    public boolean isConnectedToNode(Node node) {
-        return connectionsMap.values().stream().noneMatch(conn -> conn.getDestinationNodeID() == node.getID());
-    }
-
+    // Obtener la dirección conectada a un nodo específico
+    @JsonIgnore
     public Directions getDirConnectedToNode(Node node) {
         return connectionsMap.entrySet().stream()  // Itera sobre las entradas (key-value) del mapa
                 .filter(entry -> entry.getValue().getDestinationNodeID() == node.getID())  // Filtra por el ID del nodo
@@ -83,8 +73,8 @@ public class Node {
                 .orElse(null);  // Si no se encuentra ninguna, devuelve null
     }
 
-
-    // Get connection in node
+    // Buscar una conexión por ID de nodo
+    @JsonIgnore
     public Connection getConnectionInNode(int nodeID) {
         return connectionsMap.values().stream()
                 .filter(conn -> conn.getDestinationNodeID() == nodeID)
@@ -92,7 +82,33 @@ public class Node {
                 .orElse(null);
     }
 
-    // Change connection target
+    // ===========================
+    // Métodos de modificación de conexiones
+    // ===========================
+
+    // Agregar una nueva conexión
+    public void addConnection(Node targetNode, Directions direction) {
+        Connection connection = new Connection(ID, targetNode.getID(), calculateDistance(targetNode));
+        connection.setDirection(direction);
+        connectionsMap.put(direction, connection);
+    }
+
+    // Agregar una nueva conexión especificando el ID del nodo
+    public void addConnection(int targetNodeId, Directions direction, double weight) {
+        Connection connection = new Connection(ID, targetNodeId, (int) weight);
+        connection.setDirection(direction);
+        connectionsMap.put(direction, connection);
+    }
+
+    // Eliminar conexión por dirección
+    public void deleteConnection(Directions direction) {
+        connectionsMap.remove(direction);
+    }
+    public void deleteConnections(){
+        connectionsMap.clear();
+    }
+
+    // Cambiar destino de una conexión
     public void changeConnectionIn(Node inNode, Node toNode) {
         Connection connection = getConnectionInNode(inNode.getID());
         if (connection != null) {
@@ -100,22 +116,35 @@ public class Node {
         }
     }
 
-    // Search for a node by ID
+    // ===========================
+    // Métodos de utilidad
+    // ===========================
+
+    // Calcular distancia a otro nodo
+    public int calculateDistance(Node other) {
+        return (int) Math.sqrt(Math.pow(location[0] - other.location[0], 2) + Math.pow(location[1] - other.location[1], 2));
+    }
+
+    // Verificar si está conectado a un nodo específico
+    public boolean isConnectedToNode(Node node) {
+        return connectionsMap.values().stream().noneMatch(conn -> conn.getDestinationNodeID() == node.getID());
+    }
+
+    // Buscar nodo por ID
     public Optional<Node> searchAndGetNode(int nodeID) {
         return ListNodes.findById(nodeID);
     }
 
-    // Get node by index
+    // Obtener nodo por ID
     public Node getIndexAt(int nodeID) {
         return ListNodes.getNodeByID(nodeID);
     }
 
-    public void addConnection(int targetNodeId, Directions direction, double weight) {
-        Connection connection = new Connection(ID, targetNodeId, (int) weight);
-        connection.setDirection(direction);
-        connectionsMap.put(direction, connection);
-    }
+    // ===========================
+    // Métodos sobrecargados y otros
+    // ===========================
 
+    // Método toString para imprimir información sobre el nodo y sus conexiones
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -138,38 +167,3 @@ public class Node {
         return sb.toString();
     }
 }
-/*
-    // Get target node based on direction
-    public Node getTargetNode(Directions direction) {
-        Connection connection = connections.get(direction);
-        return connection != null ? connection.getDestinationNode() : null;
-    }
-
-        // Get connection based on target position
-    public Connection getConnection(double[] position) {
-        return connections.values().stream()
-                .filter(conn -> Arrays.equals(conn.getDestinationNode().location, position))
-                .findFirst()
-                .orElse(null);
-    }
-
-        // Check if there are no connections
-    public boolean isConnectionsEmpty() {
-        return connections.isEmpty();
-    }
-
- */
-
-//    private double[] getLocation( int[] point){
-//        return new double[]{point[0], point[1]};
-//    }
-//    private int[] getLocation( double[] point){
-//        return new int[]{(int) point[0], (int) point[1]};
-//    }
-//    public double[] getLocation(){
-//        return new double[]{location[0], location[1]};
-//    }
-//
-//    public double[] getLocatio(){
-//        return new double[]{location[0], location[1]};
-//    }

@@ -82,7 +82,7 @@
                         <Insets left="150.0" right="150.0" top="50.0" />
                     </padding>
                 </FlowPane>
-                <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0">
+                <Pane id="visualPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0">
                     <children>
                         <Pane fx:id="mapPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" />
                         <Pane fx:id="paintPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" />

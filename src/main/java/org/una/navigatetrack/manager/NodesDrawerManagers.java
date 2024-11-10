@@ -7,7 +7,7 @@ import org.una.navigatetrack.roads.Connection;
 import org.una.navigatetrack.roads.Directions;
 import org.una.navigatetrack.list.ListNodes;
 import org.una.navigatetrack.roads.Node;
-import org.una.navigatetrack.utils.Singleton;
+import org.una.navigatetrack.utils.AppContext;
 
 import java.util.List;
 
@@ -19,16 +19,16 @@ public class NodesDrawerManagers {
     private Node currentNode;
 
     public NodesDrawerManagers(DrawerManager drawerManager) {
-        Singleton singleton = Singleton.getInstance();
-        this.nodesManager = singleton.getNodesManager();
+        AppContext appContext = AppContext.getInstance();
+        this.nodesManager = appContext.getNodesManager();
         this.drawerManager = drawerManager;
 
         drawAllNodesAndConnections();
     }
 
     public NodesDrawerManagers(DrawerManager drawerManager, Boolean edicion) {
-        Singleton singleton = Singleton.getInstance();
-        this.nodesManager = singleton.getNodesManager();
+        AppContext appContext = AppContext.getInstance();
+        this.nodesManager = appContext.getNodesManager();
         this.drawerManager = drawerManager;
 
         if (edicion)

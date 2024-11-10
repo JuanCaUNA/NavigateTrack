@@ -1,7 +1,6 @@
 package org.una.navigatetrack.roads;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.una.navigatetrack.list.ListConnections;
@@ -10,11 +9,13 @@ import org.una.navigatetrack.list.ListNodes;
 import java.util.Map;
 import java.util.Optional;
 
+//@JsonIgnoreProperties(ignoreUnknown = true)  // Ignora los campos que no estén en la clase
+//@JsonInclude(JsonInclude.Include.NON_NULL)  // Excluye los campos nulos del JSON
+
 @Getter
 @Setter
-@JsonIgnoreProperties(ignoreUnknown = true)  // Ignora los campos que no estén en la clase
-@JsonInclude(JsonInclude.Include.NON_NULL)  // Excluye los campos nulos del JSON
 public class Connection {
+    @JsonIgnore
     private int ID;
 
     // Referencias de nodos
@@ -23,19 +24,28 @@ public class Connection {
 
     private double weight; // Peso en base a distancia entre nodos
 
+    @JsonIgnore
     private static final Map<String, Double> TRAFFIC_MULTIPLIER = Map.of("normal", 1.0, "moderado", 1.25, "lento", 1.65);
 
     // Estados de ruta
+    @JsonIgnore
     private boolean isBlocked; // Indica si la ruta está bloqueada
+    @JsonIgnore
     private String trafficCondition; // Estado de tráfico ("normal", "moderado", "lento")
 
     private Directions direction;
+    @JsonIgnore
     private double accumulateWeight;  // Este campo se deserializa correctamente desde el JSON
 
     // Campos no presentes en el JSON, pero calculados
+    @JsonIgnore
     private double effectiveWeight;  // Este campo no es necesario deserializarlo, ya que se calcula
-
+    @JsonIgnore
     private double increment;  // Similar al campo `effectiveWeight`, este se calcula
+
+    // ===========================
+    // Constructores
+    // ===========================
 
     public Connection() {
         init();
@@ -54,79 +64,63 @@ public class Connection {
         this.weight = weight;
     }
 
-    public void init() {
+    // ===========================
+    // Inicialización
+    // ===========================
+
+    private void init() {
         this.isBlocked = false;
         this.trafficCondition = "normal";
-        this.ID = ListConnections.getID();
-
+        this.ID = ListConnections.nextConnectionId();
         this.startingNodeID = 0;
         this.destinationNodeID = 0;
         this.weight = 1.0;
         this.direction = null;
+        this.accumulateWeight = 0.0;
+        this.effectiveWeight = 0.0;
+        this.increment = 1.0;
+
+        ListConnections.addConnection(this);
     }
 
-    // Manejo de estados
+    // ===========================
+    // Métodos de estado
+    // ===========================
+
+    // Bloquear la ruta
     public void blockRoute() {
         isBlocked = true;
     }
 
+    // Desbloquear la ruta
     public void unblockRoute() {
         isBlocked = false;
     }
 
+    // Verificar si se puede acceder a la ruta
+    public boolean canAccess() {
+        return !isBlocked;
+    }
+
+    // ===========================
+    // Métodos de cálculo
+    // ===========================
+
+    // Calcular la distancia y actualizar el peso
     private void refreshWeight() {
         weight -= getIncrement();
     }
 
+    // Recalcular el nodo de inicio basándose en las coordenadas de los nodos
     public void recalculateStartNode() {
         double[] init = getStartingNode().getLocation();
         double[] end = getDestinationNode().getLocation();
 
         calcularIncremento(init[0], init[1], end[0], end[1], getIncrement());
-
         refreshWeight();
     }
 
-    // bool
-    public boolean canAccess() {
-        return !isBlocked;
-    }
-
-    // Gets
-    public Node getDestinationNode() {
-        return getIndexAt(destinationNodeID);
-    }
-
-    public Node getStartingNode() {
-        return getIndexAt(startingNodeID);
-    }
-
-    public double getEffectiveWeight() {
-        return (weight * TRAFFIC_MULTIPLIER.get(trafficCondition));
-    }
-
-    public double getIncrement() {
-        return (2 - TRAFFIC_MULTIPLIER.get(trafficCondition));
-    }
-
-    // Sets
-    public void setDestinationNode(Node targetNode) {
-        destinationNodeID = targetNode.getID();
-    }
-
-    public void setStartingNode(Node startNode) {
-        this.startingNodeID = startNode.getID();
-    }
-
-    // Gets for ID
-    public Optional<Node> searchAndGetNode(int nodeID) {
-        return ListNodes.findById(nodeID);
-    }
-
-    public Node getIndexAt(int ID) {
-        return ListNodes.getNodeByID(ID);
-    }
-
+    // Calcular el incremento para actualizar las coordenadas del nodo
     public void calcularIncremento(double x1, double y1, double x2, double y2, double incremento) {
         double distanciaX = x2 - x1;
         double distanciaY = y2 - y1;
@@ -147,6 +141,65 @@ public class Connection {
         getStartingNode().setLocation(new double[]{nuevaX, nuevaY});
     }
 
+    // ===========================
+    // Métodos de obtención
+    // ===========================
+
+    // Obtener el nodo de destino
+    @JsonIgnore
+    public Node getDestinationNode() {
+        return getIndexAt(destinationNodeID);
+    }
+
+    // Obtener el nodo de inicio
+    @JsonIgnore
+    public Node getStartingNode() {
+        return getIndexAt(startingNodeID);
+    }
+
+    // Obtener el peso efectivo ajustado por el tráfico
+    @JsonIgnore
+    public double getEffectiveWeight() {
+        return (weight * TRAFFIC_MULTIPLIER.get(trafficCondition));
+    }
+
+    // Obtener el incremento basado en el estado del tráfico
+    public double getIncrement() {
+        return (2 - TRAFFIC_MULTIPLIER.get(trafficCondition));
+    }
+
+    // ===========================
+    // Métodos de establecimiento
+    // ===========================
+
+    // Establecer el nodo de destino
+    public void setDestinationNode(Node targetNode) {
+        destinationNodeID = targetNode.getID();
+    }
+
+    // Establecer el nodo de inicio
+    public void setStartingNode(Node startNode) {
+        this.startingNodeID = startNode.getID();
+    }
+
+    // ===========================
+    // Métodos de búsqueda
+    // ===========================
+
+    // Buscar un nodo por ID
+    public Optional<Node> searchAndGetNode(int nodeID) {
+        return ListNodes.findById(nodeID);
+    }
+
+    // Obtener el nodo por su ID
+    public Node getIndexAt(int ID) {
+        return ListNodes.getNodeByID(ID);
+    }
+
+    // ===========================
+    // Método toString
+    // ===========================
+
     @Override
     public String toString() {
         return "Connection{" +
@@ -156,7 +209,6 @@ public class Connection {
                 ", weight=" + weight +
                 ", isBlocked=" + isBlocked +
                 ", trafficCondition='" + trafficCondition + '\'' +
-//                .append(", trafficMultiplier=").append(getTrafficMultiplier())
                 ", direction=" + direction +
                 '}';
     }

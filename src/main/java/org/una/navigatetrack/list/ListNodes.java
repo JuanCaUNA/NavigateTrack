@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Getter
+
 @SuppressWarnings("All")
 public class ListNodes {
 
+    @Getter
     private static List<Node> nodesList = new ArrayList<>();
+    @Getter
     private static int baseIndex;
 
     private ListNodes() {
@@ -27,6 +29,9 @@ public class ListNodes {
             nodesList = new ArrayList<>();
         }
         baseIndex = nodesList.size();
+//        ListConnections.loadConnections(nodesList);
+//        ListConnections.resetID();
+//        saveNodesList();
     }
 
     // Guardar nodos en archivo
@@ -80,5 +85,21 @@ public class ListNodes {
     private static boolean containsNodeWithID(int id) {
         return nodesList.stream().anyMatch(node -> node.getID() == id);
     }
+
+    public static Node getNodeByLocation(double x, double y) {//List<Node> nodesList
+        return nodesList.stream()
+                .filter(node -> node.getLocation()[0] == x && node.getLocation()[1] == y) // Filtrar por las coordenadas
+                .findFirst() // Obtener el primer nodo que coincida
+                .orElse(null); // Si no se encuentra, devolver null
+    }
+
+
+//    public void resetID() {
+//        int i = 0;
+//        for (Node node : nodesList) {
+//            node.setID(i);
+//            i++;
+//        }
+//    }
 }
 

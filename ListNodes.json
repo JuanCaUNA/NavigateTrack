@@ -5,40 +5,10 @@
       "startingNodeID" : 1,
       "destinationNodeID" : 61,
       "weight" : 173.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 173.0,
-      "increment" : 1.0,
-      "id" : 1,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 1,
-  "allConnections" : [ {
-    "startingNodeID" : 1,
-    "destinationNodeID" : 61,
-    "weight" : 173.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 173.0,
-    "increment" : 1.0,
-    "id" : 1,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 1,
-    "destinationNodeID" : 61,
-    "weight" : 173.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 173.0,
-    "increment" : 1.0,
-    "id" : 1,
-    "blocked" : false
-  } ]
+  "id" : 1
 }, {
   "location" : [ 641.0, 538.0 ],
   "connectionsMap" : {
@@ -46,74 +16,16 @@
       "startingNodeID" : 2,
       "destinationNodeID" : 39,
       "weight" : 125.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 125.0,
-      "increment" : 1.0,
-      "id" : 2,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 2,
       "destinationNodeID" : 1,
       "weight" : 12.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 12.0,
-      "increment" : 1.0,
-      "id" : 3,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 2,
-  "allConnections" : [ {
-    "startingNodeID" : 2,
-    "destinationNodeID" : 39,
-    "weight" : 125.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 125.0,
-    "increment" : 1.0,
-    "id" : 2,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 2,
-    "destinationNodeID" : 1,
-    "weight" : 12.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 12.0,
-    "increment" : 1.0,
-    "id" : 3,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 2,
-    "destinationNodeID" : 1,
-    "weight" : 12.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 12.0,
-    "increment" : 1.0,
-    "id" : 3,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 2,
-    "destinationNodeID" : 39,
-    "weight" : 125.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 125.0,
-    "increment" : 1.0,
-    "id" : 2,
-    "blocked" : false
-  } ]
+  "id" : 2
 }, {
   "location" : [ 596.0, 657.0 ],
   "connectionsMap" : {
@@ -121,40 +33,10 @@
       "startingNodeID" : 3,
       "destinationNodeID" : 4,
       "weight" : 63.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 63.0,
-      "increment" : 1.0,
-      "id" : 4,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 3,
-  "allConnections" : [ {
-    "startingNodeID" : 3,
-    "destinationNodeID" : 4,
-    "weight" : 63.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 63.0,
-    "increment" : 1.0,
-    "id" : 4,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 3,
-    "destinationNodeID" : 4,
-    "weight" : 63.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 63.0,
-    "increment" : 1.0,
-    "id" : 4,
-    "blocked" : false
-  } ]
+  "id" : 3
 }, {
   "location" : [ 618.0, 597.0 ],
   "connectionsMap" : {
@@ -162,40 +44,10 @@
       "startingNodeID" : 4,
       "destinationNodeID" : 2,
       "weight" : 63.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 63.0,
-      "increment" : 1.0,
-      "id" : 5,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 4,
-  "allConnections" : [ {
-    "startingNodeID" : 4,
-    "destinationNodeID" : 2,
-    "weight" : 63.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 63.0,
-    "increment" : 1.0,
-    "id" : 5,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 4,
-    "destinationNodeID" : 2,
-    "weight" : 63.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 63.0,
-    "increment" : 1.0,
-    "id" : 5,
-    "blocked" : false
-  } ]
+  "id" : 4
 }, {
   "location" : [ 501.0, 904.0 ],
   "connectionsMap" : {
@@ -203,40 +55,10 @@
       "startingNodeID" : 5,
       "destinationNodeID" : 6,
       "weight" : 117.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 117.0,
-      "increment" : 1.0,
-      "id" : 6,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 5,
-  "allConnections" : [ {
-    "startingNodeID" : 5,
-    "destinationNodeID" : 6,
-    "weight" : 117.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 117.0,
-    "increment" : 1.0,
-    "id" : 6,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 5,
-    "destinationNodeID" : 6,
-    "weight" : 117.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 117.0,
-    "increment" : 1.0,
-    "id" : 6,
-    "blocked" : false
-  } ]
+  "id" : 5
 }, {
   "location" : [ 542.0, 794.0 ],
   "connectionsMap" : {
@@ -244,74 +66,16 @@
       "startingNodeID" : 6,
       "destinationNodeID" : 9,
       "weight" : 63.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 63.0,
-      "increment" : 1.0,
-      "id" : 7,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 6,
       "destinationNodeID" : 3,
       "weight" : 147.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 147.0,
-      "increment" : 1.0,
-      "id" : 8,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 6,
-  "allConnections" : [ {
-    "startingNodeID" : 6,
-    "destinationNodeID" : 9,
-    "weight" : 63.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 63.0,
-    "increment" : 1.0,
-    "id" : 7,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 6,
-    "destinationNodeID" : 3,
-    "weight" : 147.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 147.0,
-    "increment" : 1.0,
-    "id" : 8,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 6,
-    "destinationNodeID" : 9,
-    "weight" : 63.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 63.0,
-    "increment" : 1.0,
-    "id" : 7,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 6,
-    "destinationNodeID" : 3,
-    "weight" : 147.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 147.0,
-    "increment" : 1.0,
-    "id" : 8,
-    "blocked" : false
-  } ]
+  "id" : 6
 }, {
   "location" : [ 399.0, 849.0 ],
   "connectionsMap" : {
@@ -319,40 +83,10 @@
       "startingNodeID" : 7,
       "destinationNodeID" : 38,
       "weight" : 87.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 87.0,
-      "increment" : 1.0,
-      "id" : 9,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 7,
-  "allConnections" : [ {
-    "startingNodeID" : 7,
-    "destinationNodeID" : 38,
-    "weight" : 87.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 87.0,
-    "increment" : 1.0,
-    "id" : 9,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 7,
-    "destinationNodeID" : 38,
-    "weight" : 87.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 87.0,
-    "increment" : 1.0,
-    "id" : 9,
-    "blocked" : false
-  } ]
+  "id" : 7
 }, {
   "location" : [ 338.0, 818.0 ],
   "connectionsMap" : {
@@ -360,74 +94,16 @@
       "startingNodeID" : 8,
       "destinationNodeID" : 18,
       "weight" : 56.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 56.0,
-      "increment" : 1.0,
-      "id" : 10,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 8,
       "destinationNodeID" : 7,
       "weight" : 68.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 68.0,
-      "increment" : 1.0,
-      "id" : 11,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 8,
-  "allConnections" : [ {
-    "startingNodeID" : 8,
-    "destinationNodeID" : 18,
-    "weight" : 56.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 56.0,
-    "increment" : 1.0,
-    "id" : 10,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 8,
-    "destinationNodeID" : 7,
-    "weight" : 68.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 68.0,
-    "increment" : 1.0,
-    "id" : 11,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 8,
-    "destinationNodeID" : 18,
-    "weight" : 56.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 56.0,
-    "increment" : 1.0,
-    "id" : 10,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 8,
-    "destinationNodeID" : 7,
-    "weight" : 68.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 68.0,
-    "increment" : 1.0,
-    "id" : 11,
-    "blocked" : false
-  } ]
+  "id" : 8
 }, {
   "location" : [ 483.0, 771.0 ],
   "connectionsMap" : {
@@ -435,74 +111,16 @@
       "startingNodeID" : 9,
       "destinationNodeID" : 10,
       "weight" : 23.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 23.0,
-      "increment" : 1.0,
-      "id" : 12,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 9,
       "destinationNodeID" : 6,
       "weight" : 63.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 63.0,
-      "increment" : 1.0,
-      "id" : 13,
-      "blocked" : false
+      "direction" : "DERECHA"
     }
   },
-  "id" : 9,
-  "allConnections" : [ {
-    "startingNodeID" : 9,
-    "destinationNodeID" : 10,
-    "weight" : 23.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 23.0,
-    "increment" : 1.0,
-    "id" : 12,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 9,
-    "destinationNodeID" : 6,
-    "weight" : 63.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 63.0,
-    "increment" : 1.0,
-    "id" : 13,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 9,
-    "destinationNodeID" : 10,
-    "weight" : 23.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 23.0,
-    "increment" : 1.0,
-    "id" : 12,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 9,
-    "destinationNodeID" : 6,
-    "weight" : 63.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 63.0,
-    "increment" : 1.0,
-    "id" : 13,
-    "blocked" : false
-  } ]
+  "id" : 9
 }, {
   "location" : [ 488.0, 748.0 ],
   "connectionsMap" : {
@@ -510,74 +128,16 @@
       "startingNodeID" : 10,
       "destinationNodeID" : 11,
       "weight" : 57.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 57.0,
-      "increment" : 1.0,
-      "id" : 14,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 10,
       "destinationNodeID" : 12,
       "weight" : 60.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 60.0,
-      "increment" : 1.0,
-      "id" : 15,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 10,
-  "allConnections" : [ {
-    "startingNodeID" : 10,
-    "destinationNodeID" : 11,
-    "weight" : 57.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 57.0,
-    "increment" : 1.0,
-    "id" : 14,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 10,
-    "destinationNodeID" : 12,
-    "weight" : 60.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 60.0,
-    "increment" : 1.0,
-    "id" : 15,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 10,
-    "destinationNodeID" : 11,
-    "weight" : 57.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 57.0,
-    "increment" : 1.0,
-    "id" : 14,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 10,
-    "destinationNodeID" : 12,
-    "weight" : 60.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 60.0,
-    "increment" : 1.0,
-    "id" : 15,
-    "blocked" : false
-  } ]
+  "id" : 10
 }, {
   "location" : [ 434.0, 728.0 ],
   "connectionsMap" : {
@@ -585,74 +145,16 @@
       "startingNodeID" : 11,
       "destinationNodeID" : 7,
       "weight" : 125.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 125.0,
-      "increment" : 1.0,
-      "id" : 16,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 11,
       "destinationNodeID" : 19,
       "weight" : 66.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 66.0,
-      "increment" : 1.0,
-      "id" : 17,
-      "blocked" : false
+      "direction" : "DERECHA"
     }
   },
-  "id" : 11,
-  "allConnections" : [ {
-    "startingNodeID" : 11,
-    "destinationNodeID" : 7,
-    "weight" : 125.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 125.0,
-    "increment" : 1.0,
-    "id" : 16,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 11,
-    "destinationNodeID" : 19,
-    "weight" : 66.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 66.0,
-    "increment" : 1.0,
-    "id" : 17,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 11,
-    "destinationNodeID" : 19,
-    "weight" : 66.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 66.0,
-    "increment" : 1.0,
-    "id" : 17,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 11,
-    "destinationNodeID" : 7,
-    "weight" : 125.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 125.0,
-    "increment" : 1.0,
-    "id" : 16,
-    "blocked" : false
-  } ]
+  "id" : 11
 }, {
   "location" : [ 511.0, 692.0 ],
   "connectionsMap" : {
@@ -660,40 +162,10 @@
       "startingNodeID" : 12,
       "destinationNodeID" : 14,
       "weight" : 62.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 62.0,
-      "increment" : 1.0,
-      "id" : 18,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 12,
-  "allConnections" : [ {
-    "startingNodeID" : 12,
-    "destinationNodeID" : 14,
-    "weight" : 62.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 62.0,
-    "increment" : 1.0,
-    "id" : 18,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 12,
-    "destinationNodeID" : 14,
-    "weight" : 62.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 62.0,
-    "increment" : 1.0,
-    "id" : 18,
-    "blocked" : false
-  } ]
+  "id" : 12
 }, {
   "location" : [ 454.0, 669.0 ],
   "connectionsMap" : {
@@ -701,74 +173,16 @@
       "startingNodeID" : 13,
       "destinationNodeID" : 12,
       "weight" : 61.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 61.0,
-      "increment" : 1.0,
-      "id" : 19,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 13,
       "destinationNodeID" : 11,
       "weight" : 62.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 62.0,
-      "increment" : 1.0,
-      "id" : 20,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 13,
-  "allConnections" : [ {
-    "startingNodeID" : 13,
-    "destinationNodeID" : 12,
-    "weight" : 61.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 61.0,
-    "increment" : 1.0,
-    "id" : 19,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 13,
-    "destinationNodeID" : 11,
-    "weight" : 62.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 62.0,
-    "increment" : 1.0,
-    "id" : 20,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 13,
-    "destinationNodeID" : 12,
-    "weight" : 61.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 61.0,
-    "increment" : 1.0,
-    "id" : 19,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 13,
-    "destinationNodeID" : 11,
-    "weight" : 62.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 62.0,
-    "increment" : 1.0,
-    "id" : 20,
-    "blocked" : false
-  } ]
+  "id" : 13
 }, {
   "location" : [ 534.0, 634.0 ],
   "connectionsMap" : {
@@ -776,74 +190,16 @@
       "startingNodeID" : 14,
       "destinationNodeID" : 17,
       "weight" : 65.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 65.0,
-      "increment" : 1.0,
-      "id" : 21,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 14,
       "destinationNodeID" : 3,
       "weight" : 66.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 66.0,
-      "increment" : 1.0,
-      "id" : 22,
-      "blocked" : false
+      "direction" : "DERECHA"
     }
   },
-  "id" : 14,
-  "allConnections" : [ {
-    "startingNodeID" : 14,
-    "destinationNodeID" : 17,
-    "weight" : 65.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 65.0,
-    "increment" : 1.0,
-    "id" : 21,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 14,
-    "destinationNodeID" : 3,
-    "weight" : 66.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 66.0,
-    "increment" : 1.0,
-    "id" : 22,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 14,
-    "destinationNodeID" : 17,
-    "weight" : 65.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 65.0,
-    "increment" : 1.0,
-    "id" : 21,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 14,
-    "destinationNodeID" : 3,
-    "weight" : 66.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 66.0,
-    "increment" : 1.0,
-    "id" : 22,
-    "blocked" : false
-  } ]
+  "id" : 14
 }, {
   "location" : [ 478.0, 609.0 ],
   "connectionsMap" : {
@@ -851,74 +207,16 @@
       "startingNodeID" : 15,
       "destinationNodeID" : 14,
       "weight" : 61.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 61.0,
-      "increment" : 1.0,
-      "id" : 23,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 15,
       "destinationNodeID" : 13,
       "weight" : 64.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 64.0,
-      "increment" : 1.0,
-      "id" : 24,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 15,
-  "allConnections" : [ {
-    "startingNodeID" : 15,
-    "destinationNodeID" : 14,
-    "weight" : 61.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 61.0,
-    "increment" : 1.0,
-    "id" : 23,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 15,
-    "destinationNodeID" : 13,
-    "weight" : 64.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 64.0,
-    "increment" : 1.0,
-    "id" : 24,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 15,
-    "destinationNodeID" : 14,
-    "weight" : 61.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 61.0,
-    "increment" : 1.0,
-    "id" : 23,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 15,
-    "destinationNodeID" : 13,
-    "weight" : 64.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 64.0,
-    "increment" : 1.0,
-    "id" : 24,
-    "blocked" : false
-  } ]
+  "id" : 15
 }, {
   "location" : [ 502.0, 550.0 ],
   "connectionsMap" : {
@@ -926,74 +224,16 @@
       "startingNodeID" : 16,
       "destinationNodeID" : 17,
       "weight" : 61.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 61.0,
-      "increment" : 1.0,
-      "id" : 25,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 16,
       "destinationNodeID" : 15,
       "weight" : 63.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 63.0,
-      "increment" : 1.0,
-      "id" : 26,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 16,
-  "allConnections" : [ {
-    "startingNodeID" : 16,
-    "destinationNodeID" : 17,
-    "weight" : 61.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 61.0,
-    "increment" : 1.0,
-    "id" : 25,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 16,
-    "destinationNodeID" : 15,
-    "weight" : 63.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 63.0,
-    "increment" : 1.0,
-    "id" : 26,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 16,
-    "destinationNodeID" : 17,
-    "weight" : 61.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 61.0,
-    "increment" : 1.0,
-    "id" : 25,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 16,
-    "destinationNodeID" : 15,
-    "weight" : 63.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 63.0,
-    "increment" : 1.0,
-    "id" : 26,
-    "blocked" : false
-  } ]
+  "id" : 16
 }, {
   "location" : [ 559.0, 573.0 ],
   "connectionsMap" : {
@@ -1001,40 +241,10 @@
       "startingNodeID" : 17,
       "destinationNodeID" : 4,
       "weight" : 63.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 63.0,
-      "increment" : 1.0,
-      "id" : 27,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 17,
-  "allConnections" : [ {
-    "startingNodeID" : 17,
-    "destinationNodeID" : 4,
-    "weight" : 63.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 63.0,
-    "increment" : 1.0,
-    "id" : 27,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 17,
-    "destinationNodeID" : 4,
-    "weight" : 63.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 63.0,
-    "increment" : 1.0,
-    "id" : 27,
-    "blocked" : false
-  } ]
+  "id" : 17
 }, {
   "location" : [ 354.0, 764.0 ],
   "connectionsMap" : {
@@ -1042,74 +252,16 @@
       "startingNodeID" : 18,
       "destinationNodeID" : 26,
       "weight" : 139.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 139.0,
-      "increment" : 1.0,
-      "id" : 28,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 18,
       "destinationNodeID" : 19,
       "weight" : 54.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 54.0,
-      "increment" : 1.0,
-      "id" : 29,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 18,
-  "allConnections" : [ {
-    "startingNodeID" : 18,
-    "destinationNodeID" : 26,
-    "weight" : 139.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 139.0,
-    "increment" : 1.0,
-    "id" : 28,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 18,
-    "destinationNodeID" : 19,
-    "weight" : 54.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 54.0,
-    "increment" : 1.0,
-    "id" : 29,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 18,
-    "destinationNodeID" : 19,
-    "weight" : 54.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 54.0,
-    "increment" : 1.0,
-    "id" : 29,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 18,
-    "destinationNodeID" : 26,
-    "weight" : 139.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 139.0,
-    "increment" : 1.0,
-    "id" : 28,
-    "blocked" : false
-  } ]
+  "id" : 18
 }, {
   "location" : [ 369.0, 712.0 ],
   "connectionsMap" : {
@@ -1117,40 +269,10 @@
       "startingNodeID" : 19,
       "destinationNodeID" : 20,
       "weight" : 65.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 65.0,
-      "increment" : 1.0,
-      "id" : 30,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 19,
-  "allConnections" : [ {
-    "startingNodeID" : 19,
-    "destinationNodeID" : 20,
-    "weight" : 65.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 65.0,
-    "increment" : 1.0,
-    "id" : 30,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 19,
-    "destinationNodeID" : 20,
-    "weight" : 65.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 65.0,
-    "increment" : 1.0,
-    "id" : 30,
-    "blocked" : false
-  } ]
+  "id" : 19
 }, {
   "location" : [ 386.0, 649.0 ],
   "connectionsMap" : {
@@ -1158,74 +280,16 @@
       "startingNodeID" : 20,
       "destinationNodeID" : 21,
       "weight" : 71.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 71.0,
-      "increment" : 1.0,
-      "id" : 31,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 20,
       "destinationNodeID" : 13,
       "weight" : 70.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 70.0,
-      "increment" : 1.0,
-      "id" : 32,
-      "blocked" : false
+      "direction" : "DERECHA"
     }
   },
-  "id" : 20,
-  "allConnections" : [ {
-    "startingNodeID" : 20,
-    "destinationNodeID" : 21,
-    "weight" : 71.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 71.0,
-    "increment" : 1.0,
-    "id" : 31,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 20,
-    "destinationNodeID" : 13,
-    "weight" : 70.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 70.0,
-    "increment" : 1.0,
-    "id" : 32,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 20,
-    "destinationNodeID" : 13,
-    "weight" : 70.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 70.0,
-    "increment" : 1.0,
-    "id" : 32,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 20,
-    "destinationNodeID" : 21,
-    "weight" : 71.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 71.0,
-    "increment" : 1.0,
-    "id" : 31,
-    "blocked" : false
-  } ]
+  "id" : 20
 }, {
   "location" : [ 407.0, 581.0 ],
   "connectionsMap" : {
@@ -1233,40 +297,10 @@
       "startingNodeID" : 21,
       "destinationNodeID" : 15,
       "weight" : 76.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 76.0,
-      "increment" : 1.0,
-      "id" : 33,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 21,
-  "allConnections" : [ {
-    "startingNodeID" : 21,
-    "destinationNodeID" : 15,
-    "weight" : 76.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 76.0,
-    "increment" : 1.0,
-    "id" : 33,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 21,
-    "destinationNodeID" : 15,
-    "weight" : 76.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 76.0,
-    "increment" : 1.0,
-    "id" : 33,
-    "blocked" : false
-  } ]
+  "id" : 21
 }, {
   "location" : [ 390.0, 571.0 ],
   "connectionsMap" : {
@@ -1274,74 +308,16 @@
       "startingNodeID" : 22,
       "destinationNodeID" : 43,
       "weight" : 63.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 63.0,
-      "increment" : 1.0,
-      "id" : 34,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 22,
       "destinationNodeID" : 21,
       "weight" : 19.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 19.0,
-      "increment" : 1.0,
-      "id" : 35,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 22,
-  "allConnections" : [ {
-    "startingNodeID" : 22,
-    "destinationNodeID" : 43,
-    "weight" : 63.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 63.0,
-    "increment" : 1.0,
-    "id" : 34,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 22,
-    "destinationNodeID" : 21,
-    "weight" : 19.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 19.0,
-    "increment" : 1.0,
-    "id" : 35,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 22,
-    "destinationNodeID" : 21,
-    "weight" : 19.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 19.0,
-    "increment" : 1.0,
-    "id" : 35,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 22,
-    "destinationNodeID" : 43,
-    "weight" : 63.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 63.0,
-    "increment" : 1.0,
-    "id" : 34,
-    "blocked" : false
-  } ]
+  "id" : 22
 }, {
   "location" : [ 361.0, 561.0 ],
   "connectionsMap" : {
@@ -1349,74 +325,16 @@
       "startingNodeID" : 23,
       "destinationNodeID" : 22,
       "weight" : 30.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 30.0,
-      "increment" : 1.0,
-      "id" : 36,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 23,
       "destinationNodeID" : 24,
       "weight" : 76.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 76.0,
-      "increment" : 1.0,
-      "id" : 37,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 23,
-  "allConnections" : [ {
-    "startingNodeID" : 23,
-    "destinationNodeID" : 22,
-    "weight" : 30.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 30.0,
-    "increment" : 1.0,
-    "id" : 36,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 23,
-    "destinationNodeID" : 24,
-    "weight" : 76.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 76.0,
-    "increment" : 1.0,
-    "id" : 37,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 23,
-    "destinationNodeID" : 22,
-    "weight" : 30.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 30.0,
-    "increment" : 1.0,
-    "id" : 36,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 23,
-    "destinationNodeID" : 24,
-    "weight" : 76.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 76.0,
-    "increment" : 1.0,
-    "id" : 37,
-    "blocked" : false
-  } ]
+  "id" : 23
 }, {
   "location" : [ 334.0, 633.0 ],
   "connectionsMap" : {
@@ -1424,74 +342,16 @@
       "startingNodeID" : 24,
       "destinationNodeID" : 25,
       "weight" : 93.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 93.0,
-      "increment" : 1.0,
-      "id" : 38,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 24,
       "destinationNodeID" : 27,
       "weight" : 67.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 67.0,
-      "increment" : 1.0,
-      "id" : 39,
-      "blocked" : false
+      "direction" : "DERECHA"
     }
   },
-  "id" : 24,
-  "allConnections" : [ {
-    "startingNodeID" : 24,
-    "destinationNodeID" : 25,
-    "weight" : 93.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 93.0,
-    "increment" : 1.0,
-    "id" : 38,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 24,
-    "destinationNodeID" : 27,
-    "weight" : 67.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 67.0,
-    "increment" : 1.0,
-    "id" : 39,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 24,
-    "destinationNodeID" : 27,
-    "weight" : 67.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 67.0,
-    "increment" : 1.0,
-    "id" : 39,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 24,
-    "destinationNodeID" : 25,
-    "weight" : 93.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 93.0,
-    "increment" : 1.0,
-    "id" : 38,
-    "blocked" : false
-  } ]
+  "id" : 24
 }, {
   "location" : [ 306.0, 722.0 ],
   "connectionsMap" : {
@@ -1499,40 +359,10 @@
       "startingNodeID" : 25,
       "destinationNodeID" : 86,
       "weight" : 78.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 78.0,
-      "increment" : 1.0,
-      "id" : 40,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 25,
-  "allConnections" : [ {
-    "startingNodeID" : 25,
-    "destinationNodeID" : 86,
-    "weight" : 78.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 78.0,
-    "increment" : 1.0,
-    "id" : 40,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 25,
-    "destinationNodeID" : 86,
-    "weight" : 78.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 78.0,
-    "increment" : 1.0,
-    "id" : 40,
-    "blocked" : false
-  } ]
+  "id" : 25
 }, {
   "location" : [ 225.0, 710.0 ],
   "connectionsMap" : {
@@ -1540,108 +370,22 @@
       "startingNodeID" : 26,
       "destinationNodeID" : 34,
       "weight" : 160.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 160.0,
-      "increment" : 1.0,
-      "id" : 41,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 26,
       "destinationNodeID" : 86,
       "weight" : 21.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 21.0,
-      "increment" : 1.0,
-      "id" : 42,
-      "blocked" : false
+      "direction" : "DERECHA"
     },
     "CONTRARIO" : {
       "startingNodeID" : 26,
       "destinationNodeID" : 18,
       "weight" : 139.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 139.0,
-      "increment" : 1.0,
-      "id" : 43,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 26,
-  "allConnections" : [ {
-    "startingNodeID" : 26,
-    "destinationNodeID" : 34,
-    "weight" : 160.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 160.0,
-    "increment" : 1.0,
-    "id" : 41,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 26,
-    "destinationNodeID" : 86,
-    "weight" : 21.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 21.0,
-    "increment" : 1.0,
-    "id" : 42,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 26,
-    "destinationNodeID" : 18,
-    "weight" : 139.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 139.0,
-    "increment" : 1.0,
-    "id" : 43,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 26,
-    "destinationNodeID" : 86,
-    "weight" : 21.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 21.0,
-    "increment" : 1.0,
-    "id" : 42,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 26,
-    "destinationNodeID" : 18,
-    "weight" : 139.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 139.0,
-    "increment" : 1.0,
-    "id" : 43,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 26,
-    "destinationNodeID" : 34,
-    "weight" : 160.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 160.0,
-    "increment" : 1.0,
-    "id" : 41,
-    "blocked" : false
-  } ]
+  "id" : 26
 }, {
   "location" : [ 272.0, 607.0 ],
   "connectionsMap" : {
@@ -1649,74 +393,16 @@
       "startingNodeID" : 27,
       "destinationNodeID" : 28,
       "weight" : 49.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 49.0,
-      "increment" : 1.0,
-      "id" : 44,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 27,
       "destinationNodeID" : 32,
       "weight" : 77.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 77.0,
-      "increment" : 1.0,
-      "id" : 45,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 27,
-  "allConnections" : [ {
-    "startingNodeID" : 27,
-    "destinationNodeID" : 28,
-    "weight" : 49.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 49.0,
-    "increment" : 1.0,
-    "id" : 44,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 27,
-    "destinationNodeID" : 32,
-    "weight" : 77.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 77.0,
-    "increment" : 1.0,
-    "id" : 45,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 27,
-    "destinationNodeID" : 28,
-    "weight" : 49.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 49.0,
-    "increment" : 1.0,
-    "id" : 44,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 27,
-    "destinationNodeID" : 32,
-    "weight" : 77.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 77.0,
-    "increment" : 1.0,
-    "id" : 45,
-    "blocked" : false
-  } ]
+  "id" : 27
 }, {
   "location" : [ 227.0, 586.0 ],
   "connectionsMap" : {
@@ -1724,74 +410,16 @@
       "startingNodeID" : 28,
       "destinationNodeID" : 29,
       "weight" : 54.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 54.0,
-      "increment" : 1.0,
-      "id" : 46,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 28,
       "destinationNodeID" : 31,
       "weight" : 51.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 51.0,
-      "increment" : 1.0,
-      "id" : 47,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 28,
-  "allConnections" : [ {
-    "startingNodeID" : 28,
-    "destinationNodeID" : 29,
-    "weight" : 54.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 54.0,
-    "increment" : 1.0,
-    "id" : 46,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 28,
-    "destinationNodeID" : 31,
-    "weight" : 51.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 51.0,
-    "increment" : 1.0,
-    "id" : 47,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 28,
-    "destinationNodeID" : 31,
-    "weight" : 51.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 51.0,
-    "increment" : 1.0,
-    "id" : 47,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 28,
-    "destinationNodeID" : 29,
-    "weight" : 54.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 54.0,
-    "increment" : 1.0,
-    "id" : 46,
-    "blocked" : false
-  } ]
+  "id" : 28
 }, {
   "location" : [ 205.0, 636.0 ],
   "connectionsMap" : {
@@ -1799,40 +427,10 @@
       "startingNodeID" : 29,
       "destinationNodeID" : 28,
       "weight" : 54.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 54.0,
-      "increment" : 1.0,
-      "id" : 48,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 29,
-  "allConnections" : [ {
-    "startingNodeID" : 29,
-    "destinationNodeID" : 28,
-    "weight" : 54.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 54.0,
-    "increment" : 1.0,
-    "id" : 48,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 29,
-    "destinationNodeID" : 28,
-    "weight" : 54.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 54.0,
-    "increment" : 1.0,
-    "id" : 48,
-    "blocked" : false
-  } ]
+  "id" : 29
 }, {
   "location" : [ 153.0, 616.0 ],
   "connectionsMap" : {
@@ -1840,40 +438,10 @@
       "startingNodeID" : 30,
       "destinationNodeID" : 31,
       "weight" : 57.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 57.0,
-      "increment" : 1.0,
-      "id" : 49,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 30,
-  "allConnections" : [ {
-    "startingNodeID" : 30,
-    "destinationNodeID" : 31,
-    "weight" : 57.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 57.0,
-    "increment" : 1.0,
-    "id" : 49,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 30,
-    "destinationNodeID" : 31,
-    "weight" : 57.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 57.0,
-    "increment" : 1.0,
-    "id" : 49,
-    "blocked" : false
-  } ]
+  "id" : 30
 }, {
   "location" : [ 180.0, 565.0 ],
   "connectionsMap" : {
@@ -1881,74 +449,16 @@
       "startingNodeID" : 31,
       "destinationNodeID" : 30,
       "weight" : 57.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 57.0,
-      "increment" : 1.0,
-      "id" : 50,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 31,
       "destinationNodeID" : 53,
       "weight" : 84.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 84.0,
-      "increment" : 1.0,
-      "id" : 51,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 31,
-  "allConnections" : [ {
-    "startingNodeID" : 31,
-    "destinationNodeID" : 30,
-    "weight" : 57.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 57.0,
-    "increment" : 1.0,
-    "id" : 50,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 31,
-    "destinationNodeID" : 53,
-    "weight" : 84.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 84.0,
-    "increment" : 1.0,
-    "id" : 51,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 31,
-    "destinationNodeID" : 30,
-    "weight" : 57.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 57.0,
-    "increment" : 1.0,
-    "id" : 50,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 31,
-    "destinationNodeID" : 53,
-    "weight" : 84.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 84.0,
-    "increment" : 1.0,
-    "id" : 51,
-    "blocked" : false
-  } ]
+  "id" : 31
 }, {
   "location" : [ 304.0, 536.0 ],
   "connectionsMap" : {
@@ -1956,74 +466,16 @@
       "startingNodeID" : 32,
       "destinationNodeID" : 45,
       "weight" : 65.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 65.0,
-      "increment" : 1.0,
-      "id" : 52,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 32,
       "destinationNodeID" : 23,
       "weight" : 62.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 62.0,
-      "increment" : 1.0,
-      "id" : 53,
-      "blocked" : false
+      "direction" : "DERECHA"
     }
   },
-  "id" : 32,
-  "allConnections" : [ {
-    "startingNodeID" : 32,
-    "destinationNodeID" : 45,
-    "weight" : 65.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 65.0,
-    "increment" : 1.0,
-    "id" : 52,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 32,
-    "destinationNodeID" : 23,
-    "weight" : 62.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 62.0,
-    "increment" : 1.0,
-    "id" : 53,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 32,
-    "destinationNodeID" : 23,
-    "weight" : 62.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 62.0,
-    "increment" : 1.0,
-    "id" : 53,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 32,
-    "destinationNodeID" : 45,
-    "weight" : 65.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 65.0,
-    "increment" : 1.0,
-    "id" : 52,
-    "blocked" : false
-  } ]
+  "id" : 32
 }, {
   "location" : [ 257.0, 516.0 ],
   "connectionsMap" : {
@@ -2031,74 +483,16 @@
       "startingNodeID" : 33,
       "destinationNodeID" : 32,
       "weight" : 51.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 51.0,
-      "increment" : 1.0,
-      "id" : 54,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 33,
       "destinationNodeID" : 28,
       "weight" : 76.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 76.0,
-      "increment" : 1.0,
-      "id" : 55,
-      "blocked" : false
+      "direction" : "DERECHA"
     }
   },
-  "id" : 33,
-  "allConnections" : [ {
-    "startingNodeID" : 33,
-    "destinationNodeID" : 32,
-    "weight" : 51.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 51.0,
-    "increment" : 1.0,
-    "id" : 54,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 33,
-    "destinationNodeID" : 28,
-    "weight" : 76.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 76.0,
-    "increment" : 1.0,
-    "id" : 55,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 33,
-    "destinationNodeID" : 32,
-    "weight" : 51.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 51.0,
-    "increment" : 1.0,
-    "id" : 54,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 33,
-    "destinationNodeID" : 28,
-    "weight" : 76.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 76.0,
-    "increment" : 1.0,
-    "id" : 55,
-    "blocked" : false
-  } ]
+  "id" : 33
 }, {
   "location" : [ 81.0, 638.0 ],
   "connectionsMap" : {
@@ -2106,40 +500,10 @@
       "startingNodeID" : 34,
       "destinationNodeID" : 26,
       "weight" : 160.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 160.0,
-      "increment" : 1.0,
-      "id" : 56,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 34,
-  "allConnections" : [ {
-    "startingNodeID" : 34,
-    "destinationNodeID" : 26,
-    "weight" : 160.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 160.0,
-    "increment" : 1.0,
-    "id" : 56,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 34,
-    "destinationNodeID" : 26,
-    "weight" : 160.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 160.0,
-    "increment" : 1.0,
-    "id" : 56,
-    "blocked" : false
-  } ]
+  "id" : 34
 }, {
   "location" : [ 6.0, 633.0 ],
   "connectionsMap" : {
@@ -2147,74 +511,16 @@
       "startingNodeID" : 35,
       "destinationNodeID" : 37,
       "weight" : 106.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 106.0,
-      "increment" : 1.0,
-      "id" : 57,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 35,
       "destinationNodeID" : 8,
       "weight" : 380.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 380.0,
-      "increment" : 1.0,
-      "id" : 58,
-      "blocked" : false
+      "direction" : "DERECHA"
     }
   },
-  "id" : 35,
-  "allConnections" : [ {
-    "startingNodeID" : 35,
-    "destinationNodeID" : 37,
-    "weight" : 106.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 106.0,
-    "increment" : 1.0,
-    "id" : 57,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 35,
-    "destinationNodeID" : 8,
-    "weight" : 380.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 380.0,
-    "increment" : 1.0,
-    "id" : 58,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 35,
-    "destinationNodeID" : 37,
-    "weight" : 106.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 106.0,
-    "increment" : 1.0,
-    "id" : 57,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 35,
-    "destinationNodeID" : 8,
-    "weight" : 380.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 380.0,
-    "increment" : 1.0,
-    "id" : 58,
-    "blocked" : false
-  } ]
+  "id" : 35
 }, {
   "location" : [ 117.0, 585.0 ],
   "connectionsMap" : {
@@ -2222,40 +528,10 @@
       "startingNodeID" : 36,
       "destinationNodeID" : 37,
       "weight" : 53.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 53.0,
-      "increment" : 1.0,
-      "id" : 59,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 36,
-  "allConnections" : [ {
-    "startingNodeID" : 36,
-    "destinationNodeID" : 37,
-    "weight" : 53.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 53.0,
-    "increment" : 1.0,
-    "id" : 59,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 36,
-    "destinationNodeID" : 37,
-    "weight" : 53.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 53.0,
-    "increment" : 1.0,
-    "id" : 59,
-    "blocked" : false
-  } ]
+  "id" : 36
 }, {
   "location" : [ 75.0, 552.0 ],
   "connectionsMap" : {
@@ -2263,108 +539,22 @@
       "startingNodeID" : 37,
       "destinationNodeID" : 53,
       "weight" : 64.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 64.0,
-      "increment" : 1.0,
-      "id" : 60,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 37,
       "destinationNodeID" : 36,
       "weight" : 53.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 53.0,
-      "increment" : 1.0,
-      "id" : 61,
-      "blocked" : false
+      "direction" : "DERECHA"
     },
     "CONTRARIO" : {
       "startingNodeID" : 37,
       "destinationNodeID" : 35,
       "weight" : 106.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 106.0,
-      "increment" : 1.0,
-      "id" : 62,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 37,
-  "allConnections" : [ {
-    "startingNodeID" : 37,
-    "destinationNodeID" : 53,
-    "weight" : 64.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 64.0,
-    "increment" : 1.0,
-    "id" : 60,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 37,
-    "destinationNodeID" : 36,
-    "weight" : 53.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 53.0,
-    "increment" : 1.0,
-    "id" : 61,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 37,
-    "destinationNodeID" : 35,
-    "weight" : 106.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 106.0,
-    "increment" : 1.0,
-    "id" : 62,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 37,
-    "destinationNodeID" : 36,
-    "weight" : 53.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 53.0,
-    "increment" : 1.0,
-    "id" : 61,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 37,
-    "destinationNodeID" : 53,
-    "weight" : 64.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 64.0,
-    "increment" : 1.0,
-    "id" : 60,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 37,
-    "destinationNodeID" : 35,
-    "weight" : 106.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 106.0,
-    "increment" : 1.0,
-    "id" : 62,
-    "blocked" : false
-  } ]
+  "id" : 37
 }, {
   "location" : [ 475.0, 892.0 ],
   "connectionsMap" : {
@@ -2372,74 +562,16 @@
       "startingNodeID" : 38,
       "destinationNodeID" : 9,
       "weight" : 121.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 121.0,
-      "increment" : 1.0,
-      "id" : 63,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 38,
       "destinationNodeID" : 5,
       "weight" : 28.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 28.0,
-      "increment" : 1.0,
-      "id" : 64,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 38,
-  "allConnections" : [ {
-    "startingNodeID" : 38,
-    "destinationNodeID" : 9,
-    "weight" : 121.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 121.0,
-    "increment" : 1.0,
-    "id" : 63,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 38,
-    "destinationNodeID" : 5,
-    "weight" : 28.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 28.0,
-    "increment" : 1.0,
-    "id" : 64,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 38,
-    "destinationNodeID" : 5,
-    "weight" : 28.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 28.0,
-    "increment" : 1.0,
-    "id" : 64,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 38,
-    "destinationNodeID" : 9,
-    "weight" : 121.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 121.0,
-    "increment" : 1.0,
-    "id" : 63,
-    "blocked" : false
-  } ]
+  "id" : 38
 }, {
   "location" : [ 524.0, 492.0 ],
   "connectionsMap" : {
@@ -2447,74 +579,16 @@
       "startingNodeID" : 39,
       "destinationNodeID" : 16,
       "weight" : 62.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 62.0,
-      "increment" : 1.0,
-      "id" : 65,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 39,
       "destinationNodeID" : 41,
       "weight" : 60.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 60.0,
-      "increment" : 1.0,
-      "id" : 66,
-      "blocked" : false
+      "direction" : "DERECHA"
     }
   },
-  "id" : 39,
-  "allConnections" : [ {
-    "startingNodeID" : 39,
-    "destinationNodeID" : 16,
-    "weight" : 62.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 62.0,
-    "increment" : 1.0,
-    "id" : 65,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 39,
-    "destinationNodeID" : 41,
-    "weight" : 60.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 60.0,
-    "increment" : 1.0,
-    "id" : 66,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 39,
-    "destinationNodeID" : 41,
-    "weight" : 60.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 60.0,
-    "increment" : 1.0,
-    "id" : 66,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 39,
-    "destinationNodeID" : 16,
-    "weight" : 62.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 62.0,
-    "increment" : 1.0,
-    "id" : 65,
-    "blocked" : false
-  } ]
+  "id" : 39
 }, {
   "location" : [ 545.0, 429.0 ],
   "connectionsMap" : {
@@ -2522,40 +596,10 @@
       "startingNodeID" : 40,
       "destinationNodeID" : 39,
       "weight" : 66.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 66.0,
-      "increment" : 1.0,
-      "id" : 67,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 40,
-  "allConnections" : [ {
-    "startingNodeID" : 40,
-    "destinationNodeID" : 39,
-    "weight" : 66.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 66.0,
-    "increment" : 1.0,
-    "id" : 67,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 40,
-    "destinationNodeID" : 39,
-    "weight" : 66.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 66.0,
-    "increment" : 1.0,
-    "id" : 67,
-    "blocked" : false
-  } ]
+  "id" : 40
 }, {
   "location" : [ 468.0, 468.0 ],
   "connectionsMap" : {
@@ -2563,74 +607,16 @@
       "startingNodeID" : 41,
       "destinationNodeID" : 48,
       "weight" : 68.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 68.0,
-      "increment" : 1.0,
-      "id" : 68,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 41,
       "destinationNodeID" : 58,
       "weight" : 32.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 32.0,
-      "increment" : 1.0,
-      "id" : 69,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 41,
-  "allConnections" : [ {
-    "startingNodeID" : 41,
-    "destinationNodeID" : 48,
-    "weight" : 68.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 68.0,
-    "increment" : 1.0,
-    "id" : 68,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 41,
-    "destinationNodeID" : 58,
-    "weight" : 32.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 32.0,
-    "increment" : 1.0,
-    "id" : 69,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 41,
-    "destinationNodeID" : 58,
-    "weight" : 32.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 32.0,
-    "increment" : 1.0,
-    "id" : 69,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 41,
-    "destinationNodeID" : 48,
-    "weight" : 68.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 68.0,
-    "increment" : 1.0,
-    "id" : 68,
-    "blocked" : false
-  } ]
+  "id" : 41
 }, {
   "location" : [ 446.0, 523.0 ],
   "connectionsMap" : {
@@ -2638,74 +624,16 @@
       "startingNodeID" : 42,
       "destinationNodeID" : 41,
       "weight" : 59.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 59.0,
-      "increment" : 1.0,
-      "id" : 70,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 42,
       "destinationNodeID" : 16,
       "weight" : 62.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 62.0,
-      "increment" : 1.0,
-      "id" : 71,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 42,
-  "allConnections" : [ {
-    "startingNodeID" : 42,
-    "destinationNodeID" : 41,
-    "weight" : 59.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 59.0,
-    "increment" : 1.0,
-    "id" : 70,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 42,
-    "destinationNodeID" : 16,
-    "weight" : 62.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 62.0,
-    "increment" : 1.0,
-    "id" : 71,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 42,
-    "destinationNodeID" : 41,
-    "weight" : 59.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 59.0,
-    "increment" : 1.0,
-    "id" : 70,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 42,
-    "destinationNodeID" : 16,
-    "weight" : 62.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 62.0,
-    "increment" : 1.0,
-    "id" : 71,
-    "blocked" : false
-  } ]
+  "id" : 42
 }, {
   "location" : [ 412.0, 511.0 ],
   "connectionsMap" : {
@@ -2713,40 +641,10 @@
       "startingNodeID" : 43,
       "destinationNodeID" : 42,
       "weight" : 36.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 36.0,
-      "increment" : 1.0,
-      "id" : 72,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 43,
-  "allConnections" : [ {
-    "startingNodeID" : 43,
-    "destinationNodeID" : 42,
-    "weight" : 36.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 36.0,
-    "increment" : 1.0,
-    "id" : 72,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 43,
-    "destinationNodeID" : 42,
-    "weight" : 36.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 36.0,
-    "increment" : 1.0,
-    "id" : 72,
-    "blocked" : false
-  } ]
+  "id" : 43
 }, {
   "location" : [ 385.0, 501.0 ],
   "connectionsMap" : {
@@ -2754,74 +652,16 @@
       "startingNodeID" : 44,
       "destinationNodeID" : 43,
       "weight" : 28.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 28.0,
-      "increment" : 1.0,
-      "id" : 73,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 44,
       "destinationNodeID" : 23,
       "weight" : 64.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 64.0,
-      "increment" : 1.0,
-      "id" : 74,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 44,
-  "allConnections" : [ {
-    "startingNodeID" : 44,
-    "destinationNodeID" : 43,
-    "weight" : 28.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 28.0,
-    "increment" : 1.0,
-    "id" : 73,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 44,
-    "destinationNodeID" : 23,
-    "weight" : 64.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 64.0,
-    "increment" : 1.0,
-    "id" : 74,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 44,
-    "destinationNodeID" : 43,
-    "weight" : 28.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 28.0,
-    "increment" : 1.0,
-    "id" : 73,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 44,
-    "destinationNodeID" : 23,
-    "weight" : 64.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 64.0,
-    "increment" : 1.0,
-    "id" : 74,
-    "blocked" : false
-  } ]
+  "id" : 44
 }, {
   "location" : [ 329.0, 475.0 ],
   "connectionsMap" : {
@@ -2829,74 +669,16 @@
       "startingNodeID" : 45,
       "destinationNodeID" : 46,
       "weight" : 53.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 53.0,
-      "increment" : 1.0,
-      "id" : 75,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 45,
       "destinationNodeID" : 44,
       "weight" : 61.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 61.0,
-      "increment" : 1.0,
-      "id" : 76,
-      "blocked" : false
+      "direction" : "DERECHA"
     }
   },
-  "id" : 45,
-  "allConnections" : [ {
-    "startingNodeID" : 45,
-    "destinationNodeID" : 46,
-    "weight" : 53.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 53.0,
-    "increment" : 1.0,
-    "id" : 75,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 45,
-    "destinationNodeID" : 44,
-    "weight" : 61.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 61.0,
-    "increment" : 1.0,
-    "id" : 76,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 45,
-    "destinationNodeID" : 46,
-    "weight" : 53.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 53.0,
-    "increment" : 1.0,
-    "id" : 75,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 45,
-    "destinationNodeID" : 44,
-    "weight" : 61.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 61.0,
-    "increment" : 1.0,
-    "id" : 76,
-    "blocked" : false
-  } ]
+  "id" : 45
 }, {
   "location" : [ 342.0, 423.0 ],
   "connectionsMap" : {
@@ -2904,74 +686,16 @@
       "startingNodeID" : 46,
       "destinationNodeID" : 65,
       "weight" : 61.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 61.0,
-      "increment" : 1.0,
-      "id" : 77,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 46,
       "destinationNodeID" : 64,
       "weight" : 72.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 72.0,
-      "increment" : 1.0,
-      "id" : 78,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 46,
-  "allConnections" : [ {
-    "startingNodeID" : 46,
-    "destinationNodeID" : 65,
-    "weight" : 61.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 61.0,
-    "increment" : 1.0,
-    "id" : 77,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 46,
-    "destinationNodeID" : 64,
-    "weight" : 72.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 72.0,
-    "increment" : 1.0,
-    "id" : 78,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 46,
-    "destinationNodeID" : 65,
-    "weight" : 61.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 61.0,
-    "increment" : 1.0,
-    "id" : 77,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 46,
-    "destinationNodeID" : 64,
-    "weight" : 72.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 72.0,
-    "increment" : 1.0,
-    "id" : 78,
-    "blocked" : false
-  } ]
+  "id" : 46
 }, {
   "location" : [ 366.0, 428.0 ],
   "connectionsMap" : {
@@ -2979,40 +703,10 @@
       "startingNodeID" : 47,
       "destinationNodeID" : 46,
       "weight" : 24.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 24.0,
-      "increment" : 1.0,
-      "id" : 79,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 47,
-  "allConnections" : [ {
-    "startingNodeID" : 47,
-    "destinationNodeID" : 46,
-    "weight" : 24.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 24.0,
-    "increment" : 1.0,
-    "id" : 79,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 47,
-    "destinationNodeID" : 46,
-    "weight" : 24.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 24.0,
-    "increment" : 1.0,
-    "id" : 79,
-    "blocked" : false
-  } ]
+  "id" : 47
 }, {
   "location" : [ 405.0, 441.0 ],
   "connectionsMap" : {
@@ -3020,74 +714,16 @@
       "startingNodeID" : 48,
       "destinationNodeID" : 44,
       "weight" : 63.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 63.0,
-      "increment" : 1.0,
-      "id" : 80,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 48,
       "destinationNodeID" : 47,
       "weight" : 41.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 41.0,
-      "increment" : 1.0,
-      "id" : 81,
-      "blocked" : false
+      "direction" : "DERECHA"
     }
   },
-  "id" : 48,
-  "allConnections" : [ {
-    "startingNodeID" : 48,
-    "destinationNodeID" : 44,
-    "weight" : 63.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 63.0,
-    "increment" : 1.0,
-    "id" : 80,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 48,
-    "destinationNodeID" : 47,
-    "weight" : 41.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 41.0,
-    "increment" : 1.0,
-    "id" : 81,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 48,
-    "destinationNodeID" : 47,
-    "weight" : 41.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 41.0,
-    "increment" : 1.0,
-    "id" : 81,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 48,
-    "destinationNodeID" : 44,
-    "weight" : 63.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 63.0,
-    "increment" : 1.0,
-    "id" : 80,
-    "blocked" : false
-  } ]
+  "id" : 48
 }, {
   "location" : [ 239.0, 508.0 ],
   "connectionsMap" : {
@@ -3095,40 +731,10 @@
       "startingNodeID" : 49,
       "destinationNodeID" : 33,
       "weight" : 19.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 19.0,
-      "increment" : 1.0,
-      "id" : 82,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 49,
-  "allConnections" : [ {
-    "startingNodeID" : 49,
-    "destinationNodeID" : 33,
-    "weight" : 19.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 19.0,
-    "increment" : 1.0,
-    "id" : 82,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 49,
-    "destinationNodeID" : 33,
-    "weight" : 19.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 19.0,
-    "increment" : 1.0,
-    "id" : 82,
-    "blocked" : false
-  } ]
+  "id" : 49
 }, {
   "location" : [ 268.0, 448.0 ],
   "connectionsMap" : {
@@ -3136,74 +742,16 @@
       "startingNodeID" : 50,
       "destinationNodeID" : 45,
       "weight" : 66.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 66.0,
-      "increment" : 1.0,
-      "id" : 83,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 50,
       "destinationNodeID" : 49,
       "weight" : 66.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 66.0,
-      "increment" : 1.0,
-      "id" : 84,
-      "blocked" : false
+      "direction" : "DERECHA"
     }
   },
-  "id" : 50,
-  "allConnections" : [ {
-    "startingNodeID" : 50,
-    "destinationNodeID" : 45,
-    "weight" : 66.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 66.0,
-    "increment" : 1.0,
-    "id" : 83,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 50,
-    "destinationNodeID" : 49,
-    "weight" : 66.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 66.0,
-    "increment" : 1.0,
-    "id" : 84,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 50,
-    "destinationNodeID" : 45,
-    "weight" : 66.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 66.0,
-    "increment" : 1.0,
-    "id" : 83,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 50,
-    "destinationNodeID" : 49,
-    "weight" : 66.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 66.0,
-    "increment" : 1.0,
-    "id" : 84,
-    "blocked" : false
-  } ]
+  "id" : 50
 }, {
   "location" : [ 198.0, 419.0 ],
   "connectionsMap" : {
@@ -3211,108 +759,22 @@
       "startingNodeID" : 51,
       "destinationNodeID" : 52,
       "weight" : 34.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 34.0,
-      "increment" : 1.0,
-      "id" : 85,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 51,
       "destinationNodeID" : 50,
       "weight" : 75.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 75.0,
-      "increment" : 1.0,
-      "id" : 86,
-      "blocked" : false
+      "direction" : "DERECHA"
     },
     "CONTRARIO" : {
       "startingNodeID" : 51,
       "destinationNodeID" : 54,
       "weight" : 62.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 62.0,
-      "increment" : 1.0,
-      "id" : 87,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 51,
-  "allConnections" : [ {
-    "startingNodeID" : 51,
-    "destinationNodeID" : 52,
-    "weight" : 34.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 34.0,
-    "increment" : 1.0,
-    "id" : 85,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 51,
-    "destinationNodeID" : 50,
-    "weight" : 75.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 75.0,
-    "increment" : 1.0,
-    "id" : 86,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 51,
-    "destinationNodeID" : 54,
-    "weight" : 62.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 62.0,
-    "increment" : 1.0,
-    "id" : 87,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 51,
-    "destinationNodeID" : 52,
-    "weight" : 34.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 34.0,
-    "increment" : 1.0,
-    "id" : 85,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 51,
-    "destinationNodeID" : 54,
-    "weight" : 62.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 62.0,
-    "increment" : 1.0,
-    "id" : 87,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 51,
-    "destinationNodeID" : 50,
-    "weight" : 75.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 75.0,
-    "increment" : 1.0,
-    "id" : 86,
-    "blocked" : false
-  } ]
+  "id" : 51
 }, {
   "location" : [ 220.0, 393.0 ],
   "connectionsMap" : {
@@ -3320,74 +782,16 @@
       "startingNodeID" : 52,
       "destinationNodeID" : 55,
       "weight" : 41.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 41.0,
-      "increment" : 1.0,
-      "id" : 88,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "CONTRARIO" : {
       "startingNodeID" : 52,
       "destinationNodeID" : 51,
       "weight" : 34.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 34.0,
-      "increment" : 1.0,
-      "id" : 89,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 52,
-  "allConnections" : [ {
-    "startingNodeID" : 52,
-    "destinationNodeID" : 55,
-    "weight" : 41.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 41.0,
-    "increment" : 1.0,
-    "id" : 88,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 52,
-    "destinationNodeID" : 51,
-    "weight" : 34.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 34.0,
-    "increment" : 1.0,
-    "id" : 89,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 52,
-    "destinationNodeID" : 51,
-    "weight" : 34.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 34.0,
-    "increment" : 1.0,
-    "id" : 89,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 52,
-    "destinationNodeID" : 55,
-    "weight" : 41.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 41.0,
-    "increment" : 1.0,
-    "id" : 88,
-    "blocked" : false
-  } ]
+  "id" : 52
 }, {
   "location" : [ 120.0, 506.0 ],
   "connectionsMap" : {
@@ -3395,74 +799,16 @@
       "startingNodeID" : 53,
       "destinationNodeID" : 54,
       "weight" : 53.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 53.0,
-      "increment" : 1.0,
-      "id" : 90,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "CONTRARIO" : {
       "startingNodeID" : 53,
       "destinationNodeID" : 37,
       "weight" : 64.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 64.0,
-      "increment" : 1.0,
-      "id" : 91,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 53,
-  "allConnections" : [ {
-    "startingNodeID" : 53,
-    "destinationNodeID" : 54,
-    "weight" : 53.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 53.0,
-    "increment" : 1.0,
-    "id" : 90,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 53,
-    "destinationNodeID" : 37,
-    "weight" : 64.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 64.0,
-    "increment" : 1.0,
-    "id" : 91,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 53,
-    "destinationNodeID" : 54,
-    "weight" : 53.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 53.0,
-    "increment" : 1.0,
-    "id" : 90,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 53,
-    "destinationNodeID" : 37,
-    "weight" : 64.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 64.0,
-    "increment" : 1.0,
-    "id" : 91,
-    "blocked" : false
-  } ]
+  "id" : 53
 }, {
   "location" : [ 155.0, 465.0 ],
   "connectionsMap" : {
@@ -3470,108 +816,22 @@
       "startingNodeID" : 54,
       "destinationNodeID" : 51,
       "weight" : 62.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 62.0,
-      "increment" : 1.0,
-      "id" : 92,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 54,
       "destinationNodeID" : 49,
       "weight" : 94.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 94.0,
-      "increment" : 1.0,
-      "id" : 93,
-      "blocked" : false
+      "direction" : "DERECHA"
     },
     "CONTRARIO" : {
       "startingNodeID" : 54,
       "destinationNodeID" : 53,
       "weight" : 53.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 53.0,
-      "increment" : 1.0,
-      "id" : 94,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 54,
-  "allConnections" : [ {
-    "startingNodeID" : 54,
-    "destinationNodeID" : 51,
-    "weight" : 62.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 62.0,
-    "increment" : 1.0,
-    "id" : 92,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 54,
-    "destinationNodeID" : 49,
-    "weight" : 94.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 94.0,
-    "increment" : 1.0,
-    "id" : 93,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 54,
-    "destinationNodeID" : 53,
-    "weight" : 53.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 53.0,
-    "increment" : 1.0,
-    "id" : 94,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 54,
-    "destinationNodeID" : 53,
-    "weight" : 53.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 53.0,
-    "increment" : 1.0,
-    "id" : 94,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 54,
-    "destinationNodeID" : 51,
-    "weight" : 62.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 62.0,
-    "increment" : 1.0,
-    "id" : 92,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 54,
-    "destinationNodeID" : 49,
-    "weight" : 94.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 94.0,
-    "increment" : 1.0,
-    "id" : 93,
-    "blocked" : false
-  } ]
+  "id" : 54
 }, {
   "location" : [ 244.0, 359.0 ],
   "connectionsMap" : {
@@ -3579,74 +839,16 @@
       "startingNodeID" : 55,
       "destinationNodeID" : 57,
       "weight" : 23.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 23.0,
-      "increment" : 1.0,
-      "id" : 95,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "CONTRARIO" : {
       "startingNodeID" : 55,
       "destinationNodeID" : 52,
       "weight" : 41.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 41.0,
-      "increment" : 1.0,
-      "id" : 96,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 55,
-  "allConnections" : [ {
-    "startingNodeID" : 55,
-    "destinationNodeID" : 57,
-    "weight" : 23.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 23.0,
-    "increment" : 1.0,
-    "id" : 95,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 55,
-    "destinationNodeID" : 52,
-    "weight" : 41.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 41.0,
-    "increment" : 1.0,
-    "id" : 96,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 55,
-    "destinationNodeID" : 57,
-    "weight" : 23.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 23.0,
-    "increment" : 1.0,
-    "id" : 95,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 55,
-    "destinationNodeID" : 52,
-    "weight" : 41.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 41.0,
-    "increment" : 1.0,
-    "id" : 96,
-    "blocked" : false
-  } ]
+  "id" : 55
 }, {
   "location" : [ 297.0, 351.0 ],
   "connectionsMap" : {
@@ -3654,40 +856,10 @@
       "startingNodeID" : 56,
       "destinationNodeID" : 57,
       "weight" : 46.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 46.0,
-      "increment" : 1.0,
-      "id" : 97,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 56,
-  "allConnections" : [ {
-    "startingNodeID" : 56,
-    "destinationNodeID" : 57,
-    "weight" : 46.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 46.0,
-    "increment" : 1.0,
-    "id" : 97,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 56,
-    "destinationNodeID" : 57,
-    "weight" : 46.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 46.0,
-    "increment" : 1.0,
-    "id" : 97,
-    "blocked" : false
-  } ]
+  "id" : 56
 }, {
   "location" : [ 253.0, 337.0 ],
   "connectionsMap" : {
@@ -3695,108 +867,22 @@
       "startingNodeID" : 57,
       "destinationNodeID" : 66,
       "weight" : 98.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 98.0,
-      "increment" : 1.0,
-      "id" : 98,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 57,
       "destinationNodeID" : 56,
       "weight" : 46.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 46.0,
-      "increment" : 1.0,
-      "id" : 99,
-      "blocked" : false
+      "direction" : "DERECHA"
     },
     "CONTRARIO" : {
       "startingNodeID" : 57,
       "destinationNodeID" : 55,
       "weight" : 23.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 23.0,
-      "increment" : 1.0,
-      "id" : 100,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 57,
-  "allConnections" : [ {
-    "startingNodeID" : 57,
-    "destinationNodeID" : 66,
-    "weight" : 98.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 98.0,
-    "increment" : 1.0,
-    "id" : 98,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 57,
-    "destinationNodeID" : 56,
-    "weight" : 46.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 46.0,
-    "increment" : 1.0,
-    "id" : 99,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 57,
-    "destinationNodeID" : 55,
-    "weight" : 23.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 23.0,
-    "increment" : 1.0,
-    "id" : 100,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 57,
-    "destinationNodeID" : 55,
-    "weight" : 23.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 23.0,
-    "increment" : 1.0,
-    "id" : 100,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 57,
-    "destinationNodeID" : 56,
-    "weight" : 46.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 46.0,
-    "increment" : 1.0,
-    "id" : 99,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 57,
-    "destinationNodeID" : 66,
-    "weight" : 98.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 98.0,
-    "increment" : 1.0,
-    "id" : 98,
-    "blocked" : false
-  } ]
+  "id" : 57
 }, {
   "location" : [ 478.0, 437.0 ],
   "connectionsMap" : {
@@ -3804,74 +890,16 @@
       "startingNodeID" : 58,
       "destinationNodeID" : 85,
       "weight" : 34.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 34.0,
-      "increment" : 1.0,
-      "id" : 101,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 58,
       "destinationNodeID" : 59,
       "weight" : 27.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 27.0,
-      "increment" : 1.0,
-      "id" : 102,
-      "blocked" : false
+      "direction" : "DERECHA"
     }
   },
-  "id" : 58,
-  "allConnections" : [ {
-    "startingNodeID" : 58,
-    "destinationNodeID" : 85,
-    "weight" : 34.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 34.0,
-    "increment" : 1.0,
-    "id" : 101,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 58,
-    "destinationNodeID" : 59,
-    "weight" : 27.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 27.0,
-    "increment" : 1.0,
-    "id" : 102,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 58,
-    "destinationNodeID" : 59,
-    "weight" : 27.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 27.0,
-    "increment" : 1.0,
-    "id" : 102,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 58,
-    "destinationNodeID" : 85,
-    "weight" : 34.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 34.0,
-    "increment" : 1.0,
-    "id" : 101,
-    "blocked" : false
-  } ]
+  "id" : 58
 }, {
   "location" : [ 504.0, 445.0 ],
   "connectionsMap" : {
@@ -3879,40 +907,10 @@
       "startingNodeID" : 59,
       "destinationNodeID" : 60,
       "weight" : 28.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 28.0,
-      "increment" : 1.0,
-      "id" : 103,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 59,
-  "allConnections" : [ {
-    "startingNodeID" : 59,
-    "destinationNodeID" : 60,
-    "weight" : 28.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 28.0,
-    "increment" : 1.0,
-    "id" : 103,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 59,
-    "destinationNodeID" : 60,
-    "weight" : 28.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 28.0,
-    "increment" : 1.0,
-    "id" : 103,
-    "blocked" : false
-  } ]
+  "id" : 59
 }, {
   "location" : [ 516.0, 419.0 ],
   "connectionsMap" : {
@@ -3920,40 +918,10 @@
       "startingNodeID" : 60,
       "destinationNodeID" : 40,
       "weight" : 30.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 30.0,
-      "increment" : 1.0,
-      "id" : 104,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 60,
-  "allConnections" : [ {
-    "startingNodeID" : 60,
-    "destinationNodeID" : 40,
-    "weight" : 30.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 30.0,
-    "increment" : 1.0,
-    "id" : 104,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 60,
-    "destinationNodeID" : 40,
-    "weight" : 30.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 30.0,
-    "increment" : 1.0,
-    "id" : 104,
-    "blocked" : false
-  } ]
+  "id" : 60
 }, {
   "location" : [ 559.0, 377.0 ],
   "connectionsMap" : {
@@ -3961,108 +929,22 @@
       "startingNodeID" : 61,
       "destinationNodeID" : 40,
       "weight" : 53.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 53.0,
-      "increment" : 1.0,
-      "id" : 105,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 61,
       "destinationNodeID" : 73,
       "weight" : 75.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 75.0,
-      "increment" : 1.0,
-      "id" : 106,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "CONTRARIO" : {
       "startingNodeID" : 61,
       "destinationNodeID" : 1,
       "weight" : 173.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 173.0,
-      "increment" : 1.0,
-      "id" : 107,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 61,
-  "allConnections" : [ {
-    "startingNodeID" : 61,
-    "destinationNodeID" : 40,
-    "weight" : 53.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 53.0,
-    "increment" : 1.0,
-    "id" : 105,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 61,
-    "destinationNodeID" : 73,
-    "weight" : 75.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 75.0,
-    "increment" : 1.0,
-    "id" : 106,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 61,
-    "destinationNodeID" : 1,
-    "weight" : 173.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 173.0,
-    "increment" : 1.0,
-    "id" : 107,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 61,
-    "destinationNodeID" : 40,
-    "weight" : 53.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 53.0,
-    "increment" : 1.0,
-    "id" : 105,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 61,
-    "destinationNodeID" : 73,
-    "weight" : 75.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 75.0,
-    "increment" : 1.0,
-    "id" : 106,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 61,
-    "destinationNodeID" : 1,
-    "weight" : 173.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 173.0,
-    "increment" : 1.0,
-    "id" : 107,
-    "blocked" : false
-  } ]
+  "id" : 61
 }, {
   "location" : [ 425.0, 381.0 ],
   "connectionsMap" : {
@@ -4070,74 +952,16 @@
       "startingNodeID" : 62,
       "destinationNodeID" : 85,
       "weight" : 66.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 66.0,
-      "increment" : 1.0,
-      "id" : 108,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 62,
       "destinationNodeID" : 48,
       "weight" : 63.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 63.0,
-      "increment" : 1.0,
-      "id" : 109,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 62,
-  "allConnections" : [ {
-    "startingNodeID" : 62,
-    "destinationNodeID" : 85,
-    "weight" : 66.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 66.0,
-    "increment" : 1.0,
-    "id" : 108,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 62,
-    "destinationNodeID" : 48,
-    "weight" : 63.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 63.0,
-    "increment" : 1.0,
-    "id" : 109,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 62,
-    "destinationNodeID" : 48,
-    "weight" : 63.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 63.0,
-    "increment" : 1.0,
-    "id" : 109,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 62,
-    "destinationNodeID" : 85,
-    "weight" : 66.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 66.0,
-    "increment" : 1.0,
-    "id" : 108,
-    "blocked" : false
-  } ]
+  "id" : 62
 }, {
   "location" : [ 386.0, 366.0 ],
   "connectionsMap" : {
@@ -4145,74 +969,16 @@
       "startingNodeID" : 63,
       "destinationNodeID" : 62,
       "weight" : 41.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 41.0,
-      "increment" : 1.0,
-      "id" : 110,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 63,
       "destinationNodeID" : 47,
       "weight" : 65.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 65.0,
-      "increment" : 1.0,
-      "id" : 111,
-      "blocked" : false
+      "direction" : "DERECHA"
     }
   },
-  "id" : 63,
-  "allConnections" : [ {
-    "startingNodeID" : 63,
-    "destinationNodeID" : 62,
-    "weight" : 41.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 41.0,
-    "increment" : 1.0,
-    "id" : 110,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 63,
-    "destinationNodeID" : 47,
-    "weight" : 65.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 65.0,
-    "increment" : 1.0,
-    "id" : 111,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 63,
-    "destinationNodeID" : 62,
-    "weight" : 41.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 41.0,
-    "increment" : 1.0,
-    "id" : 110,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 63,
-    "destinationNodeID" : 47,
-    "weight" : 65.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 65.0,
-    "increment" : 1.0,
-    "id" : 111,
-    "blocked" : false
-  } ]
+  "id" : 63
 }, {
   "location" : [ 345.0, 351.0 ],
   "connectionsMap" : {
@@ -4220,74 +986,16 @@
       "startingNodeID" : 64,
       "destinationNodeID" : 76,
       "weight" : 42.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 42.0,
-      "increment" : 1.0,
-      "id" : 112,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 64,
       "destinationNodeID" : 63,
       "weight" : 43.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 43.0,
-      "increment" : 1.0,
-      "id" : 113,
-      "blocked" : false
+      "direction" : "DERECHA"
     }
   },
-  "id" : 64,
-  "allConnections" : [ {
-    "startingNodeID" : 64,
-    "destinationNodeID" : 76,
-    "weight" : 42.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 42.0,
-    "increment" : 1.0,
-    "id" : 112,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 64,
-    "destinationNodeID" : 63,
-    "weight" : 43.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 43.0,
-    "increment" : 1.0,
-    "id" : 113,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 64,
-    "destinationNodeID" : 76,
-    "weight" : 42.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 42.0,
-    "increment" : 1.0,
-    "id" : 112,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 64,
-    "destinationNodeID" : 63,
-    "weight" : 43.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 43.0,
-    "increment" : 1.0,
-    "id" : 113,
-    "blocked" : false
-  } ]
+  "id" : 64
 }, {
   "location" : [ 282.0, 410.0 ],
   "connectionsMap" : {
@@ -4295,74 +1003,16 @@
       "startingNodeID" : 65,
       "destinationNodeID" : 50,
       "weight" : 40.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 40.0,
-      "increment" : 1.0,
-      "id" : 114,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 65,
       "destinationNodeID" : 52,
       "weight" : 64.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 64.0,
-      "increment" : 1.0,
-      "id" : 115,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 65,
-  "allConnections" : [ {
-    "startingNodeID" : 65,
-    "destinationNodeID" : 50,
-    "weight" : 40.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 40.0,
-    "increment" : 1.0,
-    "id" : 114,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 65,
-    "destinationNodeID" : 52,
-    "weight" : 64.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 64.0,
-    "increment" : 1.0,
-    "id" : 115,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 65,
-    "destinationNodeID" : 50,
-    "weight" : 40.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 40.0,
-    "increment" : 1.0,
-    "id" : 114,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 65,
-    "destinationNodeID" : 52,
-    "weight" : 64.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 64.0,
-    "increment" : 1.0,
-    "id" : 115,
-    "blocked" : false
-  } ]
+  "id" : 65
 }, {
   "location" : [ 271.0, 240.0 ],
   "connectionsMap" : {
@@ -4370,74 +1020,16 @@
       "startingNodeID" : 66,
       "destinationNodeID" : 80,
       "weight" : 39.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 39.0,
-      "increment" : 1.0,
-      "id" : 116,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "CONTRARIO" : {
       "startingNodeID" : 66,
       "destinationNodeID" : 57,
       "weight" : 98.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 98.0,
-      "increment" : 1.0,
-      "id" : 117,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 66,
-  "allConnections" : [ {
-    "startingNodeID" : 66,
-    "destinationNodeID" : 80,
-    "weight" : 39.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 39.0,
-    "increment" : 1.0,
-    "id" : 116,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 66,
-    "destinationNodeID" : 57,
-    "weight" : 98.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 98.0,
-    "increment" : 1.0,
-    "id" : 117,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 66,
-    "destinationNodeID" : 80,
-    "weight" : 39.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 39.0,
-    "increment" : 1.0,
-    "id" : 116,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 66,
-    "destinationNodeID" : 57,
-    "weight" : 98.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 98.0,
-    "increment" : 1.0,
-    "id" : 117,
-    "blocked" : false
-  } ]
+  "id" : 66
 }, {
   "location" : [ 318.0, 252.0 ],
   "connectionsMap" : {
@@ -4445,40 +1037,10 @@
       "startingNodeID" : 67,
       "destinationNodeID" : 66,
       "weight" : 48.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 48.0,
-      "increment" : 1.0,
-      "id" : 118,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 67,
-  "allConnections" : [ {
-    "startingNodeID" : 67,
-    "destinationNodeID" : 66,
-    "weight" : 48.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 48.0,
-    "increment" : 1.0,
-    "id" : 118,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 67,
-    "destinationNodeID" : 66,
-    "weight" : 48.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 48.0,
-    "increment" : 1.0,
-    "id" : 118,
-    "blocked" : false
-  } ]
+  "id" : 67
 }, {
   "location" : [ 384.0, 222.0 ],
   "connectionsMap" : {
@@ -4486,142 +1048,28 @@
       "startingNodeID" : 68,
       "destinationNodeID" : 67,
       "weight" : 72.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 72.0,
-      "increment" : 1.0,
-      "id" : 119,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 68,
       "destinationNodeID" : 81,
       "weight" : 59.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 59.0,
-      "increment" : 1.0,
-      "id" : 120,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 68,
       "destinationNodeID" : 84,
       "weight" : 70.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 70.0,
-      "increment" : 1.0,
-      "id" : 121,
-      "blocked" : false
+      "direction" : "DERECHA"
     },
     "CONTRARIO" : {
       "startingNodeID" : 68,
       "destinationNodeID" : 69,
       "weight" : 69.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 69.0,
-      "increment" : 1.0,
-      "id" : 122,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 68,
-  "allConnections" : [ {
-    "startingNodeID" : 68,
-    "destinationNodeID" : 67,
-    "weight" : 72.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 72.0,
-    "increment" : 1.0,
-    "id" : 119,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 68,
-    "destinationNodeID" : 81,
-    "weight" : 59.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 59.0,
-    "increment" : 1.0,
-    "id" : 120,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 68,
-    "destinationNodeID" : 84,
-    "weight" : 70.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 70.0,
-    "increment" : 1.0,
-    "id" : 121,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 68,
-    "destinationNodeID" : 69,
-    "weight" : 69.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 69.0,
-    "increment" : 1.0,
-    "id" : 122,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 68,
-    "destinationNodeID" : 81,
-    "weight" : 59.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 59.0,
-    "increment" : 1.0,
-    "id" : 120,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 68,
-    "destinationNodeID" : 69,
-    "weight" : 69.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 69.0,
-    "increment" : 1.0,
-    "id" : 122,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 68,
-    "destinationNodeID" : 84,
-    "weight" : 70.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 70.0,
-    "increment" : 1.0,
-    "id" : 121,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 68,
-    "destinationNodeID" : 67,
-    "weight" : 72.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 72.0,
-    "increment" : 1.0,
-    "id" : 119,
-    "blocked" : false
-  } ]
+  "id" : 68
 }, {
   "location" : [ 382.0, 291.0 ],
   "connectionsMap" : {
@@ -4629,40 +1077,10 @@
       "startingNodeID" : 69,
       "destinationNodeID" : 70,
       "weight" : 69.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 69.0,
-      "increment" : 1.0,
-      "id" : 123,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 69,
-  "allConnections" : [ {
-    "startingNodeID" : 69,
-    "destinationNodeID" : 70,
-    "weight" : 69.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 69.0,
-    "increment" : 1.0,
-    "id" : 123,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 69,
-    "destinationNodeID" : 70,
-    "weight" : 69.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 69.0,
-    "increment" : 1.0,
-    "id" : 123,
-    "blocked" : false
-  } ]
+  "id" : 69
 }, {
   "location" : [ 445.0, 320.0 ],
   "connectionsMap" : {
@@ -4670,108 +1088,22 @@
       "startingNodeID" : 70,
       "destinationNodeID" : 71,
       "weight" : 69.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 69.0,
-      "increment" : 1.0,
-      "id" : 124,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 70,
       "destinationNodeID" : 62,
       "weight" : 64.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 64.0,
-      "increment" : 1.0,
-      "id" : 125,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 70,
       "destinationNodeID" : 69,
       "weight" : 69.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 69.0,
-      "increment" : 1.0,
-      "id" : 126,
-      "blocked" : false
+      "direction" : "DERECHA"
     }
   },
-  "id" : 70,
-  "allConnections" : [ {
-    "startingNodeID" : 70,
-    "destinationNodeID" : 71,
-    "weight" : 69.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 69.0,
-    "increment" : 1.0,
-    "id" : 124,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 70,
-    "destinationNodeID" : 62,
-    "weight" : 64.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 64.0,
-    "increment" : 1.0,
-    "id" : 125,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 70,
-    "destinationNodeID" : 69,
-    "weight" : 69.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 69.0,
-    "increment" : 1.0,
-    "id" : 126,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 70,
-    "destinationNodeID" : 62,
-    "weight" : 64.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 64.0,
-    "increment" : 1.0,
-    "id" : 125,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 70,
-    "destinationNodeID" : 71,
-    "weight" : 69.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 69.0,
-    "increment" : 1.0,
-    "id" : 124,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 70,
-    "destinationNodeID" : 69,
-    "weight" : 69.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 69.0,
-    "increment" : 1.0,
-    "id" : 126,
-    "blocked" : false
-  } ]
+  "id" : 70
 }, {
   "location" : [ 510.0, 344.0 ],
   "connectionsMap" : {
@@ -4779,74 +1111,16 @@
       "startingNodeID" : 71,
       "destinationNodeID" : 70,
       "weight" : 69.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 69.0,
-      "increment" : 1.0,
-      "id" : 127,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 71,
       "destinationNodeID" : 72,
       "weight" : 16.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 16.0,
-      "increment" : 1.0,
-      "id" : 128,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 71,
-  "allConnections" : [ {
-    "startingNodeID" : 71,
-    "destinationNodeID" : 70,
-    "weight" : 69.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 69.0,
-    "increment" : 1.0,
-    "id" : 127,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 71,
-    "destinationNodeID" : 72,
-    "weight" : 16.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 16.0,
-    "increment" : 1.0,
-    "id" : 128,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 71,
-    "destinationNodeID" : 72,
-    "weight" : 16.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 16.0,
-    "increment" : 1.0,
-    "id" : 128,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 71,
-    "destinationNodeID" : 70,
-    "weight" : 69.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 69.0,
-    "increment" : 1.0,
-    "id" : 127,
-    "blocked" : false
-  } ]
+  "id" : 71
 }, {
   "location" : [ 515.0, 328.0 ],
   "connectionsMap" : {
@@ -4854,40 +1128,10 @@
       "startingNodeID" : 72,
       "destinationNodeID" : 73,
       "weight" : 17.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 17.0,
-      "increment" : 1.0,
-      "id" : 129,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 72,
-  "allConnections" : [ {
-    "startingNodeID" : 72,
-    "destinationNodeID" : 73,
-    "weight" : 17.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 17.0,
-    "increment" : 1.0,
-    "id" : 129,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 72,
-    "destinationNodeID" : 73,
-    "weight" : 17.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 17.0,
-    "increment" : 1.0,
-    "id" : 129,
-    "blocked" : false
-  } ]
+  "id" : 72
 }, {
   "location" : [ 521.0, 312.0 ],
   "connectionsMap" : {
@@ -4895,74 +1139,16 @@
       "startingNodeID" : 73,
       "destinationNodeID" : 75,
       "weight" : 80.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 80.0,
-      "increment" : 1.0,
-      "id" : 130,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "CONTRARIO" : {
       "startingNodeID" : 73,
       "destinationNodeID" : 61,
       "weight" : 75.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 75.0,
-      "increment" : 1.0,
-      "id" : 131,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 73,
-  "allConnections" : [ {
-    "startingNodeID" : 73,
-    "destinationNodeID" : 75,
-    "weight" : 80.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 80.0,
-    "increment" : 1.0,
-    "id" : 130,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 73,
-    "destinationNodeID" : 61,
-    "weight" : 75.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 75.0,
-    "increment" : 1.0,
-    "id" : 131,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 73,
-    "destinationNodeID" : 61,
-    "weight" : 75.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 75.0,
-    "increment" : 1.0,
-    "id" : 131,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 73,
-    "destinationNodeID" : 75,
-    "weight" : 80.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 80.0,
-    "increment" : 1.0,
-    "id" : 130,
-    "blocked" : false
-  } ]
+  "id" : 73
 }, {
   "location" : [ 467.0, 252.0 ],
   "connectionsMap" : {
@@ -4970,74 +1156,16 @@
       "startingNodeID" : 74,
       "destinationNodeID" : 72,
       "weight" : 89.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 89.0,
-      "increment" : 1.0,
-      "id" : 132,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 74,
       "destinationNodeID" : 70,
       "weight" : 71.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 71.0,
-      "increment" : 1.0,
-      "id" : 133,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 74,
-  "allConnections" : [ {
-    "startingNodeID" : 74,
-    "destinationNodeID" : 72,
-    "weight" : 89.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 89.0,
-    "increment" : 1.0,
-    "id" : 132,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 74,
-    "destinationNodeID" : 70,
-    "weight" : 71.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 71.0,
-    "increment" : 1.0,
-    "id" : 133,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 74,
-    "destinationNodeID" : 70,
-    "weight" : 71.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 71.0,
-    "increment" : 1.0,
-    "id" : 133,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 74,
-    "destinationNodeID" : 72,
-    "weight" : 89.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 89.0,
-    "increment" : 1.0,
-    "id" : 132,
-    "blocked" : false
-  } ]
+  "id" : 74
 }, {
   "location" : [ 477.0, 244.0 ],
   "connectionsMap" : {
@@ -5045,108 +1173,22 @@
       "startingNodeID" : 75,
       "destinationNodeID" : 74,
       "weight" : 12.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 12.0,
-      "increment" : 1.0,
-      "id" : 134,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 75,
       "destinationNodeID" : 84,
       "weight" : 54.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 54.0,
-      "increment" : 1.0,
-      "id" : 135,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "CONTRARIO" : {
       "startingNodeID" : 75,
       "destinationNodeID" : 73,
       "weight" : 80.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 80.0,
-      "increment" : 1.0,
-      "id" : 136,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 75,
-  "allConnections" : [ {
-    "startingNodeID" : 75,
-    "destinationNodeID" : 74,
-    "weight" : 12.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 12.0,
-    "increment" : 1.0,
-    "id" : 134,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 75,
-    "destinationNodeID" : 84,
-    "weight" : 54.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 54.0,
-    "increment" : 1.0,
-    "id" : 135,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 75,
-    "destinationNodeID" : 73,
-    "weight" : 80.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 80.0,
-    "increment" : 1.0,
-    "id" : 136,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 75,
-    "destinationNodeID" : 74,
-    "weight" : 12.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 12.0,
-    "increment" : 1.0,
-    "id" : 134,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 75,
-    "destinationNodeID" : 84,
-    "weight" : 54.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 54.0,
-    "increment" : 1.0,
-    "id" : 135,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 75,
-    "destinationNodeID" : 73,
-    "weight" : 80.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 80.0,
-    "increment" : 1.0,
-    "id" : 136,
-    "blocked" : false
-  } ]
+  "id" : 75
 }, {
   "location" : [ 341.0, 309.0 ],
   "connectionsMap" : {
@@ -5154,40 +1196,10 @@
       "startingNodeID" : 76,
       "destinationNodeID" : 67,
       "weight" : 61.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 61.0,
-      "increment" : 1.0,
-      "id" : 137,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 76,
-  "allConnections" : [ {
-    "startingNodeID" : 76,
-    "destinationNodeID" : 67,
-    "weight" : 61.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 61.0,
-    "increment" : 1.0,
-    "id" : 137,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 76,
-    "destinationNodeID" : 67,
-    "weight" : 61.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 61.0,
-    "increment" : 1.0,
-    "id" : 137,
-    "blocked" : false
-  } ]
+  "id" : 76
 }, {
   "location" : [ 281.0, 146.0 ],
   "connectionsMap" : {
@@ -5195,74 +1207,16 @@
       "startingNodeID" : 77,
       "destinationNodeID" : 83,
       "weight" : 50.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 50.0,
-      "increment" : 1.0,
-      "id" : 138,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "CONTRARIO" : {
       "startingNodeID" : 77,
       "destinationNodeID" : 80,
       "weight" : 55.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 55.0,
-      "increment" : 1.0,
-      "id" : 139,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 77,
-  "allConnections" : [ {
-    "startingNodeID" : 77,
-    "destinationNodeID" : 83,
-    "weight" : 50.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 50.0,
-    "increment" : 1.0,
-    "id" : 138,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 77,
-    "destinationNodeID" : 80,
-    "weight" : 55.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 55.0,
-    "increment" : 1.0,
-    "id" : 139,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 77,
-    "destinationNodeID" : 83,
-    "weight" : 50.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 50.0,
-    "increment" : 1.0,
-    "id" : 138,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 77,
-    "destinationNodeID" : 80,
-    "weight" : 55.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 55.0,
-    "increment" : 1.0,
-    "id" : 139,
-    "blocked" : false
-  } ]
+  "id" : 77
 }, {
   "location" : [ 310.0, 62.0 ],
   "connectionsMap" : {
@@ -5270,74 +1224,16 @@
       "startingNodeID" : 78,
       "destinationNodeID" : 79,
       "weight" : 65.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 65.0,
-      "increment" : 1.0,
-      "id" : 140,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "CONTRARIO" : {
       "startingNodeID" : 78,
       "destinationNodeID" : 83,
       "weight" : 38.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 38.0,
-      "increment" : 1.0,
-      "id" : 141,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 78,
-  "allConnections" : [ {
-    "startingNodeID" : 78,
-    "destinationNodeID" : 79,
-    "weight" : 65.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 65.0,
-    "increment" : 1.0,
-    "id" : 140,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 78,
-    "destinationNodeID" : 83,
-    "weight" : 38.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 38.0,
-    "increment" : 1.0,
-    "id" : 141,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 78,
-    "destinationNodeID" : 83,
-    "weight" : 38.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 38.0,
-    "increment" : 1.0,
-    "id" : 141,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 78,
-    "destinationNodeID" : 79,
-    "weight" : 65.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 65.0,
-    "increment" : 1.0,
-    "id" : 140,
-    "blocked" : false
-  } ]
+  "id" : 78
 }, {
   "location" : [ 360.0, 19.0 ],
   "connectionsMap" : {
@@ -5345,40 +1241,10 @@
       "startingNodeID" : 79,
       "destinationNodeID" : 78,
       "weight" : 65.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 65.0,
-      "increment" : 1.0,
-      "id" : 142,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     }
   },
-  "id" : 79,
-  "allConnections" : [ {
-    "startingNodeID" : 79,
-    "destinationNodeID" : 78,
-    "weight" : 65.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 65.0,
-    "increment" : 1.0,
-    "id" : 142,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 79,
-    "destinationNodeID" : 78,
-    "weight" : 65.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 65.0,
-    "increment" : 1.0,
-    "id" : 142,
-    "blocked" : false
-  } ]
+  "id" : 79
 }, {
   "location" : [ 275.0, 201.0 ],
   "connectionsMap" : {
@@ -5386,108 +1252,22 @@
       "startingNodeID" : 80,
       "destinationNodeID" : 77,
       "weight" : 55.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 55.0,
-      "increment" : 1.0,
-      "id" : 143,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 80,
       "destinationNodeID" : 81,
       "weight" : 86.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 86.0,
-      "increment" : 1.0,
-      "id" : 144,
-      "blocked" : false
+      "direction" : "DERECHA"
     },
     "CONTRARIO" : {
       "startingNodeID" : 80,
       "destinationNodeID" : 66,
       "weight" : 39.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 39.0,
-      "increment" : 1.0,
-      "id" : 145,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 80,
-  "allConnections" : [ {
-    "startingNodeID" : 80,
-    "destinationNodeID" : 77,
-    "weight" : 55.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 55.0,
-    "increment" : 1.0,
-    "id" : 143,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 80,
-    "destinationNodeID" : 81,
-    "weight" : 86.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 86.0,
-    "increment" : 1.0,
-    "id" : 144,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 80,
-    "destinationNodeID" : 66,
-    "weight" : 39.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 39.0,
-    "increment" : 1.0,
-    "id" : 145,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 80,
-    "destinationNodeID" : 66,
-    "weight" : 39.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 39.0,
-    "increment" : 1.0,
-    "id" : 145,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 80,
-    "destinationNodeID" : 77,
-    "weight" : 55.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 55.0,
-    "increment" : 1.0,
-    "id" : 143,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 80,
-    "destinationNodeID" : 81,
-    "weight" : 86.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 86.0,
-    "increment" : 1.0,
-    "id" : 144,
-    "blocked" : false
-  } ]
+  "id" : 80
 }, {
   "location" : [ 356.0, 170.0 ],
   "connectionsMap" : {
@@ -5495,108 +1275,22 @@
       "startingNodeID" : 81,
       "destinationNodeID" : 80,
       "weight" : 86.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 86.0,
-      "increment" : 1.0,
-      "id" : 146,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 81,
       "destinationNodeID" : 82,
       "weight" : 55.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 55.0,
-      "increment" : 1.0,
-      "id" : 147,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "CONTRARIO" : {
       "startingNodeID" : 81,
       "destinationNodeID" : 68,
       "weight" : 59.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 59.0,
-      "increment" : 1.0,
-      "id" : 148,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 81,
-  "allConnections" : [ {
-    "startingNodeID" : 81,
-    "destinationNodeID" : 80,
-    "weight" : 86.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 86.0,
-    "increment" : 1.0,
-    "id" : 146,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 81,
-    "destinationNodeID" : 82,
-    "weight" : 55.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 55.0,
-    "increment" : 1.0,
-    "id" : 147,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 81,
-    "destinationNodeID" : 68,
-    "weight" : 59.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 59.0,
-    "increment" : 1.0,
-    "id" : 148,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 81,
-    "destinationNodeID" : 82,
-    "weight" : 55.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 55.0,
-    "increment" : 1.0,
-    "id" : 147,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 81,
-    "destinationNodeID" : 68,
-    "weight" : 59.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 59.0,
-    "increment" : 1.0,
-    "id" : 148,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 81,
-    "destinationNodeID" : 80,
-    "weight" : 86.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 86.0,
-    "increment" : 1.0,
-    "id" : 146,
-    "blocked" : false
-  } ]
+  "id" : 81
 }, {
   "location" : [ 331.0, 121.0 ],
   "connectionsMap" : {
@@ -5604,74 +1298,16 @@
       "startingNodeID" : 82,
       "destinationNodeID" : 83,
       "weight" : 43.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 43.0,
-      "increment" : 1.0,
-      "id" : 149,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "CONTRARIO" : {
       "startingNodeID" : 82,
       "destinationNodeID" : 81,
       "weight" : 55.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 55.0,
-      "increment" : 1.0,
-      "id" : 150,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 82,
-  "allConnections" : [ {
-    "startingNodeID" : 82,
-    "destinationNodeID" : 83,
-    "weight" : 43.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 43.0,
-    "increment" : 1.0,
-    "id" : 149,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 82,
-    "destinationNodeID" : 81,
-    "weight" : 55.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 55.0,
-    "increment" : 1.0,
-    "id" : 150,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 82,
-    "destinationNodeID" : 83,
-    "weight" : 43.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 43.0,
-    "increment" : 1.0,
-    "id" : 149,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 82,
-    "destinationNodeID" : 81,
-    "weight" : 55.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 55.0,
-    "increment" : 1.0,
-    "id" : 150,
-    "blocked" : false
-  } ]
+  "id" : 82
 }, {
   "location" : [ 295.0, 97.0 ],
   "connectionsMap" : {
@@ -5679,108 +1315,22 @@
       "startingNodeID" : 83,
       "destinationNodeID" : 78,
       "weight" : 38.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 38.0,
-      "increment" : 1.0,
-      "id" : 151,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 83,
       "destinationNodeID" : 82,
       "weight" : 43.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 43.0,
-      "increment" : 1.0,
-      "id" : 152,
-      "blocked" : false
+      "direction" : "DERECHA"
     },
     "CONTRARIO" : {
       "startingNodeID" : 83,
       "destinationNodeID" : 77,
       "weight" : 50.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 50.0,
-      "increment" : 1.0,
-      "id" : 153,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 83,
-  "allConnections" : [ {
-    "startingNodeID" : 83,
-    "destinationNodeID" : 78,
-    "weight" : 38.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 38.0,
-    "increment" : 1.0,
-    "id" : 151,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 83,
-    "destinationNodeID" : 82,
-    "weight" : 43.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 43.0,
-    "increment" : 1.0,
-    "id" : 152,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 83,
-    "destinationNodeID" : 77,
-    "weight" : 50.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 50.0,
-    "increment" : 1.0,
-    "id" : 153,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 83,
-    "destinationNodeID" : 78,
-    "weight" : 38.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 38.0,
-    "increment" : 1.0,
-    "id" : 151,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 83,
-    "destinationNodeID" : 82,
-    "weight" : 43.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 43.0,
-    "increment" : 1.0,
-    "id" : 152,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 83,
-    "destinationNodeID" : 77,
-    "weight" : 50.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 50.0,
-    "increment" : 1.0,
-    "id" : 153,
-    "blocked" : false
-  } ]
+  "id" : 83
 }, {
   "location" : [ 450.0, 197.0 ],
   "connectionsMap" : {
@@ -5788,108 +1338,22 @@
       "startingNodeID" : 84,
       "destinationNodeID" : 68,
       "weight" : 70.0,
-      "trafficCondition" : "normal",
-      "direction" : "IZQUIERDA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 70.0,
-      "increment" : 1.0,
-      "id" : 154,
-      "blocked" : false
+      "direction" : "IZQUIERDA"
     },
     "ADELANTE" : {
       "startingNodeID" : 84,
       "destinationNodeID" : 79,
       "weight" : 199.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 199.0,
-      "increment" : 1.0,
-      "id" : 155,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "CONTRARIO" : {
       "startingNodeID" : 84,
       "destinationNodeID" : 75,
       "weight" : 54.0,
-      "trafficCondition" : "normal",
-      "direction" : "CONTRARIO",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 54.0,
-      "increment" : 1.0,
-      "id" : 156,
-      "blocked" : false
+      "direction" : "CONTRARIO"
     }
   },
-  "id" : 84,
-  "allConnections" : [ {
-    "startingNodeID" : 84,
-    "destinationNodeID" : 68,
-    "weight" : 70.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 70.0,
-    "increment" : 1.0,
-    "id" : 154,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 84,
-    "destinationNodeID" : 79,
-    "weight" : 199.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 199.0,
-    "increment" : 1.0,
-    "id" : 155,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 84,
-    "destinationNodeID" : 75,
-    "weight" : 54.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 54.0,
-    "increment" : 1.0,
-    "id" : 156,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 84,
-    "destinationNodeID" : 75,
-    "weight" : 54.0,
-    "trafficCondition" : "normal",
-    "direction" : "CONTRARIO",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 54.0,
-    "increment" : 1.0,
-    "id" : 156,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 84,
-    "destinationNodeID" : 68,
-    "weight" : 70.0,
-    "trafficCondition" : "normal",
-    "direction" : "IZQUIERDA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 70.0,
-    "increment" : 1.0,
-    "id" : 154,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 84,
-    "destinationNodeID" : 79,
-    "weight" : 199.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 199.0,
-    "increment" : 1.0,
-    "id" : 155,
-    "blocked" : false
-  } ]
+  "id" : 84
 }, {
   "location" : [ 487.0, 404.0 ],
   "connectionsMap" : {
@@ -5897,74 +1361,16 @@
       "startingNodeID" : 85,
       "destinationNodeID" : 71,
       "weight" : 64.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 64.0,
-      "increment" : 1.0,
-      "id" : 157,
-      "blocked" : false
+      "direction" : "ADELANTE"
     },
     "DERECHA" : {
       "startingNodeID" : 85,
       "destinationNodeID" : 60,
       "weight" : 32.0,
-      "trafficCondition" : "normal",
-      "direction" : "DERECHA",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 32.0,
-      "increment" : 1.0,
-      "id" : 158,
-      "blocked" : false
+      "direction" : "DERECHA"
     }
   },
-  "id" : 85,
-  "allConnections" : [ {
-    "startingNodeID" : 85,
-    "destinationNodeID" : 71,
-    "weight" : 64.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 64.0,
-    "increment" : 1.0,
-    "id" : 157,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 85,
-    "destinationNodeID" : 60,
-    "weight" : 32.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 32.0,
-    "increment" : 1.0,
-    "id" : 158,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 85,
-    "destinationNodeID" : 60,
-    "weight" : 32.0,
-    "trafficCondition" : "normal",
-    "direction" : "DERECHA",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 32.0,
-    "increment" : 1.0,
-    "id" : 158,
-    "blocked" : false
-  }, {
-    "startingNodeID" : 85,
-    "destinationNodeID" : 71,
-    "weight" : 64.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 64.0,
-    "increment" : 1.0,
-    "id" : 157,
-    "blocked" : false
-  } ]
+  "id" : 85
 }, {
   "location" : [ 234.0, 690.0 ],
   "connectionsMap" : {
@@ -5972,38 +1378,8 @@
       "startingNodeID" : 86,
       "destinationNodeID" : 27,
       "weight" : 91.0,
-      "trafficCondition" : "normal",
-      "direction" : "ADELANTE",
-      "accumulateWeight" : 0.0,
-      "effectiveWeight" : 91.0,
-      "increment" : 1.0,
-      "id" : 159,
-      "blocked" : false
+      "direction" : "ADELANTE"
     }
   },
-  "id" : 86,
-  "allConnections" : [ {
-    "startingNodeID" : 86,
-    "destinationNodeID" : 27,
-    "weight" : 91.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 91.0,
-    "increment" : 1.0,
-    "id" : 159,
-    "blocked" : false
-  } ],
-  "connectionsInOrderByWeight" : [ {
-    "startingNodeID" : 86,
-    "destinationNodeID" : 27,
-    "weight" : 91.0,
-    "trafficCondition" : "normal",
-    "direction" : "ADELANTE",
-    "accumulateWeight" : 0.0,
-    "effectiveWeight" : 91.0,
-    "increment" : 1.0,
-    "id" : 159,
-    "blocked" : false
-  } ]
+  "id" : 86
 } ]

@@ -1,5 +1,4 @@
 module org.una.navigatetrack {
-    requires javafx.controls;
     requires javafx.fxml;
 
     requires org.controlsfx.controls;
@@ -9,6 +8,7 @@ module org.una.navigatetrack {
     requires static lombok;
     requires com.fasterxml.jackson.databind;
     requires java.desktop;
+    requires com.jfoenix;
 
     opens org.una.navigatetrack to javafx.fxml;
     exports org.una.navigatetrack;
