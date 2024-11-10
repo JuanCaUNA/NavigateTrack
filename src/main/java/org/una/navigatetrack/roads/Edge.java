@@ -14,17 +14,13 @@ import java.util.Optional;
 @Setter
 public class Edge {
     @JsonIgnore
+    private static final Map<String, Double> TRAFFIC_MULTIPLIER = Map.of("normal", 1.0, "moderado", 1.25, "lento", 1.65);
+    @JsonIgnore
     private int ID;
-
     // Referencias de nodos
     private int startingNodeID;
     private int destinationNodeID;
-
     private double weight; // Peso en base a distancia entre nodos
-
-    @JsonIgnore
-    private static final Map<String, Double> TRAFFIC_MULTIPLIER = Map.of("normal", 1.0, "moderado", 1.25, "lento", 1.65);
-
     // Estados de ruta
     @JsonIgnore
     private boolean isBlocked; // Indica si la ruta está bloqueada
@@ -149,11 +145,25 @@ public class Edge {
         return getIndexAt(destinationNodeID);
     }
 
+    // Establecer el nodo de destino
+    public void setDestinationNode(Node targetNode) {
+        destinationNodeID = targetNode.getID();
+    }
+
     // Obtener el nodo de inicio
     @JsonIgnore
     public Node getStartingNode() {
         return getIndexAt(startingNodeID);
     }
+
+    // Establecer el nodo de inicio
+    public void setStartingNode(Node startNode) {
+        this.startingNodeID = startNode.getID();
+    }
+
+    // ===========================
+    // Métodos de establecimiento
+    // ===========================
 
     // Obtener el peso efectivo ajustado por el tráfico
     @JsonIgnore
@@ -164,20 +174,6 @@ public class Edge {
     // Obtener el incremento basado en el estado del tráfico
     public double getIncrement() {
         return (2 - TRAFFIC_MULTIPLIER.get(trafficCondition));
-    }
-
-    // ===========================
-    // Métodos de establecimiento
-    // ===========================
-
-    // Establecer el nodo de destino
-    public void setDestinationNode(Node targetNode) {
-        destinationNodeID = targetNode.getID();
-    }
-
-    // Establecer el nodo de inicio
-    public void setStartingNode(Node startNode) {
-        this.startingNodeID = startNode.getID();
     }
 
     // ===========================

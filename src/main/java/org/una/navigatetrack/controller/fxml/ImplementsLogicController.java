@@ -131,7 +131,7 @@ public class ImplementsLogicController implements Initializable {
     }
 
     private void handleConnectionSelection(double[] location) {
-        if(edge != null) {
+        if (edge != null) {
 
         }
 

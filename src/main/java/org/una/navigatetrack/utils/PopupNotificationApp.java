@@ -12,6 +12,10 @@ import javafx.util.Duration;
 
 public class PopupNotificationApp extends Application {
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @SuppressWarnings("exports")
     @Override
     public void start(Stage primaryStage) {
@@ -77,9 +81,5 @@ public class PopupNotificationApp extends Application {
         content.setEffect(new javafx.scene.effect.DropShadow(10, Color.BLACK));
 
         return content;
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

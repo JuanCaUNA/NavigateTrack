@@ -11,11 +11,11 @@ import java.util.Optional;
 @SuppressWarnings("All")
 public class JSON {
 
+    static ObjectMapper mapper = new ObjectMapper();
+
     private JSON() {
         // Constructor privado para evitar instanciación
     }
-
-    static ObjectMapper mapper = new ObjectMapper();
 
     /**
      * Lee un archivo JSON y lo deserializa en una lista de objetos.

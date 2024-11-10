@@ -8,8 +8,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import org.una.navigatetrack.manager.DrawerManager;
 import org.una.navigatetrack.manager.NodesDrawerManagers;
-import org.una.navigatetrack.roads.Edge;
 import org.una.navigatetrack.roads.Directions;
+import org.una.navigatetrack.roads.Edge;
 import org.una.navigatetrack.roads.Node;
 
 import java.net.URL;
@@ -17,12 +17,18 @@ import java.util.*;
 
 public class MapManageController implements Initializable {
 
-    @FXML    private Pane mapPane, paintPane, menuFlowPane, rootStackPane;
-    @FXML    private Label nodoActualLabel;
-    @FXML    private TextArea nodoInfoTextArea;
-    @FXML    private Button saveButton, deleteNodoButton, deleteConectionButton, changeImageB;
-    @FXML    private RadioButton izRadioB, derRadioB, adelanteRadioB, contrarioRadioB, seleccionarRadioB;
-    @FXML    private RadioButton editRadioB, addRadioB;
+    @FXML
+    private Pane mapPane, paintPane, menuFlowPane, rootStackPane;
+    @FXML
+    private Label nodoActualLabel;
+    @FXML
+    private TextArea nodoInfoTextArea;
+    @FXML
+    private Button saveButton, deleteNodoButton, deleteConectionButton, changeImageB;
+    @FXML
+    private RadioButton izRadioB, derRadioB, adelanteRadioB, contrarioRadioB, seleccionarRadioB;
+    @FXML
+    private RadioButton editRadioB, addRadioB;
 
     private boolean change = false;
     private NodesDrawerManagers manager;
@@ -57,7 +63,10 @@ public class MapManageController implements Initializable {
 
     private void setupEventHandlers() {
         // Maneja clics en el panel de dibujo
-        paintPane.setOnMouseClicked(event -> {handleMouseClick(event.getX(), event.getY()); rootStackPane.requestFocus(); });
+        paintPane.setOnMouseClicked(event -> {
+            handleMouseClick(event.getX(), event.getY());
+            rootStackPane.requestFocus();
+        });
 
         // Maneja el cambio de imagen del mapa
         changeImageB.setOnAction(event -> loadImageMap(change ? "/images/map2.png" : "/images/map0.png"));
@@ -101,7 +110,9 @@ public class MapManageController implements Initializable {
                 case W -> adelanteRadioB.setSelected(true); // W para adelante
                 case S -> contrarioRadioB.setSelected(true); // S para contrario
                 case E -> seleccionarRadioB.setSelected(true); // E para seleccionar
-                default -> {break;}
+                default -> {
+                    break;
+                }
             }
         });
     }

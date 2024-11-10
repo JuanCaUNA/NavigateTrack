@@ -3,9 +3,9 @@ package org.una.navigatetrack.manager;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import lombok.Getter;
-import org.una.navigatetrack.roads.Edge;
-import org.una.navigatetrack.roads.Directions;
 import org.una.navigatetrack.list.ListNodes;
+import org.una.navigatetrack.roads.Directions;
+import org.una.navigatetrack.roads.Edge;
 import org.una.navigatetrack.roads.Node;
 import org.una.navigatetrack.utils.AppContext;
 

@@ -18,6 +18,12 @@ import lombok.Setter;
 import java.util.Objects;
 
 public class NotificationToast extends Application {
+    private static final int MAX_CHARACTERS = 150;
+    // Variable estática para el último Stage mostrado
+    private static Stage lastNotificationStage = null;
+    private final int minHeight = 40, maxHeight = 200;
+    private final int minWidth = 150, maxWidth = 900;
+    private final int pixelesCaracter = 8, maxlines = 3;
     @Setter
     private String message;
     @Setter
@@ -26,14 +32,6 @@ public class NotificationToast extends Application {
     private int duration = 8;
     private int lines;
 
-    private final int minHeight = 40, maxHeight = 200;
-    private final int minWidth = 150, maxWidth = 900;
-    private final int pixelesCaracter = 8, maxlines = 3;
-    private static final int MAX_CHARACTERS = 150;
-
-    // Variable estática para el último Stage mostrado
-    private static Stage lastNotificationStage = null;
-
     public NotificationToast(String message, String title) {
         this.message = message;
         this.title = title;
@@ -41,6 +39,10 @@ public class NotificationToast extends Application {
 
     public NotificationToast() {
         this("Default message goes here.", "Notification");
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 
     @SuppressWarnings("exports")
@@ -166,9 +168,5 @@ public class NotificationToast extends Application {
         lines = Math.min(lines, maxlines);
 
         return maxChars;
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

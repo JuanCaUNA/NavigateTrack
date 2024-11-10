@@ -104,7 +104,8 @@ public class Node {
     public void deleteConnection(Directions direction) {
         connectionsMap.remove(direction);
     }
-    public void deleteConnections(){
+
+    public void deleteConnections() {
         connectionsMap.clear();
     }
 

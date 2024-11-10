@@ -160,11 +160,11 @@ public class DrawerManager {
 
     // metodos nuevos para obtener ubicaciones
     public double[] getLineAtWithCircle(double x, double y) {
-        return getLineAtWithCircle(new double[] { x, y });
+        return getLineAtWithCircle(new double[]{x, y});
     }
 
     public double[] getLineAtWithCircle(double[] circleCenter) {// cordenadas de x,y= inicio [0],[1], fin [2], [3], en
-                                                                // lineaPosition = [4], [5], null no se encontro
+        // lineaPosition = [4], [5], null no se encontro
         double radius = CIRCLE_RADIUS + 2; // Aumenta el radio en 2
         for (Line line : lines) {
             double distance = pointToLineDistance(
@@ -176,7 +176,7 @@ public class DrawerManager {
             if (distance <= radius) {
                 double[] intersection = calculateIntersection(line, circleCenter, radius);
                 if (intersection != null) {
-                    return new double[] {
+                    return new double[]{
                             line.getStartX(), line.getStartY(),
                             line.getEndX(), line.getEndY(),
                             intersection[0], intersection[1]

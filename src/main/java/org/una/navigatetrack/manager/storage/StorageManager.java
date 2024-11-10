@@ -51,8 +51,8 @@ public class StorageManager<T> {
     }
 
     private void showErrorDialog(String message) {
-       AppContext.getInstance().createNotification("Error", message);
-               //(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+        AppContext.getInstance().createNotification("Error", message);
+        //(null, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     private void showInfoDialog(String message) {

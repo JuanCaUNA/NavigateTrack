@@ -1,8 +1,8 @@
 package org.una.navigatetrack.manager;
 
-import org.una.navigatetrack.roads.Edge;
-import org.una.navigatetrack.roads.Directions;
 import org.una.navigatetrack.list.ListNodes;
+import org.una.navigatetrack.roads.Directions;
+import org.una.navigatetrack.roads.Edge;
 import org.una.navigatetrack.roads.Node;
 
 import java.util.Arrays;

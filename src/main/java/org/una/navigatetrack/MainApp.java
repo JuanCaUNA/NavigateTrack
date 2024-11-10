@@ -11,7 +11,7 @@ public class MainApp extends Application {
     }
 
     @Override
-     @SuppressWarnings("exports")
+    @SuppressWarnings("exports")
     public void start(Stage primaryStage) {
         AppContext.getInstance().defineScreen(primaryStage, "/fxml/ImplementsLogic.fxml");
     }

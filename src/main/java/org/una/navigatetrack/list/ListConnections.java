@@ -10,7 +10,7 @@ public class ListConnections {
     private static final List<Edge> CONNECTIONS_LIST = new ArrayList<>(); // Lista de conexiones
 
     // Agregar una nueva conexión
-    public static void addConnection( Edge edge) {
+    public static void addConnection(Edge edge) {
         if (!containsConnectionWithID(edge.getID())) {
             CONNECTIONS_LIST.add(edge);  // Agrega la conexión a la lista
         } else {

@@ -14,16 +14,14 @@ import java.util.List;
 @SuppressWarnings("exports")
 public class NodeGraphFacade {
     private final NodesDrawerManagers nodesDrawerManagers;
+    List<Edge> mejorRuta;
     private Node startNode, endNode;
     private double[] startPoint, endPoint;
     private double[] startConnection, endConnection;
-
     @Setter
     private boolean isDijkstra;
     @Getter
     private int time;
-
-    List<Edge> mejorRuta;
 
     public NodeGraphFacade(Pane paintPane) {
         nodesDrawerManagers = new NodesDrawerManagers(new DrawerManager(paintPane), false);
