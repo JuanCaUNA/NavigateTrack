@@ -105,4 +105,73 @@ public class Graph {
         }
         return distance;
     }
+
+    public boolean floydWarshall() {
+        int n = matrixPesos.length;
+
+        // Matrices de distancias y direcciones
+        double[][] dist = new double[n][n];
+        int[][] next = new int[n][n];
+
+        // Inicialización de las matrices
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j) {
+                    dist[i][j] = 0; // La distancia de un nodo a sí mismo es 0
+                    next[i][j] = -1; // No hay nodo siguiente si es el mismo nodo
+                } else if (matrixPesos[i][j] != Double.MAX_VALUE) {
+                    dist[i][j] = matrixPesos[i][j]; // Si hay una conexión, tomamos el peso
+                    next[i][j] = j; // El siguiente nodo es el destino
+                } else {
+                    dist[i][j] = Double.MAX_VALUE; // Si no hay conexión, es infinito
+                    next[i][j] = -1; // No hay camino
+                }
+            }
+        }
+
+        // Algoritmo de Floyd-Warshall
+        for (int k = 0; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (dist[i][j] > dist[i][k] + dist[k][j]) {
+                        dist[i][j] = dist[i][k] + dist[k][j]; // Actualizamos la distancia
+                        next[i][j] = next[i][k]; // Actualizamos el siguiente nodo
+                    }
+                }
+            }
+        }
+
+        // Si no se puede llegar al nodo final, retornamos false
+        if (dist[initNodeID][endNodeID] == Double.MAX_VALUE) {
+            return false;
+        }
+
+        // Reconstruir el camino más corto desde el nodo inicial hasta el nodo final
+        bestIdPath = reconstructPathFromNext(next, initNodeID, endNodeID);
+
+        if (bestIdPath == null) {
+            return false; // No se pudo encontrar un camino
+        }
+
+        // Reconstruir las conexiones del camino más corto
+        bestConectionPath = new ArrayList<>();
+        for (int i = 0; i < bestIdPath.size() - 1; i++) {
+            bestConectionPath.add(ListNodes.getNodeByID(bestIdPath.get(i)).getConnectionInNode(bestIdPath.get(i + 1)));
+        }
+
+        return true;
+    }
+
+    private List<Integer> reconstructPathFromNext(int[][] next, int start, int end) {
+        List<Integer> path = new ArrayList<>();
+        if (next[start][end] == -1) {
+            return null; // No hay camino
+        }
+        for (int at = start; at != -1; at = next[at][end]) {
+            path.add(at);
+            if (at == end) break;
+        }
+        return path.size() > 1 ? path : null;
+    }
+
 }
