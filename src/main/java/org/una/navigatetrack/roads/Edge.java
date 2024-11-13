@@ -14,7 +14,7 @@ import java.util.Optional;
 @Setter
 public class Edge {
     @JsonIgnore
-    private static final Map<String, Double> TRAFFIC_MULTIPLIER = Map.of("normal", 1.0, "moderado", 1.25, "lento", 1.65);
+    private static final Map<String, Double> TRAFFIC_MULTIPLIER = Map.of("normal", 1.0, "moderado", 2.0, "lento", 3.0);
     @JsonIgnore
     private int ID;
     // Referencias de nodos
