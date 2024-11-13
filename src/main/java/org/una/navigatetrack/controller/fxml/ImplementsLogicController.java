@@ -90,7 +90,15 @@ public class ImplementsLogicController implements Initializable {
     private void startTravel() {
         System.out.println("Iniciando viaje...");
         nodeGraphFacade.setDijkstra(radioBDijkstra.isSelected());
-        nodeGraphFacade.initTravel();
+
+        Thread travelThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                nodeGraphFacade.initTravel();
+            }
+        });
+        travelThread.start(); // Inicia el hilo
+
         showInfoMessage("Viaje iniciado.");
     }
 

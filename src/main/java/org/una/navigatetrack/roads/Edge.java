@@ -173,6 +173,10 @@ public class Edge {
     // Obtener el peso efectivo ajustado por el tráfico
     @JsonIgnore
     public double getEffectiveWeight() {
+        if(isBlocked){
+            return Double.MAX_VALUE;
+        }
+
         return (weight * TRAFFIC_MULTIPLIER.get(trafficCondition));
     }
 

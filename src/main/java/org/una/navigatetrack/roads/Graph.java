@@ -1,6 +1,8 @@
 package org.una.navigatetrack.roads;
 
 import lombok.Getter;
+import org.una.navigatetrack.list.ListConnections;
+import org.una.navigatetrack.list.ListNodes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +15,10 @@ public class Graph {
     private final Node initNode, endNode; // Nodos de inicio y fin del grafo
     private final int initNodeID, endNodeID; // IDs de los nodos de inicio y fin
     private List<Edge> bestPath; // Lista para almacenar la mejor ruta encontrada
+
+
+    private double[][] matrixPesos; // Matriz de pesos
+    private int[][] matrixDirecciones;
 
     // Constructor que inicializa el grafo con nodos de inicio y fin
     public Graph(Node startNode, Node endNode) {
@@ -96,6 +102,33 @@ public class Graph {
     private int calculateTotalWeight(List<Edge> path) {
         return path.stream().mapToInt(connection -> (int) connection.getEffectiveWeight()).sum(); // Sumar pesos
     }
+
+
+    public void createMatrix() {
+        int size = ListNodes.getNextId() - 1;  // Asumiendo que el número de nodos es ListNodes.getNextId() - 1
+
+        // Usando matrices tradicionales (double[][] y int[][])
+        matrixPesos = new double[size][size]; // Matriz de pesos
+        matrixDirecciones = new int[size][size]; // Matriz de direcciones
+
+        for (int c = 0; c < size; c++) {  // columnas
+            for (int f = 0; f < size; f++) {  // filas
+                matrixPesos[c][f] = Double.MAX_VALUE;  // Usamos Double.MAX_VALUE para indicar "sin conexión"
+                matrixDirecciones[c][f] = -1;
+            }
+        }
+
+        // Llenar las matrices con la información de las conexiones
+        for (Edge edge : ListConnections.getCONNECTIONS_LIST()) {
+            int column = edge.getDestinationNodeID();  // Nodo de destino
+            int fila = edge.getStartingNodeID();  // Nodo de inicio
+
+            // Asignar el peso y la dirección
+            matrixPesos[column][fila] = edge.getEffectiveWeight();  // Asignar el peso de la conexión
+            matrixDirecciones[column][fila] = column;
+        }
+    }
+
 }
 
 //ya las conexiones tienen la disatanciadefinida

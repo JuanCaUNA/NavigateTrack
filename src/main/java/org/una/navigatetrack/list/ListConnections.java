@@ -1,5 +1,6 @@
 package org.una.navigatetrack.list;
 
+import lombok.Getter;
 import org.una.navigatetrack.roads.Edge;
 
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.List;
 
 public class ListConnections {
 
+    @Getter
     private static final List<Edge> CONNECTIONS_LIST = new ArrayList<>(); // Lista de conexiones
 
     // Agregar una nueva conexión
@@ -72,6 +74,12 @@ public class ListConnections {
     private static boolean containsConnectionWithID(int id) {
         return CONNECTIONS_LIST.stream().anyMatch(connection -> connection.getID() == id);
     }
+
+    private List<Edge> getFirsConnections(int count) {
+//        CONNECTIONS_LIST.stream()
+        return null;
+    }
+
 
 //    public static void resetID() {
 //        int i = 0;
