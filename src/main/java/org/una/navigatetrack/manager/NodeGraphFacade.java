@@ -243,17 +243,22 @@ public class NodeGraphFacade {
 
     public Edge getConnection(double x, double y) {
         double[] locations = nodesDrawerManagers.getDrawerManager().getLineAtWithCircle(x, y);
+        if (locations == null)
+            return null;
+
         Node node1, node2;
         Edge edge;
         node1 = ListNodes.getNodeByLocation(locations[0], locations[1]);
         node2 = ListNodes.getNodeByLocation(locations[2], locations[3]);
         edge = node1.getConnectionInNode(node2.getID());
-        if (edge != null) {
-//            nodesDrawerManagers.getDrawerManager().removeLine();
-        }
 
         return (edge == null) ? node2.getConnectionInNode(node1.getID()) : edge;
-
     }
 
+    public void reDrawEdge(Edge edge, Color color) {
+        if (edge != null) {
+            nodesDrawerManagers.getDrawerManager().removeLine(edge.connectionline());
+            nodesDrawerManagers.getDrawerManager().drawLine(edge.connectionline(), color);
+        }
+    }
 }

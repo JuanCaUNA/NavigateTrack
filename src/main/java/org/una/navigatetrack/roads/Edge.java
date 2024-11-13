@@ -66,12 +66,17 @@ public class Edge {
         this.isBlocked = false;
         this.trafficCondition = "normal";
         this.ID = ListConnections.nextConnectionId();
+
         this.startingNodeID = 0;
         this.destinationNodeID = 0;
+
         this.weight = 1.0;
         this.direction = null;
-        this.accumulateWeight = 0.0;
+
         this.effectiveWeight = 0.0;
+
+        this.accumulateWeight = 0.0;
+
         this.increment = 1.0;
 
         ListConnections.addConnection(this);

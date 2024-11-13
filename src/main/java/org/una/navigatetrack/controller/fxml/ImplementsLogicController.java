@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import org.una.navigatetrack.configs.Config;
 import org.una.navigatetrack.manager.NodeGraphFacade;
 import org.una.navigatetrack.roads.Edge;
@@ -46,9 +47,11 @@ public class ImplementsLogicController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         nodeGraphFacade = new NodeGraphFacade(paintPane);
         setupUI();
-//        setupToggleGroups();
+
         setupEventHandlers();
         blockCBox.setDisable(true);
+        radioBNode.setDisable(true);
+        radioBNode.setVisible(false);
     }
 
     private void setupUI() {
@@ -56,19 +59,6 @@ public class ImplementsLogicController implements Initializable {
         loadImageMap("/images/map2.png");
     }
 
-    // private void setupToggleGroups() {
-    //     ToggleGroup selectionGroup = new ToggleGroup();
-    //     initRadioB.setToggleGroup(selectionGroup);
-    //     endingRadioB.setToggleGroup(selectionGroup);
-    //     radioBNode.setToggleGroup(selectionGroup);
-    //     radioBConnection.setToggleGroup(selectionGroup);
-    //     endingRadioB.setSelected(true);
-
-    //     ToggleGroup modeGroup = new ToggleGroup();
-    //     radioBDijkstra.setToggleGroup(modeGroup);
-    //     radioBFloydWarshall.setToggleGroup(modeGroup);
-    //     radioBFloydWarshall.setSelected(true);
-    // }
 
     private void changeImage() {
         loadImageMap(change ? "/images/map2.png" : "/images/map0.png");
@@ -112,7 +102,11 @@ public class ImplementsLogicController implements Initializable {
 
     private void handleBlockAction() {
         edge.setBlocked(blockCBox.isSelected());
-        showInfoMessage("Camino bloqueado.");
+        message = blockCBox.isSelected() ? "Camino bloqueado." : "Camino desbloqueado.";
+
+        Color color = edge.isBlocked() ? Color.RED : Color.LIGHTGREEN;
+        nodeGraphFacade.reDrawEdge(edge, color);
+        showInfoMessage(message);
     }
 
     private void select(double[] location) {
@@ -131,15 +125,18 @@ public class ImplementsLogicController implements Initializable {
     }
 
     private void handleConnectionSelection(double[] location) {
-        if (edge != null) {
-
+        if (edge != null && !edge.isBlocked()) {
+            nodeGraphFacade.reDrawEdge(edge, Color.BLUE);
         }
 
         edge = nodeGraphFacade.getConnection(location[0], location[1]);
         if (edge != null) {
             message = "Marcó un camino en: ";
             textArea.setText(edge.toString());
+            Color color = edge.isBlocked() ? Color.RED : Color.LIGHTGREEN;
+            nodeGraphFacade.reDrawEdge(edge, color);
             blockCBox.setDisable(false);
+            blockCBox.setSelected(edge.isBlocked());
         } else {
             message = "No hay ningún camino en: ";
         }
@@ -150,3 +147,18 @@ public class ImplementsLogicController implements Initializable {
         AppContext.getInstance().createNotification("Info", message);
     }
 }
+
+// private void setupToggleGroups() {
+//     ToggleGroup selectionGroup = new ToggleGroup();
+//     initRadioB.setToggleGroup(selectionGroup);
+//     endingRadioB.setToggleGroup(selectionGroup);
+//     radioBNode.setToggleGroup(selectionGroup);
+//     radioBConnection.setToggleGroup(selectionGroup);
+//     endingRadioB.setSelected(true);
+
+//     ToggleGroup modeGroup = new ToggleGroup();
+//     radioBDijkstra.setToggleGroup(modeGroup);
+//     radioBFloydWarshall.setToggleGroup(modeGroup);
+//     radioBFloydWarshall.setSelected(true);
+// }
+//        setupToggleGroups();
