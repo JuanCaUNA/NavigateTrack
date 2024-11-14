@@ -14,186 +14,149 @@ import java.util.Optional;
 @Setter
 public class Edge {
     @JsonIgnore
-    private static final Map<String, Double> TRAFFIC_MULTIPLIER = Map.of("normal", 1.0, "moderado", 1.25, "lento", 1.65);
+    private static final Map<String, Double> TRAFFIC_MULTIPLIER = Map.of(
+            "normal", 1.0,
+            "moderado", 2.0,
+            "lento", 3.0
+    );
+
+    @JsonIgnore
+    private static final String DEFAULT_TRAFFIC_CONDITION = "normal";
+
+    @JsonIgnore
+    private static final double DEFAULT_WEIGHT = 1.0;
+
     @JsonIgnore
     private int ID;
-    // Referencias de nodos
     private int startingNodeID;
     private int destinationNodeID;
-    private double weight; // Peso en base a distancia entre nodos
-    // Estados de ruta
+    private double weight; // Distancia entre nodos cambia al cambiar el punto de partida
     @JsonIgnore
-    private boolean isBlocked; // Indica si la ruta está bloqueada
+    private boolean isBlocked;
     @JsonIgnore
-    private String trafficCondition; // Estado de tráfico ("normal", "moderado", "lento")
+    private String trafficCondition = DEFAULT_TRAFFIC_CONDITION;
 
     private Directions direction;
     @JsonIgnore
-    private double accumulateWeight;  // Este campo se deserializa correctamente desde el JSON
+    private double accumulateWeight;
 
-    // Campos no presentes en el JSON, pero calculados
-    @JsonIgnore
-    private double effectiveWeight;  // Este campo no es necesario deserializarlo, ya que se calcula
-    @JsonIgnore
-    private double increment;  // Similar al campo `effectiveWeight`, este se calcula
+    // Nodos de inicio y destino
+    private Node startingNode;
+    private Node destinationNode;
 
-    // ===========================
     // Constructores
-    // ===========================
-
     public Edge() {
-        init();
+        this.isBlocked = false;
+        this.trafficCondition = DEFAULT_TRAFFIC_CONDITION;
+        this.ID = ListConnections.nextConnectionId();
+        this.weight = DEFAULT_WEIGHT;
     }
 
     public Edge(int startingNodeID, int destinationNodeID, int weight) {
-        init();
+        this();
         this.startingNodeID = startingNodeID;
         this.destinationNodeID = destinationNodeID;
         this.weight = weight;
     }
 
-    // ===========================
-    // Inicialización
-    // ===========================
-
-    private void init() {
-        this.isBlocked = false;
-        this.trafficCondition = "normal";
-        this.ID = ListConnections.nextConnectionId();
-
-        this.startingNodeID = 0;
-        this.destinationNodeID = 0;
-
-        this.weight = 1.0;
-        this.direction = null;
-
-        this.effectiveWeight = 0.0;
-
-        this.accumulateWeight = 0.0;
-
-        this.increment = 1.0;
-
-    }
-
-    // ===========================
     // Métodos de estado
-    // ===========================
-
-    // Bloquear la ruta
     public void blockRoute() {
         isBlocked = true;
     }
 
-    // Desbloquear la ruta
     public void unblockRoute() {
         isBlocked = false;
     }
 
-    // Verificar si se puede acceder a la ruta
     public boolean canAccess() {
         return !isBlocked;
     }
 
-    // ===========================
     // Métodos de cálculo
-    // ===========================
-
-    // Calcular la distancia y actualizar el peso
     private void refreshWeight() {
-        weight -= getIncrement();
+        // Actualiza el peso de acuerdo con el incremento
+        weight = Math.max(weight - getIncrement(), 0);  // Evita que el peso sea negativo
     }
 
-    // Recalcular el nodo de inicio basándose en las coordenadas de los nodos
     public void recalculateStartNode() {
         double[] init = getStartingNode().getLocation();
         double[] end = getDestinationNode().getLocation();
-
-        // Llamada al cálculo de incremento
-        calcularIncremento(init[0], init[1], end[0], end[1], getIncrement()*5);
+        calcularIncremento(init[0], init[1], end[0], end[1], getIncrement());
         refreshWeight();
     }
 
-    // Calcular el incremento para actualizar las coordenadas del nodo
     public void calcularIncremento(double x1, double y1, double x2, double y2, double incremento) {
-        // Calcular la distancia en X e Y
+        // Calcular la distancia entre los puntos
         double distanciaX = x2 - x1;
         double distanciaY = y2 - y1;
-
-        // Calcular la distancia total entre los dos puntos
         double distanciaTotal = Math.sqrt(Math.pow(distanciaX, 2) + Math.pow(distanciaY, 2));
 
         // Evitar división por cero
         if (distanciaTotal == 0) {
-            return;  // Si los puntos son iguales, no actualices las coordenadas
+            return;  // Si los puntos son iguales, no hacer nada
         }
 
-        // Calcular el factor de dirección en X e Y (normalizamos la distancia)
+        // Normalizar la distancia para obtener el vector dirección
         double factorX = (distanciaX / distanciaTotal) * incremento;
         double factorY = (distanciaY / distanciaTotal) * incremento;
 
-        // Calcular nuevas coordenadas
+        // Si el incremento es mayor que la distancia restante, ajustarlo para no pasarse
+        if (distanciaTotal < incremento) {
+            factorX = distanciaX;  // Mover exactamente a la posición del destino
+            factorY = distanciaY;
+        }
+
+        // Actualizar la nueva ubicación del nodo de inicio
         double nuevaX = x1 + factorX;
         double nuevaY = y1 + factorY;
 
         // Establecer las nuevas coordenadas del nodo de inicio
-        getStartingNode().setLocation(new double[]{nuevaX, nuevaY});
+        Node node = getStartingNode();
+        if (node != null) {
+            node.setLocation(new double[]{nuevaX, nuevaY});
+        }
     }
 
-    // ===========================
     // Métodos de obtención
-    // ===========================
-
-    // Obtener el nodo de destino
     @JsonIgnore
     public Node getDestinationNode() {
-        return getIndexAt(destinationNodeID);
+        if (destinationNode == null) {
+            destinationNode = getIndexAt(destinationNodeID);
+        }
+        return destinationNode;
     }
 
-    // Establecer el nodo de destino
-    public void setDestinationNode(Node targetNode) {
-        destinationNodeID = targetNode.getID();
-    }
-
-    // Obtener el nodo de inicio
     @JsonIgnore
     public Node getStartingNode() {
-        return getIndexAt(startingNodeID);
+        if (startingNode == null) {
+            startingNode = getIndexAt(startingNodeID);
+        }
+        return startingNode;
     }
 
-    // Establecer el nodo de inicio
-    public void setStartingNode(Node startNode) {
-        this.startingNodeID = startNode.getID();
-    }
-
-    // ===========================
     // Métodos de establecimiento
-    // ===========================
-
-    // Obtener el peso efectivo ajustado por el tráfico
     @JsonIgnore
     public double getEffectiveWeight() {
-        if(isBlocked){
+        if (isBlocked) {
             return Double.MAX_VALUE;
         }
-
-        return (weight * TRAFFIC_MULTIPLIER.get(trafficCondition));
+        // El peso efectivo se ajusta según las condiciones de tráfico
+        Double multiplier = TRAFFIC_MULTIPLIER.get(trafficCondition);
+        return (weight * multiplier);
     }
 
-    // Obtener el incremento basado en el estado del tráfico
+    // Cálculo del incremento de acuerdo con el tráfico
     public double getIncrement() {
-        return (2 - TRAFFIC_MULTIPLIER.get(trafficCondition));
+        double baseIncrement = 10.0;  // Valor base
+        double trafficMultiplier = TRAFFIC_MULTIPLIER.get(trafficCondition);  // Obtén el multiplicador de tráfico
+        return baseIncrement / trafficMultiplier;  // Ajusta el incremento según el tráfico
     }
 
-    // ===========================
     // Métodos de búsqueda
-    // ===========================
-
-    // Buscar un nodo por ID
     public Optional<Node> searchAndGetNode(int nodeID) {
         return ListNodes.findById(nodeID);
     }
 
-    // Obtener el nodo por su ID
     public Node getIndexAt(int ID) {
         return ListNodes.getNodeByID(ID);
     }
@@ -205,9 +168,6 @@ public class Edge {
         return new Line(start[0], start[1], end[0], end[1]);
     }
 
-    // ===========================
-    // Método toString
-    // ===========================
     @Override
     public String toString() {
         return "Connection{" +
@@ -221,6 +181,7 @@ public class Edge {
                 '}';
     }
 }
+
 
 //@JsonIgnoreProperties(ignoreUnknown = true)  // Ignora los campos que no estén en la clase
 //@JsonInclude(JsonInclude.Include.NON_NULL)  // Excluye los campos nulos del JSON
