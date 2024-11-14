@@ -10,170 +10,164 @@ import java.util.*;
 @Getter
 public class Graph {
 
-    private Node initNode, endNode;
-    private int initNodeID, endNodeID;
+    private Node startNode, endNode;
+    private int startNodeID, endNodeID;
 
-    private List<Integer> bestIdPath;
-    private List<Edge> bestConectionPath;
-    double[][] matrixPesos; // Matriz de pesos
-    int[][] matrixDirecciones; // Matriz de direcciones
+    private List<Integer> bestPathNodeIDs;
+    private final List<Edge> bestPathEdges;
+    private double[][] weightMatrix; // Matriz de pesos entre nodos
+    private int[][] directionMatrix; // Matriz de direcciones (índices de los nodos)
+
+    private static final double INFINITY = Double.MAX_VALUE; // Constante para representar "sin conexión"
 
     public Graph(Node startNode, Node endNode) {
-        this.initNode = startNode;
+        this.startNode = startNode;
         this.endNode = endNode;
-        this.initNodeID = startNode.getID();
+        this.startNodeID = startNode.getID();
         this.endNodeID = endNode.getID();
-        createMatrix(); // Crea la matriz de pesos en el constructor
+        initializeMatrices(); // Crea la matriz de pesos y direcciones
 
-
-        bestIdPath = new ArrayList<>();
-        bestConectionPath = new ArrayList<>();
+        bestPathNodeIDs = new ArrayList<>();
+        bestPathEdges = new ArrayList<>();
     }
 
-    private void createMatrix() {
+    private void initializeMatrices() {
         try {
-            int size = ListNodes.getNodesList().size();
+            List<Node> nodes = ListNodes.getNodesList();
+            int size = nodes.size();
 
-            if (size <= 0) {
+            if (size == 0) {
                 throw new IllegalArgumentException("El número de nodos debe ser mayor que cero.");
             }
 
-            // Inicializar las matrices de pesos y direcciones con valores predeterminados
-            matrixPesos = new double[size][size];
-            matrixDirecciones = new int[size][size];
+            // Inicializar matrices de pesos y direcciones
+            weightMatrix = new double[size][size];
+            directionMatrix = new int[size][size];
 
-            for (int c = 0; c < size; c++) {  // columnas
-                for (int f = 0; f < size; f++) {  // filas
-                    matrixPesos[c][f] = Double.MAX_VALUE;  // Usamos Double.MAX_VALUE para indicar "sin conexión"
-                    matrixDirecciones[c][f] = 0;  // Usamos 0 para indicar "sin dirección"
-                }
+            for (int i = 0; i < size; i++) {
+                Arrays.fill(weightMatrix[i], INFINITY);  // Usamos INFINITY para "sin conexión"
+                Arrays.fill(directionMatrix[i], -1);  // Sin dirección inicial
             }
 
-            // Llenar las matrices con la información de las conexiones
+            // Llenar las matrices con las conexiones
             for (Edge edge : ListConnections.getCONNECTIONS_LIST()) {
-                int column = edge.getDestinationNodeID();  // Nodo de destino
-                int fila = edge.getStartingNodeID();  // Nodo de inicio
+                int startID = edge.getStartingNodeID();
+                int endID = edge.getDestinationNodeID();
 
-                // Validación de los índices de fila y columna
-                if (column < 0 || column >= size || fila < 0 || fila >= size) {
-                    System.err.printf("Índices fuera de rango en la conexión: Destino %d, Inicio %d.%n", column, fila);
+                // Validar si los índices están dentro del rango
+                if (startID < 0 || startID >= size || endID < 0 || endID >= size) {
+                    System.err.printf("Índices fuera de rango: %d -> %d%n", startID, endID);
                     continue;
                 }
 
-                // Verificar si el peso de la conexión es válido
+                // Verificar peso de la conexión
                 double weight = edge.getEffectiveWeight();
-                if (Double.isNaN(weight) || weight < 0) {
-                    System.err.println("Advertencia: Conexión con peso inválido o negativo. Nodo: "
-                            + edge.getStartingNodeID() + " -> " + edge.getDestinationNodeID());
-                    continue;  // Si el peso es inválido, no lo asignamos
+                if (weight < 0 || Double.isNaN(weight)) {
+                    System.err.printf("Peso inválido para la conexión: %d -> %d%n", startID, endID);
+                    continue;
                 }
 
-                // Asignar el peso y la dirección
-                matrixPesos[column][fila] = weight;  // Asignar el peso de la conexión
-                matrixDirecciones[column][fila] = column;  // Aquí asignamos la columna (o ajusta si es necesario)
+                // Asignar peso y dirección
+                weightMatrix[startID][endID] = weight;
+                directionMatrix[startID][endID] = endID;
             }
 
         } catch (Exception e) {
-            System.err.println("Error al crear las matrices de conexiones: " + e.getMessage());
-            e.printStackTrace();  // Imprime la traza completa del error
+            System.err.println("Error al inicializar las matrices: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
     public void setNodes(Node startNode, Node endNode) {
-        this.initNode = startNode;
+        this.startNode = startNode;
         this.endNode = endNode;
-
-        this.initNodeID = startNode.getID();
+        this.startNodeID = startNode.getID();
         this.endNodeID = endNode.getID();
     }
 
-    public boolean dijkstra() {
-        bestIdPath.clear();
-        bestConectionPath.clear();
-
-        int n = matrixPesos.length;
+    public boolean runDijkstra() {
+        int n = weightMatrix.length;
         double[] dist = new double[n];
-
         int[] prev = new int[n];
 
-        Arrays.fill(dist, Double.MAX_VALUE);
+        Arrays.fill(dist, INFINITY);
         Arrays.fill(prev, -1);
-        dist[initNodeID] = 0;
+        dist[startNodeID] = 0;
 
         PriorityQueue<Integer> queue = new PriorityQueue<>(Comparator.comparingDouble(node -> dist[node]));
-        queue.add(initNodeID);
+        queue.add(startNodeID);
 
         while (!queue.isEmpty()) {
-            int u = queue.poll();
+            int currentNodeID = queue.poll();
 
-            if (u == endNodeID) break;
+            if (currentNodeID == endNodeID) break;
 
-            for (int v = 0; v < n; v++) {
-                if (matrixPesos[u][v] != Double.MAX_VALUE) {
-                    double newDist = dist[u] + matrixPesos[u][v];
-                    if (newDist < dist[v]) {
-                        dist[v] = newDist;
-                        prev[v] = u;
-                        queue.add(v);
+            for (int neighborID = 0; neighborID < n; neighborID++) {
+                if (weightMatrix[currentNodeID][neighborID] != INFINITY) {
+                    double newDist = dist[currentNodeID] + weightMatrix[currentNodeID][neighborID];
+                    if (newDist < dist[neighborID]) {
+                        dist[neighborID] = newDist;
+                        prev[neighborID] = currentNodeID;
+                        queue.add(neighborID);
                     }
                 }
             }
         }
 
-        bestIdPath = reconstructPath(prev, endNodeID);
+        bestPathNodeIDs = reconstructPath(prev, endNodeID);
+        if (bestPathNodeIDs == null || bestPathNodeIDs.isEmpty()) return false;
 
-        if (bestIdPath == null || bestIdPath.isEmpty()) {
-            return false;
-        }
-
-        bestConectionPath = new ArrayList<>();
-        for (int i = 0; i < bestIdPath.size() - 1; i++) {
-            bestConectionPath.add(ListNodes.getNodeByID(bestIdPath.get(i)).getConnectionInNode(bestIdPath.get(i + 1)));
-        }
+        reconstructEdgesFromPath();
         return true;
     }
 
-    private List<Integer> reconstructPath(int[] prev, int end) {
+    private List<Integer> reconstructPath(int[] prev, int endID) {
         List<Integer> path = new ArrayList<>();
-        for (int at = end; at != -1; at = prev[at]) {
+        for (int at = endID; at != -1; at = prev[at]) {
             path.add(at);
         }
         Collections.reverse(path);
-        return path.size() > 1 ? path : null;
+        return path.size() > 1 ? path : null; // Si el camino es válido (más de un nodo)
+    }
+
+    private void reconstructEdgesFromPath() {
+        bestPathEdges.clear();
+        for (int i = 0; i < bestPathNodeIDs.size() - 1; i++) {
+            int startID = bestPathNodeIDs.get(i);
+            int endID = bestPathNodeIDs.get(i + 1);
+            bestPathEdges.add(ListNodes.getNodeByID(startID).getConnectionInNode(endID));
+        }
     }
 
     public double getPathDistance() {
-        if (bestIdPath == null || bestIdPath.isEmpty()) {
+        if (bestPathNodeIDs == null || bestPathNodeIDs.isEmpty()) {
             return 0;
         }
         double distance = 0;
-        for (int i = 0; i < bestIdPath.size() - 1; i++) {
-            distance += matrixPesos[bestIdPath.get(i)][bestIdPath.get(i + 1)];
+        for (int i = 0; i < bestPathNodeIDs.size() - 1; i++) {
+            distance += weightMatrix[bestPathNodeIDs.get(i)][bestPathNodeIDs.get(i + 1)];
         }
         return distance;
     }
 
-    public boolean floydWarshall() {
-        bestConectionPath.clear();
+    public boolean runFloydWarshall() {
+        int n = weightMatrix.length;
 
-        int n = matrixPesos.length;
-
-        // Matrices de distancias y direcciones
         double[][] dist = new double[n][n];
         int[][] next = new int[n][n];
 
-        // Inicialización de las matrices
+        // Inicialización de matrices
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (i == j) {
-                    dist[i][j] = 0; // La distancia de un nodo a sí mismo es 0
-                    next[i][j] = -1; // No hay nodo siguiente si es el mismo nodo
-                } else if (matrixPesos[i][j] != Double.MAX_VALUE) {
-                    dist[i][j] = matrixPesos[i][j]; // Si hay una conexión, tomamos el peso
-                    next[i][j] = j; // El siguiente nodo es el destino
+                    dist[i][j] = 0;
+                    next[i][j] = -1;
+                } else if (weightMatrix[i][j] != INFINITY) {
+                    dist[i][j] = weightMatrix[i][j];
+                    next[i][j] = j;
                 } else {
-                    dist[i][j] = Double.MAX_VALUE; // Si no hay conexión, es infinito
-                    next[i][j] = -1; // No hay camino
+                    dist[i][j] = INFINITY;
+                    next[i][j] = -1;
                 }
             }
         }
@@ -183,90 +177,64 @@ public class Graph {
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
                     if (dist[i][j] > dist[i][k] + dist[k][j]) {
-                        dist[i][j] = dist[i][k] + dist[k][j]; // Actualizamos la distancia
-                        next[i][j] = next[i][k]; // Actualizamos el siguiente nodo
+                        dist[i][j] = dist[i][k] + dist[k][j];
+                        next[i][j] = next[i][k];
                     }
                 }
             }
         }
 
-        // Si no se puede llegar al nodo final, retornamos false
-        if (dist[initNodeID][endNodeID] == Double.MAX_VALUE) {
+        if (dist[startNodeID][endNodeID] == INFINITY) {
             return false;
         }
 
-        // Reconstruir el camino más corto desde el nodo inicial hasta el nodo final
-        bestIdPath = reconstructPathFromNext(next, initNodeID, endNodeID);
-
-        if (bestIdPath == null) {
+        bestPathNodeIDs = reconstructPathFromNext(next, startNodeID, endNodeID);
+        if (bestPathNodeIDs == null) {
             return false; // No se pudo encontrar un camino
         }
 
-        // Reconstruir las conexiones del camino más corto
-        bestConectionPath = new ArrayList<>();
-        for (int i = 0; i < bestIdPath.size() - 1; i++) {
-            bestConectionPath.add(ListNodes.getNodeByID(bestIdPath.get(i)).getConnectionInNode(bestIdPath.get(i + 1)));
-        }
-
+        reconstructEdgesFromPath();
         return true;
     }
 
-    private List<Integer> reconstructPathFromNext(int[][] next, int start, int end) {
+    private List<Integer> reconstructPathFromNext(int[][] next, int startID, int endID) {
         List<Integer> path = new ArrayList<>();
-        if (next[start][end] == -1) {
-            return null; // No hay camino
-        }
-        for (int at = start; at != -1; at = next[at][end]) {
+        if (next[startID][endID] == -1) return null;
+
+        for (int at = startID; at != -1; at = next[at][endID]) {
             path.add(at);
-            if (at == end) break;
+            if (at == endID) break;
         }
         return path.size() > 1 ? path : null;
     }
 
+    // Método principal para ejecutar los algoritmos
     public static void main(String[] args) {
         // Cargar la lista de nodos y conexiones
         ListNodes.loadNodesList();
 
-        // Prueba 1: Camino entre nodos 3 y 4
-        System.out.println("Prueba 1: Camino de nodo 3 a nodo 4");
-        Graph graph1 = new Graph(ListNodes.getNodeByID(3), ListNodes.getNodeByID(4));
-        testAlgorithms(graph1);
-
-        // Prueba 2: Camino entre nodos 0 y 5
-        System.out.println("\nPrueba 2: Camino de nodo 0 a nodo 5");
-        Graph graph2 = new Graph(ListNodes.getNodeByID(0), ListNodes.getNodeByID(5));
-        testAlgorithms(graph2);
-
-        // Prueba 3: Camino entre nodos no conexos (prueba de error)
-        System.out.println("\nPrueba 3: Camino de nodo 1 a nodo 47 (sin conexión)");
-        Graph graph3 = new Graph(ListNodes.getNodeByID(1), ListNodes.getNodeByID(80));
-        testAlgorithms(graph3);
-
-        // Prueba 4: Camino desde y hacia el mismo nodo (camino trivial)
-        System.out.println("\nPrueba 4: Camino de nodo 2 a nodo 2 (mismo nodo)");
-        Graph graph4 = new Graph(ListNodes.getNodeByID(2), ListNodes.getNodeByID(2));
-        testAlgorithms(graph4);
-
-        // Prueba 5: Camino en grafo completamente conectado (si existe)
-        System.out.println("\nPrueba 5: Camino de nodo 0 a nodo 3 en grafo completo");
-        Graph graph5 = new Graph(ListNodes.getNodeByID(0), ListNodes.getNodeByID(3));
-        testAlgorithms(graph5);
+        // Ejemplo de uso: Camino entre nodos 3 y 4
+        System.out.println("Prueba: Camino de nodo 3 a nodo 4");
+        Graph graph = new Graph(ListNodes.getNodeByID(3), ListNodes.getNodeByID(4));
+        testGraphAlgorithms(graph);
     }
 
-    private static void testAlgorithms(Graph graph) {
-        // Prueba del método Dijkstra
+    private static void testGraphAlgorithms(Graph graph) {
         System.out.println("Prueba de Dijkstra:");
-        if (graph.dijkstra()) {
-            System.out.println("Camino encontrado usando Dijkstra: " + graph.getBestIdPath());
+        if (graph.runDijkstra()) {
+            System.out.println("Camino encontrado: " + graph.bestPathNodeIDs);
             System.out.println("Distancia total: " + graph.getPathDistance());
         } else {
             System.out.println("No se encontró un camino usando Dijkstra.");
         }
 
-        // Prueba del método Floyd-Warshall
-        System.out.println("\nPrueba de Floyd-Warshall:");
-        if (graph.floydWarshall()) {
-            System.out.println("Camino encontrado usando Floyd-Warshall: " + graph.getBestIdPath());
+        for (Edge edge: graph.bestPathEdges){
+            System.out.println(edge.toString());
+        }
+
+        System.out.println("Prueba de Floyd-Warshall:");
+        if (graph.runFloydWarshall()) {
+            System.out.println("Camino encontrado: " + graph.bestPathNodeIDs);
             System.out.println("Distancia total: " + graph.getPathDistance());
         } else {
             System.out.println("No se encontró un camino usando Floyd-Warshall.");
