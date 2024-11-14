@@ -56,9 +56,8 @@ public class Graph {
 
                 // Validación de los índices de fila y columna
                 if (column < 0 || column >= size || fila < 0 || fila >= size) {
-                    System.err.println("Error: Los índices de la conexión están fuera de rango. "
-                            + "Destino: " + column + ", Inicio: " + fila);
-                    continue;  // Salta esta conexión y sigue con la siguiente
+                    System.err.printf("Índices fuera de rango en la conexión: Destino %d, Inicio %d.%n", column, fila);
+                    continue;
                 }
 
                 // Verificar si el peso de la conexión es válido
@@ -155,7 +154,6 @@ public class Graph {
     }
 
     public boolean floydWarshall() {
-        bestIdPath.clear();
         bestConectionPath.clear();
 
         int n = matrixPesos.length;
@@ -225,4 +223,53 @@ public class Graph {
         return path.size() > 1 ? path : null;
     }
 
+    public static void main(String[] args) {
+        // Cargar la lista de nodos y conexiones
+        ListNodes.loadNodesList();
+
+        // Prueba 1: Camino entre nodos 3 y 4
+        System.out.println("Prueba 1: Camino de nodo 3 a nodo 4");
+        Graph graph1 = new Graph(ListNodes.getNodeByID(3), ListNodes.getNodeByID(4));
+        testAlgorithms(graph1);
+
+        // Prueba 2: Camino entre nodos 0 y 5
+        System.out.println("\nPrueba 2: Camino de nodo 0 a nodo 5");
+        Graph graph2 = new Graph(ListNodes.getNodeByID(0), ListNodes.getNodeByID(5));
+        testAlgorithms(graph2);
+
+        // Prueba 3: Camino entre nodos no conexos (prueba de error)
+        System.out.println("\nPrueba 3: Camino de nodo 1 a nodo 47 (sin conexión)");
+        Graph graph3 = new Graph(ListNodes.getNodeByID(1), ListNodes.getNodeByID(80));
+        testAlgorithms(graph3);
+
+        // Prueba 4: Camino desde y hacia el mismo nodo (camino trivial)
+        System.out.println("\nPrueba 4: Camino de nodo 2 a nodo 2 (mismo nodo)");
+        Graph graph4 = new Graph(ListNodes.getNodeByID(2), ListNodes.getNodeByID(2));
+        testAlgorithms(graph4);
+
+        // Prueba 5: Camino en grafo completamente conectado (si existe)
+        System.out.println("\nPrueba 5: Camino de nodo 0 a nodo 3 en grafo completo");
+        Graph graph5 = new Graph(ListNodes.getNodeByID(0), ListNodes.getNodeByID(3));
+        testAlgorithms(graph5);
+    }
+
+    private static void testAlgorithms(Graph graph) {
+        // Prueba del método Dijkstra
+        System.out.println("Prueba de Dijkstra:");
+        if (graph.dijkstra()) {
+            System.out.println("Camino encontrado usando Dijkstra: " + graph.getBestIdPath());
+            System.out.println("Distancia total: " + graph.getPathDistance());
+        } else {
+            System.out.println("No se encontró un camino usando Dijkstra.");
+        }
+
+        // Prueba del método Floyd-Warshall
+        System.out.println("\nPrueba de Floyd-Warshall:");
+        if (graph.floydWarshall()) {
+            System.out.println("Camino encontrado usando Floyd-Warshall: " + graph.getBestIdPath());
+            System.out.println("Distancia total: " + graph.getPathDistance());
+        } else {
+            System.out.println("No se encontró un camino usando Floyd-Warshall.");
+        }
+    }
 }
