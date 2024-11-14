@@ -156,7 +156,7 @@ public class Main {
 //        }
 //System.out.println(ListNodes.findById(1).get().getAllConnections().get(0).getDestinationNodeID());
 
-//        if (ListNodes.findById(0).isEmpty())
+//        if (ListNodes.findById(0).isEmptyValues())
 //            System.out.println(" inicia en 1");
 //
 //        for (Node node : listNodes) {

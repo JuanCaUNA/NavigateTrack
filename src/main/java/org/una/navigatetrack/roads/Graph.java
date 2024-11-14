@@ -6,11 +6,13 @@ import org.una.navigatetrack.list.ListNodes;
 
 import java.util.*;
 
-@SuppressWarnings("ALL")
+//@SuppressWarnings("ALL")
 @Getter
 public class Graph {
-    private final Node initNode, endNode;
-    private final int initNodeID, endNodeID;
+
+    private Node initNode, endNode;
+    private int initNodeID, endNodeID;
+
     private List<Integer> bestIdPath;
     private List<Edge> bestConectionPath;
     double[][] matrixPesos; // Matriz de pesos
@@ -22,33 +24,79 @@ public class Graph {
         this.initNodeID = startNode.getID();
         this.endNodeID = endNode.getID();
         createMatrix(); // Crea la matriz de pesos en el constructor
+
+
+        bestIdPath = new ArrayList<>();
+        bestConectionPath = new ArrayList<>();
     }
 
-    public void createMatrix() {
-        int size = ListNodes.getNextId() - 1;  // Asumiendo que el número de nodos es ListNodes.getNextId() - 1
+    private void createMatrix() {
+        try {
+            int size = ListNodes.getNodesList().size();
 
-        for (int c = 0; c < size; c++) {  // columnas
-            for (int f = 0; f < size; f++) {  // filas
-                matrixPesos[c][f] = Double.MAX_VALUE;  // Usamos Double.MAX_VALUE para indicar "sin conexión"
-                matrixDirecciones[c][f] = 0;  // Usamos 0 para indicar "sin dirección"
+            if (size <= 0) {
+                throw new IllegalArgumentException("El número de nodos debe ser mayor que cero.");
             }
-        }
 
-        // Llenar las matrices con la información de las conexiones
-        for (Edge edge : ListConnections.getCONNECTIONS_LIST()) {
-            int column = edge.getDestinationNodeID();  // Nodo de destino
-            int fila = edge.getStartingNodeID();  // Nodo de inicio
+            // Inicializar las matrices de pesos y direcciones con valores predeterminados
+            matrixPesos = new double[size][size];
+            matrixDirecciones = new int[size][size];
 
-            // Asignar el peso y la dirección
-            matrixPesos[column][fila] = edge.getEffectiveWeight();  // Asignar el peso de la conexión
-            matrixDirecciones[column][fila] = column;  // Aquí asignamos la columna, puede necesitar ajustarse según la lógica
+            for (int c = 0; c < size; c++) {  // columnas
+                for (int f = 0; f < size; f++) {  // filas
+                    matrixPesos[c][f] = Double.MAX_VALUE;  // Usamos Double.MAX_VALUE para indicar "sin conexión"
+                    matrixDirecciones[c][f] = 0;  // Usamos 0 para indicar "sin dirección"
+                }
+            }
+
+            // Llenar las matrices con la información de las conexiones
+            for (Edge edge : ListConnections.getCONNECTIONS_LIST()) {
+                int column = edge.getDestinationNodeID();  // Nodo de destino
+                int fila = edge.getStartingNodeID();  // Nodo de inicio
+
+                // Validación de los índices de fila y columna
+                if (column < 0 || column >= size || fila < 0 || fila >= size) {
+                    System.err.println("Error: Los índices de la conexión están fuera de rango. "
+                            + "Destino: " + column + ", Inicio: " + fila);
+                    continue;  // Salta esta conexión y sigue con la siguiente
+                }
+
+                // Verificar si el peso de la conexión es válido
+                double weight = edge.getEffectiveWeight();
+                if (Double.isNaN(weight) || weight < 0) {
+                    System.err.println("Advertencia: Conexión con peso inválido o negativo. Nodo: "
+                            + edge.getStartingNodeID() + " -> " + edge.getDestinationNodeID());
+                    continue;  // Si el peso es inválido, no lo asignamos
+                }
+
+                // Asignar el peso y la dirección
+                matrixPesos[column][fila] = weight;  // Asignar el peso de la conexión
+                matrixDirecciones[column][fila] = column;  // Aquí asignamos la columna (o ajusta si es necesario)
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error al crear las matrices de conexiones: " + e.getMessage());
+            e.printStackTrace();  // Imprime la traza completa del error
         }
+    }
+
+    public void setNodes(Node startNode, Node endNode) {
+        this.initNode = startNode;
+        this.endNode = endNode;
+
+        this.initNodeID = startNode.getID();
+        this.endNodeID = endNode.getID();
     }
 
     public boolean dijkstra() {
+        bestIdPath.clear();
+        bestConectionPath.clear();
+
         int n = matrixPesos.length;
         double[] dist = new double[n];
+
         int[] prev = new int[n];
+
         Arrays.fill(dist, Double.MAX_VALUE);
         Arrays.fill(prev, -1);
         dist[initNodeID] = 0;
@@ -75,7 +123,7 @@ public class Graph {
 
         bestIdPath = reconstructPath(prev, endNodeID);
 
-        if (bestIdPath == null) {
+        if (bestIdPath == null || bestIdPath.isEmpty()) {
             return false;
         }
 
@@ -97,7 +145,7 @@ public class Graph {
 
     public double getPathDistance() {
         if (bestIdPath == null || bestIdPath.isEmpty()) {
-            dijkstra();
+            return 0;
         }
         double distance = 0;
         for (int i = 0; i < bestIdPath.size() - 1; i++) {
@@ -107,6 +155,9 @@ public class Graph {
     }
 
     public boolean floydWarshall() {
+        bestIdPath.clear();
+        bestConectionPath.clear();
+
         int n = matrixPesos.length;
 
         // Matrices de distancias y direcciones

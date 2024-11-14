@@ -58,7 +58,7 @@ public class NotificationToast extends Application {
             lastNotificationStage.close();
         }
 
-        System.out.println("Original Message: " + message);
+//        System.out.println("Original Message: " + message);
         message = trimMessage(message);  // Asegurarse de que el mensaje no exceda el límite
 
         Label messageLabel = createNotificationLabel();
@@ -75,7 +75,7 @@ public class NotificationToast extends Application {
         positionNotificationStage(notificationStage, primaryStage, width);
         addNotificationAnimations(notificationStage, stackPane);
 
-        System.out.println("Trimmed Message: " + message);
+//        System.out.println("Trimmed Message: " + message);
 
         // Mostrar la nueva notificación
         notificationStage.show();

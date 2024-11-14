@@ -93,16 +93,16 @@ public class ImplementsLogicController implements Initializable {
     // Alterna el estado de viaje (iniciar o finalizar)
     private void toggleInitFinally() {
         if (startB.getText().equals("Iniciar Viaje")) {
-            startB.setText("Finalizar Viaje");
-            startB.setStyle("-fx-background-color: #f44336;");
+            if (nodeGraphFacade.initTravel()) {
+                startB.setText("Finalizar Viaje");
+                startB.setStyle("-fx-background-color: #f44336;");
 
-            System.out.println("Iniciando viaje...");
-            nodeGraphFacade.setDijkstra(radioBDijkstra.isSelected());
+                System.out.println("Iniciando viaje...");
+                nodeGraphFacade.setDijkstra(radioBDijkstra.isSelected());
 
-            nodeGraphFacade.initTravel();
-
-            System.out.println("Iniciando viaje...");
-            showInfoMessage("Viaje iniciado.");
+                System.out.println("Iniciando viaje...");
+                showInfoMessage("Viaje iniciado.");
+            }
         } else {
             startB.setText("Iniciar Viaje");
             startB.setStyle("-fx-background-color: #66bb6a;");
@@ -113,6 +113,7 @@ public class ImplementsLogicController implements Initializable {
             showInfoMessage("Viaje finalizado.");
         }
     }
+
 
     // Alterna el estado de pausa en el viaje
     private void togglePause() {
@@ -167,7 +168,7 @@ public class ImplementsLogicController implements Initializable {
         }
         showInfoMessage(message + "(" + location[0] + "," + location[1] + ")");
         System.out.println(message + "(" + location[0] + "," + location[1] + ")");
-        textArea.setText(message + "(" + nodeGraphFacade.getStartNode().toString() + "," + nodeGraphFacade.getEndNode().toString()+ ")");
+        textArea.setText(message + "(" + nodeGraphFacade.getStartNode().toString() + "," + nodeGraphFacade.getEndNode().toString() + ")");
 
     }
 

@@ -2,6 +2,7 @@ package org.una.navigatetrack.list;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.Getter;
+import org.una.navigatetrack.roads.Edge;
 import org.una.navigatetrack.roads.Node;
 
 import java.util.ArrayList;
@@ -19,6 +20,31 @@ public class ListNodes {
 
     private ListNodes() {
         // Constructor privado para evitar instanciación
+    }
+
+    public static void updateNodeIDs() {
+        // Asegurarse de que la lista no esté vacía
+        if (nodesList == null || nodesList.isEmpty()) {
+            System.out.println("La lista de nodos está vacía.");
+            return;
+        }
+
+        int oldId;
+        // Recorremos la lista de nodos y actualizamos el ID
+        for (int i = 0; i < nodesList.size(); i++) {
+            Node node = nodesList.get(i);
+            oldId = node.getID();
+
+            node.setID(i);  // Asignar el ID basado en baseIndex y el índice del nodo en la lista
+
+            for (Edge edge : node.getAllConnections()) {
+                edge.setStartingNodeID(i);
+            }
+            ListConnections.updateID(oldId, i);
+        }
+
+        // Actualizamos el baseIndex después de la asignación de IDs, si es necesario
+        baseIndex = nodesList.size();  // O cualquier otra lógica para manejar baseIndex
     }
 
     // Cargar nodos desde archivo
@@ -74,7 +100,7 @@ public class ListNodes {
     // Obtener el siguiente ID disponible
     public static int getNextId() {
         // Genera el siguiente ID basado en los nodos existentes
-        return nodesList.size() + 1;
+        return nodesList.size();
 //                nodesList.stream()
 //                .mapToInt(Node::getID)
 //                .max()

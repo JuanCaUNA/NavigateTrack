@@ -12,6 +12,15 @@ public class ListConnections {
     @Getter
     private static final List<Edge> CONNECTIONS_LIST = new ArrayList<>(); // Lista de conexiones
 
+
+    public static void updateID(int oldId, int newId) {
+        for (Edge edge : CONNECTIONS_LIST) {
+            if (edge.getDestinationNodeID() == oldId) {
+                edge.setDestinationNodeID(newId);
+            }
+        }
+    }
+
     public static void randomizeConnections(double blockProbability, double normalTrafficProbability, double moderateTrafficProbability) {
         Random random = new Random();
 
@@ -61,7 +70,7 @@ public class ListConnections {
         return CONNECTIONS_LIST.stream()
                 .mapToInt(Edge::getID)
                 .max()
-                .orElse(-1) + 1; 
+                .orElse(-1) + 1;
     }
 
     private static boolean containsConnectionWithID(int id) {

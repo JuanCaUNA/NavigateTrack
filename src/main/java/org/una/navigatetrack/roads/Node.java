@@ -16,92 +16,108 @@ public class Node {
     private double[] location;
     private Map<Directions, Edge> connectionsMap;
 
+    @JsonIgnore
+    boolean nodeType, emptyValues;
+
     public void removeConnection(Node end) {
-        // Comprobar si el mapa de conexiones no está vacío
+        // Comprobar si el mapa de conexiones es nulo o vacío
         if (connectionsMap == null || connectionsMap.isEmpty()) {
-            System.out.println("error nulo");
+            System.err.println("Error: El mapa de conexiones está vacío o es nulo.");
             return;
         }
 
-        // Buscar la primera conexión que tenga el nodo de destino 'end'
-        Iterator<Map.Entry<Directions, Edge>> iterator = connectionsMap.entrySet().iterator();
+        if (end == null) {
+            throw new IllegalArgumentException("El nodo de destino no puede ser nulo.");
+        }
 
+        // Buscar y eliminar la conexión del nodo 'end'
+        Iterator<Map.Entry<Directions, Edge>> iterator = connectionsMap.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<Directions, Edge> entry = iterator.next();
             Edge edge = entry.getValue();
 
-            // Si encontramos una conexión cuyo nodo de destino coincide con 'end'
             if (edge.getDestinationNodeID() == end.getID()) {
-                iterator.remove();  // Eliminar la conexión del mapa
+                iterator.remove(); // Eliminar la conexión del mapa
                 System.out.println("Conexión eliminada con destino al nodo: " + end);
-                return;  // Indicamos que la conexión ha sido eliminada
+                return; // Salir después de eliminar la conexión
             }
         }
 
-        // Si no encontramos la conexión
-        System.out.println("error no logrado");
+        System.err.println("Error: No se encontró una conexión con el nodo de destino: " + end);
     }
 
     // Constructor vacío
     public Node() {
         connectionsMap = new EnumMap<>(Directions.class);
-        location = new double[2];
+        location = new double[2];  // Suponiendo que la ubicación es en 2D (x, y)
     }
 
     // Constructor con ubicación
     public Node(double[] point) {
+        if (point == null || point.length != 2) {
+            throw new IllegalArgumentException("La ubicación debe ser un arreglo de dos valores (x, y).");
+        }
         connectionsMap = new EnumMap<>(Directions.class);
         location = point;
-        //ID = ListNodes.getNextId(); TODO
+        //ID = ListNodes.getNextId(); TODO: Generar ID de forma automática
     }
 
     // ===========================
     // Métodos de acceso
     // ===========================
 
-    // Obtener todas las conexiones
     @JsonIgnore
     public List<Edge> getAllConnections() {
         return new ArrayList<>(connectionsMap.values());
     }
 
-    // Obtener conexión en orden por peso, excluyendo un nodo específico
     @JsonIgnore
     public List<Edge> getConnectionsInOrderByWeight(Node entryNode) {
+        if (entryNode == null) {
+            throw new IllegalArgumentException("El nodo de entrada no puede ser nulo.");
+        }
+
         return connectionsMap.values().stream()
                 .filter(conn -> conn.getDestinationNodeID() != entryNode.getID() && !conn.isBlocked())
-                .sorted(Comparator.comparingDouble(Edge::getEffectiveWeight)) // Ordenar por peso final
+                .sorted(Comparator.comparingDouble(Edge::getEffectiveWeight))
                 .collect(Collectors.toList());
     }
 
-    // Obtener todas las conexiones en orden por peso
     @JsonIgnore
     public List<Edge> getConnectionsInOrderByWeight() {
         return connectionsMap.values().stream()
                 .filter(conn -> !conn.isBlocked())
-                .sorted(Comparator.comparingDouble(Edge::getEffectiveWeight)) // Ordenar por peso final
+                .sorted(Comparator.comparingDouble(Edge::getEffectiveWeight))
                 .collect(Collectors.toList());
     }
 
-    // Obtener conexión en una dirección específica
     @JsonIgnore
     public Edge getConnection(Directions direction) {
+        if (direction == null) {
+            throw new IllegalArgumentException("La dirección no puede ser nula.");
+        }
         return connectionsMap.get(direction);
     }
 
-    // Obtener la dirección conectada a un nodo específico
     @JsonIgnore
     public Directions getDirConnectedToNode(Node node) {
-        return connectionsMap.entrySet().stream()  // Itera sobre las entradas (key-value) del mapa
-                .filter(entry -> entry.getValue().getDestinationNodeID() == node.getID())  // Filtra por el ID del nodo
-                .map(Map.Entry::getKey)  // Mapea a la clave (Directions)
-                .findFirst()  // Devuelve el primer resultado encontrado
-                .orElse(null);  // Si no se encuentra ninguna, devuelve null
+        if (node == null) {
+            throw new IllegalArgumentException("El nodo no puede ser nulo.");
+        }
+
+        return connectionsMap.entrySet().stream()
+                .filter(entry -> entry.getValue().getDestinationNodeID() == node.getID())
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .orElse(null);
     }
 
-    // Buscar una conexión por ID de nodo
     @JsonIgnore
     public Edge getConnectionInNode(int nodeID) {
+        if (nodeID <= 0) {
+            throw new IllegalArgumentException("El ID del nodo debe ser mayor que cero.");
+        }
+
         return connectionsMap.values().stream()
                 .filter(conn -> conn.getDestinationNodeID() == nodeID)
                 .findFirst()
@@ -112,22 +128,38 @@ public class Node {
     // Métodos de modificación de conexiones
     // ===========================
 
-    // Agregar una nueva conexión
     public void addConnection(Node targetNode, Directions direction) {
+        if (targetNode == null) {
+            throw new IllegalArgumentException("El nodo de destino no puede ser nulo.");
+        }
+
+        if (direction == null) {
+            throw new IllegalArgumentException("La dirección no puede ser nula.");
+        }
+
         Edge edge = new Edge(ID, targetNode.getID(), calculateDistance(targetNode));
         edge.setDirection(direction);
         connectionsMap.put(direction, edge);
     }
 
-    // Agregar una nueva conexión especificando el ID del nodo
     public void addConnection(int targetNodeId, Directions direction, double weight) {
+        if (targetNodeId <= 0) {
+            throw new IllegalArgumentException("El ID del nodo de destino debe ser mayor que cero.");
+        }
+
+        if (direction == null) {
+            throw new IllegalArgumentException("La dirección no puede ser nula.");
+        }
+
         Edge edge = new Edge(ID, targetNodeId, (int) weight);
         edge.setDirection(direction);
         connectionsMap.put(direction, edge);
     }
 
-    // Eliminar conexión por dirección
     public void deleteConnection(Directions direction) {
+        if (direction == null) {
+            throw new IllegalArgumentException("La dirección no puede ser nula.");
+        }
         connectionsMap.remove(direction);
     }
 
@@ -135,11 +167,16 @@ public class Node {
         connectionsMap.clear();
     }
 
-    // Cambiar destino de una conexión
     public void changeConnectionIn(Node inNode, Node toNode) {
+        if (inNode == null || toNode == null) {
+            throw new IllegalArgumentException("Los nodos no pueden ser nulos.");
+        }
+
         Edge edge = getConnectionInNode(inNode.getID());
         if (edge != null) {
             edge.setDestinationNodeID(toNode.getID());
+        } else {
+            System.err.println("Error: No se encontró una conexión con el nodo de entrada.");
         }
     }
 
@@ -147,22 +184,32 @@ public class Node {
     // Métodos de utilidad
     // ===========================
 
-    // Calcular distancia a otro nodo
+    @JsonIgnore
+    public boolean isConnectionsMapEmpty() {
+        return connectionsMap.isEmpty();
+    }
+
     public int calculateDistance(Node other) {
+        if (other == null) {
+            throw new IllegalArgumentException("El nodo de referencia no puede ser nulo.");
+        }
         return (int) Math.sqrt(Math.pow(location[0] - other.location[0], 2) + Math.pow(location[1] - other.location[1], 2));
     }
 
-    // Verificar si está conectado a un nodo específico
     public boolean isConnectedToNode(Node node) {
-        return connectionsMap.values().stream().noneMatch(conn -> conn.getDestinationNodeID() == node.getID());
+        if (node == null) {
+            throw new IllegalArgumentException("El nodo no puede ser nulo.");
+        }
+
+        // Usar anyMatch para devolver true si se encuentra alguna conexión
+        return connectionsMap.values().stream()
+                .anyMatch(conn -> conn.getDestinationNodeID() == node.getID());
     }
 
-    // Buscar nodo por ID
     public Optional<Node> searchAndGetNode(int nodeID) {
         return ListNodes.findById(nodeID);
     }
 
-    // Obtener nodo por ID
     public Node getIndexAt(int nodeID) {
         return ListNodes.getNodeByID(nodeID);
     }
@@ -171,7 +218,6 @@ public class Node {
     // Métodos sobrecargados y otros
     // ===========================
 
-    // Método toString para imprimir información sobre el nodo y sus conexiones
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -180,19 +226,14 @@ public class Node {
                 .append(", location=").append(Arrays.toString(location))
                 .append(", connectionsMap={");
 
-        // Imprimir las conexiones
         if (connectionsMap != null && !connectionsMap.isEmpty()) {
             for (Map.Entry<Directions, Edge> entry : connectionsMap.entrySet()) {
                 sb.append(entry.getKey()).append("->").append(entry.getValue().toString()).append(", ");
             }
-            // Eliminar la coma y el espacio al final
-            sb.setLength(sb.length() - 2);
+            sb.setLength(sb.length() - 2); // Eliminar la última coma y espacio
         }
 
         sb.append("}}");
-
         return sb.toString();
     }
-
-
 }

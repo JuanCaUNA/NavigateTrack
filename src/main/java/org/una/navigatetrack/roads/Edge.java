@@ -13,6 +13,7 @@ import java.util.Optional;
 @Getter
 @Setter
 public class Edge {
+
     @JsonIgnore
     private static final Map<String, Double> TRAFFIC_MULTIPLIER = Map.of(
             "normal", 1.0,
@@ -22,7 +23,6 @@ public class Edge {
 
     @JsonIgnore
     private static final String DEFAULT_TRAFFIC_CONDITION = "normal";
-
     @JsonIgnore
     private static final double DEFAULT_WEIGHT = 1.0;
 
@@ -30,7 +30,7 @@ public class Edge {
     private int ID;
     private int startingNodeID;
     private int destinationNodeID;
-    private double weight; // Distancia entre nodos cambia al cambiar el punto de partida
+    private double weight;  // Distancia entre nodos
     @JsonIgnore
     private boolean isBlocked;
     @JsonIgnore
@@ -44,19 +44,24 @@ public class Edge {
     private Node startingNode;
     private Node destinationNode;
 
-    // Constructores
+    // Constructor vacío
     public Edge() {
         this.isBlocked = false;
         this.trafficCondition = DEFAULT_TRAFFIC_CONDITION;
-        this.ID = ListConnections.nextConnectionId();
         this.weight = DEFAULT_WEIGHT;
+        this.ID = ListConnections.nextConnectionId();
+        ListConnections.addConnection(this);
     }
 
-    public Edge(int startingNodeID, int destinationNodeID, int weight) {
-        this();
+    // Constructor con parámetros de nodos e ID
+    public Edge(int startingNodeID, int destinationNodeID, double weight) {
+        this(); // Llama al constructor vacío para inicializar los valores por defecto
+        if (startingNodeID <= 0 || destinationNodeID <= 0) {
+            throw new IllegalArgumentException("Los IDs de los nodos deben ser mayores a cero.");
+        }
         this.startingNodeID = startingNodeID;
         this.destinationNodeID = destinationNodeID;
-        this.weight = weight;
+        this.weight = weight > 0 ? weight : DEFAULT_WEIGHT;  // Asegura que el peso sea positivo
     }
 
     // Métodos de estado
@@ -74,50 +79,47 @@ public class Edge {
 
     // Métodos de cálculo
     private void refreshWeight() {
-        // Actualiza el peso de acuerdo con el incremento
         weight = Math.max(weight - getIncrement(), 0);  // Evita que el peso sea negativo
     }
 
     public void recalculateStartNode() {
-        double[] init = getStartingNode().getLocation();
-        double[] end = getDestinationNode().getLocation();
+        Node startNode = getStartingNode();
+        Node endNode = getDestinationNode();
+        if (startNode == null || endNode == null) {
+            throw new IllegalStateException("No se pueden calcular las ubicaciones: los nodos no son válidos.");
+        }
+        double[] init = startNode.getLocation();
+        double[] end = endNode.getLocation();
         calcularIncremento(init[0], init[1], end[0], end[1], getIncrement());
         refreshWeight();
     }
 
     public void calcularIncremento(double x1, double y1, double x2, double y2, double incremento) {
-        // Calcular la distancia entre los puntos
         double distanciaX = x2 - x1;
         double distanciaY = y2 - y1;
         double distanciaTotal = Math.sqrt(Math.pow(distanciaX, 2) + Math.pow(distanciaY, 2));
 
         // Evitar división por cero
-        if (distanciaTotal == 0) {
-            return;  // Si los puntos son iguales, no hacer nada
-        }
+        if (distanciaTotal == 0) return;
 
         // Normalizar la distancia para obtener el vector dirección
         double factorX = (distanciaX / distanciaTotal) * incremento;
         double factorY = (distanciaY / distanciaTotal) * incremento;
 
-        // Si el incremento es mayor que la distancia restante, ajustarlo para no pasarse
+        // Ajustar si el incremento excede la distancia
         if (distanciaTotal < incremento) {
-            factorX = distanciaX;  // Mover exactamente a la posición del destino
+            factorX = distanciaX;
             factorY = distanciaY;
         }
 
         // Actualizar la nueva ubicación del nodo de inicio
-        double nuevaX = x1 + factorX;
-        double nuevaY = y1 + factorY;
-
-        // Establecer las nuevas coordenadas del nodo de inicio
         Node node = getStartingNode();
         if (node != null) {
-            node.setLocation(new double[]{nuevaX, nuevaY});
+            node.setLocation(new double[]{x1 + factorX, y1 + factorY});
         }
     }
 
-    // Métodos de obtención
+    // Métodos de obtención de nodos
     @JsonIgnore
     public Node getDestinationNode() {
         if (destinationNode == null) {
@@ -134,22 +136,22 @@ public class Edge {
         return startingNode;
     }
 
-    // Métodos de establecimiento
+    // Método para obtener el peso efectivo (ajustado por condiciones de tráfico)
     @JsonIgnore
     public double getEffectiveWeight() {
         if (isBlocked) {
-            return Double.MAX_VALUE;
+            return Double.MAX_VALUE;  // Representa un valor no accesible
         }
-        // El peso efectivo se ajusta según las condiciones de tráfico
         Double multiplier = TRAFFIC_MULTIPLIER.get(trafficCondition);
-        return (weight * multiplier);
+        return weight * multiplier;
     }
 
-    // Cálculo del incremento de acuerdo con el tráfico
+    // Cálculo del incremento ajustado por el tráfico
+    @JsonIgnore
     public double getIncrement() {
-        double baseIncrement = 10.0;  // Valor base
-        double trafficMultiplier = TRAFFIC_MULTIPLIER.get(trafficCondition);  // Obtén el multiplicador de tráfico
-        return baseIncrement / trafficMultiplier;  // Ajusta el incremento según el tráfico
+        double baseIncrement = 10.0;
+        double trafficMultiplier = TRAFFIC_MULTIPLIER.get(trafficCondition);
+        return baseIncrement / trafficMultiplier;
     }
 
     // Métodos de búsqueda
@@ -161,10 +163,16 @@ public class Edge {
         return ListNodes.getNodeByID(ID);
     }
 
+    // Método para obtener la línea de conexión (para visualización, por ejemplo)
     @SuppressWarnings("exports")
     public Line connectionline() {
-        double[] start = ListNodes.getNodeByID(startingNodeID).getLocation();
-        double[] end = ListNodes.getNodeByID(destinationNodeID).getLocation();
+        Node startNode = getStartingNode();
+        Node endNode = getDestinationNode();
+        if (startNode == null || endNode == null) {
+            throw new IllegalStateException("No se pueden obtener las ubicaciones de los nodos para la línea.");
+        }
+        double[] start = startNode.getLocation();
+        double[] end = endNode.getLocation();
         return new Line(start[0], start[1], end[0], end[1]);
     }
 

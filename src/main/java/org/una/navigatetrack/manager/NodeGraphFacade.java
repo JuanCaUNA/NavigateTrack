@@ -10,7 +10,9 @@ import org.una.navigatetrack.dto.EdgeDTO;
 import org.una.navigatetrack.list.ListNodes;
 import org.una.navigatetrack.roads.Directions;
 import org.una.navigatetrack.roads.Edge;
+import org.una.navigatetrack.roads.Graph;
 import org.una.navigatetrack.roads.Node;
+import org.una.navigatetrack.utils.AppContext;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,14 +26,17 @@ public class NodeGraphFacade {
 
     // Gestión de nodos y conexiones
     private final NodesDrawerManagers nodesDrawerManagers;
-//    private final DrawerManager drawerManager;
     private ScheduledExecutorService scheduler;
+
+    Graph graph;
 
     // Variables de estado y configuración
     @Getter
-    private Node startNode, endNode;
-    private double[] startPoint, endPoint;
-    private double[] startConnection, endConnection;
+    private Node startNode;
+    @Getter
+    private Node endNode;
+    private final double[] startPoint, endPoint;
+    private final double[] startConnection, endConnection;
     @Setter
     private boolean isDijkstra;
     @Getter
@@ -46,8 +51,9 @@ public class NodeGraphFacade {
     public NodeGraphFacade(Pane paintPane) {
 
         nodesDrawerManagers = new NodesDrawerManagers(new DrawerManager(paintPane), false);
-//        drawerManager = new DrawerManager(paintPane);
 
+//        ListNodes.updateNodeIDs();
+//        ListNodes.saveNodesList();
 
         startPoint = new double[2];
         endPoint = new double[2];
@@ -56,11 +62,15 @@ public class NodeGraphFacade {
 
         startNode = new Node();
         endNode = new Node();
+
+        System.out.println(" rango" + ListNodes.getNextId());
         startNode.setID(ListNodes.getNextId());
         endNode.setID(ListNodes.getNextId() + 1);
 
         ListNodes.addNode(startNode);
         ListNodes.addNode(endNode);
+        startNode.setEmptyValues(true);
+        endNode.setEmptyValues(true);
     }
 
     // -------- Métodos para Configuración de Nodos de Inicio y Fin -------- //
@@ -75,10 +85,11 @@ public class NodeGraphFacade {
 
     private boolean setNode(double[] point, boolean isStartNode) {
         Node currentNode = isStartNode ? startNode : endNode;
+
         double[] currentPoint = isStartNode ? startPoint : endPoint;
         double[] currentConnection = isStartNode ? startConnection : endConnection;
 
-        if (currentNode != null) resetNode(currentNode);
+        if (!currentNode.isEmptyValues()) resetNode(currentNode, currentConnection);
 
         currentPoint = point.clone();
         Arrays.fill(currentConnection, Double.NaN);
@@ -88,17 +99,27 @@ public class NodeGraphFacade {
             Color nodeColor = isStartNode ? Color.YELLOW : Color.RED;
             nodesDrawerManagers.drawCircle(currentPoint, nodeColor);
 
-            if (isStartNode) startNode.setLocation(currentPoint);
-            else endNode.setLocation(currentPoint);
+            currentNode.setLocation(currentPoint);
 
+            currentNode.setNodeType(!Double.isNaN(currentConnection[0]));// si conexion no definida es un tipo nodo
+
+            currentNode.setEmptyValues(false);
             return true;
         }
         return false;
     }
 
-    private void resetNode(Node node) {
+    private void resetNode(Node node, double[] currentConnection) {
+        if (!node.isConnectionsMapEmpty()) {
+            for (Edge edge : node.getAllConnections()) {
+                nodesDrawerManagers.getDrawerManager().removeLine(edge.connectionline());
+            }
+            disconnectNode(node, currentConnection);
+        }
+
         removeNodeVisual(node);
         node.setLocation(new double[]{0, 0});
+        node.setEmptyValues(true);
     }
 
     private void removeNodeVisual(Node node) {
@@ -137,15 +158,25 @@ public class NodeGraphFacade {
         Node init = nodesDrawerManagers.getNodesManager().getNodeAtLocation(initP);
         Node end = nodesDrawerManagers.getNodesManager().getNodeAtLocation(endP);
 
+
         if (init == null || end == null) return;
 
+        System.out.println(end.toString());
+        System.out.println(init.toString());
+        Directions dir;
         if (init.isConnectedToNode(end)) {
-            node.addConnection(end, init.getDirConnectedToNode(end));
+            dir = init.getDirConnectedToNode(end);
+            System.out.println(dir);
+
+            node.addConnection(end, dir);
             init.changeConnectionIn(end, node);
         }
 
         if (end.isConnectedToNode(init)) {
-            node.addConnection(init, end.getDirConnectedToNode(init));
+            dir = end.getDirConnectedToNode(init);
+            System.out.println(dir);
+
+            node.addConnection(init, dir);
             end.changeConnectionIn(init, node);
         }
     }
@@ -161,27 +192,35 @@ public class NodeGraphFacade {
         if (node.isConnectedToNode(init)) node.removeConnection(init);
     }
 
-    private void connectNodeIfValid(Node node, double[] connectionXY) {
-        if (!Double.isNaN(connectionXY[0])) {
-            node.setID(ListNodes.getNextId());
-            ListNodes.addNode(node);
-            connectNode(node, connectionXY);
-        }
-    }
 
 // -------- Métodos de Viaje y Gestión de Scheduler -------- //
 
     private EdgeDTO temp;
-    public void initTravel() {
+
+    public boolean initTravel() {
+
+        if (startNode.isEmptyValues() || endNode.isEmptyValues()) {
+            AppContext.getInstance().createNotification("No selecionado", "nodo se definio los los punstos inicio y partida");
+            return false;
+        }
+
         try {
+
+
             pause = stop = false;  // Inicializamos los estados
             mejorRuta = new ArrayList<>();  // Inicializamos la ruta
-            startNode.addConnection(endNode, Directions.ADELANTE);  // Conexión de inicio y fin
-            mejorRuta.add(startNode.getConnection(Directions.ADELANTE));  // Añadimos la primera conexión a la ruta
 
-            // Verificar que el primer edge esté correctamente agregado
+            connectNode(startNode, startConnection);
+            connectNode(endNode, endConnection);
+
+            loadBestPath();
+
             for (Edge edge : mejorRuta) {
-                System.out.println("Recorriendo: " + edge);  // Añadido para verificar
+                if (edge == null) {
+                    System.out.println("esta vacio la conexion");
+                    return false;
+                }
+                System.out.println(edge.toString());
                 draEdgeDrawLocal(edge, Color.GREEN);
             }
 
@@ -193,6 +232,7 @@ public class NodeGraphFacade {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return true;
     }
 
     private void startTravelCycle() {
@@ -256,14 +296,32 @@ public class NodeGraphFacade {
     }
 
     public void endTravel() {
-        stop = true;  // Marcamos el viaje como finalizado
-        System.out.println("Viaje finalizado.");
-
-        // Detenemos el scheduler si no está apagado
+        stop = true;
         if (scheduler != null && !scheduler.isShutdown()) {
             scheduler.shutdown();
         }
+
+        disconnectNode(startNode, startConnection);
+        disconnectNode(endNode, endConnection);
     }
+
+    private void loadBestPath() {
+        graph = new Graph(startNode, endNode);
+//        graph = new Graph(ListNodes.getNodeByID(4), ListNodes.getNodeByID(7));
+//        startNode = ListNodes.getNodeByID(4);
+//        endNode = ListNodes.getNodeByID(7);
+        boolean exito;
+        if (isDijkstra) {
+            exito = graph.dijkstra();
+        } else {
+            exito = graph.floydWarshall();
+        }
+
+        if(!exito)
+            System.out.println("no se encontro ruta");
+        mejorRuta = graph.getBestConectionPath();
+    }
+
 
     // ------------- Métodos de Utilidad para Conexiones y Dibujos --------------- //
 
@@ -279,12 +337,12 @@ public class NodeGraphFacade {
     }
 
     private void draEdgeDrawLocal(Edge edge, Color color) {
-//        drawerManager.drawLine(edge.connectionline(), color);
+        if (edge == null) return;
         nodesDrawerManagers.getDrawerManager().drawLine(edge.connectionline(), color);
     }
 
     private void deleteEdgeDrawLocal(Edge edge) {
-//        drawerManager.removeLine(edge.connectionline());
+        if (edge == null) return;
         nodesDrawerManagers.getDrawerManager().removeLine(edge.connectionline());
     }
 
@@ -295,6 +353,10 @@ public class NodeGraphFacade {
         }
     }
 }
+
+//            startNode.addConnection(endNode, Directions.ADELANTE);  // Conexión de inicio y fin
+//            mejorRuta.add(startNode.getConnection(Directions.ADELANTE));  // Añadimos la primera conexión a la ruta
+
 
 //public double[] getPointForNode(boolean isStartNode) {
 //    Node targetNode = isStartNode ? startNode : endNode;
