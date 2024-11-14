@@ -52,12 +52,6 @@ public class Edge {
         this.weight = weight;
     }
 
-    public Edge(int id, int weight) {
-        init();
-        this.destinationNodeID = id;
-        this.weight = weight;
-    }
-
     // ===========================
     // Inicialización
     // ===========================
@@ -79,7 +73,6 @@ public class Edge {
 
         this.increment = 1.0;
 
-        ListConnections.addConnection(this);
     }
 
     // ===========================
@@ -115,28 +108,34 @@ public class Edge {
         double[] init = getStartingNode().getLocation();
         double[] end = getDestinationNode().getLocation();
 
-        calcularIncremento(init[0], init[1], end[0], end[1], getIncrement());
+        // Llamada al cálculo de incremento
+        calcularIncremento(init[0], init[1], end[0], end[1], getIncrement()*5);
         refreshWeight();
     }
 
     // Calcular el incremento para actualizar las coordenadas del nodo
     public void calcularIncremento(double x1, double y1, double x2, double y2, double incremento) {
+        // Calcular la distancia en X e Y
         double distanciaX = x2 - x1;
         double distanciaY = y2 - y1;
+
+        // Calcular la distancia total entre los dos puntos
         double distanciaTotal = Math.sqrt(Math.pow(distanciaX, 2) + Math.pow(distanciaY, 2));
 
-        double factorX = 0;
-        double factorY = 0;
-
-        if (weight > 0) {
-            factorX = (distanciaX / weight) + incremento;
-            factorY = (distanciaY / weight) + incremento;
+        // Evitar división por cero
+        if (distanciaTotal == 0) {
+            return;  // Si los puntos son iguales, no actualices las coordenadas
         }
+
+        // Calcular el factor de dirección en X e Y (normalizamos la distancia)
+        double factorX = (distanciaX / distanciaTotal) * incremento;
+        double factorY = (distanciaY / distanciaTotal) * incremento;
 
         // Calcular nuevas coordenadas
         double nuevaX = x1 + factorX;
         double nuevaY = y1 + factorY;
 
+        // Establecer las nuevas coordenadas del nodo de inicio
         getStartingNode().setLocation(new double[]{nuevaX, nuevaY});
     }
 

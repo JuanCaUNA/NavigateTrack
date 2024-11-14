@@ -16,6 +16,32 @@ public class Node {
     private double[] location;
     private Map<Directions, Edge> connectionsMap;
 
+    public void removeConnection(Node end) {
+        // Comprobar si el mapa de conexiones no está vacío
+        if (connectionsMap == null || connectionsMap.isEmpty()) {
+            System.out.println("error nulo");
+            return;
+        }
+
+        // Buscar la primera conexión que tenga el nodo de destino 'end'
+        Iterator<Map.Entry<Directions, Edge>> iterator = connectionsMap.entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            Map.Entry<Directions, Edge> entry = iterator.next();
+            Edge edge = entry.getValue();
+
+            // Si encontramos una conexión cuyo nodo de destino coincide con 'end'
+            if (edge.getDestinationNodeID() == end.getID()) {
+                iterator.remove();  // Eliminar la conexión del mapa
+                System.out.println("Conexión eliminada con destino al nodo: " + end);
+                return;  // Indicamos que la conexión ha sido eliminada
+            }
+        }
+
+        // Si no encontramos la conexión
+        System.out.println("error no logrado");
+    }
+
     // Constructor vacío
     public Node() {
         connectionsMap = new EnumMap<>(Directions.class);
@@ -167,4 +193,6 @@ public class Node {
 
         return sb.toString();
     }
+
+
 }

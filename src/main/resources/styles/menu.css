@@ -126,8 +126,14 @@
 
 /* Estilos de interacción con el botón */
 .button:hover {
-    -fx-background-color: #42A5F5; /* Azul más intenso al pasar el ratón */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0.0, 0, 2);
+    /*-fx-background-color: #42A5F5; !* Azul más intenso al pasar el ratón *!*/
+    /*-fx-background-color:linear-gradient(to bottom, #203935, #6aa5a5, #203935); !* Verde más oscuro *!*/
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-font-size: 15px;
+
+    -fx-border-width: 2px;
+    -fx-border-color: #8fffee;
+    /*-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0.0, 0, 2);*/
 }
 
 .button:pressed {
@@ -202,7 +208,7 @@
 }
 
 #startB:hover {
-    -fx-background-color: #388e3c; /* Verde más oscuro */
+    -fx-background-color:linear-gradient(to bottom, #6aa5a5, #38675f, #6aa5a5); /* Verde más oscuro */
 }
 
 /* Botón de pausa */
@@ -211,17 +217,18 @@
 }
 
 #pauseB:hover {
-    -fx-background-color: #f57c00; /* Naranja más oscuro */
+    /*-fx-background-color: #f57c00; !* Naranja más oscuro *!*/
+    -fx-background-color:linear-gradient(to bottom, #6aa5a5, #38675f, #6aa5a5); /* Verde más oscuro */
 }
 
 /* Botón de finalizar viaje */
-#finishB {
-    -fx-background-color: #f44336; /* Rojo suave */
-}
+/*#finishB {*/
+/*    -fx-background-color: #f44336; !* Rojo suave *!*/
+/*}*/
 
-#finishB:hover {
-    -fx-background-color: #d32f2f; /* Rojo más oscuro */
-}
+/*#finishB:hover {*/
+/*    -fx-background-color: #d32f2f; !* Rojo más oscuro *!*/
+/*}*/
 
 /* ========================== */
 /* 8. Estilo del menú contextual */

@@ -11,7 +11,8 @@ module org.una.navigatetrack {
     requires org.kordamp.bootstrapfx.core;  // Para estilos de BootstrapFX
     requires static lombok;           // Para usar Lombok (solo en compilación)
     requires com.fasterxml.jackson.databind;  // Para manipulación de JSON con Jackson
-    requires com.jfoenix;  // Para el diseño de Material Design en JavaFX
+    requires com.jfoenix;
+    requires java.net.http;  // Para el diseño de Material Design en JavaFX
 
     // Abre los paquetes necesarios para la reflexión (JavaFX y otros)
     opens org.una.navigatetrack to javafx.fxml;  // Para la reflexión en FXML
