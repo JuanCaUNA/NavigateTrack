@@ -43,9 +43,12 @@ public class ImplementsLogicController implements Initializable {
     private Edge edge;
     private String message;
 
+    Color BlueColor = Color.rgb(0, 0, 255, 0.5);
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         nodeGraphFacade = new NodeGraphFacade(paintPane);
+        nodeGraphFacade.setTimeL(labelTime);
         setupUI();
 
         setupEventHandlers();
@@ -58,7 +61,6 @@ public class ImplementsLogicController implements Initializable {
         paintPane.setStyle("-fx-background-color: rgba(255, 255, 255, 0.0);");
         loadImageMap("/images/map2.png");
     }
-
 
     private void changeImage() {
         loadImageMap(change ? "/images/map2.png" : "/images/map0.png");
@@ -76,10 +78,19 @@ public class ImplementsLogicController implements Initializable {
     }
 
     private void setupEventHandlers() {
-        paintPane.setOnMouseClicked(event -> select(new double[]{event.getX(), event.getY()}));//todo *******
+        paintPane.setOnMouseClicked(event -> select(new double[]{event.getX(), event.getY()}));
 
         infoB.setOnAction(actionEvent -> showInfoMessage(Config.instructions));
-        pauseB.setOnAction(actionEvent -> nodeGraphFacade.pauseTravel()); // TO-DO: Implementar la pausa
+        pauseB.setOnAction(actionEvent -> {
+            if (pauseB.getText().equals("Pausar")) {
+                pauseB.setText("Continuar");
+                nodeGraphFacade.pauseTravel(true);
+            } else {
+                pauseB.setText("Pausar");
+                nodeGraphFacade.pauseTravel(false);
+            }
+
+        }); // TO-DO: Implementar la pausa
         changeImageB.setOnAction(event -> changeImage());
         startB.setOnAction(event -> startTravel());
         finishB.setOnAction(event -> finishTravel());
@@ -134,7 +145,7 @@ public class ImplementsLogicController implements Initializable {
 
     private void handleConnectionSelection(double[] location) {
         if (edge != null && !edge.isBlocked()) {
-            nodeGraphFacade.reDrawEdge(edge, Color.BLUE);
+            nodeGraphFacade.reDrawEdge(edge, BlueColor);
         }
 
         edge = nodeGraphFacade.getConnection(location[0], location[1]);

@@ -15,6 +15,7 @@ import java.util.List;
 public class NodesDrawerManagers {
     private final DrawerManager drawerManager;
     private final NodesManager nodesManager;
+    Color BlueColor = Color.rgb(0, 0, 255, 0.5);
 
     private Node currentNode;
 
@@ -40,7 +41,7 @@ public class NodesDrawerManagers {
     private void drawAllConnections() {
         List<Node> list = ListNodes.getNodesList();
         for (Node node : list) {
-            drawConnections(node, Color.BLUE);
+            drawConnections(node, BlueColor);
         }
     }
 
@@ -103,7 +104,8 @@ public class NodesDrawerManagers {
 
     private void drawConnection(Edge edge) {
         if (edge == null) return;
-        Color color = getDirectionColor(edge.getDirection());
+
+        Color color = edge.isBlocked() ? Color.RED : getDirectionColor(edge.getDirection());
         drawConnection(edge, color);
     }
 
@@ -174,7 +176,7 @@ public class NodesDrawerManagers {
         // Restore the visual representation of the previous node
         if (previousNode != null) {
             drawerManager.removeCircle(previousNode.getLocation());
-            drawNode(previousNode, Color.BLUE); // Restore previous node in blue
+            drawNode(previousNode, BlueColor); // Restore previous node in blue
         }
 
         drawerManager.removeCircle(newCurrentNode.getLocation());
