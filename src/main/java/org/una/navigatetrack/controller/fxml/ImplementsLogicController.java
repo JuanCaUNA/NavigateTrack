@@ -68,8 +68,6 @@ public class ImplementsLogicController implements Initializable {
         nodeGraphFacade.setAlgoritmoB(algoritmoB);
         nodeGraphFacade.setPauseB(pauseB);
 
-        message = "";
-
         setupUI();
         setupEventHandlers();
         setupToggleGroup(); // Agregamos esta función
@@ -134,7 +132,7 @@ public class ImplementsLogicController implements Initializable {
             nodeGraphFacade.initTravel();
 //            nodeGraphFacade.iniTravelB();
         } else {
-            nodeGraphFacade.endTravel();
+            nodeGraphFacade.handleEndTravel();
 //            nodeGraphFacade.endTravel();
 //            nodeGraphFacade.endTravelB();
         }
