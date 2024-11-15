@@ -216,6 +216,7 @@ public class NodeGraphFacade {
             }
 
             drawBestPath();
+            initWeigh = (int) graph.getPathDistance();
 
             estimateTime = (int) graph.getPathDistance();
             tempEdgeDTO = new EdgeDTO(bestPath.getFirst());
@@ -348,7 +349,9 @@ public class NodeGraphFacade {
         String tiempoDetenidoFormat = formatTime(tiempoDetenido);
         int costoTotal = (timetranscurrido + tiempoDetenido) * 10;
 
-        infoTA.setText("Tiempo transcurrido: " + tiempoTranscurridoFormat +
+        infoTA.setText("Tiempo transcurrido: " +
+                "\nPeso inicial: " + initWeigh +
+                tiempoTranscurridoFormat +
                 "\nTiempo detenido: " + tiempoDetenidoFormat +
                 "\nCosto total: " + costoTotal);
         showInfoMessage("El viaje ha finalizado exitosamente.");
@@ -409,6 +412,7 @@ public class NodeGraphFacade {
     Node[] nodesInit, nodesEnd;
 
     boolean initTrave = false;
+    int initWeigh;
 
     public void endTravel() {
         stop = true;
@@ -450,17 +454,6 @@ public class NodeGraphFacade {
 
     private void showInfoMessage(String message) {
         AppContext.getInstance().createNotification("Info", message);
-    }
-
-    public Double getTotalWeight() {
-        if (bestPath == null || bestPath.isEmpty() || bestPath.size() < 2) {
-            System.out.println("No existe ninguna ruta para validar los pesos");
-            return 0.0;
-        }
-        for (Edge edge : bestPath) {
-            totalWeight += edge.getWeight();
-        }
-        return totalWeight;
     }
 
     private void drawLocalCircle(double[] point, Color color) {
