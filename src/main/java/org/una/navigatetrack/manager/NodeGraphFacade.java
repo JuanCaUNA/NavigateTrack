@@ -426,9 +426,8 @@ public class NodeGraphFacade {
         }
 
         try {
-
-            disconnectNode(startNode, startConnection);
-            disconnectNode(endNode, endConnection);
+            disconnectNode(startNode, nodesInit);
+            disconnectNode(endNode, nodesEnd);
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
