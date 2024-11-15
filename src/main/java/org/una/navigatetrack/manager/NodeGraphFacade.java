@@ -479,13 +479,28 @@ public class NodeGraphFacade {
         localDrawManager.drawLine(edge.connectionline(), color);
     }//lito
 
-    public Edge getConnection(double x, double y) {
+    public Edge[] getConnection(double x, double y) {
         double[] locations = nodesDrawerManagers.getDrawerManager().getLineAtWithCircle(x, y);
         if (locations == null) return null;
 
         Node node1 = ListNodes.getNodeByLocation(locations[0], locations[1]);
         Node node2 = ListNodes.getNodeByLocation(locations[2], locations[3]);
-        return node1.getConnectionInNode(node2.getID()) != null ? node1.getConnectionInNode(node2.getID()) : node2.getConnectionInNode(node1.getID());
+
+        // Verificar que al menos uno de los nodos no sea nulo
+        if (node1 == null || node2 == null) {
+            return null; // Ambos nodos son nulos, retornar null
+        }
+
+        // Obtener la conexión entre los nodos si existe
+        Edge edge1 = node1.getConnectionInNode(node2.getID());
+        Edge edge2 = node2.getConnectionInNode(node1.getID());
+
+        // Si al menos uno de los bordes es válido, crear el arreglo de edges
+        if (edge1 != null) {
+            return new Edge[]{edge1, edge2};
+        } else {
+            return new Edge[]{edge2, edge1};
+        }
     }//listo
 
     private Node getNodeAtLocation(double x, double y) {

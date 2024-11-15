@@ -41,6 +41,7 @@ public class ImplementsLogicController implements Initializable {
     private NodeGraphFacade nodeGraphFacade;
     private Edge edge;
     private String message;
+    private Edge[] edges;
 
     // Color constants for UI feedback
     private static final Color BLUE_COLOR = Color.rgb(0, 0, 255, 0.5);
@@ -70,26 +71,7 @@ public class ImplementsLogicController implements Initializable {
 
         setupUI();
         setupEventHandlers();
-        setupToggleGroup(); // Agregamos esta función
     }
-
-    private void setupToggleGroup() {
-        // Agrupar los RadioButton
-        ToggleGroup toggleGroup = new ToggleGroup();
-        initRadioB.setToggleGroup(toggleGroup);
-        endingRadioB.setToggleGroup(toggleGroup);
-        radioBConnection.setToggleGroup(toggleGroup);
-
-        // Listener para manejar cambios de selección
-        toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue == radioBConnection) {
-                toggleUIComponents(true); // Habilitar componentes relacionados
-            } else {
-                toggleUIComponents(false); // Deshabilitar componentes relacionados
-            }
-        });
-    }
-
 
     private void toggleUIComponents(boolean enable) {
         blockCBox.setDisable(!enable);
@@ -121,9 +103,25 @@ public class ImplementsLogicController implements Initializable {
         algoritmoB.setOnAction(event -> toggleAlgorithms());
         editionB.setOnAction(event -> changeMode());
         blockCBox.setOnAction(event -> handleBlockAction());
+
         radioBFmoderado.setOnAction(event -> traffic());
         radioBFnormal.setOnAction(event -> traffic());
         radioBFlento.setOnAction(event -> traffic());
+
+        sentido1RadioB.setOnAction(event -> selectCon(0));
+        sentido2RadioB.setOnAction(event -> selectCon(1));
+    }
+
+    private void selectCon(int i) {
+        if (edge != null && !edge.isBlocked()) {
+            nodeGraphFacade.reDrawEdge(edge, BLUE_COLOR);
+        }
+
+        edge = edges[i];
+        markTrafficOptions();
+        blockCBox.setSelected(edge.isBlocked());
+        Color color = edge.isBlocked() ? RED_COLOR : LIGHTGREEN_COLOR;
+        nodeGraphFacade.reDrawEdge(edge, color);
     }
 
     // Alterna el estado de viaje (iniciar o finalizar)
@@ -252,21 +250,31 @@ public class ImplementsLogicController implements Initializable {
         if (edge != null && !edge.isBlocked()) {
             nodeGraphFacade.reDrawEdge(edge, BLUE_COLOR);
         }
-        edge = nodeGraphFacade.getConnection(location[0], location[1]);
-        if (edge != null) {
+
+        edges = nodeGraphFacade.getConnection(location[0], location[1]);
+        if (edges != null) {
+            edge = edges[0];
+
             message = "Marcó un camino en: ";
             textArea.setText(edge.toString());
             Color color = edge.isBlocked() ? RED_COLOR : LIGHTGREEN_COLOR;
             nodeGraphFacade.reDrawEdge(edge, color);
 
             toggleUIComponents(true);
-
             blockCBox.setSelected(edge.isBlocked());
             markTrafficOptions();
 
+
+            sentido1RadioB.setSelected(true);
+            if (edges[1] == null) {
+                sentido2RadioB.setDisable(true);
+            }
+
         } else {
             toggleUIComponents(false);
+
             blockCBox.setSelected(false);
+
             message = "No hay ningún camino en: ";
         }
     }
