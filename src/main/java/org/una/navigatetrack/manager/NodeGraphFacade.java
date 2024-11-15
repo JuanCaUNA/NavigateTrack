@@ -97,7 +97,7 @@ public class NodeGraphFacade {
     }//listo
 
     private boolean setNode(double[] point, Node currentNode) {
-        if (!finalizadoE) {
+        if (finalizadoE) {
             finalizar();
         }
 
@@ -318,6 +318,7 @@ public class NodeGraphFacade {
             timeL.setText("Tiempo: " + formatTime(estimateTime / 10));
 
             if (currentEdge.getEffectiveWeight() <= 0.0) {
+                removeDrawLocalCircle(currentEdge.getStartingNode().getLocation());
                 updateTravelCycle(currentEdge);
                 if (hasReachedDestination(currentEdge)) {
                     removeDrawLocalCircle(currentEdge.getStartingNode().getLocation());
@@ -327,6 +328,7 @@ public class NodeGraphFacade {
                 recalculateBestPath();
                 currentEdge = bestPath.getFirst();
                 tempEdgeDTO = new EdgeDTO(currentEdge);
+                drawLocalCircle(currentEdge.getStartingNode().getLocation(), START_NODE_COLOR);
             }
 
 
@@ -414,15 +416,16 @@ public class NodeGraphFacade {
         }
 
         try {
-            if (!finalizadoE)
+            if (!finalizadoE) {
+                updateTravelCycle(currentEdge);
                 finalizar();
+            }
 
             disconnectNode(startNode, nodesInit);
             disconnectNode(endNode, nodesEnd);
 
 
             startNode.getAllConnections().forEach(edge -> nodesDrawerManagers.getDrawerManager().removeLine(edge.connectionline()));
-//            removeNodeVisual(startNode);
             startNode.setLocation(new double[]{0, 0});
             startNode.setEmptyValues(true);
 
@@ -437,7 +440,6 @@ public class NodeGraphFacade {
     }//listo
 
     private void finalizar() {
-        updateTravelCycle(currentEdge);
         localDrawManager.removeLines();
         finalizadoE = true;
     }//listo
