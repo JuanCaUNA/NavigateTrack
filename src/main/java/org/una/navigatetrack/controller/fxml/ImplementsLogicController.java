@@ -56,8 +56,6 @@ public class ImplementsLogicController implements Initializable {
     private static final String MODERADO_TRAFFIC_TEXT = "moderado";
     private static final String LENTO_TRAFFIC_TEXT = "lento";
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         nodeGraphFacade = new NodeGraphFacade(paintPane);
@@ -84,7 +82,6 @@ public class ImplementsLogicController implements Initializable {
         radioBFnormal.setDisable(!enable);
         radioBFlento.setDisable(!enable);
     }
-
 
     // Configura el estilo de UI y carga la imagen inicial del mapa
     private void setupUI() {
