@@ -338,7 +338,7 @@ public class NodeGraphFacade {
     }
 
     private void finalizeTravel() {
-        stop = finalizadoE = true;
+        stop = true;
 
         bestPath = graph.getBestPathEdges();
         drawBestPath();
