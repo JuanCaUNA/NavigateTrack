@@ -3,6 +3,7 @@ package org.una.navigatetrack.manager;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import lombok.Getter;
@@ -27,14 +28,17 @@ public class NodeGraphFacade {
     private final DrawerManager localDrawManager;
     private ScheduledExecutorService scheduler;
 
-    private Graph graph;
+    private Graph graph, graph2;
     private List<Edge> bestPath;
     private EdgeDTO tempEdgeDTO;
+    private Double totalWeight;
 
     @Setter
-    private Label timeL;
+    private Label timeL, precioL, preciofinalL;
     @Setter
-    private Button travelB, pauseB;
+    private Button algoritmoB, pauseB, startB;
+    @Setter
+    private TextArea infoTA;
 
     @Setter
     private boolean isDijkstra;
@@ -217,7 +221,8 @@ public class NodeGraphFacade {
                 }
             }
 
-
+            iterator = 0;
+            estimateTime = (int) graph.getPathDistance();
             tempEdgeDTO = new EdgeDTO(bestPath.getFirst());
 
             startTravelCycle();
@@ -226,17 +231,26 @@ public class NodeGraphFacade {
             e.printStackTrace();
             return false;
         }
+        iniTravelB();
         return true;
     }
 
+    private int timetranscurrido;
+    private int tiempoDetenido;
+
     private void startTravelCycle() {
+
+        tiempoDetenido = timetranscurrido = 0;
 
         scheduler = Executors.newSingleThreadScheduledExecutor();
         System.out.println("Scheduler creado y listo para ejecutar.");
         try {
-
             scheduler.scheduleAtFixedRate(() -> {
-                if (!stop && !pause) Platform.runLater(this::executeTravelCycleStep);
+                if (stop) tiempoDetenido++;
+                timetranscurrido++;
+                if (!stop && !pause) {
+                    Platform.runLater(this::executeTravelCycleStep);
+                }
             }, 0, 1, TimeUnit.SECONDS);
 
         } catch (Exception e) {
@@ -244,9 +258,12 @@ public class NodeGraphFacade {
         }
     }
 
+    int iterator;
+    int estimateTime;
+
     private void executeTravelCycleStep() {
 
-        Edge currentE = bestPath.getFirst();
+        Edge currentE = bestPath.get(iterator);
         Node currentN = currentE.getStartingNode();
 
         deleteDrawEdgeLocal(currentE);
@@ -257,19 +274,21 @@ public class NodeGraphFacade {
         drawEdgeLocal(currentE, EDGE_COLOR);
         drawLocalCircle(currentN.getLocation(), START_NODE_COLOR);
 
-        double time = currentE.getEffectiveWeight();
-        timeL.setText("Tiempo: " + time);
+        double weigh = currentE.getEffectiveWeight();//peso_base * increment 1 2 3
 
-        if (time <= 0.0) {
+        currentE.getIncrement();
+
+//        timeL.setText("Tiempo: " + (weigh / 10));//10 * 10/2 10/3
+        timeL.setText("Tiempo: " + (estimateTime / 10));
+
+        if (weigh <= 0.0) {
             updateTravelCycle(currentE);
             if (currentE.getDestinationNodeID() == endNode.getID()) {
                 endTravel();
             } else {
-                bestPath.removeFirst();
-                tempEdgeDTO = new EdgeDTO(bestPath.getFirst());
+                iterator++;
+                tempEdgeDTO = new EdgeDTO(bestPath.get(iterator));
             }
-        } else {
-
         }
 
     }
@@ -281,7 +300,7 @@ public class NodeGraphFacade {
 
     public void pauseTravel(Boolean pausar) {
         pause = pausar;  // Establecemos el estado de pausa
-        System.out.println("Viaje pausado: " + pause);
+        System.out.println("Viaje pausado: ");
     }
 
     public void endTravel() {
@@ -291,12 +310,14 @@ public class NodeGraphFacade {
         }
 
         disconnectNode(startNode, startConnection);
-        disconnectNode(endNode, endConnection);
+
+        endTravelB();
     }
 
     private boolean loadBestPath() {
         graph = new Graph(startNode, endNode);
         boolean exito = isDijkstra ? graph.runDijkstra() : graph.runFloydWarshall();
+//        boolean exito2 = isDijkstra ? graph2.runDijkstra() : graph2.runFloydWarshall();
 
         if (!exito) {
             System.out.println("No se encontró ruta.");
@@ -304,6 +325,17 @@ public class NodeGraphFacade {
         }
         bestPath = graph.getBestPathEdges();
         return true;
+    }
+
+    public Double getTotalWeight() {
+        if (bestPath == null || bestPath.isEmpty() || bestPath.size() < 2) {
+            System.out.println("No existe ninguna ruta para validar los pesos");
+            return 0.0;
+        }
+        for (Edge edge : bestPath) {
+            totalWeight += edge.getWeight();
+        }
+        return totalWeight;
     }
 
     private void drawLocalCircle(double[] point, Color color) {
@@ -346,5 +378,32 @@ public class NodeGraphFacade {
         Node node2 = ListNodes.getNodeByLocation(locations[2], locations[3]);
         return node1.getConnectionInNode(node2.getID()) != null ? node1.getConnectionInNode(node2.getID()) : node2.getConnectionInNode(node1.getID());
     }
+
+
+    public void iniTravelB() {
+        startB.setText("Finalizar Viaje");
+        startB.setStyle("-fx-background-color: #f44336;");
+        pauseB.setDisable(false);
+
+        showInfoMessage("Viaje iniciado.");
+    }
+
+    public void endTravelB() {
+        startB.setText("Iniciar Viaje");
+        startB.setStyle("-fx-background-color: #66bb6a;");
+        pauseB.setDisable(true);
+        pauseB.setText("Pausar Viaje");
+        pauseB.setDisable(true);
+
+        pauseTravel(false);
+
+        showInfoMessage("Viaje finalizado.");
+    }
+
+
+    private void showInfoMessage(String message) {
+        AppContext.getInstance().createNotification("Info", message);
+    }
+
 }
 

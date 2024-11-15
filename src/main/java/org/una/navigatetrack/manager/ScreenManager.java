@@ -34,6 +34,10 @@ public class ScreenManager {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             Scene scene = new Scene(root);
 
+
+            primaryStage.setMinWidth(1250);  // Ancho mínimo
+            primaryStage.setMinHeight(1050); // Alto mínimo
+
             // Cargar el archivo CSS
             String cssFile = "/styles/menu.css";
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource(cssFile)).toExternalForm());

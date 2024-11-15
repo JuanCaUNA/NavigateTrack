@@ -122,14 +122,20 @@
     -fx-background-radius: 8px; /* Bordes redondeados */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 8, 0.0, 0, 2); /* Sombra sutil */
     -fx-cursor: hand; /* Cambio de cursor */
+
+    -fx-font-size: 13px;
+
+    -fx-min-height: 35px;
 }
 
 /* Estilos de interacción con el botón */
 .button:hover {
+
     /*-fx-background-color: #42A5F5; !* Azul más intenso al pasar el ratón *!*/
     /*-fx-background-color:linear-gradient(to bottom, #203935, #6aa5a5, #203935); !* Verde más oscuro *!*/
+    -fx-background-color:linear-gradient(to bottom, #6aa5a5, #38675f, #6aa5a5); /* Verde más oscuro */
     -fx-text-fill: rgb(255, 255, 255);
-    -fx-font-size: 15px;
+    -fx-font-size: 14px;
 
     -fx-border-width: 2px;
     -fx-border-color: #8fffee;

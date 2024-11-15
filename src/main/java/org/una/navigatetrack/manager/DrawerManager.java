@@ -8,10 +8,9 @@ import javafx.scene.shape.Line;
 import java.util.ArrayList;
 import java.util.List;
 
-//import static jdk.internal.net.http.common.Log.logError;
-
 //@SuppressWarnings("exports")
 public class DrawerManager {
+
     private static final double CIRCLE_RADIUS = 5;
     private static final double LINE_STROKE_WIDTH = 5;
     private static final double DISTANCE_TOLERANCE = 2.0;

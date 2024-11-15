@@ -34,7 +34,7 @@ public class ImplementsLogicController implements Initializable {
     @FXML
     private Label labelTime, labelPrecioEstimado, labelPrecioTotal;
     @FXML
-    private RadioButton initRadioB, endingRadioB, radioBConnection, radioBFnormal, radioBFmoderado, radioBFlento;
+    private RadioButton initRadioB, endingRadioB, radioBConnection, radioBFnormal, radioBFmoderado, radioBFlento, sentido1RadioB, sentido2RadioB;
 
     // Controller properties
     private boolean change = false;
@@ -51,6 +51,14 @@ public class ImplementsLogicController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         nodeGraphFacade = new NodeGraphFacade(paintPane);
         nodeGraphFacade.setTimeL(labelTime);
+        nodeGraphFacade.setPrecioL(labelPrecioEstimado);
+        nodeGraphFacade.setPreciofinalL(labelPrecioTotal);
+        nodeGraphFacade.setInfoTA(textArea);
+        nodeGraphFacade.setStartB(startB);
+
+        nodeGraphFacade.setAlgoritmoB(algoritmoB);
+        nodeGraphFacade.setPauseB(pauseB);
+
         setupUI();
         setupEventHandlers();
     }
@@ -61,6 +69,10 @@ public class ImplementsLogicController implements Initializable {
         loadImageMap("/images/map2.png");
         blockCBox.setDisable(true);
         pauseB.setDisable(true);
+        algoritmoB.setDisable(true);
+        startB.setDisable(true);
+        sentido1RadioB.setDisable(true);
+        sentido2RadioB.setDisable(true);
     }
 
     // Configura los controladores de eventos para botones y otros elementos de UI
@@ -73,30 +85,18 @@ public class ImplementsLogicController implements Initializable {
         algoritmoB.setOnAction(event -> toggleAlgorithms());
         editionB.setOnAction(event -> changeMode());
         blockCBox.setOnAction(event -> handleBlockAction());
+        //paintPane.setOnMouseClicked(event -> traffic());
     }
 
     // Alterna el estado de viaje (iniciar o finalizar)
     private void toggleInitFinally() {
         if (startB.getText().equals("Iniciar Viaje")) {
-            if (nodeGraphFacade.initTravel()) {
-                startB.setText("Finalizar Viaje");
-                startB.setStyle("-fx-background-color: #f44336;");
-                pauseB.setDisable(false);
-                System.out.println("Iniciando viaje...");
-
-                System.out.println("Iniciando viaje...");
-                showInfoMessage("Viaje iniciado.");
-            }
+            nodeGraphFacade.initTravel();
+//            nodeGraphFacade.iniTravelB();
         } else {
-            startB.setText("Iniciar Viaje");
-            startB.setStyle("-fx-background-color: #66bb6a;");
-            pauseB.setDisable(true);
-            pauseB.setText("Pausar Viaje");
-            nodeGraphFacade.pauseTravel(false);
-            System.out.println("Finalizando viaje...");
             nodeGraphFacade.endTravel();
-            System.out.println("Finalizando viaje...");
-            showInfoMessage("Viaje finalizado.");
+//            nodeGraphFacade.endTravel();
+//            nodeGraphFacade.endTravelB();
         }
     }
 
@@ -113,17 +113,19 @@ public class ImplementsLogicController implements Initializable {
 
     // Alterna el algoritmo del viaje
     private void toggleAlgorithms() {
-        if (algoritmoB.getText().equals("Floyd Warshall")) {
-            algoritmoB.setText("Dijkstra");
+        if (algoritmoB.getText().equals("Floyd Warshall is currently selected")) {
+            algoritmoB.setText("Dijkstra is currently selected");
             nodeGraphFacade.setDijkstra(true);
         } else {
-            algoritmoB.setText("Dijkstra");
+            algoritmoB.setText("Floyd Warshall is currently selected");
             nodeGraphFacade.setDijkstra(false);
         }
+        startB.setDisable(false);
     }
 
     // Cambiar el modo de la vista
     private void changeMode() {
+        AppContext.getInstance().loadScreen("/fxml/MapManager.fxml");
     }
 
     // Cambia la imagen del mapa
@@ -166,10 +168,18 @@ public class ImplementsLogicController implements Initializable {
         showInfoMessage(message + "(" + location[0] + "," + location[1] + ")");
         System.out.println(message + "(" + location[0] + "," + location[1] + ")");
         textArea.setText(message + "(" + nodeGraphFacade.getStartNode().toString() + "," + nodeGraphFacade.getEndNode().toString() + ")");
+
+        if (!nodeGraphFacade.getStartNode().isEmptyValues() && !nodeGraphFacade.getEndNode().isEmptyValues()) {
+            algoritmoB.setDisable(false);
+        } else {
+            pauseB.setDisable(true);
+            algoritmoB.setDisable(true);
+            startB.setDisable(true);
+        }
     }
 
     // Selecciona un nodo o conexión en el mapa según la ubicación
-    private void trafic(double[] location) {
+    private void traffic() {
         blockCBox.setDisable(true);
         if (radioBFnormal.isSelected()) {
             edge.setTrafficCondition(radioBFnormal.getText());
@@ -191,7 +201,6 @@ public class ImplementsLogicController implements Initializable {
         if (edge != null && !edge.isBlocked()) {
             nodeGraphFacade.reDrawEdge(edge, BLUE_COLOR);
         }
-
         edge = nodeGraphFacade.getConnection(location[0], location[1]);
         if (edge != null) {
             message = "Marcó un camino en: ";
@@ -199,7 +208,10 @@ public class ImplementsLogicController implements Initializable {
             Color color = edge.isBlocked() ? RED_COLOR : LIGHTGREEN_COLOR;
             nodeGraphFacade.reDrawEdge(edge, color);
             blockCBox.setDisable(false);
+            sentido1RadioB.setDisable(false);
+            sentido2RadioB.setDisable(false);
             blockCBox.setSelected(edge.isBlocked());
+            traffic();//TODO
         } else {
             message = "No hay ningún camino en: ";
         }
