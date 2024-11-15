@@ -56,8 +56,8 @@ public class Edge {
     // Constructor con parámetros de nodos e ID
     public Edge(int startingNodeID, int destinationNodeID, double weight) {
         this(); // Llama al constructor vacío para inicializar los valores por defecto
-        if (startingNodeID <= 0 || destinationNodeID <= 0) {
-            throw new IllegalArgumentException("Los IDs de los nodos deben ser mayores a cero.");
+        if (startingNodeID <= -1 || destinationNodeID <= -1) {
+            throw new IllegalArgumentException("Los IDs de los nodos deben ser mayores a -1.");
         }
         this.startingNodeID = startingNodeID;
         this.destinationNodeID = destinationNodeID;
@@ -80,17 +80,26 @@ public class Edge {
     // Métodos de cálculo
     private void refreshWeight() {
         weight = Math.max(weight - getIncrement(), 0);  // Evita que el peso sea negativo
+
+        if (weight == 0) {
+            startingNode = ListNodes.getNodeByID(startingNodeID);
+            startingNode.setLocation(getDestinationNode().getLocation());
+        }
     }
 
     public void recalculateStartNode() {
         Node startNode = getStartingNode();
         Node endNode = getDestinationNode();
+
         if (startNode == null || endNode == null) {
             throw new IllegalStateException("No se pueden calcular las ubicaciones: los nodos no son válidos.");
         }
+
         double[] init = startNode.getLocation();
         double[] end = endNode.getLocation();
+
         calcularIncremento(init[0], init[1], end[0], end[1], getIncrement());
+
         refreshWeight();
     }
 
@@ -122,18 +131,19 @@ public class Edge {
     // Métodos de obtención de nodos
     @JsonIgnore
     public Node getDestinationNode() {
-        if (destinationNode == null) {
-            destinationNode = getIndexAt(destinationNodeID);
-        }
-        return destinationNode;
+//        if (destinationNode == null) {
+//            destinationNode = getIndexAt(destinationNodeID);
+//        }
+        return ListNodes.getNodeByID(destinationNodeID);
     }
 
     @JsonIgnore
     public Node getStartingNode() {
-        if (startingNode == null) {
-            startingNode = getIndexAt(startingNodeID);
-        }
-        return startingNode;
+//        if (startingNode == null) {
+//            startingNode = getIndexAt(startingNodeID);
+//        }
+//        return startingNode;
+        return ListNodes.getNodeByID(startingNodeID);
     }
 
     // Método para obtener el peso efectivo (ajustado por condiciones de tráfico)
@@ -178,16 +188,21 @@ public class Edge {
 
     @Override
     public String toString() {
-        return "Connection{" +
-                "ID=" + ID +
-                ", startingNodeID=" + startingNodeID +
-                ", destinationNodeID=" + destinationNodeID +
-                ", weight=" + weight +
-                ", isBlocked=" + isBlocked +
-                ", trafficCondition='" + trafficCondition + '\'' +
-                ", direction=" + direction +
-                '}';
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Connection{\n")
+                .append("  ID=").append(ID).append("\n")
+                .append("  startingNodeID=").append(startingNodeID).append("\n")
+                .append("  destinationNodeID=").append(destinationNodeID).append("\n")
+                .append("  weight=").append(weight).append("\n")
+                .append("  isBlocked=").append(isBlocked).append("\n")
+                .append("  trafficCondition='").append(trafficCondition).append("'\n")
+                .append("  direction=").append(direction).append("\n")
+                .append("}");
+
+        return sb.toString();
     }
+
 }
 
 

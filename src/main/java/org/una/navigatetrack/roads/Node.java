@@ -17,7 +17,7 @@ public class Node {
     private Map<Directions, Edge> connectionsMap;
 
     @JsonIgnore
-    boolean nodeType, emptyValues;
+    boolean nodeType, emptyValues, starNode;
 
     public void removeConnection(Node end) {
         // Comprobar si el mapa de conexiones es nulo o vacío
@@ -50,6 +50,7 @@ public class Node {
     public Node() {
         connectionsMap = new EnumMap<>(Directions.class);
         location = new double[2];  // Suponiendo que la ubicación es en 2D (x, y)
+        nodeType = emptyValues = starNode = false;
     }
 
     // Constructor con ubicación
@@ -59,7 +60,9 @@ public class Node {
         }
         connectionsMap = new EnumMap<>(Directions.class);
         location = point;
-        //ID = ListNodes.getNextId(); TODO: Generar ID de forma automática
+
+        nodeType = starNode = false;
+        emptyValues = true;
     }
 
     // ===========================
@@ -114,8 +117,8 @@ public class Node {
 
     @JsonIgnore
     public Edge getConnectionInNode(int nodeID) {
-        if (nodeID <= 0) {
-            throw new IllegalArgumentException("El ID del nodo debe ser mayor que cero.");
+        if (nodeID <= -1) {
+            throw new IllegalArgumentException("El ID del nodo debe ser mayor que -1.");
         }
 
         return connectionsMap.values().stream()
@@ -173,8 +176,10 @@ public class Node {
         }
 
         Edge edge = getConnectionInNode(inNode.getID());
+
         if (edge != null) {
             edge.setDestinationNodeID(toNode.getID());
+            edge.setWeight(calculateDistance(toNode));
         } else {
             System.err.println("Error: No se encontró una conexión con el nodo de entrada.");
         }
@@ -221,19 +226,24 @@ public class Node {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Node{")
-                .append("ID=").append(ID)
-                .append(", location=").append(Arrays.toString(location))
-                .append(", connectionsMap={");
+        // Agregar ID y ubicación
+        sb.append("Node{\n")
+                .append("  ID=").append(ID).append("\n")
+                .append("  location=").append(Arrays.toString(location)).append("\n")
+                .append("  connectionsMap={\n");
 
+        // Si hay conexiones, iterar sobre ellas y agregarlas en líneas separadas
         if (connectionsMap != null && !connectionsMap.isEmpty()) {
             for (Map.Entry<Directions, Edge> entry : connectionsMap.entrySet()) {
-                sb.append(entry.getKey()).append("->").append(entry.getValue().toString()).append(", ");
+                sb.append("    ").append(entry.getKey()).append(" -> ").append(entry.getValue()).append("\n");
             }
-            sb.setLength(sb.length() - 2); // Eliminar la última coma y espacio
         }
 
-        sb.append("}}");
+        // Cerrar el mapa de conexiones y la clase Node
+        sb.append("  }\n")
+                .append("}");
+
         return sb.toString();
     }
+
 }

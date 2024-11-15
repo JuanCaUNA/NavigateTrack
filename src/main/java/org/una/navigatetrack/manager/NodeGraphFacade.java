@@ -1,6 +1,7 @@
 package org.una.navigatetrack.manager;
 
 import javafx.application.Platform;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -23,27 +24,26 @@ import java.util.concurrent.TimeUnit;
 public class NodeGraphFacade {
 
     private final NodesDrawerManagers nodesDrawerManagers;
+    private final DrawerManager localDrawManager;
     private ScheduledExecutorService scheduler;
-    private Graph graph;
 
-    @Getter
-    private Node startNode;
-    @Getter
-    private Node endNode;
-    private final double[] startPoint = new double[2];
-    private final double[] endPoint = new double[2];
-    private final double[] startConnection = new double[4];
-    private final double[] endConnection = new double[4];
+    private Graph graph;
+    private List<Edge> bestPath;
+    private EdgeDTO tempEdgeDTO;
+
+    @Setter
+    private Label timeL;
+    @Setter
+    private Button travelB, pauseB;
 
     @Setter
     private boolean isDijkstra;
     @Getter
-    private int time;
+    private Node startNode, endNode;
     private boolean pause, stop;
-    @Setter
-    private Label timeL;
-    private List<Edge> mejorRuta;
-    private EdgeDTO temp;
+
+    private final double[] startPoint = new double[2], endPoint = new double[2];
+    private final double[] startConnection = new double[4], endConnection = new double[4];
 
     private static final Color BLUE_COLOR = Color.rgb(0, 0, 255, 0.5);
     private static final Color START_NODE_COLOR = Color.YELLOW;
@@ -52,6 +52,7 @@ public class NodeGraphFacade {
 
     public NodeGraphFacade(Pane paintPane) {
         nodesDrawerManagers = new NodesDrawerManagers(new DrawerManager(paintPane), false);
+        localDrawManager = new DrawerManager(paintPane);
 
         startNode = new Node();
         endNode = new Node();
@@ -63,34 +64,44 @@ public class NodeGraphFacade {
         ListNodes.addNode(endNode);
 
         startNode.setEmptyValues(true);
+        startNode.setStarNode(true);
         endNode.setEmptyValues(true);
     }
 
     // Métodos para configurar los nodos
+
     public boolean setStartNode(double[] point) {
-        return setNode(point, true);
+        return setNode(point, startNode);
     }
 
     public boolean setEndNode(double[] point) {
-        return setNode(point, false);
+        return setNode(point, endNode);
     }
 
-    private boolean setNode(double[] point, boolean isStartNode) {
-        Node currentNode = isStartNode ? startNode : endNode;
-        double[] currentPoint = isStartNode ? startPoint : endPoint;
-        double[] currentConnection = isStartNode ? startConnection : endConnection;
+    private boolean setNode(double[] point, Node currentNode) {
+        double[] currentPoint = currentNode.isStarNode() ? startPoint : endPoint;
+        double[] currentConnection = currentNode.isStarNode() ? startConnection : endConnection;
 
         if (!currentNode.isEmptyValues()) resetNode(currentNode, currentConnection);
 
-        // Establecer nuevas coordenadas
         System.arraycopy(point, 0, currentPoint, 0, 2);
         Arrays.fill(currentConnection, Double.NaN);
 
         if (locateNode(currentPoint, currentConnection)) {
-            Color nodeColor = isStartNode ? START_NODE_COLOR : END_NODE_COLOR;
-            nodesDrawerManagers.drawCircle(currentPoint, nodeColor);
+
+            int a = (int) currentPoint[0];
+            int b = (int) currentPoint[1];
+            currentPoint[0] = a;
+            currentPoint[1] = b;
+
+
+            if (currentNode.isStarNode()) {
+                drawLocalCircle(currentPoint, START_NODE_COLOR);
+            } else {
+                nodesDrawerManagers.drawCircle(currentPoint, END_NODE_COLOR);
+            }
+
             currentNode.setLocation(currentPoint);
-            currentNode.setNodeType(!Double.isNaN(currentConnection[0]));  // Si la conexión está definida
             currentNode.setEmptyValues(false);
             return true;
         }
@@ -99,25 +110,24 @@ public class NodeGraphFacade {
 
     private void resetNode(Node node, double[] currentConnection) {
         node.getAllConnections().forEach(edge -> nodesDrawerManagers.getDrawerManager().removeLine(edge.connectionline()));
+
         disconnectNode(node, currentConnection);
+
         removeNodeVisual(node);
+
         node.setLocation(new double[]{0, 0});
         node.setEmptyValues(true);
     }
 
     private void removeNodeVisual(Node node) {
-        nodesDrawerManagers.removeCircle(node.getLocation());
+        if (node.isStarNode()) {
+            removeDrawLocalCircle(node.getLocation());
+        } else {
+            nodesDrawerManagers.removeCircle(node.getLocation());
+        }
     }
 
     private boolean locateNode(double[] location, double[] connection) {
-        double[] relocated = nodesDrawerManagers.getLocationIfExistNodeAt(location);
-
-        if (relocated != null) {
-            System.arraycopy(relocated, 0, location, 0, 2);
-            Arrays.fill(connection, Double.NaN);
-            return true;
-        }
-
         double[] array = nodesDrawerManagers.getDrawerManager().getLineAtWithCircle(location);
         if (array != null) {
             System.arraycopy(array, 0, connection, 0, 4);
@@ -132,14 +142,28 @@ public class NodeGraphFacade {
     }
 
     // Métodos de conexión y desconexión de nodos
+
     private void connectNode(Node node, double[] connectionXY) {
         Node init = getNodeAtLocation(connectionXY[0], connectionXY[1]);
         Node end = getNodeAtLocation(connectionXY[2], connectionXY[3]);
 
-        if (init == null || end == null) return;
+
+        if (init == null || end == null) {
+            System.out.println("error de nulo inicio y fin");
+            return;
+        }
+
+        System.out.println(init.toString());
+        System.out.println(end.toString());
+        System.out.println(node.toString());
 
         connectNodes(init, end, node);
         connectNodes(end, init, node);
+
+        System.out.println(init.toString());
+        System.out.println(end.toString());
+        System.out.println(node.toString());
+
     }
 
     private Node getNodeAtLocation(double x, double y) {
@@ -149,7 +173,9 @@ public class NodeGraphFacade {
     private void connectNodes(Node node1, Node node2, Node node) {
         if (node1.isConnectedToNode(node2)) {
             Directions dir = node1.getDirConnectedToNode(node2);
+
             node.addConnection(node2, dir);
+
             node1.changeConnectionIn(node2, node);
         }
     }
@@ -158,11 +184,15 @@ public class NodeGraphFacade {
         Node init = getNodeAtLocation(connectionXY[0], connectionXY[1]);
         Node end = getNodeAtLocation(connectionXY[2], connectionXY[3]);
 
+        connectNodes(node, end, init);//restablecer
+        connectNodes(node, init, node);//retablecer
+
         if (node.isConnectedToNode(end)) node.removeConnection(end);
         if (node.isConnectedToNode(init)) node.removeConnection(init);
     }
 
     // para iniciar el ciclo de viaje
+
     public boolean initTravel() {
         if (startNode.isEmptyValues() || endNode.isEmptyValues()) {
             AppContext.getInstance().createNotification("No seleccionado", "Faltan los puntos de inicio y destino.");
@@ -170,21 +200,28 @@ public class NodeGraphFacade {
         }
 
         try {
-            pause = stop = false;  // Inicializamos los estados
+            pause = stop = false;
 
-            connectNode(startNode, startConnection);
-            connectNode(endNode, endConnection);
+            connectNode(endNode, endConnection);//conecta el nodo al grafo
+            connectNode(startNode, startConnection);//conecta el nodo al grafo
 
-            loadBestPath();
+            if (!loadBestPath())
+                return false;
 
-            // Dibujar las conexiones
-            for (Edge edge : mejorRuta) {
-                if (edge != null) draEdgeDrawLocal(edge, EDGE_COLOR);
+//             Dibujar las conexiones
+            for (Edge edge : bestPath) {
+                if (edge != null) drawEdgeLocal(edge, EDGE_COLOR);
+                else {
+                    System.err.println("conexion vacia");
+                    return false;
+                }
             }
 
-            temp = new EdgeDTO(mejorRuta.getFirst());
+
+            tempEdgeDTO = new EdgeDTO(bestPath.getFirst());
 
             startTravelCycle();
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -193,57 +230,59 @@ public class NodeGraphFacade {
     }
 
     private void startTravelCycle() {
-        if (timeL == null) {
-            System.out.println("timeL es null. No se puede comenzar el ciclo.");
-            return;
-        }
 
         scheduler = Executors.newSingleThreadScheduledExecutor();
         System.out.println("Scheduler creado y listo para ejecutar.");
-
-        scheduler.scheduleAtFixedRate(() -> {
-            try {
-                if (!stop && !pause) {
-                    Platform.runLater(this::executeTravelCycleStep);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }, 0, 1, TimeUnit.SECONDS);  // Ejecutamos cada 1 segundo
-    }
-
-    private void executeTravelCycleStep() {
         try {
-            Edge currentE = mejorRuta.getFirst();
-            Node currentN = currentE.getStartingNode();
 
-            deleteEdgeDrawLocal(currentE);
-            removeNodeVisual(currentN);
+            scheduler.scheduleAtFixedRate(() -> {
+                if (!stop && !pause) Platform.runLater(this::executeTravelCycleStep);
+            }, 0, 1, TimeUnit.SECONDS);
 
-            currentE.recalculateStartNode();
-            draEdgeDrawLocal(currentE, EDGE_COLOR);
-            nodesDrawerManagers.drawCircle(currentN.getLocation(), START_NODE_COLOR);
-
-            double time = currentE.getEffectiveWeight();
-            timeL.setText("Tiempo: " + time);
-
-            if (time <= 0.0) {
-                if (currentE.getDestinationNodeID() == endNode.getID()) {
-                    endTravel();
-                } else {
-                    updateTravelCycle(currentE);
-                }
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    private void executeTravelCycleStep() {
+
+        Edge currentE = bestPath.getFirst();
+        Node currentN = currentE.getStartingNode();
+
+        deleteDrawEdgeLocal(currentE);
+        removeDrawLocalCircle(currentN.getLocation());
+
+        currentE.recalculateStartNode();
+
+        System.out.println("ciclo");
+        System.out.println(currentE.toString());
+        System.out.println(currentN.toString());
+
+        double time = currentE.getEffectiveWeight();
+        timeL.setText("Tiempo: " + time);
+
+        System.out.println("fin");
+        System.out.println(endNode.toString());
+        if (time <= 0.0) {
+            System.out.println(endNode.toString());
+            updateTravelCycle(currentE);
+            if (currentE.getDestinationNodeID() == endNode.getID()) {
+                endTravel();
+            } else {
+                bestPath.removeFirst();
+                tempEdgeDTO = new EdgeDTO(bestPath.getFirst());
+            }
+        } else {
+            drawEdgeLocal(currentE, EDGE_COLOR);
+            drawLocalCircle(currentN.getLocation(), START_NODE_COLOR);
+            System.out.println(" detino" + currentE.getDestinationNode().toString());
+        }
+
+    }
+
     private void updateTravelCycle(Edge currentE) {
-        currentE.setWeight(temp.getWeight());
-        currentE.getStartingNode().setLocation(temp.getPointStart());
-        mejorRuta.removeFirst();
-        temp = new EdgeDTO(mejorRuta.getFirst());
+        currentE.setWeight(tempEdgeDTO.getWeight());
+        currentE.getStartingNode().setLocation(tempEdgeDTO.getPointStart());
     }
 
     public void pauseTravel(Boolean pausar) {
@@ -257,30 +296,46 @@ public class NodeGraphFacade {
             scheduler.shutdown();
         }
 
+
         disconnectNode(startNode, startConnection);
         disconnectNode(endNode, endConnection);
     }
 
-    private void loadBestPath() {
+    private boolean loadBestPath() {
         graph = new Graph(startNode, endNode);
         boolean exito = isDijkstra ? graph.runDijkstra() : graph.runFloydWarshall();
 
         if (!exito) {
             System.out.println("No se encontró ruta.");
+            return false;
         }
-        mejorRuta = graph.getBestPathEdges();
+        bestPath = graph.getBestPathEdges();
+        return true;
     }
 
-    private void draEdgeDrawLocal(Edge edge, Color color) {
-        if (edge != null) {
-            nodesDrawerManagers.getDrawerManager().drawLine(edge.connectionline(), color);
-        }
+    private void drawLocalCircle(double[] point, Color color) {
+        localDrawManager.drawCircle(point[0], point[1], color);
     }
 
-    private void deleteEdgeDrawLocal(Edge edge) {
-        if (edge != null) {
-            nodesDrawerManagers.getDrawerManager().removeLine(edge.connectionline());
+    private void removeDrawLocalCircle(double[] point) {
+        localDrawManager.removeCircle(point);
+    }
+
+    private void drawEdgeLocal(Edge edge, Color color) {
+        if (edge == null) {
+            System.err.println("edge null: deleteDrawEdgeLocal");
+            return;
         }
+        localDrawManager.drawLine(edge.connectionline(), color);
+    }
+
+    private void deleteDrawEdgeLocal(Edge edge) {
+        if (edge == null) {
+            System.err.println("edge null: deleteDrawEdgeLocal");
+            return;
+        }
+        localDrawManager.removeLine(edge.connectionline());
+
     }
 
     public void reDrawEdge(Edge edge, Color color) {
