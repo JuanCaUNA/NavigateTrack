@@ -254,17 +254,13 @@ public class NodeGraphFacade {
 
         currentE.recalculateStartNode();
 
-        System.out.println("ciclo");
-        System.out.println(currentE.toString());
-        System.out.println(currentN.toString());
+        drawEdgeLocal(currentE, EDGE_COLOR);
+        drawLocalCircle(currentN.getLocation(), START_NODE_COLOR);
 
         double time = currentE.getEffectiveWeight();
         timeL.setText("Tiempo: " + time);
 
-        System.out.println("fin");
-        System.out.println(endNode.toString());
         if (time <= 0.0) {
-            System.out.println(endNode.toString());
             updateTravelCycle(currentE);
             if (currentE.getDestinationNodeID() == endNode.getID()) {
                 endTravel();
@@ -273,9 +269,7 @@ public class NodeGraphFacade {
                 tempEdgeDTO = new EdgeDTO(bestPath.getFirst());
             }
         } else {
-            drawEdgeLocal(currentE, EDGE_COLOR);
-            drawLocalCircle(currentN.getLocation(), START_NODE_COLOR);
-            System.out.println(" detino" + currentE.getDestinationNode().toString());
+
         }
 
     }
@@ -295,7 +289,6 @@ public class NodeGraphFacade {
         if (scheduler != null && !scheduler.isShutdown()) {
             scheduler.shutdown();
         }
-
 
         disconnectNode(startNode, startConnection);
         disconnectNode(endNode, endConnection);
