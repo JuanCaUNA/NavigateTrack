@@ -68,29 +68,30 @@ public class ImplementsLogicController implements Initializable {
         nodeGraphFacade.setAlgoritmoB(algoritmoB);
         nodeGraphFacade.setPauseB(pauseB);
 
-        ToggleGroup toggleGroup = new ToggleGroup();
-        initRadioB.setToggleGroup(toggleGroup);
-        endingRadioB.setToggleGroup(toggleGroup);
-        radioBConnection.setToggleGroup(toggleGroup);
-        radioBFnormal.setToggleGroup(toggleGroup);
-        radioBFmoderado.setToggleGroup(toggleGroup);
-        radioBFlento.setToggleGroup(toggleGroup);
-        sentido1RadioB.setToggleGroup(toggleGroup);
-        sentido2RadioB.setToggleGroup(toggleGroup);
-
-        toggleGroup.selectedToggleProperty().addListener((observable, oldToggle, newToggle) -> {
-            if (newToggle == radioBConnection) {
-                toggleUIComponents(true);
-            } else {
-                toggleUIComponents(false);
-            }
-        });
-
         message = "";
 
         setupUI();
         setupEventHandlers();
+        setupToggleGroup(); // Agregamos esta función
     }
+
+    private void setupToggleGroup() {
+        // Agrupar los RadioButton
+        ToggleGroup toggleGroup = new ToggleGroup();
+        initRadioB.setToggleGroup(toggleGroup);
+        endingRadioB.setToggleGroup(toggleGroup);
+        radioBConnection.setToggleGroup(toggleGroup);
+
+        // Listener para manejar cambios de selección
+        toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == radioBConnection) {
+                toggleUIComponents(true); // Habilitar componentes relacionados
+            } else {
+                toggleUIComponents(false); // Deshabilitar componentes relacionados
+            }
+        });
+    }
+
 
     private void toggleUIComponents(boolean enable) {
         blockCBox.setDisable(!enable);
