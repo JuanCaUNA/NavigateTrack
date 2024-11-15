@@ -5,92 +5,88 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<StackPane id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.navigatetrack.controller.fxml.ImplementsLogicController">
+<StackPane id="root" minHeight="1010.0" minWidth="1000.0" prefHeight="1040.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.navigatetrack.controller.fxml.ImplementsLogicController">
     <children>
-        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+        <HBox alignment="TOP_CENTER" prefHeight="1000.0" prefWidth="200.0" spacing="50.0" StackPane.alignment="CENTER">
             <children>
-                <FlowPane id="menuFlowPane" cache="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" vgap="10.0">
-                    <children>
-                        <Label fx:id="labelTitle" prefHeight="30.0" prefWidth="325.0" text="Definir en el mapa:" />
-                        <RadioButton fx:id="endingRadioB" mnemonicParsing="false" prefHeight="29.0" prefWidth="325.0" selected="true" text="Marcar Punto de destino">
-                            <FlowPane.margin>
-                                <Insets top="10.0" />
-                            </FlowPane.margin>
-                            <toggleGroup>
-                                <ToggleGroup fx:id="selections" />
-                            </toggleGroup>
-                        </RadioButton>
-                        <Label fx:id="labelDestino" prefHeight="29.0" prefWidth="324.0" text="Label  destino" />
-                        <RadioButton fx:id="initRadioB" mnemonicParsing="false" prefHeight="29.0" prefWidth="325.0" text="Marcar Punto de partida" toggleGroup="$selections">
-                            <FlowPane.margin>
-                                <Insets top="10.0" />
-                            </FlowPane.margin>
-                        </RadioButton>
-                        <Label fx:id="labelPartida" prefHeight="29.0" prefWidth="325.0" text="Label partida">
-                            <FlowPane.margin>
-                                <Insets bottom="10.0" />
-                            </FlowPane.margin>
-                        </Label>
-                        <RadioButton fx:id="radioBFloydWarshall" mnemonicParsing="false" prefHeight="20.0" prefWidth="153.0" selected="true" text="FloydWarshall">
-                            <FlowPane.margin>
-                                <Insets right="53.0" />
-                            </FlowPane.margin>
-                            <toggleGroup>
-                                <ToggleGroup fx:id="modes" />
-                            </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="radioBDijkstra" mnemonicParsing="false" prefHeight="20.0" prefWidth="120.0" text="Distrack" toggleGroup="$modes">
-                            <FlowPane.margin>
-                                <Insets />
-                            </FlowPane.margin>
-                        </RadioButton>
-                        <Button fx:id="startB" mnemonicParsing="false" prefHeight="40.0" prefWidth="116.0" text="Iniciar Viaje">
-                            <FlowPane.margin>
-                                <Insets left="10.0" right="60.0" />
-                            </FlowPane.margin>
-                     <padding>
-                        <Insets right="5.0" />
-                     </padding>
+            <VBox id="menuFlowPane" alignment="TOP_CENTER" maxHeight="950.0" maxWidth="600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="431.0" spacing="15.0" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+               <children>
+                  <Label fx:id="labelTitle" prefHeight="30.0" prefWidth="325.0" text="Definir en el mapa:" VBox.vgrow="ALWAYS" />
+                  <RadioButton fx:id="endingRadioB" mnemonicParsing="false" prefHeight="29.0" prefWidth="325.0" selected="true" text="Marcar Punto de destino" VBox.vgrow="ALWAYS">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="selections" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="initRadioB" mnemonicParsing="false" prefHeight="29.0" prefWidth="325.0" text="Marcar Punto de partida" toggleGroup="$selections" />
+                  <Separator layoutX="110.0" layoutY="421.0" maxWidth="400.0" prefWidth="100.0" />
+                  <VBox alignment="CENTER" maxWidth="320.0" prefHeight="150.0" prefWidth="100.0" spacing="15.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Button id="algoritmoB" fx:id="algoritmoB" maxHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" text="ALGORITMO">
+                           <padding>
+                              <Insets right="5.0" />
+                           </padding>
                         </Button>
-                        <Button id="pauseB" fx:id="pauseB" mnemonicParsing="false" prefHeight="40.0" prefWidth="127.0" text="Pausar Viaje">
-                            <FlowPane.margin>
-                                <Insets />
-                            </FlowPane.margin>
-                        </Button>
-                        <Label fx:id="labelTime" prefHeight="20.0" prefWidth="325.0" text="Tiempo estimado: ">
-                            <FlowPane.margin>
-                                <Insets bottom="10.0" top="10.0" />
-                            </FlowPane.margin>
-                        </Label>
-                        <RadioButton fx:id="radioBNode" mnemonicParsing="false" prefHeight="20.0" prefWidth="325.0" text="Selecionar Nodo para ver info" toggleGroup="$selections" />
-                        <RadioButton fx:id="radioBConnection" mnemonicParsing="false" prefHeight="20.0" prefWidth="325.0" text="Selecionar conexion para ver info" toggleGroup="$selections" />
-                        <CheckBox fx:id="blockCBox" mnemonicParsing="false" text="Bloquear" />
-                        <TextArea fx:id="textArea" prefHeight="245.0" prefWidth="325.0" />
-                        <Button fx:id="changeImageB" mnemonicParsing="false" prefHeight="40.0" prefWidth="151.0" text="Cambiar imagen">
-                            <FlowPane.margin>
-                                <Insets left="10.0" right="10.0" />
-                            </FlowPane.margin>
-                        </Button>
-                        <Button fx:id="infoB" mnemonicParsing="false" prefHeight="40.0" prefWidth="138.0" text="Info" />
-                    </children>
-                    <HBox.margin>
+                        <HBox alignment="CENTER" maxHeight="50.0" prefHeight="100.0" prefWidth="200.0" spacing="15.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Button id="startB" fx:id="startB" maxHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" text="Iniciar Viaje" HBox.hgrow="ALWAYS">
+                                 <padding>
+                                    <Insets right="5.0" />
+                                 </padding>
+                              </Button>
+                              <Button id="pauseB" fx:id="pauseB" maxHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" text="Pausar Viaje" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
                         <Insets />
-                    </HBox.margin>
-                    <padding>
-                        <Insets left="150.0" right="150.0" top="50.0" />
-                    </padding>
-                </FlowPane>
+                     </VBox.margin>
+                  </VBox>
+                  <Label fx:id="labelTime" prefHeight="20.0" prefWidth="325.0" text="Tiempo estimado: " VBox.vgrow="ALWAYS" />
+                  <Label fx:id="labelPrecioEstimado" layoutX="148.0" layoutY="361.0" prefHeight="20.0" prefWidth="325.0" text="Precio estimado: " VBox.vgrow="ALWAYS" />
+                  <Label fx:id="labelPrecioTotal" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="148.0" layoutY="431.0" prefHeight="20.0" prefWidth="325.0" text="Precio final: " VBox.vgrow="ALWAYS" />
+                  <Separator maxWidth="400.0" prefWidth="100.0" />
+                  <RadioButton fx:id="radioBConnection" mnemonicParsing="false" prefHeight="20.0" prefWidth="325.0" text="Selecionar calle" toggleGroup="$selections" VBox.vgrow="ALWAYS" />
+                  <CheckBox fx:id="blockCBox" mnemonicParsing="false" prefHeight="17.0" prefWidth="323.0" text="Bloquear" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="labelPartida" layoutX="148.0" layoutY="185.0" prefHeight="29.0" prefWidth="325.0" text="Flujo del trafico" />
+                  <HBox alignment="CENTER" layoutX="150.0" layoutY="476.0" maxHeight="60.0" maxWidth="350.0" prefHeight="60.0" prefWidth="332.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                     <children>
+                        <RadioButton fx:id="radioBFnormal" alignment="CENTER_LEFT" maxHeight="20.0" maxWidth="180.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="107.0" text="Normal">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="tougleTraficGroup" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="radioBFmoderado" maxHeight="20.0" maxWidth="180.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="124.0" text="Moderado" toggleGroup="$tougleTraficGroup" />
+                        <RadioButton fx:id="radioBFlento" maxHeight="20.0" maxWidth="180.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="94.0" text="Lento" toggleGroup="$tougleTraficGroup" />
+                     </children>
+                  </HBox>
+                  <TextArea fx:id="textArea" maxHeight="325.0" maxWidth="325.0" prefHeight="245.0" prefWidth="325.0" VBox.vgrow="ALWAYS" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="infoB" maxHeight="40.0" maxWidth="150.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Info" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="changeImageB" maxHeight="40.0" maxWidth="150.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Cambiar imagen" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="editionB" layoutX="289.0" layoutY="10.0" maxHeight="40.0" maxWidth="150.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Modo edición" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
                 <Pane id="visualPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0">
                     <children>
                         <Pane fx:id="mapPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" />
-                        <Pane fx:id="paintPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" />
+                        <Pane fx:id="paintPane" maxHeight="950.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="670.0" />
                     </children>
                 </Pane>
             </children>
@@ -99,4 +95,7 @@
             </StackPane.margin>
         </HBox>
     </children>
+   <padding>
+      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+   </padding>
 </StackPane>

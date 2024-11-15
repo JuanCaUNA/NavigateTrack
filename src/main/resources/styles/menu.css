@@ -203,6 +203,15 @@
 /* ========================== */
 
 /* Botón de inicio */
+#algoritmoB {
+    -fx-background-color: #8451ba; /* Verde suave */
+}
+
+#algoritmoB:hover {
+    -fx-background-color:linear-gradient(to bottom, #6aa5a5, #38675f, #6aa5a5); /* Verde más oscuro */
+}
+
+/* Botón de inicio */
 #startB {
     -fx-background-color: #66bb6a; /* Verde suave */
 }
