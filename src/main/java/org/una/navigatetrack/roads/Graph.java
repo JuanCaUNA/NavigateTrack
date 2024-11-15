@@ -208,36 +208,36 @@ public class Graph {
         return path.size() > 1 ? path : null;
     }
 
-    // Método principal para ejecutar los algoritmos
-    public static void main(String[] args) {
-        // Cargar la lista de nodos y conexiones
-        ListNodes.loadNodesList();
-
-        // Ejemplo de uso: Camino entre nodos 3 y 4
-        System.out.println("Prueba: Camino de nodo 3 a nodo 4");
-        Graph graph = new Graph(ListNodes.getNodeByID(3), ListNodes.getNodeByID(4));
-        testGraphAlgorithms(graph);
-    }
-
-    private static void testGraphAlgorithms(Graph graph) {
-        System.out.println("Prueba de Dijkstra:");
-        if (graph.runDijkstra()) {
-            System.out.println("Camino encontrado: " + graph.bestPathNodeIDs);
-            System.out.println("Distancia total: " + graph.getPathDistance());
-        } else {
-            System.out.println("No se encontró un camino usando Dijkstra.");
-        }
-
-        for (Edge edge: graph.bestPathEdges){
-            System.out.println(edge.toString());
-        }
-
-        System.out.println("Prueba de Floyd-Warshall:");
-        if (graph.runFloydWarshall()) {
-            System.out.println("Camino encontrado: " + graph.bestPathNodeIDs);
-            System.out.println("Distancia total: " + graph.getPathDistance());
-        } else {
-            System.out.println("No se encontró un camino usando Floyd-Warshall.");
-        }
-    }
+//    // Método principal para ejecutar los algoritmos
+//    public static void main(String[] args) {
+//        // Cargar la lista de nodos y conexiones
+//        ListNodes.loadNodesList();
+//
+//        // Ejemplo de uso: Camino entre nodos 3 y 4
+//        System.out.println("Prueba: Camino de nodo 3 a nodo 4");
+//        Graph graph = new Graph(ListNodes.getNodeByID(3), ListNodes.getNodeByID(4));
+//        testGraphAlgorithms(graph);
+//    }
+//
+//    private static void testGraphAlgorithms(Graph graph) {
+//        System.out.println("Prueba de Dijkstra:");
+//        if (graph.runDijkstra()) {
+//            System.out.println("Camino encontrado: " + graph.bestPathNodeIDs);
+//            System.out.println("Distancia total: " + graph.getPathDistance());
+//        } else {
+//            System.out.println("No se encontró un camino usando Dijkstra.");
+//        }
+//
+//        for (Edge edge: graph.bestPathEdges){
+//            System.out.println(edge.toString());
+//        }
+//
+//        System.out.println("Prueba de Floyd-Warshall:");
+//        if (graph.runFloydWarshall()) {
+//            System.out.println("Camino encontrado: " + graph.bestPathNodeIDs);
+//            System.out.println("Distancia total: " + graph.getPathDistance());
+//        } else {
+//            System.out.println("No se encontró un camino usando Floyd-Warshall.");
+//        }
+//    }
 }
