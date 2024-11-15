@@ -289,6 +289,21 @@ public class DrawerManager {
         }
     }
 
+    public void removeCircles() {
+        if (circles == null || circles.isEmpty()) {
+            System.out.println("No hay líneas para eliminar.");
+            return;
+        }
+        List<Circle> Copy = new ArrayList<>(circles);
+        for (Circle circle : Copy) {
+            if (circle != null) {
+                removeCircle(circle);  // Llama a la función para eliminar la línea
+            } else {
+                System.out.println("Advertencia: figura nula encontrada, saltando.");
+            }
+        }
+    }
+
 
     private void logError(String message) {
         System.err.println("[ERROR] " + message);

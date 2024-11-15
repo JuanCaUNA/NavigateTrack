@@ -113,11 +113,18 @@ public class NodeGraphFacade {
         return false;
     }
 
+    private boolean doFirstPairsMatch() {
+        return (startConnection[0] == endConnection[0] && startConnection[1] == endConnection[1]) ||
+                (startConnection[0] == endConnection[2] && startConnection[1] == endConnection[3]) ||
+                (startConnection[2] == endConnection[0] && startConnection[3] == endConnection[1]) ||
+                (startConnection[2] == endConnection[2] && startConnection[3] == endConnection[3]);
+    }
+
+
     private void resetNode(Node node, double[] currentConnection) {
         node.getAllConnections().forEach(edge -> nodesDrawerManagers.getDrawerManager().removeLine(edge.connectionline()));
 
-        disconnectNode(node, currentConnection);
-
+//        disconnectNode(node, currentConnection);
         removeNodeVisual(node);
 
         node.setLocation(new double[]{0, 0});
@@ -126,7 +133,8 @@ public class NodeGraphFacade {
 
     private void removeNodeVisual(Node node) {
         if (node.isStarNode()) {
-            removeDrawLocalCircle(node.getLocation());
+            localDrawManager.removeCircles();
+//            removeDrawLocalCircle(node.getLocation());
         } else {
             nodesDrawerManagers.removeCircle(node.getLocation());
         }
@@ -148,9 +156,11 @@ public class NodeGraphFacade {
 
     // Métodos de conexión y desconexión de nodos
 
+    Node init, end;
+
     private void connectNode(Node node, double[] connectionXY) {
-        Node init = getNodeAtLocation(connectionXY[0], connectionXY[1]);
-        Node end = getNodeAtLocation(connectionXY[2], connectionXY[3]);
+        init = getNodeAtLocation(connectionXY[0], connectionXY[1]);
+        end = getNodeAtLocation(connectionXY[2], connectionXY[3]);
 
 
         if (init == null || end == null) {
@@ -206,6 +216,7 @@ public class NodeGraphFacade {
         if (!validateNodes()) {
             return false;
         }
+        finalizadoE = false;
 
         try {
             prepareTravel();
@@ -239,8 +250,15 @@ public class NodeGraphFacade {
 
     private void prepareTravel() {
         pause = stop = false;
-        connectNode(endNode, endConnection);
+
+        doFirstPairsMatch();//todo si la conecion es la misma
+
         connectNode(startNode, startConnection);
+        nodesEnd = new Node[]{end, init};
+
+        connectNode(endNode, endConnection);
+        nodesInit = new Node[]{init, end};
+
     }
 
     private void drawBestPath() {
@@ -278,15 +296,16 @@ public class NodeGraphFacade {
 
     private void executeTravelCycleStep() {
         try {
-            Edge currentEdge = bestPath.getFirst();
+            currentEdge = bestPath.getFirst();
             processCurrentEdge(currentEdge);
 
             estimateTime -= 10;
-            timeL.setText("Tiempo: " + (estimateTime / 10));
+            timeL.setText("Tiempo: " + formatTime(estimateTime / 10));
 
             if (currentEdge.getEffectiveWeight() <= 0.0) {
                 updateTravelCycle(currentEdge);
                 if (hasReachedDestination(currentEdge)) {
+                    removeDrawLocalCircle(currentEdge.getStartingNode().getLocation());
                     finalizeTravel();
                     return;
                 }
@@ -304,8 +323,6 @@ public class NodeGraphFacade {
         finalizadoE = true;
 
         // Detener el ciclo del viaje
-        endTravel();
-
         // Dibujar el mejor camino nuevamente para mostrarlo como resultado final
         bestPath = graph.getBestPathEdges();
         if (bestPath != null && !bestPath.isEmpty()) {
@@ -320,17 +337,34 @@ public class NodeGraphFacade {
             showInfoMessage("No hay camino final para mostrar.");
         }
 
-        // Notificar al usuario
-        infoTA.setText("tiempo durado " + timetranscurrido + "\ntiempo detenido " + tiempoDetenido + "\nCosto total" + ((timetranscurrido + tiempoDetenido) * 10));
+        // Calcular y mostrar los tiempos
+        String tiempoTranscurridoFormat = formatTime(timetranscurrido);
+        String tiempoDetenidoFormat = formatTime(tiempoDetenido);
+        int costoTotal = (timetranscurrido + tiempoDetenido) * 10;
+
+        infoTA.setText("Tiempo transcurrido: " + tiempoTranscurridoFormat +
+                "\nTiempo detenido: " + tiempoDetenidoFormat +
+                "\nCosto total: " + costoTotal);
         showInfoMessage("El viaje ha finalizado exitosamente.");
+
+        endTravel();
     }
 
+    private String formatTime(int tiempoEnSegundos) {
+        int minutos = tiempoEnSegundos / 60;
+        int segundos = tiempoEnSegundos % 60;
+        return String.format("%02d:%02d", minutos, segundos);
+    }
+
+    Node currentNode;
+    Edge currentEdge;
 
     private void processCurrentEdge(Edge currentEdge) {
         deleteDrawEdgeLocal(currentEdge);
         removeDrawLocalCircle(currentEdge.getStartingNode().getLocation());
         currentEdge.recalculateStartNode();
         drawEdgeLocal(currentEdge, EDGE_COLOR);
+        currentNode = currentEdge.getStartingNode();
         drawLocalCircle(currentEdge.getStartingNode().getLocation(), START_NODE_COLOR);
     }
 
@@ -367,6 +401,10 @@ public class NodeGraphFacade {
         showInfoMessage(pausar ? "Viaje pausado." : "Viaje reanudado.");
     }
 
+    Node[] nodesInit, nodesEnd;
+
+    boolean initTrave = false;
+
     public void endTravel() {
         stop = true;
         if (scheduler != null && !scheduler.isShutdown()) {
@@ -374,8 +412,22 @@ public class NodeGraphFacade {
         }
 
         if (!finalizadoE) {
-            disconnectNode(startNode, startConnection);
+            updateTravelCycle(currentEdge);
             localDrawManager.removeLines();
+        }
+
+        //correccion de cordenada
+        nodesInit[0].setLocation(new double[]{startConnection[0], startConnection[1]});
+        nodesInit[1].setLocation(new double[]{startConnection[2], startConnection[3]});
+        nodesEnd[0].setLocation(new double[]{endConnection[0], endConnection[1]});
+        nodesEnd[1].setLocation(new double[]{endConnection[2], endConnection[3]});
+
+        try {
+
+            disconnectNode(startNode, startConnection);
+            disconnectNode(endNode, endConnection);
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
         }
 
         updateUIForTravelEnd();
@@ -465,6 +517,4 @@ public class NodeGraphFacade {
         Node node2 = ListNodes.getNodeByLocation(locations[2], locations[3]);
         return node1.getConnectionInNode(node2.getID()) != null ? node1.getConnectionInNode(node2.getID()) : node2.getConnectionInNode(node1.getID());
     }
-
-
 }
