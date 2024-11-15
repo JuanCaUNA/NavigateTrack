@@ -174,7 +174,6 @@ public class NodeGraphFacade {
             System.out.println("null nodes reference");
             return;
         }
-
         connectNodes(nodes[0], nodes[1], node);
         connectNodes(nodes[1], nodes[0], node);
     }//listo
@@ -448,6 +447,7 @@ public class NodeGraphFacade {
         startB.setStyle("-fx-background-color: #66bb6a;");
         pauseB.setText("Pausar Viaje");
         pauseB.setDisable(true);
+        startB.setDisable(true);
         pauseTravel(false);
         showInfoMessage("Viaje finalizado.");
     }//listo --!
