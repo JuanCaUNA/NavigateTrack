@@ -30,11 +30,11 @@ public class ImplementsLogicController implements Initializable {
     @FXML
     private Pane mapPane, paintPane;
     @FXML
-    private Button startB, changeImageB, infoB, pauseB;
+    private Button startB, changeImageB, infoB, pauseB, editionB, algoritmoB;
     @FXML
-    private Label labelDestino, labelTitle, labelPartida, labelTime;
+    private Label labelTime, labelPrecioEstimado, labelPrecioTotal;
     @FXML
-    private RadioButton initRadioB, endingRadioB, radioBNode, radioBConnection, radioBDijkstra, radioBFloydWarshall;
+    private RadioButton initRadioB, endingRadioB, radioBConnection, radioBFnormal, radioBFmoderado, radioBFlento;
 
     // Controller properties
     private boolean change = false;
@@ -53,7 +53,6 @@ public class ImplementsLogicController implements Initializable {
         nodeGraphFacade.setTimeL(labelTime);
         setupUI();
         setupEventHandlers();
-        initializeRadioButtonSettings();
     }
 
     // Configura el estilo de UI y carga la imagen inicial del mapa
@@ -61,8 +60,7 @@ public class ImplementsLogicController implements Initializable {
         paintPane.setStyle("-fx-background-color: rgba(255, 255, 255, 0.0);");
         loadImageMap("/images/map2.png");
         blockCBox.setDisable(true);
-        radioBNode.setDisable(true);
-        radioBNode.setVisible(false);
+        pauseB.setDisable(true);
     }
 
     // Configura los controladores de eventos para botones y otros elementos de UI
@@ -72,22 +70,9 @@ public class ImplementsLogicController implements Initializable {
         pauseB.setOnAction(event -> togglePause());
         changeImageB.setOnAction(event -> changeImage());
         startB.setOnAction(event -> toggleInitFinally());
+        algoritmoB.setOnAction(event -> toggleAlgorithms());
+        editionB.setOnAction(event -> changeMode());
         blockCBox.setOnAction(event -> handleBlockAction());
-    }
-
-    // Configura los botones de radio con su grupo de selección inicial
-    private void initializeRadioButtonSettings() {
-        ToggleGroup selectionGroup = new ToggleGroup();
-        initRadioB.setToggleGroup(selectionGroup);
-        endingRadioB.setToggleGroup(selectionGroup);
-        radioBNode.setToggleGroup(selectionGroup);
-        radioBConnection.setToggleGroup(selectionGroup);
-        endingRadioB.setSelected(true);
-
-        ToggleGroup modeGroup = new ToggleGroup();
-        radioBDijkstra.setToggleGroup(modeGroup);
-        radioBFloydWarshall.setToggleGroup(modeGroup);
-        radioBFloydWarshall.setSelected(true);
     }
 
     // Alterna el estado de viaje (iniciar o finalizar)
@@ -96,9 +81,8 @@ public class ImplementsLogicController implements Initializable {
             if (nodeGraphFacade.initTravel()) {
                 startB.setText("Finalizar Viaje");
                 startB.setStyle("-fx-background-color: #f44336;");
-
+                pauseB.setDisable(false);
                 System.out.println("Iniciando viaje...");
-                nodeGraphFacade.setDijkstra(radioBDijkstra.isSelected());
 
                 System.out.println("Iniciando viaje...");
                 showInfoMessage("Viaje iniciado.");
@@ -106,14 +90,15 @@ public class ImplementsLogicController implements Initializable {
         } else {
             startB.setText("Iniciar Viaje");
             startB.setStyle("-fx-background-color: #66bb6a;");
-
+            pauseB.setDisable(true);
+            pauseB.setText("Pausar Viaje");
+            nodeGraphFacade.pauseTravel(false);
             System.out.println("Finalizando viaje...");
             nodeGraphFacade.endTravel();
             System.out.println("Finalizando viaje...");
             showInfoMessage("Viaje finalizado.");
         }
     }
-
 
     // Alterna el estado de pausa en el viaje
     private void togglePause() {
@@ -124,6 +109,21 @@ public class ImplementsLogicController implements Initializable {
             pauseB.setText("Pausar Viaje");
             nodeGraphFacade.pauseTravel(false);
         }
+    }
+
+    // Alterna el algoritmo del viaje
+    private void toggleAlgorithms() {
+        if (algoritmoB.getText().equals("Floyd Warshall")) {
+            algoritmoB.setText("Dijkstra");
+            nodeGraphFacade.setDijkstra(true);
+        } else {
+            algoritmoB.setText("Dijkstra");
+            nodeGraphFacade.setDijkstra(false);
+        }
+    }
+
+    // Cambiar el modo de la vista
+    private void changeMode() {
     }
 
     // Cambia la imagen del mapa
@@ -148,7 +148,6 @@ public class ImplementsLogicController implements Initializable {
     private void handleBlockAction() {
         edge.setBlocked(blockCBox.isSelected());
         message = blockCBox.isSelected() ? "Camino bloqueado." : "Camino desbloqueado.";
-
         Color color = edge.isBlocked() ? RED_COLOR : LIGHTGREEN_COLOR;
         nodeGraphFacade.reDrawEdge(edge, color);
         showInfoMessage(message);
@@ -161,15 +160,30 @@ public class ImplementsLogicController implements Initializable {
             message = nodeGraphFacade.setStartNode(location) ? "Punto de partida: " : "No marcó una ruta válida: ";
         } else if (endingRadioB.isSelected()) {
             message = nodeGraphFacade.setEndNode(location) ? "Punto de destino: " : "No marcó una ruta válida: ";
-        } else if (radioBNode.isSelected()) {
-            message = "Seleccionaste un nodo en: ";
         } else if (radioBConnection.isSelected()) {
             handleConnectionSelection(location);
         }
         showInfoMessage(message + "(" + location[0] + "," + location[1] + ")");
         System.out.println(message + "(" + location[0] + "," + location[1] + ")");
         textArea.setText(message + "(" + nodeGraphFacade.getStartNode().toString() + "," + nodeGraphFacade.getEndNode().toString() + ")");
+    }
 
+    // Selecciona un nodo o conexión en el mapa según la ubicación
+    private void trafic(double[] location) {
+        blockCBox.setDisable(true);
+        if (radioBFnormal.isSelected()) {
+            edge.setTrafficCondition(radioBFnormal.getText());
+            message = "El estado del trafico es " + radioBFnormal.getText();
+        } else if (radioBFmoderado.isSelected()) {
+            edge.setTrafficCondition(radioBFmoderado.getText());
+            message = "El estado del trafico es " + radioBFmoderado.getText();
+        } else if (radioBFlento.isSelected()) {
+            edge.setTrafficCondition(radioBFlento.getText());
+            message = "El estado del trafico es " + radioBFlento.getText();
+        }
+        showInfoMessage(message);
+        System.out.println(message);
+        textArea.setText(message);
     }
 
     // Maneja la selección de una conexión en el mapa
