@@ -91,7 +91,6 @@ public class NodeGraphFacade {
 
         System.arraycopy(point, 0, currentPoint, 0, 2);
         Arrays.fill(currentConnection, Double.NaN);
-
         if (locateNode(currentPoint, currentConnection)) {
 
             int a = (int) currentPoint[0];
@@ -111,13 +110,6 @@ public class NodeGraphFacade {
             return true;
         }
         return false;
-    }
-
-    private boolean doFirstPairsMatch() {
-        return (startConnection[0] == endConnection[0] && startConnection[1] == endConnection[1]) ||
-                (startConnection[0] == endConnection[2] && startConnection[1] == endConnection[3]) ||
-                (startConnection[2] == endConnection[0] && startConnection[3] == endConnection[1]) ||
-                (startConnection[2] == endConnection[2] && startConnection[3] == endConnection[3]);
     }
 
 
@@ -158,10 +150,9 @@ public class NodeGraphFacade {
 
     Node init, end;
 
-    private void connectNode(Node node, double[] connectionXY) {
-        init = getNodeAtLocation(connectionXY[0], connectionXY[1]);
-        end = getNodeAtLocation(connectionXY[2], connectionXY[3]);
-
+    private void connectNode(Node node, Node[] nodes) {
+        Node init = nodes[0];
+        Node end = nodes[1];
 
         if (init == null || end == null) {
             System.out.println("error de nulo inicio y fin");
@@ -195,9 +186,9 @@ public class NodeGraphFacade {
         }
     }
 
-    private void disconnectNode(Node node, double[] connectionXY) {
-        Node init = getNodeAtLocation(connectionXY[0], connectionXY[1]);
-        Node end = getNodeAtLocation(connectionXY[2], connectionXY[3]);
+    private void disconnectNode(Node node, Node[] nodes) {
+        Node init = nodes[0];
+        Node end = nodes[1];
 
         connectNodes(node, end, init);//restablecer
         connectNodes(node, init, node);//retablecer
@@ -238,7 +229,7 @@ public class NodeGraphFacade {
             showInfoMessage("Error al iniciar el viaje.");
             return false;
         }
-    }
+    }//Listo
 
     private boolean validateNodes() {
         if (startNode.isEmptyValues() || endNode.isEmptyValues()) {
@@ -246,20 +237,41 @@ public class NodeGraphFacade {
             return false;
         }
         return true;
-    }
+    }// Listo
 
     private void prepareTravel() {
         pause = stop = false;
 
-        doFirstPairsMatch();//todo si la conecion es la misma
+        init = getNodeAtLocation(startConnection[0], startConnection[1]);
+        end = getNodeAtLocation(startConnection[2], startConnection[3]);
+        nodesInit = new Node[]{end, init};
+        connectNode(startNode, nodesInit);
 
-        connectNode(startNode, startConnection);
-        nodesEnd = new Node[]{end, init};
 
-        connectNode(endNode, endConnection);
-        nodesInit = new Node[]{init, end};
+        Node init2 = getNodeAtLocation(endConnection[0], endConnection[1]);
+        Node end2 = getNodeAtLocation(endConnection[2], endConnection[3]);
+        nodesEnd = new Node[]{init2, end2};
+        connectNode(endNode, nodesEnd);
 
-    }
+        //TODO
+//        if (init.getID() == init2.getID() && end.getID() == end2.getID()) {
+//            init.calculateDistance(startNode);
+//            init.calculateDistance(endNode);
+//        }
+
+    }//TODO
+
+    private boolean loadBestPath() {
+        graph = new Graph(startNode, endNode);
+        boolean exito = isDijkstra ? graph.runDijkstra() : graph.runFloydWarshall();
+
+        if (!exito) {
+            System.out.println("No se encontró ruta.");
+            return false;
+        }
+        bestPath = graph.getBestPathEdges();
+        return true;
+    }//Listo
 
     private void drawBestPath() {
         for (Edge edge : bestPath) {
@@ -270,20 +282,22 @@ public class NodeGraphFacade {
                 throw new IllegalStateException("Conexión vacía en el mejor camino.");
             }
         }
-    }
+    }//Listo
 
     private void startTravelCycle() {
         tiempoDetenido = timetranscurrido = 0;
         scheduler = Executors.newSingleThreadScheduledExecutor();
 
+
+        currentEdge = bestPath.getFirst();
         try {
             scheduler.scheduleAtFixedRate(() -> {
-                if (stop) {
+                if (pause) {
                     tiempoDetenido++;
                     return;
                 }
                 timetranscurrido++;
-                if (!pause) {
+                if (!pause || !stop) {
                     Platform.runLater(this::executeTravelCycleStep);
                 }
             }, 0, 1, TimeUnit.SECONDS);
@@ -292,11 +306,13 @@ public class NodeGraphFacade {
             e.printStackTrace();
             showInfoMessage("Error al iniciar el ciclo del viaje.");
         }
-    }
+    }//Listo
+
+    Node currentNode;
+    Edge currentEdge;
 
     private void executeTravelCycleStep() {
         try {
-            currentEdge = bestPath.getFirst();
             processCurrentEdge(currentEdge);
 
             estimateTime -= 10;
@@ -310,7 +326,10 @@ public class NodeGraphFacade {
                     return;
                 }
                 recalculateBestPath();
+                currentEdge = bestPath.getFirst();
+                tempEdgeDTO = new EdgeDTO(currentEdge);
             }
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -320,24 +339,11 @@ public class NodeGraphFacade {
     }
 
     private void finalizeTravel() {
-        finalizadoE = true;
+        stop = finalizadoE = true;
 
-        // Detener el ciclo del viaje
-        // Dibujar el mejor camino nuevamente para mostrarlo como resultado final
         bestPath = graph.getBestPathEdges();
-        if (bestPath != null && !bestPath.isEmpty()) {
-            for (Edge edge : bestPath) {
-                if (edge != null) {
-                    drawEdgeLocal(edge, EDGE_COLOR);
-                } else {
-                    System.err.println("Conexión vacía detectada al finalizar el viaje.");
-                }
-            }
-        } else {
-            showInfoMessage("No hay camino final para mostrar.");
-        }
+        drawBestPath();
 
-        // Calcular y mostrar los tiempos
         String tiempoTranscurridoFormat = formatTime(timetranscurrido);
         String tiempoDetenidoFormat = formatTime(tiempoDetenido);
         int costoTotal = (timetranscurrido + tiempoDetenido) * 10;
@@ -355,9 +361,6 @@ public class NodeGraphFacade {
         int segundos = tiempoEnSegundos % 60;
         return String.format("%02d:%02d", minutos, segundos);
     }
-
-    Node currentNode;
-    Edge currentEdge;
 
     private void processCurrentEdge(Edge currentEdge) {
         deleteDrawEdgeLocal(currentEdge);
@@ -383,13 +386,15 @@ public class NodeGraphFacade {
             endTravel();
             return;
         }
+        bestPath = graph2.getBestPathEdges();
 
         localDrawManager.removeLines();
+        nodesDrawerManagers.getDrawerManager().removeLines();
         nodesDrawerManagers.drawAllConnections();
-        bestPath = graph2.getBestPathEdges();
         drawBestPath();
+
         estimateTime = (int) graph2.getPathDistance();
-    }
+    }//Listo
 
     private void updateTravelCycle(Edge currentEdge) {
         currentEdge.setWeight(tempEdgeDTO.getWeight());
@@ -415,12 +420,6 @@ public class NodeGraphFacade {
             updateTravelCycle(currentEdge);
             localDrawManager.removeLines();
         }
-
-        //correccion de cordenada
-        nodesInit[0].setLocation(new double[]{startConnection[0], startConnection[1]});
-        nodesInit[1].setLocation(new double[]{startConnection[2], startConnection[3]});
-        nodesEnd[0].setLocation(new double[]{endConnection[0], endConnection[1]});
-        nodesEnd[1].setLocation(new double[]{endConnection[2], endConnection[3]});
 
         try {
 
@@ -451,19 +450,6 @@ public class NodeGraphFacade {
 
     private void showInfoMessage(String message) {
         AppContext.getInstance().createNotification("Info", message);
-    }
-
-
-    private boolean loadBestPath() {
-        graph = new Graph(startNode, endNode);
-        boolean exito = isDijkstra ? graph.runDijkstra() : graph.runFloydWarshall();
-
-        if (!exito) {
-            System.out.println("No se encontró ruta.");
-            return false;
-        }
-        bestPath = graph.getBestPathEdges();
-        return true;
     }
 
     public Double getTotalWeight() {
