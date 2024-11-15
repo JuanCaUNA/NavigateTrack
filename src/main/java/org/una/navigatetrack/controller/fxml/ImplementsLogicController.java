@@ -47,6 +47,17 @@ public class ImplementsLogicController implements Initializable {
     private static final Color RED_COLOR = Color.RED;
     private static final Color LIGHTGREEN_COLOR = Color.LIGHTGREEN;
 
+    private static final String START_TEXT = "Iniciar Viaje";
+    private static final String PAUSE_TEXT = "Pausar Viaje";
+    private static final String CONTINUE_TEXT = "Continuar Viaje";
+    private static final String DIJKSTRA_TEXT = "Dijkstra is currently selected";
+    private static final String FLOYD_TEXT = "Floyd Warshall is currently selected";
+    private static final String NORMAL_TRAFFIC_TEXT = "normal";
+    private static final String MODERADO_TRAFFIC_TEXT = "moderado";
+    private static final String LENTO_TRAFFIC_TEXT = "lento";
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         nodeGraphFacade = new NodeGraphFacade(paintPane);
@@ -59,9 +70,21 @@ public class ImplementsLogicController implements Initializable {
         nodeGraphFacade.setAlgoritmoB(algoritmoB);
         nodeGraphFacade.setPauseB(pauseB);
 
+        message = "";
+
         setupUI();
         setupEventHandlers();
     }
+
+    private void toggleUIComponents(boolean enable) {
+        blockCBox.setDisable(!enable);
+        sentido1RadioB.setDisable(!enable);
+        sentido2RadioB.setDisable(!enable);
+        radioBFmoderado.setDisable(!enable);
+        radioBFnormal.setDisable(!enable);
+        radioBFlento.setDisable(!enable);
+    }
+
 
     // Configura el estilo de UI y carga la imagen inicial del mapa
     private void setupUI() {
@@ -71,8 +94,7 @@ public class ImplementsLogicController implements Initializable {
         pauseB.setDisable(true);
         algoritmoB.setDisable(true);
         startB.setDisable(true);
-        sentido1RadioB.setDisable(true);
-        sentido2RadioB.setDisable(true);
+        toggleUIComponents(false);
     }
 
     // Configura los controladores de eventos para botones y otros elementos de UI
@@ -85,12 +107,14 @@ public class ImplementsLogicController implements Initializable {
         algoritmoB.setOnAction(event -> toggleAlgorithms());
         editionB.setOnAction(event -> changeMode());
         blockCBox.setOnAction(event -> handleBlockAction());
-        //paintPane.setOnMouseClicked(event -> traffic());
+        radioBFmoderado.setOnAction(event -> traffic());
+        radioBFnormal.setOnAction(event -> traffic());
+        radioBFlento.setOnAction(event -> traffic());
     }
 
     // Alterna el estado de viaje (iniciar o finalizar)
     private void toggleInitFinally() {
-        if (startB.getText().equals("Iniciar Viaje")) {
+        if (startB.getText().equals(START_TEXT)) {
             nodeGraphFacade.initTravel();
 //            nodeGraphFacade.iniTravelB();
         } else {
@@ -102,22 +126,22 @@ public class ImplementsLogicController implements Initializable {
 
     // Alterna el estado de pausa en el viaje
     private void togglePause() {
-        if (pauseB.getText().equals("Pausar Viaje")) {
-            pauseB.setText("Continuar Viaje");
+        if (pauseB.getText().equals(PAUSE_TEXT)) {
+            pauseB.setText(CONTINUE_TEXT);
             nodeGraphFacade.pauseTravel(true);
         } else {
-            pauseB.setText("Pausar Viaje");
+            pauseB.setText(PAUSE_TEXT);
             nodeGraphFacade.pauseTravel(false);
         }
     }
 
     // Alterna el algoritmo del viaje
     private void toggleAlgorithms() {
-        if (algoritmoB.getText().equals("Floyd Warshall is currently selected")) {
-            algoritmoB.setText("Dijkstra is currently selected");
+        if (algoritmoB.getText().equals(FLOYD_TEXT)) {
+            algoritmoB.setText(DIJKSTRA_TEXT);
             nodeGraphFacade.setDijkstra(true);
         } else {
-            algoritmoB.setText("Floyd Warshall is currently selected");
+            algoritmoB.setText(FLOYD_TEXT);
             nodeGraphFacade.setDijkstra(false);
         }
         startB.setDisable(false);
@@ -153,21 +177,25 @@ public class ImplementsLogicController implements Initializable {
         Color color = edge.isBlocked() ? RED_COLOR : LIGHTGREEN_COLOR;
         nodeGraphFacade.reDrawEdge(edge, color);
         showInfoMessage(message);
+
+        textArea.setText(edge.toString());
     }
 
     // Selecciona un nodo o conexión en el mapa según la ubicación
     private void select(double[] location) {
-        blockCBox.setDisable(true);
         if (initRadioB.isSelected()) {
             message = nodeGraphFacade.setStartNode(location) ? "Punto de partida: " : "No marcó una ruta válida: ";
         } else if (endingRadioB.isSelected()) {
             message = nodeGraphFacade.setEndNode(location) ? "Punto de destino: " : "No marcó una ruta válida: ";
+            endingRadioB.setSelected(false);
+            initRadioB.setSelected(true);
         } else if (radioBConnection.isSelected()) {
             handleConnectionSelection(location);
         }
         showInfoMessage(message + "(" + location[0] + "," + location[1] + ")");
         System.out.println(message + "(" + location[0] + "," + location[1] + ")");
-        textArea.setText(message + "(" + nodeGraphFacade.getStartNode().toString() + "," + nodeGraphFacade.getEndNode().toString() + ")");
+        if (!radioBConnection.isSelected())
+            textArea.setText(message + "(" + nodeGraphFacade.getStartNode().toString() + "," + nodeGraphFacade.getEndNode().toString() + ")");
 
         if (!nodeGraphFacade.getStartNode().isEmptyValues() && !nodeGraphFacade.getEndNode().isEmptyValues()) {
             algoritmoB.setDisable(false);
@@ -180,20 +208,30 @@ public class ImplementsLogicController implements Initializable {
 
     // Selecciona un nodo o conexión en el mapa según la ubicación
     private void traffic() {
-        blockCBox.setDisable(true);
         if (radioBFnormal.isSelected()) {
-            edge.setTrafficCondition(radioBFnormal.getText());
+            edge.setTrafficCondition(NORMAL_TRAFFIC_TEXT);
             message = "El estado del trafico es " + radioBFnormal.getText();
         } else if (radioBFmoderado.isSelected()) {
-            edge.setTrafficCondition(radioBFmoderado.getText());
+            edge.setTrafficCondition(MODERADO_TRAFFIC_TEXT);
             message = "El estado del trafico es " + radioBFmoderado.getText();
         } else if (radioBFlento.isSelected()) {
-            edge.setTrafficCondition(radioBFlento.getText());
+            edge.setTrafficCondition(LENTO_TRAFFIC_TEXT);
             message = "El estado del trafico es " + radioBFlento.getText();
         }
         showInfoMessage(message);
         System.out.println(message);
-        textArea.setText(message);
+        textArea.setText(edge.toString());
+    }
+
+    private void markTrafficOptions() {
+        if (Objects.equals(edge.getTrafficCondition(), NORMAL_TRAFFIC_TEXT)) {
+            radioBFnormal.setSelected(true);
+        } else if (Objects.equals(edge.getTrafficCondition(), MODERADO_TRAFFIC_TEXT)) {
+            radioBFmoderado.setSelected(true);
+        } else if (Objects.equals(edge.getTrafficCondition(), LENTO_TRAFFIC_TEXT)) {
+            radioBFlento.setSelected(true);
+        }
+
     }
 
     // Maneja la selección de una conexión en el mapa
@@ -207,12 +245,15 @@ public class ImplementsLogicController implements Initializable {
             textArea.setText(edge.toString());
             Color color = edge.isBlocked() ? RED_COLOR : LIGHTGREEN_COLOR;
             nodeGraphFacade.reDrawEdge(edge, color);
-            blockCBox.setDisable(false);
-            sentido1RadioB.setDisable(false);
-            sentido2RadioB.setDisable(false);
+
+            toggleUIComponents(true);
+
             blockCBox.setSelected(edge.isBlocked());
-            traffic();//TODO
+            markTrafficOptions();
+
         } else {
+            toggleUIComponents(false);
+            blockCBox.setSelected(false);
             message = "No hay ningún camino en: ";
         }
     }

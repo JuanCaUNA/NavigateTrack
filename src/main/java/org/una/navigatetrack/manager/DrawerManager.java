@@ -96,49 +96,46 @@ public class DrawerManager {
             return;
         }
 
-        boolean lineRemoved = false;
-        for (Line line : lines) {
-            if (line.getStartX() == startPoint[0] && line.getStartY() == startPoint[1] &&
-                    line.getEndX() == endPoint[0] && line.getEndY() == endPoint[1]) {
-                paintPane.getChildren().remove(line);
-                lines.remove(line);
-                lineRemoved = true;
-                break;
-            }
-        }
-
-        if (!lineRemoved) {
-            logError("Line not found with the given start and end points.");
-        }
+        // Buscar y eliminar la línea usando los puntos proporcionados
+//        Line line = findLineByCoordinates(startPoint, endPoint);
+        Line line = new Line(startPoint[0], startPoint[1], endPoint[0], endPoint[1]);
+        removeLine(line);  // Elimina la línea de manera eficiente
     }
 
+    // Método para eliminar una línea directamente
     public void removeLine(Line line) {
         if (line == null) {
             logError("Attempted to remove a null line.");
             return;
         }
 
-        boolean found = false;
-        // Iteramos sobre las líneas existentes en la lista para buscar coincidencias por coordenadas
-        for (Line existingLine : lines) {
-            // Compara las coordenadas de inicio y fin de la línea actual con las de la línea a eliminar
-            if ((existingLine.getStartX() == line.getStartX() && existingLine.getStartY() == line.getStartY() &&
-                    existingLine.getEndX() == line.getEndX() && existingLine.getEndY() == line.getEndY()) ||
-                    (existingLine.getStartX() == line.getEndX() && existingLine.getStartY() == line.getEndY() &&
-                            existingLine.getEndX() == line.getStartX() && existingLine.getEndY() == line.getStartY())) {
-                // Si la línea existe, la eliminamos
-                paintPane.getChildren().remove(existingLine);
-                lines.remove(existingLine);
-                found = true;
-                break;  // Salimos del bucle si encontramos y eliminamos la línea
-            }
-        }
+        double[] start = new double[]{line.getStartX(), line.getStartY()};
+        double[] end = new double[]{line.getEndX(), line.getEndY()};
 
-        // Si no encontramos la línea en la lista, mostramos un mensaje de error
-        if (!found) {
+        line = findLineByCoordinates(start, end);
+
+        // Buscar y eliminar la línea de manera eficiente
+        if (lines.contains(line)) {
+            paintPane.getChildren().remove(line);
+            lines.remove(line);
+        } else {
             logError("Line not found in the list.");
         }
     }
+
+    // Función auxiliar para buscar una línea en base a sus coordenadas
+    private Line findLineByCoordinates(double[] startPoint, double[] endPoint) {
+        for (Line line : lines) {
+            if ((line.getStartX() == startPoint[0] && line.getStartY() == startPoint[1] &&
+                    line.getEndX() == endPoint[0] && line.getEndY() == endPoint[1]) ||
+                    (line.getStartX() == endPoint[0] && line.getStartY() == endPoint[1] &&
+                            line.getEndX() == startPoint[0] && line.getEndY() == startPoint[1])) {
+                return line;
+            }
+        }
+        return null;
+    }
+
 
     // Get figures if exist
     public Circle getCircleAt(double[] point) {
@@ -276,6 +273,22 @@ public class DrawerManager {
         }
         return null;  // No valid intersection
     }
+
+    public void removeLines() {
+        if (lines == null || lines.isEmpty()) {
+            System.out.println("No hay líneas para eliminar.");
+            return;
+        }
+        List<Line> linesCopy = new ArrayList<>(lines);
+        for (Line line : linesCopy) {
+            if (line != null) {
+                removeLine(line);  // Llama a la función para eliminar la línea
+            } else {
+                System.out.println("Advertencia: Línea nula encontrada, saltando.");
+            }
+        }
+    }
+
 
     private void logError(String message) {
         System.err.println("[ERROR] " + message);

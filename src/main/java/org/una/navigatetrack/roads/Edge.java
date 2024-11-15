@@ -81,10 +81,10 @@ public class Edge {
     private void refreshWeight() {
         weight = Math.max(weight - getIncrement(), 0);  // Evita que el peso sea negativo
 
-        if (weight == 0) {
-            startingNode = ListNodes.getNodeByID(startingNodeID);
-            startingNode.setLocation(getDestinationNode().getLocation());
-        }
+//        if (weight == 0) {
+//            startingNode = ListNodes.getNodeByID(startingNodeID);
+//            startingNode.setLocation(getDestinationNode().getLocation());
+//        }
     }
 
     public void recalculateStartNode() {
@@ -112,13 +112,13 @@ public class Edge {
         if (distanciaTotal == 0) return;
 
         // Normalizar la distancia para obtener el vector dirección
-        double factorX = (distanciaX / distanciaTotal) * incremento;
-        double factorY = (distanciaY / distanciaTotal) * incremento;
+        double factorX = (int) ((distanciaX / distanciaTotal) * incremento);
+        double factorY = (int) ((distanciaY / distanciaTotal) * incremento);
 
         // Ajustar si el incremento excede la distancia
         if (distanciaTotal < incremento) {
-            factorX = distanciaX;
-            factorY = distanciaY;
+            factorX =(int) distanciaX;
+            factorY =(int) distanciaY;
         }
 
         // Actualizar la nueva ubicación del nodo de inicio
@@ -189,7 +189,6 @@ public class Edge {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-
         sb.append("Connection{\n")
                 .append("  ID=").append(ID).append("\n")
                 .append("  startingNodeID=").append(startingNodeID).append("\n")
@@ -197,7 +196,7 @@ public class Edge {
                 .append("  weight=").append(weight).append("\n")
                 .append("  isBlocked=").append(isBlocked).append("\n")
                 .append("  trafficCondition='").append(trafficCondition).append("'\n")
-                .append("  direction=").append(direction).append("\n")
+//                .append("  direction=").append(direction).append("\n")
                 .append("}");
 
         return sb.toString();

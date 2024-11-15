@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.Setter;
 import org.una.navigatetrack.dto.EdgeDTO;
+import org.una.navigatetrack.list.ListConnections;
 import org.una.navigatetrack.list.ListNodes;
 import org.una.navigatetrack.roads.Directions;
 import org.una.navigatetrack.roads.Edge;
@@ -195,112 +196,175 @@ public class NodeGraphFacade {
         if (node.isConnectedToNode(init)) node.removeConnection(init);
     }
 
-    // para iniciar el ciclo de viaje
+    //metodos de vieje
+
+    int estimateTime, tiempoDetenido, timetranscurrido;
+    boolean finalizadoE = false;
+
 
     public boolean initTravel() {
-        if (startNode.isEmptyValues() || endNode.isEmptyValues()) {
-            AppContext.getInstance().createNotification("No seleccionado", "Faltan los puntos de inicio y destino.");
+        if (!validateNodes()) {
             return false;
         }
 
         try {
-            pause = stop = false;
-
-            connectNode(endNode, endConnection);//conecta el nodo al grafo
-            connectNode(startNode, startConnection);//conecta el nodo al grafo
-
-            if (!loadBestPath())
+            prepareTravel();
+            if (!loadBestPath()) {
                 return false;
-
-//             Dibujar las conexiones
-            for (Edge edge : bestPath) {
-                if (edge != null) drawEdgeLocal(edge, EDGE_COLOR);
-                else {
-                    System.err.println("conexion vacia");
-                    return false;
-                }
             }
 
-            iterator = 0;
+            drawBestPath();
+
             estimateTime = (int) graph.getPathDistance();
             tempEdgeDTO = new EdgeDTO(bestPath.getFirst());
 
             startTravelCycle();
+            updateUIForTravelStart();
+            return true;
 
         } catch (Exception e) {
             e.printStackTrace();
+            showInfoMessage("Error al iniciar el viaje.");
             return false;
         }
-        iniTravelB();
+    }
+
+    private boolean validateNodes() {
+        if (startNode.isEmptyValues() || endNode.isEmptyValues()) {
+            showInfoMessage("Faltan los puntos de inicio y destino.");
+            return false;
+        }
         return true;
     }
 
-    private int timetranscurrido;
-    private int tiempoDetenido;
+    private void prepareTravel() {
+        pause = stop = false;
+        connectNode(endNode, endConnection);
+        connectNode(startNode, startConnection);
+    }
+
+    private void drawBestPath() {
+        for (Edge edge : bestPath) {
+            if (edge != null) {
+                drawEdgeLocal(edge, EDGE_COLOR);
+            } else {
+                System.err.println("Conexión vacía detectada.");
+                throw new IllegalStateException("Conexión vacía en el mejor camino.");
+            }
+        }
+    }
 
     private void startTravelCycle() {
-
         tiempoDetenido = timetranscurrido = 0;
-
         scheduler = Executors.newSingleThreadScheduledExecutor();
-        System.out.println("Scheduler creado y listo para ejecutar.");
+
         try {
             scheduler.scheduleAtFixedRate(() -> {
-                if (stop) tiempoDetenido++;
+                if (stop) {
+                    tiempoDetenido++;
+                    return;
+                }
                 timetranscurrido++;
-                if (!stop && !pause) {
+                if (!pause) {
                     Platform.runLater(this::executeTravelCycleStep);
                 }
             }, 0, 1, TimeUnit.SECONDS);
 
         } catch (Exception e) {
             e.printStackTrace();
+            showInfoMessage("Error al iniciar el ciclo del viaje.");
         }
     }
-
-    int iterator;
-    int estimateTime;
 
     private void executeTravelCycleStep() {
+        try {
+            Edge currentEdge = bestPath.getFirst();
+            processCurrentEdge(currentEdge);
 
-        Edge currentE = bestPath.get(iterator);
-        Node currentN = currentE.getStartingNode();
+            estimateTime -= 10;
+            timeL.setText("Tiempo: " + (estimateTime / 10));
 
-        deleteDrawEdgeLocal(currentE);
-        removeDrawLocalCircle(currentN.getLocation());
-
-        currentE.recalculateStartNode();
-
-        drawEdgeLocal(currentE, EDGE_COLOR);
-        drawLocalCircle(currentN.getLocation(), START_NODE_COLOR);
-
-        double weigh = currentE.getEffectiveWeight();//peso_base * increment 1 2 3
-
-        currentE.getIncrement();
-
-//        timeL.setText("Tiempo: " + (weigh / 10));//10 * 10/2 10/3
-        timeL.setText("Tiempo: " + (estimateTime / 10));
-
-        if (weigh <= 0.0) {
-            updateTravelCycle(currentE);
-            if (currentE.getDestinationNodeID() == endNode.getID()) {
-                endTravel();
-            } else {
-                iterator++;
-                tempEdgeDTO = new EdgeDTO(bestPath.get(iterator));
+            if (currentEdge.getEffectiveWeight() <= 0.0) {
+                updateTravelCycle(currentEdge);
+                if (hasReachedDestination(currentEdge)) {
+                    finalizeTravel();
+                    return;
+                }
+                recalculateBestPath();
             }
-        }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            showInfoMessage("Error en el paso del ciclo de viaje.");
+            endTravel();
+        }
     }
 
-    private void updateTravelCycle(Edge currentE) {
-        currentE.setWeight(tempEdgeDTO.getWeight());
-        currentE.getStartingNode().setLocation(tempEdgeDTO.getPointStart());
+    private void finalizeTravel() {
+        finalizadoE = true;
+
+        // Detener el ciclo del viaje
+        endTravel();
+
+        // Dibujar el mejor camino nuevamente para mostrarlo como resultado final
+        bestPath = graph.getBestPathEdges();
+        if (bestPath != null && !bestPath.isEmpty()) {
+            for (Edge edge : bestPath) {
+                if (edge != null) {
+                    drawEdgeLocal(edge, EDGE_COLOR);
+                } else {
+                    System.err.println("Conexión vacía detectada al finalizar el viaje.");
+                }
+            }
+        } else {
+            showInfoMessage("No hay camino final para mostrar.");
+        }
+
+        // Notificar al usuario
+        infoTA.setText("tiempo durado " + timetranscurrido + "\ntiempo detenido " + tiempoDetenido + "\nCosto total" + ((timetranscurrido + tiempoDetenido) * 10));
+        showInfoMessage("El viaje ha finalizado exitosamente.");
+    }
+
+
+    private void processCurrentEdge(Edge currentEdge) {
+        deleteDrawEdgeLocal(currentEdge);
+        removeDrawLocalCircle(currentEdge.getStartingNode().getLocation());
+        currentEdge.recalculateStartNode();
+        drawEdgeLocal(currentEdge, EDGE_COLOR);
+        drawLocalCircle(currentEdge.getStartingNode().getLocation(), START_NODE_COLOR);
+    }
+
+    private boolean hasReachedDestination(Edge currentEdge) {
+        return currentEdge.getDestinationNodeID() == endNode.getID();
+    }
+
+    private void recalculateBestPath() {
+        ListConnections.randomizeConnections(0.01, 0.45, 0.35);
+
+        graph2 = new Graph(bestPath.getFirst().getDestinationNode(), endNode);
+        boolean success = isDijkstra ? graph2.runDijkstra() : graph2.runFloydWarshall();
+
+        if (!success) {
+            showInfoMessage("No se puede llegar al destino.");
+            endTravel();
+            return;
+        }
+
+        localDrawManager.removeLines();
+        nodesDrawerManagers.drawAllConnections();
+        bestPath = graph2.getBestPathEdges();
+        drawBestPath();
+        estimateTime = (int) graph2.getPathDistance();
+    }
+
+    private void updateTravelCycle(Edge currentEdge) {
+        currentEdge.setWeight(tempEdgeDTO.getWeight());
+        currentEdge.getStartingNode().setLocation(tempEdgeDTO.getPointStart());
     }
 
     public void pauseTravel(Boolean pausar) {
-        pause = pausar;  // Establecemos el estado de pausa
-        System.out.println("Viaje pausado: ");
+        pause = pausar;
+        showInfoMessage(pausar ? "Viaje pausado." : "Viaje reanudado.");
     }
 
     public void endTravel() {
@@ -309,15 +373,38 @@ public class NodeGraphFacade {
             scheduler.shutdown();
         }
 
-        disconnectNode(startNode, startConnection);
+        if (!finalizadoE) {
+            disconnectNode(startNode, startConnection);
+            localDrawManager.removeLines();
+        }
 
-        endTravelB();
+        updateUIForTravelEnd();
     }
+
+    private void updateUIForTravelStart() {
+        startB.setText("Finalizar Viaje");
+        startB.setStyle("-fx-background-color: #f44336;");
+        pauseB.setDisable(false);
+        showInfoMessage("Viaje iniciado.");
+    }
+
+    private void updateUIForTravelEnd() {
+        startB.setText("Iniciar Viaje");
+        startB.setStyle("-fx-background-color: #66bb6a;");
+        pauseB.setText("Pausar Viaje");
+        pauseB.setDisable(true);
+        pauseTravel(false);
+        showInfoMessage("Viaje finalizado.");
+    }
+
+    private void showInfoMessage(String message) {
+        AppContext.getInstance().createNotification("Info", message);
+    }
+
 
     private boolean loadBestPath() {
         graph = new Graph(startNode, endNode);
         boolean exito = isDijkstra ? graph.runDijkstra() : graph.runFloydWarshall();
-//        boolean exito2 = isDijkstra ? graph2.runDijkstra() : graph2.runFloydWarshall();
 
         if (!exito) {
             System.out.println("No se encontró ruta.");
@@ -380,30 +467,4 @@ public class NodeGraphFacade {
     }
 
 
-    public void iniTravelB() {
-        startB.setText("Finalizar Viaje");
-        startB.setStyle("-fx-background-color: #f44336;");
-        pauseB.setDisable(false);
-
-        showInfoMessage("Viaje iniciado.");
-    }
-
-    public void endTravelB() {
-        startB.setText("Iniciar Viaje");
-        startB.setStyle("-fx-background-color: #66bb6a;");
-        pauseB.setDisable(true);
-        pauseB.setText("Pausar Viaje");
-        pauseB.setDisable(true);
-
-        pauseTravel(false);
-
-        showInfoMessage("Viaje finalizado.");
-    }
-
-
-    private void showInfoMessage(String message) {
-        AppContext.getInstance().createNotification("Info", message);
-    }
-
 }
-

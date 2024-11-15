@@ -19,7 +19,7 @@ import java.util.Objects;
 
 public class NotificationToast extends Application {
     private static final int MAX_CHARACTERS = 150; // Max characters per line
-    private static final int PIXELS_PER_CHARACTER = 10; // Pixels per character to estimate width
+    private static final int PIXELS_PER_CHARACTER = 12; // Pixels per character to estimate width
     private static final int MAX_LINES = 3; // Max number of lines
     private static final int MIN_WIDTH = 150;
     private static final int MAX_WIDTH = 900;

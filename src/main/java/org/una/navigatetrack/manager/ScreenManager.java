@@ -36,7 +36,7 @@ public class ScreenManager {
 
 
             primaryStage.setMinWidth(1250);  // Ancho mínimo
-            primaryStage.setMinHeight(1050); // Alto mínimo
+            primaryStage.setMinHeight(1020); // Alto mínimo
 
             // Cargar el archivo CSS
             String cssFile = "/styles/menu.css";

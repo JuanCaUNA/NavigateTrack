@@ -29,16 +29,21 @@ public class ListConnections {
         moderateTrafficProbability = moderateTrafficProbability > 1 ? 1 : (moderateTrafficProbability < 0 ? random.nextDouble() : moderateTrafficProbability);
 
         for (Edge edge : CONNECTIONS_LIST) {
-            edge.setBlocked(random.nextDouble() < blockProbability);
+//            if (!edge.isBlocked()) {
+//                edge.setBlocked(random.nextDouble() < blockProbability);
+//            }
 
             if (edge.isBlocked()) {
                 edge.setTrafficCondition("lento");
             } else {
                 double trafficRoll = random.nextDouble();
+                //0,45 = [ 0 , 45 ]
+                //0.35 = ] 45 , 45 + 35 ] == 80
+                //0.20 = ] 80 , 100 ]
 
-                if (trafficRoll < normalTrafficProbability) {
+                if (trafficRoll <= normalTrafficProbability) {
                     edge.setTrafficCondition("normal");
-                } else if (trafficRoll < normalTrafficProbability + moderateTrafficProbability) {
+                } else if (normalTrafficProbability < trafficRoll && trafficRoll <= moderateTrafficProbability + normalTrafficProbability) {
                     edge.setTrafficCondition("moderado");
                 } else {
                     edge.setTrafficCondition("lento");

@@ -38,10 +38,15 @@ public class NodesDrawerManagers {
             drawAllConnections();
     }
 
-    private void drawAllConnections() {
+    public void drawAllConnections() {
+        drawerManager.removeLines();
+
+//        drawerManager.setLines(new ArrayList<>());
         List<Node> list = ListNodes.getNodesList();
         for (Node node : list) {
-            drawConnections(node, BlueColor);
+            if (node.getID() != 86 || node.getID() != 87) {
+                drawConnections(node, BlueColor);
+            }
         }
     }
 
@@ -97,7 +102,7 @@ public class NodesDrawerManagers {
         if (node == null) return;
         for (Edge edge : node.getAllConnections()) {
             if (edge != null) {
-                drawConnection(edge, color);
+                drawConnection(edge, edge.isBlocked() ? Color.RED : color);
             }
         }
     }
